@@ -1,0 +1,74 @@
+\chapter{Complex Numbers and Quaternions}
+\begin{Definition}[imaginary unit] \index{imaginary number}\index{$i$}
+The \emph{imaginary unit} $i$ is a value satisfying $i^2 = -1$.
+\end{Definition}
+
+\begin{Definition}[complex number] \index{complex number}
+A \emph{complex number} is a number of the form $a + b i$ with $a, b \in \real$.
+\end{Definition}
+
+\begin{Definition}[quaternion] \index{conjugate}
+A \emph{quaternion} is a number of the form $a + bi + cj + dk$ with $a,b,c,d \in \real$ and $i,j,k$ satisfying the following properties
+\[
+  \begin{array}{c|ccc}
+    \times & i & j & k \\
+    \hline
+    i & -1 & k & -j \\
+    j & -k & -1 & i \\
+    k & j & -i & -1
+  \end{array}
+\]
+Note that these multiplications are \emph{not} commutative.
+\end{Definition}
+
+
+\begin{Definition}[conjugate] \index{conjugate}\index{quaternion!conjugate}
+The \emph{conjugate} of a quaternion $q = a+bi+cj+dk$ is defined as
+\[
+  \conj{q} = a -bi-cj-dk
+\]
+\end{Definition}
+
+\begin{Definition}[rotation quaternion] \index{rotation quaternion}\index{quaternion!rotation}
+The \emph{rotation quaternion} for a rotation of angle $\theta$ around an axis $(r_x, r_y, r_z)$
+is defined as
+\[
+  q = \cos\left(\frac\theta2\right) +
+      \sin\left(\frac\theta2\right) r_x i + 
+      \sin\left(\frac\theta2\right) r_y j + 
+      \sin\left(\frac\theta2\right) r_z k
+\]
+\end{Definition}
+
+\begin{theorem} \index{rotation}
+In order to apply a rotation represented by a quaternion $q$ on a point $P(x,y,z)$, perform
+the following steps:
+\begin{enumerate}
+  \item Let $p = xi+yj+zk$.
+  \item Let $p' = q \cdot p \cdot \conj{q}$ which is of the form $x'i+y'j+z'k$.
+  \item The result of the rotation is $(x',y',z')$.
+\end{enumerate}
+\end{theorem}
+
+\begin{extra}
+  \begin{example}
+  Rotating $P(2,0,0)$ $180\degrees$ around $(0,1,0)$ should yield $(-2,0,0)$.
+  The rotation quaternion equals
+  \[
+    q = \cos\left(90\degrees\right) +
+        \sin\left(90\degrees\right) \cdot 0 \cdot i + 
+        \sin\left(90\degrees\right) \cdot 1 \cdot j + 
+        \sin\left(90\degrees\right) \cdot 0 \cdot k = j
+  \]
+  We have $p = 2i+0j+0k = 2i$. We perform quaternion multiplication:
+  \[
+    q \cdot p \cdot \conj{q} = j \cdot 2i \cdot (-j) = -2 j i j = -2 (-k) j =  -2i
+  \]
+  which corresponds to the point with coordinates $(-2,0,0)$.
+  \end{example}
+\end{extra}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "reference"
+%%% End:

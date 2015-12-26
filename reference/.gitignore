@@ -1,0 +1,13 @@
+*~
+*.aux
+*.log
+*.pdf
+*.idx
+*.ilg
+*.ind
+*.out
+*.cut
+*.toc
+*.bak
+*.png
+*.ppm
