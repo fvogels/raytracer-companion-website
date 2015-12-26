@@ -1,7 +1,7 @@
 require 'Make'
 
 
-Make.tex_command 'reference.tex'
+Make.tex_command('full-edition.tex', 'limited-edition.tex')
 
 Make.command 'pov' do
   def description

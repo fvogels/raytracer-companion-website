@@ -16,8 +16,7 @@
 \usetikzlibrary{arrows.meta,math,calc}
 
 \newtoggle{showextra}
-\toggletrue{showextra}
-% \togglefalse{showextra}
+\ifdefined\examedition\togglefalse{showextra}\else\toggletrue{showextra}\fi
 
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem{theorem}{Theorem}[chapter]
