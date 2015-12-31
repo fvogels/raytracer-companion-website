@@ -175,6 +175,16 @@ The grid is tilted 30\degrees. Use it to help you determine the exact size of th
     \end{scope}
   \end{tikzpicture}
 \end{center}
+\begin{solution}
+\[
+  M = \mathrm{Rot}[30\degrees] \cdot \mathrm{Tr}[-1,1] \cdot \mathrm{Sc}[\frac12,1] \cdot \mathrm{Tr}[-1,0] \cdot \mathrm{Rot}[-30\degrees]
+\]
+\[
+  M^{-1} = \mathrm{Rot}[30\degrees] \cdot \mathrm{Tr}[1,0] \cdot \mathrm{Sc}[2,1] \cdot \mathrm{Tr}[1,-1] \cdot \mathrm{Rot}[-30\degrees]
+\]
+Has to be written down in matrix form on the exam, but using shorthand notation first can help.
+\end{solution}
+
 \end{Exercise}
 
 
