@@ -143,7 +143,7 @@ the vector $\overrightarrow{PE}$.
       \point[/point/label=H,/point/anchor=north east,/point/position=(H)]
       \point[/point/label=E,/point/position=(E)]
 
-      \draw[light] (L) -- (H) -- (R);
+      \draw[light] (L) -- (H) -- (R) node[above] { \color{black} $\vec r$ };
       \draw (H) -- (E);
       \tikzmath{
         real \a;
@@ -161,9 +161,10 @@ the vector $\overrightarrow{PE}$.
       &&& \vec n & = & (0.707107,0.707107,0) \\
     \end{array}
   \]
-  We compute how the light ray is reflected. We reflected vector is $H-L$, the reflecting vector is $\vec n$:
+  We compute how the light ray is reflected. The reflected vector $\vec v$
+  is $H-L$, the reflecting vector is $\vec n$:
   \[
-    \vec{r} = v - 2 \cdot (\vec v \cdot \vec n) \cdot n = (3,1,0)
+    \vec{r} = \vec v - 2 \cdot (\vec v \cdot \vec n) \cdot n = (3,1,0)
   \]
   We need the angle between $\vec r$ and $E-H$:
   \[
@@ -171,7 +172,7 @@ the vector $\overrightarrow{PE}$.
   \]
   We compute the final colour:
   \[
-    I \cdot \rho_s \cdot \cos(\theta)^e = (0.592464, 0.222174, 0)
+    I \cdot \rho_s \cdot \cos(\theta)^e = (0.592, 0.222, 0)
   \]
   \end{example}
 \end{extra}
