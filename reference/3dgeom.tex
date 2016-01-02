@@ -361,7 +361,7 @@ To find the intersections between these two, perform the following steps:
 \begin{enumerate}
   \item Compute $a = \vec d \cdot \vec d$
   \item Compute $b = 2 \cdot (P - O) \cdot \vec d$
-  \item Compute $c = (P - O) \cdot (P - O) - 1$
+  \item Compute $c = (P - O) \cdot (P - O) - r ^ 2$
   \item Compute $D = b^2 - 4 \cdot a \cdot c$
   \item If $D < 0$, there are no intersections.
   \item If $D = 0$, the intersection is located at
@@ -425,7 +425,7 @@ To find the intersections between these two, perform the following steps:
   \begin{itemize}
     \item $a = \vec d \cdot \vec d = 1$.
     \item $b = 2 \cdot (P - O) \cdot \vec d = 2 \cdot (0,0,5) \cdot (0,0,-1) = -10$.
-    \item $c = (P-O) \cdot (P-O) - 1 = 24$.
+    \item $c = (P-O) \cdot (P-O) - r^2 = (0,0,5) \cdot (0,0,5) - 1^2 = 24$.
     \item $D = b^2 - 4 \cdot a \cdot c = 100 - 96 = 4$.
   \end{itemize}
   Since $D > 0$, there are two intersections $I_1$ and $I_2$.
