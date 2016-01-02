@@ -1,73 +1,62 @@
+require 'erb'
 require 'Make'
+require 'Contracts'
+require 'LaTeX'
+require 'Files'
+require 'Util'
+require 'RayTracer'
 
 
-Make.tex_command('full-edition.tex', 'limited-edition.tex')
+TP = Contracts::TypeChecking
 
-Make.command 'pov' do
-  def description
-    'Renders pov-ray images'
+
+def compile(files = [])
+  if files.length == 0 then
+    files = Files.pathnames( 'html.ts', 'task.ts', 'toc.ts', 'quiz.ts' )
+  end
+  
+  files.each do |file|
+    basename = file.basename '.ts'
+
+    TypeScript.compile(file, output: "#{basename}.js")
+  end
+end
+
+Make.commands do
+  command 'tex' do
+    short_description { 'Builds pdf' }
+    action do |args|
+      LaTeX.compile 'full-edition.tex'
+      LaTeX.compile 'limited-edition.tex'
+    end
   end
 
-  def perform(*args)
-    options = { :compile? =>
-                lambda do |pov_path|
-                  not pov_path.sub_ext('.png').exist?
-                end }
+  command 'images' do
+    short_description { 'Performs ray tracing of .pov and .cfg files' }
+    action do |args|
+      Dir['*.pov'].each do |pov|
+        path = Pathname.new(pov)
+        output_file = path.basename(".pov").to_s + ".png"
 
-    OptionParser.new do |opts|
-      opts.on('--force', 'Force compilation') do
-        options[:compile?] = lambda { |x| true }
+        if File.exists?(output_file)
+          puts "Skipping #{path}"
+        else
+          `pvengine /EXIT #{pov}`
+        end
       end
-    end.parse(args)
-    
-    Dir['*.pov'].each do |pov|
-      path = Pathname.new(pov).expand_path
-      output_file = path.sub_ext('.png')
 
-      if options[:compile?][path]
-        puts "Rendering #{pov}"
-        `pvengine /EXIT #{pov}`
-      else
-        puts "Skipping #{path}"
+      Dir['*.cfg'].each do |cfg|
+        path = Pathname.new(cfg)
+        ppm_file = path.basename(".cfg").to_s + ".ppm"
+        png_file = path.basename(".cfg").to_s + ".png"
+
+        if File.exists? png_file then
+          puts "Skipping #{cfg}"
+        else
+          RayTracer.raytrace(Pathname.new cfg)
+          `convert #{ppm_file} #{png_file}`
+        end
       end
     end
   end
 end
-
-Make.command 'cfg' do
-  def description
-    'Renders cfg files'
-  end
-
-  def perform(*args)
-    require 'RayTracer'
-    
-    options = { :compile? =>
-                lambda do |pov_path|
-                  not pov_path.sub_ext('.png').exist?
-                end }
-
-    OptionParser.new do |opts|
-      opts.on('--force', 'Force compilation') do
-        options[:compile?] = lambda { |x| true }
-      end
-    end.parse(args)
-    
-    Dir['*.cfg'].each do |cfg|
-      path = Pathname.new(cfg).expand_path
-      ppm_file = path.sub_ext('.ppm')
-      png_file = path.sub_ext('.png')
-
-      if options[:compile?][path] then
-        RayTracer.raytrace(Pathname.new cfg)
-
-        puts "Converting #{ppm_file} to #{png_file}"
-        `convert #{ppm_file} #{png_file}`
-      else
-        puts "Skipping #{path}"
-      end
-    end
-  end
-end
-
-Make.group('all', [ 'pov', 'cfg', 'tex' ])
