@@ -68,6 +68,7 @@
 \newcommand{\point}[1][]{
   {
     \pgfkeys{
+      /point/.cd,
       #1,
       /point/label/.get=\point@label,
       /point/position/.get=\point@position,
