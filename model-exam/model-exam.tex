@@ -158,7 +158,29 @@ Give two ways to compute this.
 
 \begin{Exercise}
 I want to be able to rotate an arbitrary point $(x,y,z)$ around a point $(4,0,3)$ in a plane
-with normal vector $(1,2,3)$ by some angle $\alpha$. What computations do I need to perform?
+with normal vector $\vec n = (1,2,3)$ by some angle $\alpha$. What computations do I need to perform?
+\begin{solution}
+Let
+\[
+  p = (x-4)i+yj+(z-3)k
+\]
+We normalise the vector $\vec n = (1, 2, 3)$:
+\[
+  \frac{\vec v}{\norm{\vec v}} = \left( \frac{1}{\sqrt{1^2+2^2+3^2}}, \frac{2}{\sqrt{1^2+2^2+3^2}}, \frac{3}{\sqrt{1^2+2^2+3^2}} \right)
+\]
+Let
+\[
+  q = \cos\frac\alpha2 +
+  \sin\left(\frac\alpha2\right) \frac{1}{\sqrt{1^2+2^2+3^2}} i +
+  \sin\left(\frac\alpha2\right) \frac{2}{\sqrt{1^2+2^2+3^2}} j +
+  \sin\left(\frac\alpha2\right) \frac{3}{\sqrt{1^2+2^2+3^2}} k
+\]
+We perform the multiplication
+\[
+  p' = q \cdot p \cdot \conj{q}
+\]
+$p'$ is of the form $x' i+y' j+z' k$. $(x' + 4, y', z' + 3)$ is the result of the rotation.
+\end{solution}
 \end{Exercise}
 
 
@@ -348,21 +370,21 @@ A light ray traverses a piece of glass.
 \end{Exercise}
 The direction of the light is $(2,-1)$, the thickness of the glass is 5. What is vertical distance travelled by the light ray, represented by $x$?
 
-\section{Ray Tracer}
-\begin{Exercise}
-Give the SDL file that produces this result:
-\begin{center}
-  \includegraphics[width=.5\linewidth]{scene.png}
-\end{center}
-The camera is located at $(0,0,-5)$, looks at $(0,0,0)$ and has up-vector $(0,1,0)$.
-The sphere in the middle has radius 1; the lower sphere is twice as big.
-Make sure not to forget about the following details:
-\begin{itemize}
-  \item The lights
-  \item The material's properties (these do not have to be 100\% correct)
-  \item The exact transformations.
-\end{itemize}
-\end{Exercise}
+% \section{Ray Tracer}
+% \begin{Exercise}
+% Give the SDL file that produces this result:
+% \begin{center}
+%   \includegraphics[width=.5\linewidth]{scene.png}
+% \end{center}
+% The camera is located at $(0,0,-5)$, looks at $(0,0,0)$ and has up-vector $(0,1,0)$.
+% The sphere in the middle has radius 1; the lower sphere is twice as big.
+% Make sure not to forget about the following details:
+% \begin{itemize}
+%   \item The lights
+%   \item The material's properties (these do not have to be 100\% correct)
+%   \item The exact transformations.
+% \end{itemize}
+% \end{Exercise}
 
 \section{Extensions}
 \begin{Exercise}
