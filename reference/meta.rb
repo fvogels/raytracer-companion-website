@@ -17,9 +17,7 @@ meta_object do
   pdf_files = basenames.map { |basename| basename + ".pdf" }
   
   tex_actions(*tex_files, group_name: :tex)
-  pov_actions(*Dir['*.pov'], group_name: :pov)
-  raytracer_actions(*Dir['*.cfg'], group_name: :cfg)
-  group_action(:all, [ :pov, :cfg, :tex ])
+  group_action(:all, [ :tex ])
 
   def remote_directory
     world.parent.remote_directory + 'reference'
