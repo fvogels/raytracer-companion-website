@@ -1,0 +1,41 @@
+\chapter{SDL}
+\begin{center}
+  \newcommand{\tag}[3][2mm]{
+    {\tt #2} & #3 \\
+  }
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{ll}
+    \textbf{Tag} & \textbf{Effect} \\
+    \toprule
+    \tag{background $r$ $g$ $b$}{Sets the background colour}
+    \tag{ambient $r$ $g$ $b$}{Sets the current ambient colour}
+    \tag{diffuse $r$ $g$ $b$}{Sets the current diffuse colour}
+    \tag{specular $r$ $g$ $b$ $e$}{Sets the current specular colour}
+    \tag{reflectivity $r$}{Sets the reflectivity}
+    \tag{transparency $t$}{Sets the transparency}
+    \tag{refractiveIndex $i$}{Sets the refractive index}
+    \tag{light $x$ $y$ $z$ $r$ $g$ $b$}{Adds a light with given position and colour}
+    \midrule
+    \tag{sphere}{Sphere centred at $(0,0,0)$ with radius $1$}
+    \tag{square}{Square centred at $(0,0,0)$ with sides $2$ lying XY plane}
+    \tag{tetrahedron}{Adds a tetrahedron}
+    \tag{fsphere $n$}{Adds a faceted sphere made of $4^n$ triangles}
+    \tag{mesh \textit{filename}}{Adds a mesh}
+    \midrule
+    \tag{scale $s_x$ $s_y$ $s_z$}{Prepends a scaling transformation}
+    \tag{translate $d_x$ $d_y$ $d_z$}{Prepends a translation}
+    \tag{rotateX $theta$}{Prepends a rotation around the X axis}
+    \tag{rotateY $theta$}{Prepends a rotation around the Y axis}
+    \tag{rotateZ $theta$}{Prepends a rotation around the Z axis}
+    \tag{push}{Pushes a copy of the current transformation onto the stack}
+    \tag{pop}{Pops a transformation from the stack}
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "reference"
+%%% End:
