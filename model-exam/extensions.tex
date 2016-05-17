@@ -1,0 +1,30 @@
+\section{Extensions}
+\begin{Exercise}
+Currently, our ray tracer allows us to specify only one colour to each shape:
+a shape is either completely red, or blue, or white, or \dots
+Say we want to achieve the following:
+\begin{center}
+  \includegraphics[width=.5\linewidth]{3d-textures.png}
+\end{center}
+What changes would you make to the ray tracer?
+\end{Exercise}
+
+\begin{Exercise}
+Our shapes are perfectly smooth. It might come in handy to give them a rougher surface.
+Take for example the bumpy sphere shown below.
+\begin{center}
+  \includegraphics[width=.5\linewidth]{bumpmapping.png}
+\end{center}
+What changes would you make to the ray tracer?
+\end{Exercise}
+
+\begin{Exercise}
+Our ray tracer understands unions of objects, i.e. it is possible to create
+a new shape by grouping two shapes together. There are other operations
+like this, which yield more interesting results. Below you can see the result
+of \emph{intersecting} two spheres to produce a lens.
+\begin{center}
+  \includegraphics[width=.5\linewidth]{csg.png}
+\end{center}
+What changes would you make to support intersection?
+\end{Exercise}
