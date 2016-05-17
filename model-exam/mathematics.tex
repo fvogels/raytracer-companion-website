@@ -98,9 +98,9 @@ $p'$ is of the form $x' i+y' j+z' k$. $(x' + 4, y', z' + 3)$ is the result of th
 
 \begin{Exercise}
 Which transformation matrices transform the solid shape $S_1$ into the dashed shape $S_2$ and back?
-In other words, find the matrices $A$ and $B$ such that
+In other words, find the matrices $M$ and $M^{-1}$ such that
 \[
-  A \cdot S_1 = S_2 \qquad B \cdot S_2 = S_1
+  M \cdot S_1 = S_2 \qquad M^{-1} \cdot S_2 = S_1
 \]
 Write $A$ and $B$ as multiplications of basic transformation matrices (translation, scaling, rotation).
 The grid is tilted 45\degrees. Use it to help you determine the exact size of the shapes.
@@ -205,5 +205,47 @@ The grid is tilted 30\degrees. Use it to help you determine the exact size of th
 \]
 Has to be written down in matrix form on the exam, but using shorthand notation first can help.
 \end{solution}
-
 \end{Exercise}
+
+\begin{Exercise}
+Find two ways to transform the solid shape $S_1$ into the dashed shape $S_2$.
+Give also the inverse transformations.
+In other words, find two matrices $A$ and $B$ such that
+\[
+  A \cdot S_1 = S_2 \qquad B \cdot S_1 = S_2
+\]
+Write $A$ and $B$ and their inverse matrices $A^{-1}$ and $B^{-1}$ as multiplications of basic
+transformation matrices (translation, scaling, rotation).
+\begin{center}
+  \begin{tikzpicture}
+    \path[clip] (-7,-5) rectangle (7,5);
+    \draw[axis] (-7,0) -- (7,0) node[anchor=south east] {X};
+    \draw[axis] (0,-5) -- (0,5) node[anchor=north west] {Y};
+
+    \draw[thin,gray] (-8,-8) grid (8,8);
+
+    \begin{scope}[]
+      \draw[thick] (-2,-1) rectangle ++(4,2);
+    \end{scope}
+
+    \begin{scope}[xshift=2cm,scale=2]
+      \draw[thick,dashed] (-2,-1) rectangle ++(4,2);
+    \end{scope}
+  \end{tikzpicture}
+\end{center}
+\begin{solution}
+\[
+  A = \mathrm{Tr}[2,0] \cdot \mathrm{Sc}[2,2] \qquad B = \mathrm{Sc}[2,2] \cdot \mathrm{Tr}[1,0]
+\]
+\[
+  A^{-1} = \mathrm{Sc}[\frac12,\frac12] \cdot \mathrm{Tr}[-2,0] \qquad B^{-1} = \mathrm{Tr}[-1,0] \cdot \mathrm{Sc}[\frac12,\frac12]
+\]
+Has to be written down in matrix form on the exam, but using shorthand notation first can help.
+\end{solution}
+\end{Exercise}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "model-exam"
+%%% End:

@@ -4,15 +4,11 @@ light 0 0 5 .8 .8 .8
 ambient 0.1 0.1 0.1
 diffuse 0.8 0 0
 specular 0.8 0.8 0.8 10
-
-push
-  sphere
-pop
+sphere
 
 ambient 0.1 0.1 0.1
 diffuse 0 0.8 0
 specular 0 0 0 1
-
 push
   translate 0 -3 0
   scale 2 2 2
@@ -22,7 +18,6 @@ pop
 ambient 0.1 0.1 0.1
 diffuse 0 0 0.8
 specular 0.8 0.8 0.8 10
-
 push
   translate 0 2 0
   square
