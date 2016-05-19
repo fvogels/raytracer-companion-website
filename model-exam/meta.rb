@@ -44,4 +44,6 @@ meta_object do
   uploadable(*pdf_files)
 
   upload_action
+
+  group_action(:full, [ :all, :upload ])
 end
