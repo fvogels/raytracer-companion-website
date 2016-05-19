@@ -23,7 +23,7 @@ Give the SDL file that produces this result:
   \includegraphics[height=5cm]{scene2.png}
 \end{center}
 The camera is located at $(0,0,-5)$, looks at $(0,0,0)$ and has up-vector $(0,1,0)$.
-The sphere in the middle has radius 1; the lower sphere is twice as big.
+Both spheres have radius 1.
 Make sure not to forget about the following details:
 \begin{itemize}
   \item The lights
@@ -41,7 +41,7 @@ Give the SDL file that produces this result:
   \includegraphics[height=5cm]{scene3.png}
 \end{center}
 The camera is located at $(0,0,-5)$, looks at $(0,0,0)$ and has up-vector $(0,1,0)$.
-The sphere in the middle has radius 1; the lower sphere is twice as big.
+Both spheres have radius 1.
 Make sure not to forget about the following details:
 \begin{itemize}
   \item The lights
@@ -50,6 +50,24 @@ Make sure not to forget about the following details:
 \end{itemize}
 \begin{solution}
 \lstinputlisting[language={}]{scene3.sdl}
+\end{solution}
+\end{Exercise}
+
+\begin{Exercise}
+Give the SDL file that produces this result:
+\begin{center}
+  \includegraphics[height=5cm]{scene4.png}
+\end{center}
+The camera is located at $(0,0,-5)$, looks at $(0,0,0)$ and has up-vector $(0,1,0)$.
+The sphere has radius 1 and is white. A large square is placed behind this sphere.
+Make sure not to forget about the following details:
+\begin{itemize}
+  \item The lights
+  \item The material's properties (these do not have to be 100\% correct)
+  \item The exact transformations.
+\end{itemize}
+\begin{solution}
+\lstinputlisting[language={}]{scene4.sdl}
 \end{solution}
 \end{Exercise}
 

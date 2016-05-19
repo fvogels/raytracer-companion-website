@@ -1,0 +1,16 @@
+background 1 1 1
+light 5 -5 5 .8 0 0
+light -5 -5 5 0 0 .8
+light 0 5 5 0 0.8 0
+
+ambient 0.1 0.1 0.1
+diffuse 0.8 0.8 0.8
+specular 0.8 0.8 0.8 10
+sphere
+
+specular 0 0 0 1
+push
+  translate 0 0 -8
+  scale 10 10 1
+  square
+pop
