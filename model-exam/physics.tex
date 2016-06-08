@@ -72,6 +72,54 @@ A light ray traverses a piece of glass.
 The direction of the light is $(2,-1)$, the thickness of the glass is 5. What is vertical distance travelled by the light ray, represented by $x$?
 
 
+\begin{Exercise}
+Below are a series of perfectly reflecting mirrors. A photon enters the scene.
+What is its direction vector after the three bounces?
+\begin{center}
+  \begin{tikzpicture}
+    \draw[thin,black!50] (0,0) grid (8,5);
+
+    \draw[ultra thick,gray] (0,5) -- (0,0) -- (8,1);
+    \draw[ultra thick,gray] (4,0.5) -- (4,5);
+
+    \draw[orange,thick,-latex] (2,5) -- (0,3) -- (2.666,0.3333) -- (4,2.5744) -- ++(-0.514,0.858);
+  \end{tikzpicture}
+\end{center}
+\begin{solution}
+Original direction can be read from picture
+\[
+  \vec{v}_1 = (-1,-1)
+\]
+This vector does not need to be normalized. First mirror is vertical, hence its normal vector is
+\[
+  \vec{n}_1 = (1,0)
+\]
+The reflection formula assumes normal vectors have unit lengths, so we need to make
+sure $\vec n_1$ has length $1$. After the first bounce, the photon's direction becomes
+\[
+  \vec v_2 = \vec v_1 - 2 \cdot (\vec v_1 \cdot \vec n_1) \cdot \vec n_1 = (1,-1)
+\]
+The second mirror is slightly tilted. Its normal vector is
+\[
+  \vec n_2 = (-1,8)
+\]
+We have to normalise this vector when using it in the reflection formula.
+After the second bounce, the photon's direction is
+\[
+  \vec v_3 = \vec v_2 - 2 \cdot \left(\vec v_2 \cdot \frac{\vec n_2}{\norm{\vec n_2}}\right) \cdot \frac{\vec n_2}{\norm{\vec n_2}}
+           = (0.723, 1.215)
+\]
+The third mirror has normal vector
+\[
+  \vec n_3 = (-1, 0)
+\]
+Bouncing the photon a third time gets us
+\[
+  \vec v_4 = (-0.723, 1.215)
+\]
+\end{solution}
+\end{Exercise}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "model-exam"
