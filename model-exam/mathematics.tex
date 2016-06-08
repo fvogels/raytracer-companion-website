@@ -339,6 +339,93 @@ To invert it, we need to invert the scale factors.
 \end{solution}
 \end{Exercise}
 
+\begin{Exercise}
+Given the following transformation matrix
+\[
+  M =
+  \left[
+    \begin{array}{ccc}
+      2 & 0 & 1 \\
+      0 & 3 & 2 \\
+      0 & 0 & 1 \\
+    \end{array}
+  \right]
+\]
+You are told this represents a scaling followed by a translation.
+Describe how you would decompose the above matrix in the multiplication of two
+basic transformation matrices.
+\begin{solution}
+We know $M$ can be written as
+\[
+  M = T \cdot S
+\]
+We know that rotation and scaling the point $(0, 0)$ has no effect; only
+the translation will affect the result.
+\[
+  M \cdot
+  \left[
+    \begin{array}{c}
+      0 \\
+      0 \\
+      1 \\
+    \end{array}
+  \right]
+  =
+  \left[
+    \begin{array}{c}
+      1 \\
+      2 \\
+      1 \\
+    \end{array}
+  \right]
+\]
+$(0,0)$ gets moved to $(1, 2)$, which means the translation matrix is
+\[
+  T =
+  \left[
+    \begin{array}{ccc}
+      1 & 0 & 1 \\
+      0 & 1 & 2 \\
+      0 & 0 & 1 \\
+    \end{array}
+  \right]
+\]
+To find the scale matrix, we ``undo'' the translation from $M$:
+\[
+  T^{-1} \cdot M = T^{-1} \cdot T \cdot S = S
+\]
+which yields
+\[
+  \left[
+    \begin{array}{ccc}
+      2 & 0 & 0 \\
+      0 & 3 & 0 \\
+      0 & 0 & 1 \\
+    \end{array}
+  \right]
+\]
+This gives us as final result
+\[
+  M = 
+  \left[
+    \begin{array}{ccc}
+      1 & 0 & 1 \\
+      0 & 1 & 2 \\
+      0 & 0 & 1 \\
+    \end{array}
+  \right]
+  \cdot
+  \left[
+    \begin{array}{ccc}
+      2 & 0 & 0 \\
+      0 & 3 & 0 \\
+      0 & 0 & 1 \\
+    \end{array}
+  \right]
+\]
+\end{solution}
+\end{Exercise}
+
 
 
 %%% Local Variables:
