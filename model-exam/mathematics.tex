@@ -244,6 +244,45 @@ Has to be written down in matrix form on the exam, but using shorthand notation 
 \end{solution}
 \end{Exercise}
 
+\begin{Exercise}
+Say we have the (rather silly) idea of using quaternions for 2D rotation. Write down the formula
+to perform the 2D rotation shown below using quaternions.
+\begin{center}
+  \begin{tikzpicture}
+    \draw[thin,black!50] (-5,-1) grid (5,5);
+    \draw[axis] (-5,0) -- (5,0);
+    \draw[axis] (0,-1) -- (0,5);
+
+    \begin{scope}[xshift=-1cm,yshift=1cm]
+      \draw[fill=black] (0,0) circle [radius=0.05];
+      \draw[-latex] (2,0) arc [radius=2,start angle=0,delta angle=135];
+      \draw[dashed] (0,0) -- (135:2.5);
+    \end{scope}
+  \end{tikzpicture}
+\end{center}
+\begin{solution}
+\begin{itemize}
+  \item Quaternions work in 3D, so we should see this as a rotation around the Z-axis which is perpendicular on the XY plane.
+    The Z-axis is represented by the vector $(0,0,1)$.
+  \item Rotation is not around the origin, so we need to introduce a pre- and posttranslation represented by
+    the vectors $(1,-1,0)$ and $(-1,1,0)$.
+  \item The angle $\theta$ by which to rotate is 135\degrees.
+  \item The point to be rotated is $(1,1,0)$.
+\end{itemize}
+This gives us
+\[
+  \begin{array}{rcl}
+    q & = & \cos(67.5\degrees) + \sin(67.5\degrees) \; k \\
+    \conj q & = & \cos(67.5\degrees) - \sin(67.5\degrees) \; k \\
+    p & = & 2i \\
+    x' i + y' j + z' k & = & q \cdot p \cdot \conj q \\
+  \end{array}
+\]
+The rotation of the point $(1,1,0)$ around the Z-axis through $(-1,1,0)$ is $(x'-1,y'+1,z')$.
+\end{solution}
+\end{Exercise}
+
+
 
 %%% Local Variables:
 %%% mode: latex
