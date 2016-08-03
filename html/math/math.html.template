@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Mathematics Behind Ray Tracing</title>
+    <%= stylesheets('ucll') %>
+    <%= scripts('jquery', 'underscore') %>
+    <style>
+      img.centered {
+        width: 80%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Mathematics Behind Ray Tracing</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Points</h1>
+        <p>
+          A point is characterized by its location in space.
+          One way to specify this location is to rely on <em>coordinates</em>.
+        </p>
+
+        <section>
+          <h2>2D Cartesian Coordinates</h2>
+          <%= tex_image('2d-cartesian', density: 300) %>
+        </section>
+
+        <section>
+          <h2>3D Cartesian Coordinates</h2>
+          <%= tex_image('3d-cartesian', density: 300) %>
+        </section>
+      </section>
+    </div>
+  </body>
+</html>
