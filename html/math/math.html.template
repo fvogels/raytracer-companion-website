@@ -30,9 +30,30 @@
         </section>
 
         <section>
+          <h2>Polar Coordinates</h2>
+          <p>
+            Where 2D Cartesian coordinates consist of two numbers x and y,
+            polar coordinates specify a location using an angle &theta;
+            and a radius r.
+            <ul>
+              <li>
+                The angle &theta; can vary from 0&deg; to 360&deg; and
+                indicates the direction in which to look.
+              </li>
+              <li>
+                The radius r indicates how far away
+                in this direction the point is located.
+              </li>
+            </ul>
+          </p>
+          <%= tex_image('polar', density: 300) %>
+        </section>
+        
+        <section>
           <h2>3D Cartesian Coordinates</h2>
           <%= tex_image('3d-cartesian', density: 300) %>
         </section>
+
       </section>
     </div>
   </body>

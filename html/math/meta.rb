@@ -22,14 +22,34 @@ class Context
     tex_path = Pathname.new tex_filename
     png_path = Pathname.new png_filename
     
-    # LaTeX::tex_to_png(tex_path: tex_path,
-    #                   png_path: png_path,
-    #                   force: false)
-
     pdf_path = LaTeX2.compile(tex_path)
     Image2.convert(pdf_path, png_path, quality: quality, density: density)
 
     %{<img class="centered" src="#{png_filename}" />}
+  end
+
+  def inline_tex(tex)
+    tex_source = <<-'END'.gsub(/XXX/, tex)
+      \documentclass{standalone}
+      \begin{document}
+      \[ XXX \]
+      \end{document}
+    END
+
+    @tex_counter = (@texcounter || 0) + 1
+    tex_filename = "aux#{@tex_counter}.tex"
+    png_filename = "aux#{@tex_counter}.png"
+    tex_path = Pathname.new tex_filename
+    png_path = Pathname.new png_filename
+
+    File.open(tex_filename, "w") do |out|
+      out.write(tex_source)
+    end
+
+    pdf_path = LaTeX2.compile(tex_path)
+    Image2.convert(pdf_path, png_path)
+
+    %{<img class="inline" src="#{png_path.basename.to_s}" />}
   end
 end
 
