@@ -49,7 +49,7 @@
 
         <section>
           <h2>2D Cartesian Coordinates</h2>
-          <%= tex_image('2d-cartesian', html_class: 'large centered') %>
+          <%= tex_image '2d-cartesian' %>
         </section>
 
         <section>
@@ -69,12 +69,12 @@
               </li>
             </ul>
           </p>
-          <%= tex_image('polar', html_class: 'large centered') %>
+          <%= tex_image 'polar' %>
         </section>
         
         <section>
           <h2>3D Cartesian Coordinates</h2>
-          <%= tex_image('3d-cartesian', html_class: 'large centered') %>
+          <%= tex_image '3d-cartesian' %>
         </section>
 
         <section>
@@ -83,7 +83,7 @@
             Spherical coordinates are similar to polar coordinates,
             except for the fact that these are used in 3D space.
           </p>
-          <%= tex_image('spherical', html_class: 'large centered') %>
+          <%= tex_image 'spherical' %>
           <p>
             Spherical coordinates consist of three numbers:
           </p>
@@ -144,22 +144,22 @@
           <ul>
             <li>
               From 2D Cartesian to polar:
-              <%= tex_image('convert-cartesian-to-polar', density: 200) %>
+              <%= tex_image('convert-cartesian-to-polar', density: 200, html_class: 'centered') %>
               where <a href="http://en.cppreference.com/w/cpp/numeric/math/atan2">atan2</a>
               is an arc tangent function which takes into account the quadrant.
             </li>
             <li>
               From polar to 2D Cartesian:
-              <%= tex_image('convert-polar-to-cartesian', density: 200) %>
+              <%= tex_image('convert-polar-to-cartesian', density: 200, html_class: 'centered') %>
             </li>
             <li>
               From 3D Cartesian to spherical:
-              <%= tex_image('convert-cartesian-to-spherical', density: 200) %>
+              <%= tex_image('convert-cartesian-to-spherical', density: 200, html_class: 'centered') %>
               where &theta; corresponds to the azimuth angle and &phi; to the elevation angle.
             </li>
             <li>
               From spherical to 3D Cartesian:
-              <%= tex_image('convert-spherical-to-cartesian', density: 200) %>
+              <%= tex_image('convert-spherical-to-cartesian', density: 200, html_class: 'centered') %>
               where &theta; corresponds to the azimuth angle and &phi; to the elevation angle.
             </li>
           </ul>
@@ -198,6 +198,15 @@
           correspond to durations. Given two points (4, 1, 9) and (4, 7, 6), the difference
           between them is the <em>vector</em> (0, 6, -3).
         </p>
+        <p>
+          Visually, a vector is represented by an arrow.
+        </p>
+        <%= tex_image('vector', html_class: 'centered') %>
+        <p>
+          Realize that only the length, orientation and direction of the arrow have significance.
+          All arrows below represent the same vector.
+        </p>
+        <%= tex_image('equal-vectors', html_class: 'centered') %>
       </section>
 
       <section>
@@ -220,7 +229,15 @@
               You can interpret this as sequencing directions. For example, "go 10m northwards, then go 5m eastwards"
               can be mathematically described as (0,10) + (5,0) = (5, 10).
             </li>
+            <li>
+              The addition of a point and a vector (or a vector and a point) can be computed with the same formula as above, i.e. take
+              the sum of the x-, y- and (if in 3D) z-coordinates. The result is a new point. You can interpret this
+              as moving a point in a certain direction.
+            </li>           
           </ul>
+          <p>
+            You <em>cannot</em> add two points together.
+          </p>
           <p>
             If you need to add points and vectors described in polar or spherical coordinates,
             you have to convert these into Cartesian coordinates first.
@@ -257,6 +274,131 @@
               </tr>
             </tbody>
           </table>
+        </section>
+
+        <section>
+          <h2>Subtraction</h2>
+          <p>
+            Subtraction is quite similar to addition. Again, take care of noticing
+            which combinations of operands are allowed. The formula is what you would
+            expect it to be: (x, y, z) - (x', y', z') equals (x-x', y-y', z-z') where
+            (x, y, z) and (x', y', z') are the Cartesian coordinates of the points/vectors.
+          </p>
+          <table class="tabular centered">
+            <tbody>
+              <tr>
+                <th>Left operand</th>
+                <th>-</th>
+                <th>Right operand</th>
+                <th>=</th>
+                <th>Result</th>
+              </tr>
+              <tr>
+                <td>Point</td>
+                <td>-</td>
+                <td>Point</td>
+                <td>=</td>
+                <td>Vector</td>
+              </tr>
+              <tr>
+                <td>Point</td>
+                <td>-</td>
+                <td>Vector</td>
+                <td>=</td>
+                <td>Point</td>
+              </tr>
+              <tr>
+                <td>Vector</td>
+                <td>-</td>
+                <td>Vector</td>
+                <td>=</td>
+                <td>Vector</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Multiplication</h2>
+          <p>
+            Multiplication is less intuitive than addition and subtraction.            
+          </p>
+          <table class="tabular centered">
+            <tbody>
+              <tr>
+                <th>Left operand</th>
+                <th></th>
+                <th>Right operand</th>
+                <th>=</th>
+                <th>Result</th>
+              </tr>
+              <tr>
+                <td>Vector</td>
+                <td>&middot;</td>
+                <td>Vector</td>
+                <td>=</td>
+                <td>Scalar</td>
+              </tr>
+              <tr>
+                <td>Vector</td>
+                <td>&times;</td>
+                <td>Vector</td>
+                <td>=</td>
+                <td>Vector</td>
+              </tr>
+              <tr>
+                <td>Vector</td>
+                <td>&middot;</td>
+                <td>Scalar</td>
+                <td>=</td>
+                <td>Vector</td>
+              </tr>
+              <tr>
+                <td>Scalar</td>
+                <td>&middot;</td>
+                <td>Vector</td>
+                <td>=</td>
+                <td>Vector</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Scalar is just a fancy name for "a number". For example, 5 &middot; (1, 2, 3) is an example of multipying a scalar and a vector.
+          </p>
+          <p>
+            The first thing you need to notice is that there are <em>two</em> different multiplication symbols (&middot; and &times;)
+            each denoting a different kind of multiplication. Note also that no multiplication is defined on points.
+          </p>
+          <p>
+            We discuss the different kinds of multiplication in turn.
+          </p>
+
+          <section>
+            <h3>Scalar-Vector Multiplication</h3>
+            <p>
+              Multiplying a vector (x, y, z) with a scalar c results in a new vector (c x, c y, c z), i.e. you multiply each coordinate
+              with the scalar. You can also easily compute multiplication using polar and spherical coordinates, in which case only the radius needs to be multiplied
+              by the scalar. However, in our ray tracer, we will represent vectors using Cartesian coordinates, so the polar/spherical version is not important to us.
+            </p>
+            <p>
+              Multiplication of a vector corresponds to lengthening (or shortening) the vector while keeping its orientation intact.
+            </p>
+            <%= tex_image 'vector-multiplication' %>
+            <p>
+              Notice the following:
+            </p>
+            <ul>
+              <li>
+                Multiplying a vector by a scalar whose absolute value is greater than 1 lengthens the vector.
+              </li>
+              <li>
+                Multiplying a vector by a scalar whose absolute value is less than 1 shortens the vector.
+              </li>
+              <li>
+                Multiplying a vector by a negative number flips the vector around. The orientation remains the same, but the direction is inverted.
+              </li>
+            </ul>
+          </section>
         </section>
       </section>
     </div>
