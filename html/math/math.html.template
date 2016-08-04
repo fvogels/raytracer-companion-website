@@ -33,6 +33,11 @@
         text-align: center;
       }
     </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
   </head>
 
   <body>
@@ -55,16 +60,16 @@
         <section>
           <h2>Polar Coordinates</h2>
           <p>
-            Where 2D Cartesian coordinates consist of two numbers x and y,
-            polar coordinates specify a location using an angle &theta;
-            and a radius r.
+            Where 2D Cartesian coordinates consist of two numbers $x$ and $y$,
+            polar coordinates specify a location using an angle $\theta$;
+            and a radius $r$.
             <ul>
               <li>
-                The angle &theta; can vary from 0&deg; to 360&deg; and
+                The angle $\theta$ can vary from 0&deg; to 360&deg; and
                 indicates the direction in which to look.
               </li>
               <li>
-                The radius r indicates how far away
+                The radius $r$ indicates how far away
                 in this direction the point is located.
               </li>
             </ul>
@@ -144,23 +149,45 @@
           <ul>
             <li>
               From 2D Cartesian to polar:
-              <%= tex_image('convert-cartesian-to-polar', density: 200, html_class: 'centered') %>
+              \[
+                \begin{array}{rcl}
+                  r & = & \sqrt{x^2 + y^2} \\
+                  \theta & = & \mathrm{atan2}(y, x) \\
+                \end{array}
+              \]
               where <a href="http://en.cppreference.com/w/cpp/numeric/math/atan2">atan2</a>
               is an arc tangent function which takes into account the quadrant.
             </li>
             <li>
               From polar to 2D Cartesian:
-              <%= tex_image('convert-polar-to-cartesian', density: 200, html_class: 'centered') %>
+             \[
+               \begin{array}{rcl}
+                 x & = & r \cdot \cos(\theta) \\
+                 y & = & r \cdot \sin(\theta) \\
+               \end{array}
+             \]
             </li>
             <li>
               From 3D Cartesian to spherical:
-              <%= tex_image('convert-cartesian-to-spherical', density: 200, html_class: 'centered') %>
-              where &theta; corresponds to the azimuth angle and &phi; to the elevation angle.
+              \[
+                \begin{array}{rcl}
+                  r & = & \sqrt{x^2 + y^2 + z^2} \\
+                  \theta & = & \mathrm{atan2}(z, x) \\
+                  \phi & = & 90^\circ - \arccos(y/r) \\
+                \end{array}
+              \]
+              where $\theta$ corresponds to the azimuth angle and $\phi$ to the elevation angle.
             </li>
             <li>
               From spherical to 3D Cartesian:
-              <%= tex_image('convert-spherical-to-cartesian', density: 200, html_class: 'centered') %>
-              where &theta; corresponds to the azimuth angle and &phi; to the elevation angle.
+              \[
+                \begin{array}{rcl}
+                  x & = & r \cdot \cos\theta \cdot \cos\phi \\
+                  y & = & r \cdot \sin\phi \\
+                  z & = & r \cdot \sin\theta \cdot \cos\phi \\
+                \end{array}
+              \]
+              where $\theta$ corresponds to the azimuth angle and $\phi$ to the elevation angle.
             </li>
           </ul>
         </section>
@@ -225,9 +252,10 @@
           </p>
           <ul>
             <li>
-              The addition of two vectors with Cartesian coordinates (x, y, z) and (x', y', z') gives the vector (x + x', y + y', z + z').
+              The addition of two vectors can be computed using the following formula:
+              \[ (x_1, y_1, z_1) \cdot (x_2, y_2, z_2) = (x_1 \cdot x_2, y_1 \cdot y_2, z_1 \cdot z_2) \]
               You can interpret this as sequencing directions. For example, "go 10m northwards, then go 5m eastwards"
-              can be mathematically described as (0,10) + (5,0) = (5, 10).
+              can be mathematically described as $(0,10) + (5,0) = (5, 10)$.
             </li>
             <li>
               The addition of a point and a vector (or a vector and a point) can be computed with the same formula as above, i.e. take
@@ -281,8 +309,9 @@
           <p>
             Subtraction is quite similar to addition. Again, take care of noticing
             which combinations of operands are allowed. The formula is what you would
-            expect it to be: (x, y, z) - (x', y', z') equals (x-x', y-y', z-z') where
-            (x, y, z) and (x', y', z') are the Cartesian coordinates of the points/vectors.
+            expect it to be:
+            \[ (x, y, z) - (x', y', z') = (x-x', y-y', z-z') \]
+            where (x, y, z) and (x', y', z') are the Cartesian coordinates of the points/vectors.
           </p>
           <table class="tabular centered">
             <tbody>
@@ -319,7 +348,7 @@
         </section>
 
         <section>
-          <h2>Multiplication</h2>
+          <h2>Multiplication and Division</h2>
           <p>
             Multiplication is less intuitive than addition and subtraction.            
           </p>
@@ -360,24 +389,39 @@
                 <td>=</td>
                 <td>Vector</td>
               </tr>
+              <tr>
+                <td>Vector</td>
+                <td>/</td>
+                <td>Scalar</td>
+                <td>=</td>
+                <td>Vector</td>
+              </tr>
             </tbody>
           </table>
           <p>
-            Scalar is just a fancy name for "a number". For example, 5 &middot; (1, 2, 3) is an example of multipying a scalar and a vector.
+            Scalar is just a fancy name for "a number". For example, $5 \cdot (1, 2, 3)$ is an example of multiplying a scalar and a vector.
           </p>
           <p>
             The first thing you need to notice is that there are <em>two</em> different multiplication symbols (&middot; and &times;)
-            each denoting a different kind of multiplication. Note also that no multiplication is defined on points.
+            each denoting a different kind of multiplication. Note also that no multiplication or division is defined on points.
+          </p>
+          <p>
+            Remark: the &middot; operator can also be used on two scalars: $5 \cdot 4 = 20$. So, when you encounter $\cdot$,
+            it is important that you determine what type the operands have.
           </p>
           <p>
             We discuss the different kinds of multiplication in turn.
           </p>
 
           <section>
-            <h3>Scalar-Vector Multiplication</h3>
+            <h3>Scalar-Vector Multiplication and Division</h3>
             <p>
-              Multiplying a vector (x, y, z) with a scalar c results in a new vector (c x, c y, c z), i.e. you multiply each coordinate
-              with the scalar. You can also easily compute multiplication using polar and spherical coordinates, in which case only the radius needs to be multiplied
+              Multiplying a vector (x, y, z) with a scalar c results in a new vector:
+              \[
+                (x, y, z) \cdot c = c \cdot (x, y, z) = (c \cdot x, c \cdot y, c \cdot z)
+              \]
+              i.e. you multiply each coordinate with the scalar. You can also easily compute multiplication using polar and spherical coordinates,
+              in which case only the radius needs to be multiplied
               by the scalar. However, in our ray tracer, we will represent vectors using Cartesian coordinates, so the polar/spherical version is not important to us.
             </p>
             <p>
@@ -399,8 +443,11 @@
               </li>
             </ul>
             <p>
-              It is also possible to divide a vector by a scalar: v / c = v &middot; (1/c). In other words,
-              dividing a vector by 2 is the same as multiplying it by 1/2.
+              It is also possible to divide a vector by a scalar:
+              \[
+                \frac{\vec v}{c} = \vec v \cdot \frac1c
+              \]
+              In other words, dividing a vector by 2 is the same as multiplying it by 1/2.
             </p>
           </section>
 
@@ -432,8 +479,9 @@
             </table>
             <p>
               The dot product of two vectors yields a scalar, which is computed as follows:
-              given two vectors with cartesian coordinates (x, y, z) and (x', y', z'),
-              the dot product is equal to x x' + y y' + z z'.
+              \[
+                (x_1, y_1, z_1) \cdot (x_2, y_2, z_2) = x_1 x_2 + y_1 y_2 + z_1 z_2
+              \]
             </p>
             <p>
               Without <em>meaning</em> this operator wouldn't have much use. So, what
@@ -441,7 +489,10 @@
             </p>
             <p>
               To answer this question, you need two know of an alternative way or computing the dot product:
-              u &middot; v = |u| |v| cos(&theta;). In other words,
+              \[
+                \vec u \cdot \vec v = |\vec u| \cdot |\vec v| \cdot cos(\theta)
+              \]
+              In other words,
               the dot product equals the multiplication of the length of both vectors
               and the cosine of the angle between them.
             </p>
@@ -451,28 +502,28 @@
               of vectors and the angle between them.
             </p>
             <p>
-              To determine the length of a vector v(x,y,z) we can multiplying v by itself.
-              In this case the dot product yields |v| |v| cos(0&deg;). Because cos(0&deg;) = 1,
-              we get x<sup>2</sup>+y<sup>2</sup>+z<sup>2</sup> = |v|<sup>2</sup>. Taking the square
-              root yields the length of the vector.
+              To determine the length of a vector $\vec{v}(x,y,z)$ we can multiplying $\vec v$ by itself.
+              In this case the dot product yields $|\vec v| \cdot |\vec v| \cdot \cos(0^\circ)$. Because $\cos(0^\circ) = 1$,
+              we ultimately get
+              \[
+                x^2 + y^2 + z^2 = |\vec v|^2
+              \]
+              Taking the square root yields the length of the vector.
             </p>
             <p>
               Finding the angle between the vectors is a bit more complicated.
-              We know that u &middot; v = |u| |v| cos(&theta;). First, we need to get rid
-              of |u| and |v| as they "muddy things up". Fortunately, we can achieve this easily
-              by making sure u and v have length 1, so that |u| &middot; |v| &middot; cos(&theta;)
-              becomes 1 &middot; 1 &middot; cos(&theta;) = cos(&theta;).
+              We know
+              \[ \vec u \cdot \vec v = |\vec u| \cdot |\vec v| \cdot cos(\theta) \]
+              and we are interested in $\cos(\theta)$. We move the vector lengths to the left hand side of the equation.
+              Computing the length of both vectors is a problem already solved, so we get
+              \[
+                \cos(\theta) = \frac{\vec u \cdot \vec v}{|\vec u| \cdot |\vec v|} = \frac{\vec u \cdot \vec v}{\sqrt{\vec u \cdot \vec u} \cdot \sqrt{\vec v \cdot \vec v}}
+              \]
             </p>
             <p>
-              To make u and v have length 1, we can divide them by their lengths: u/|u| and v/|v|
-              both have length 1 but have the same orientation and direction as the original vectors u and v,
-              i.e. the angle between u/|u| and v/|v|, and u and v is the same.
+              So, now we have $\cos(\theta)$ from which it is possible to compute $\theta$. However, this extra stap will seldom be necessary:
+              having $\cos(\theta)$ itself will often be exactly what we need in this course.
             </p>
-            <p>
-              Computing the dot product of u/|u| and v/|v| then yields cos(&theta;) with &theta; the angle
-              between u and v. 
-            </p>
-
           </section>
           
         </section>
