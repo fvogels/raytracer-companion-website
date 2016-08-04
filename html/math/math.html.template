@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Mathematics Behind Ray Tracing</title>
+    <title>3DCG: Points and Vectors</title>
     <%= stylesheets('ucll', 'box') %>
     <%= scripts('jquery', 'underscore', 'box') %>
     <style>
@@ -42,7 +42,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Mathematics Behind Ray Tracing</div>
+      <div class="center-vertically">Points and Vectors</div>
     </header>
     <div id="contents">
       <section>
@@ -54,6 +54,9 @@
 
         <section>
           <h2>2D Cartesian Coordinates</h2>
+          <p>
+            You most probably are already familiar with 2D Cartesian coordinates:
+          </p>
           <%= tex_image '2d-cartesian' %>
         </section>
 
@@ -79,7 +82,14 @@
         
         <section>
           <h2>3D Cartesian Coordinates</h2>
+          <p>
+            3D Cartesian coordinates are identical to the 2D variant, except for the third coordinate $z$.
+          </p>
           <%= tex_image '3d-cartesian' %>
+          <p>
+            Note that the XYZ axes cannot be chosen arbitrarily. We will discuss why later on.
+            Suffice it to say for now that during this course we will always position the XYZ axes as shown in the above figure.
+          </p>
         </section>
 
         <section>
