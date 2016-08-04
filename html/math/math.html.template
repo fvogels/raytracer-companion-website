@@ -398,7 +398,83 @@
                 Multiplying a vector by a negative number flips the vector around. The orientation remains the same, but the direction is inverted.
               </li>
             </ul>
+            <p>
+              It is also possible to divide a vector by a scalar: v / c = v &middot; (1/c). In other words,
+              dividing a vector by 2 is the same as multiplying it by 1/2.
+            </p>
           </section>
+
+          <section>
+            <h3>Dot Multiplication</h3>
+            <p>
+              A vector can be multiplied with another vector in two ways. In English, these two multiplications
+              are named after their respective symbols, while in Dutch they are named after their result.              
+            </p>
+            
+            <table class="tabular centered">
+              <tbody>
+                <tr>
+                  <th>Symbol</th>
+                  <th>English name</th>
+                  <th>Dutch name</th>
+                </tr>
+                <tr>
+                  <td>&middot;</td>
+                  <td>Dot product</td>
+                  <td>Scalair product</td>
+                </tr>
+                <tr>
+                  <td>&times;</td>
+                  <td>Cross product</td>
+                  <td>Vectorieel product</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              The dot product of two vectors yields a scalar, which is computed as follows:
+              given two vectors with cartesian coordinates (x, y, z) and (x', y', z'),
+              the dot product is equal to x x' + y y' + z z'.
+            </p>
+            <p>
+              Without <em>meaning</em> this operator wouldn't have much use. So, what
+              does this scalar represent? What can we use it for?
+            </p>
+            <p>
+              To answer this question, you need two know of an alternative way or computing the dot product:
+              u &middot; v = |u| |v| cos(&theta;). In other words,
+              the dot product equals the multiplication of the length of both vectors
+              and the cosine of the angle between them.
+            </p>
+            <%= tex_image 'dot-product' %>
+            <p>
+              This alternative formula makes it possible to use the dot product to compute the length
+              of vectors and the angle between them.
+            </p>
+            <p>
+              To determine the length of a vector v(x,y,z) we can multiplying v by itself.
+              In this case the dot product yields |v| |v| cos(0&deg;). Because cos(0&deg;) = 1,
+              we get x<sup>2</sup>+y<sup>2</sup>+z<sup>2</sup> = |v|<sup>2</sup>. Taking the square
+              root yields the length of the vector.
+            </p>
+            <p>
+              Finding the angle between the vectors is a bit more complicated.
+              We know that u &middot; v = |u| |v| cos(&theta;). First, we need to get rid
+              of |u| and |v| as they "muddy things up". Fortunately, we can achieve this easily
+              by making sure u and v have length 1, so that |u| &middot; |v| &middot; cos(&theta;)
+              becomes 1 &middot; 1 &middot; cos(&theta;) = cos(&theta;).
+            </p>
+            <p>
+              To make u and v have length 1, we can divide them by their lengths: u/|u| and v/|v|
+              both have length 1 but have the same orientation and direction as the original vectors u and v,
+              i.e. the angle between u/|u| and v/|v|, and u and v is the same.
+            </p>
+            <p>
+              Computing the dot product of u/|u| and v/|v| then yields cos(&theta;) with &theta; the angle
+              between u and v. 
+            </p>
+
+          </section>
+          
         </section>
       </section>
     </div>
