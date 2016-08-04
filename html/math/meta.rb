@@ -12,7 +12,7 @@ class Context
   include Contracts::TypeChecking
   include Html2::Generation
 
-  def tex_image(basename, quality: nil, density: nil)
+  def tex_image(basename, quality: 90, density: 300)
     typecheck do
       assert(basename: string)
     end
