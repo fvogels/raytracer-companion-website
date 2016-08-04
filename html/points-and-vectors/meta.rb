@@ -62,12 +62,11 @@ meta_object do
 
   inherit_remote_directory(Pathname.pwd.basename.to_s)
 
-  bind( { :html => template(input: 'math.html.template',
+  bind( { :html => template(input: 'points-and-vectors.html.template',
                             context: Context.new) } )
 
-  uploadable('math.html')
+  uploadable( *Dir['*.html'] )
   uploadable( *Dir['*.png'] )
-  uploadable( *Dir['*.gif'] )
 
   quick_all(:html)
 end
