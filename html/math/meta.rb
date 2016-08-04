@@ -12,7 +12,7 @@ class Context
   include Contracts::TypeChecking
   include Html2::Generation
 
-  def tex_image(basename, quality: 90, density: 300)
+  def tex_image(basename, quality: 90, density: 300, html_class: 'centered')
     typecheck do
       assert(basename: string)
     end
@@ -23,9 +23,9 @@ class Context
     png_path = Pathname.new png_filename
     
     pdf_path = LaTeX2.compile(tex_path)
-    Image2.convert(pdf_path, png_path, quality: quality, density: density)
+    Image2.convert(pdf_path, png_path, trim: true, quality: quality, density: density)
 
-    %{<img class="centered" src="#{png_filename}" />}
+    %{<img class="#{html_class}" src="#{png_filename}" />}
   end
 
   def inline_tex(tex)

@@ -6,8 +6,31 @@
     <%= stylesheets('ucll', 'box') %>
     <%= scripts('jquery', 'underscore', 'box') %>
     <style>
-      img.centered {
+      img.large {
         width: 60%;
+      }
+
+      table.centered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.tabular {
+        border-collapse; collapse;
+      }
+
+      table.tabular tr:first-child {
+        background: #AAA;
+      }
+
+      table.tabular th {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      table.tabular td {
+        text-align: center;
       }
     </style>
   </head>
@@ -26,7 +49,7 @@
 
         <section>
           <h2>2D Cartesian Coordinates</h2>
-          <%= tex_image '2d-cartesian' %>
+          <%= tex_image('2d-cartesian', html_class: 'large centered') %>
         </section>
 
         <section>
@@ -46,12 +69,12 @@
               </li>
             </ul>
           </p>
-          <%= tex_image 'polar' %>
+          <%= tex_image('polar', html_class: 'large centered') %>
         </section>
         
         <section>
           <h2>3D Cartesian Coordinates</h2>
-          <%= tex_image '3d-cartesian' %>
+          <%= tex_image('3d-cartesian', html_class: 'large centered') %>
         </section>
 
         <section>
@@ -60,7 +83,7 @@
             Spherical coordinates are similar to polar coordinates,
             except for the fact that these are used in 3D space.
           </p>
-          <%= tex_image 'spherical' %>
+          <%= tex_image('spherical', html_class: 'large centered') %>
           <p>
             Spherical coordinates consist of three numbers:
           </p>
@@ -112,7 +135,129 @@
             For example, Wikipedia uses the zenith angle instead of the elevation angle. We choose to use the latter as it is easier to reason about in our context.
           </p>
         </section>
-        
+
+        <section>
+          <h2>Conversions Between Coordinate Systems</h2>
+          <p>
+            You can convert from one coordinate system to another using the following formulae:
+          </p>
+          <ul>
+            <li>
+              From 2D Cartesian to polar:
+              <%= tex_image('convert-cartesian-to-polar', density: 200) %>
+              where <a href="http://en.cppreference.com/w/cpp/numeric/math/atan2">atan2</a>
+              is an arc tangent function which takes into account the quadrant.
+            </li>
+            <li>
+              From polar to 2D Cartesian:
+              <%= tex_image('convert-polar-to-cartesian', density: 200) %>
+            </li>
+            <li>
+              From 3D Cartesian to spherical:
+              <%= tex_image('convert-cartesian-to-spherical', density: 200) %>
+              where &theta; corresponds to the azimuth angle and &phi; to the elevation angle.
+            </li>
+            <li>
+              From spherical to 3D Cartesian:
+              <%= tex_image('convert-spherical-to-cartesian', density: 200) %>
+              where &theta; corresponds to the azimuth angle and &phi; to the elevation angle.
+            </li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <h1>Vectors</h1>
+        <p>
+          Vectors look very similar to points because they can also be specified using coordinates. Just like there is a point with coordinates (1, 2, 3),
+          there is also a vector (1, 2, 3). However, there is an important conceptual difference between points and vectors.
+        </p>
+        <p>
+          A point defines a <em>location</em>. A vector defines a <em>difference in locations</em>. To clarify this distinction,
+          we take a brief detour.
+        </p>
+        <p>
+          Let us pick two numbers at random, say 5 and 9. If we wish to compute their difference, or the "distance" between them,
+          we can subtract them, giving us 4, which is again a number. This means the difference between two numbers is a number.
+        </p>
+        <p>
+          Let us now pick two dates: 8 September 2000 and 18 September 2000. What is the "distance" between them?
+          The difference is 10 <em>days</em>, which is obviously not a date. We can never express the
+          difference between two dates as a new date: it makes no sense. Instead, the difference between
+          two dates is a <em>time span</em> or <em>duration</em>.
+        </p>
+        <p>
+          A date is generally represented by three numbers, written day/month/year.
+          A duration can be represented similarly: #days/#months/#years.
+          So we could say that the difference between dates 8/9/2000 and 18/9/2000 is 10/0/0.
+          Even though dates and durations can be expressed using three numbers, it is clearly
+          absurd to interpret 10/0/0 as a date.
+        </p>
+        <p>
+          The same goes with points and vectors. A point corresponds to a date, whereas vectors
+          correspond to durations. Given two points (4, 1, 9) and (4, 7, 6), the difference
+          between them is the <em>vector</em> (0, 6, -3).
+        </p>
+      </section>
+
+      <section>
+        <h1>Operations on Points and Vectors</h1>
+        <p>
+          You are (hopefully) familiar with real numbers and the operators defined on them, such
+          as addition, subtraction, multiplication, division, square root, etc. Similar operations are defined on points and vectors.
+          However, you have to be careful to notice that not all combinations are permitted.
+          For example, you can add two vectors, but you cannot add two points together.
+        </p>
+
+        <section>
+          <h2>Addition</h2>
+          <p>
+            Following additions are defined:
+          </p>
+          <ul>
+            <li>
+              The addition of two vectors with Cartesian coordinates (x, y, z) and (x', y', z') gives the vector (x + x', y + y', z + z').
+              You can interpret this as sequencing directions. For example, "go 10m northwards, then go 5m eastwards"
+              can be mathematically described as (0,10) + (5,0) = (5, 10).
+            </li>
+          </ul>
+          <p>
+            If you need to add points and vectors described in polar or spherical coordinates,
+            you have to convert these into Cartesian coordinates first.
+          </p>
+          <table class="tabular centered">
+            <tbody>
+              <tr>
+                <th>Left operand</th>
+                <th>+</th>
+                <th>Right operand</th>
+                <th>=</th>
+                <th>Result</th>
+              </tr>
+              <tr>
+                <td>Vector</td>
+                <td>+</td>
+                <td>Vector</td>
+                <td>=</td>
+                <td>Vector</td>
+              </tr>
+              <tr>
+                <td>Point</td>
+                <td>+</td>
+                <td>Vector</td>
+                <td>=</td>
+                <td>Point</td>
+              </tr>
+              <tr>
+                <td>Vector</td>
+                <td>+</td>
+                <td>Point</td>
+                <td>=</td>
+                <td>Point</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
       </section>
     </div>
   </body>
