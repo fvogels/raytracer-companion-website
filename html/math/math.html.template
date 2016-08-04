@@ -452,7 +452,7 @@
           </section>
 
           <section>
-            <h3>Dot Multiplication</h3>
+            <h3>Dot Product</h3>
             <p>
               A vector can be multiplied with another vector in two ways. In English, these two multiplications
               are named after their respective symbols, while in Dutch they are named after their result.              
@@ -478,7 +478,7 @@
               </tbody>
             </table>
             <p>
-              The dot product of two vectors yields a scalar, which is computed as follows:
+              The <a href="https://en.wikipedia.org/wiki/Dot_product">dot product</a> of two vectors yields a scalar, which is computed as follows:
               \[
                 (x_1, y_1, z_1) \cdot (x_2, y_2, z_2) = x_1 x_2 + y_1 y_2 + z_1 z_2
               \]
@@ -523,6 +523,73 @@
             <p>
               So, now we have $\cos(\theta)$ from which it is possible to compute $\theta$. However, this extra stap will seldom be necessary:
               having $\cos(\theta)$ itself will often be exactly what we need in this course.
+            </p>
+            <p>
+              Lastly, the dot product allows us to easily find out whether two vectors are perpendicular on each other.
+              If they are, their dot product is 0. This is due to the fact that $\cos(90^\circ) = 0$.
+            </p>
+            \[
+              \vec u \perp \vec v \qquad \Leftrightarrow \qquad \vec u \cdot \vec v = 0
+            \]
+          </section>
+
+          <section>
+            <h3>Cross Product</h3>
+            <p>
+              The <a href="https://en.wikipedia.org/wiki/Cross_product">cross product</a> is a much different beast than the dot product. Whereas the dot product
+              resulted in a scalar, the cross product yields a vector, which can be found using the following formula:
+            </p>
+            \[
+              (x_1, y_1, z_1) \times (x_2, y_2, z_2) = (y_1 z_2-y_2 z_1, x_2 z_1-x_1 z_2, x_1 y_2 - x_2 y_1)
+            \]
+            <p>
+              The resulting vector has the following characteristics:
+            </p>
+            <ul>
+              <li>
+                $\vec u \times \vec v$ is perpendicular on both $\vec u$ and $\vec v$.
+              </li>
+              <li>
+                The length equals the product of the lengths of the operands times the <em>sine</em> of the angle they form.
+                \[
+                  |\vec u \times \vec v| = |\vec u| \cdot |\vec v| \cdot \sin(\theta)
+                \]
+              </li>
+              <li>
+                Be careful: the cross product is <em>not</em> commutative: $\vec u \times \vec v \neq \vec v \times \vec u$. We will expand upon this shortly.
+              </li>
+            </ul>
+            <%= tex_image('cross-product', html_class: 'centered') %>
+            <p>
+              In this course, we will mostly rely on the first property: being able to find a vector that is perpendicular on two others
+              will come in handy.
+            </p>
+            <p>
+              There is one catch, though. Given two (nonparallel) vectors, there are always <em>two</em> vectors perpendicular on both.
+              If some vector $\vec p$ is perpendicular on both $\vec u$ and $\vec v$, then so is $-\vec{p}$.
+            </p>
+            <%= tex_image('perpendicular-vectors', html_class: 'centered') %>
+            <p>
+              One perpendicular vector will be given by $\vec u \times \vec v$, the other by $\vec v \times \vec u$.
+              It is very important to know which product yields which vector. This 
+              <a href="https://en.wikipedia.org/wiki/Cartesian_coordinate_system#Orientation_and_handedness">depends on the coordinate system used</a>.
+            </p>
+            <%= tex_image 'coordinate-system' %>
+            <p>
+              Say we position ourselves in front of the XY-axes so that X points right and Y points upwards.
+              Then there are two possible choices for Z: either Z points away from us, or it comes towards us.
+              If it points away, it is called a left-hand coordinate system, otherwise a right-hand coordinate system.
+              The reasoning behind this naming goes as follows: let your thumb point in X-direction
+              and your index in the Y-direction.
+              Depending on which hand you used, your middle finger will then, if extended,
+              either point towards you or away from you. This determines the Z-direction.
+            </p>
+            <p>
+              The cross product obeys the same rule: to find out which way $\vec u \times \vec v$ points,
+              align your thumb with $\vec u$ and your index finger with $\vec v$. Your middle finger then points in the same direction as $\vec{u} \times \vec{v}$.
+            </p>
+            <p>
+              During this course, we will make use of right hand systems exclusively.
             </p>
           </section>
           
