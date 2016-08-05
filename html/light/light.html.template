@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Ray Tracing</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'underscore', 'box') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.tabular {
+        border-collapse: collapse;
+      }
+
+      table.tabular tr:first-child {
+        background: #AAA;
+      }
+
+      table.tabular th {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      table.tabular td {
+        text-align: center;
+      }
+
+      table.game {
+        border: 1px solid black;
+        border-collapse: collapse;
+        margin: 5px auto;
+      }
+      
+      table.game td:first-child {
+        background: #AAA;
+        width: 10em;
+        text-align: right;
+        font-weight: bold;
+        padding: 5px;
+      }
+
+      table.game td {
+        text-align: center;
+        width: 20em;
+      }
+
+      div.video {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      
+      function initialize()
+      {
+        Box.initialize();
+      }
+
+      $( initialize );    
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Ray Tracing</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>History of 3D Computer Graphics</h1>
+        <p>
+          There are many different approaches to computer graphics, each with their own pros and contras. Which
+          approach is best depends on your needs.
+        </p>
+        <p>
+          For example, games need to produce images in real time. Since computers have only limited power,
+          concessions have to be made in order to be able to keep up.
+        </p>
+        <section>
+          <h2><a href="https://en.wikipedia.org/wiki/Wolfenstein_3D">Wolfenstein 3D</a></h2>
+          <%= youtube 'NdcnQISuF_Y' %>
+          <table class="game">
+            <tbody>
+              <tr>
+                <td>Game</td>
+                <td>Wolfenstein 3D</td>
+              </tr>
+              <tr>
+                <td>Year</td>
+                <td>1992</td>
+              </tr>
+              <tr>
+                <td>CPU</td>
+                <td><a href="https://en.wikipedia.org/wiki/Intel_80286">80286</a></td>
+              </tr>
+              <tr>
+                <td>RAM</td>
+                <td>528KB</td>
+              </tr>
+              <tr>
+                <td>GPU</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Technique</td>
+                <td>Ray casting + sprites</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            The world was represented internally as a 2D grid, meaning walls could only be placed at 90&deg; angles; e.g. a wall making a 45&deg; angle was not supported by the game engine.
+            Floors and ceilings had fixed heights: there were no stairs, no huge halls, no holes in the ground. The world was truly flat.
+            This engine could only be used to render indoor game worlds convincingly.
+          </p>
+          <%= tex_image('wolfenstein-world', style:"width: 40%;") %>
+          <p>
+            Enemies were represented using sprites, i.e. flat bitmaps that were drawn where the enemy was. The closer the enemy was,
+            the more stretched out the bitmap had to be, leading to serious pixellation when you got up close to an enemy.
+          </p>
+        </section>
+        
+        <section>
+          <h2><a href="http://playdosgamesonline.com/Alone-in-the-dark.html">Alone in the Dark</a></h2>
+          <%= youtube 'iSwYY2eoKhQ' %>
+          <table class="game">
+            <tbody>
+              <tr>
+                <td>Game</td>
+                <td>Alone in the Dark</td>
+              </tr>
+              <tr>
+                <td>Year</td>
+                <td>1992</td>
+              </tr>
+              <tr>
+                <td>CPU</td>
+                <td><a href="https://en.wikipedia.org/wiki/Intel_80386">80386</a></td>
+              </tr>
+              <tr>
+                <td>RAM</td>
+                <td>4MB</td>
+              </tr>
+              <tr>
+                <td>GPU</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Technique</td>
+                <td>2D Backgrounds + rasterization</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            The game world itself was rendered in a fully 2D fashion (background were prerendered bitmaps), but it was inhabited by 3D creatures:
+            these were made out of 3D triangles. These triangles were flat shaded, meaning that each triangle was drawn using exactly one color
+            (i.e. no textures or lighting.)
+          </p>
+        </section>
+
+        <section>
+          <h2><a href="https://en.wikipedia.org/wiki/Comanche_(series)">Comanche</a></h2>
+          <%= youtube 'snWmPWfeS6Y' %>
+          <table class="game">
+            <tbody>
+              <tr>
+                <td>Game</td>
+                <td>Comanche</td>
+              </tr>
+              <tr>
+                <td>Year</td>
+                <td>1992</td>
+              </tr>
+              <tr>
+                <td>CPU</td>
+                <td><a href="https://en.wikipedia.org/wiki/Intel_80386">80386</a></td>
+              </tr>
+              <tr>
+                <td>RAM</td>
+                <td>4MB</td>
+              </tr>
+              <tr>
+                <td>GPU</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Technique</td>
+                <td>2D Backgrounds + flated shaded triangles</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Comanche sported a fully 3D world which it rendered using voxels (volumetric pixels). This is similar to MineCraft, but with much smaller 'boxes'.
+            This approach allowed it to produce convincing outside worlds with great detail.
+          </p>
+        </section>
+
+        <section>
+          <h2><a href="http://playdosgamesonline.com/doom-evil-unleashed.html">Doom</a></h2>
+          <%= youtube '8mEP4cflrd4' %>
+          <table class="game">
+            <tbody>
+              <tr>
+                <td>Game</td>
+                <td>Doom</td>
+              </tr>
+              <tr>
+                <td>Year</td>
+                <td>1993</td>
+              </tr>
+              <tr>
+                <td>CPU</td>
+                <td><a href="https://en.wikipedia.org/wiki/Intel_80386">80386</a></td>
+              </tr>
+              <tr>
+                <td>RAM</td>
+                <td>4MB</td>
+              </tr>
+              <tr>
+                <td>GPU</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Technique</td>
+                <td>Ray casting + sprites</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Doom required a <a href="https://en.wikipedia.org/wiki/Intel_80386">80386</a> with 4MB of memory.
+            The game world was internally represented by 2D polygons, meaning this game was still not truly 3D. Each 2D-polygon was allowed to
+            have its own floor and ceiling height. For example, using many small such polygons allowed you to model stairs.
+          </p>
+          <%= tex_image('doom-world', style:"width: 40%;") %>
+          <p>
+            The world was still "flat" in a way: these 2D polygons could not overlap, so you could not have a bridge for which
+            it was possible both to walk on and under. You could not have a building with several floors on top of each other.
+            (Actually, that's a bit of a lie: floors that were supposedly on above the other were internally modelled
+            as areas placed adjacent next to each other. An elevator that pretended moving you up and down would actually teleport you
+            horizontally.) Like Wolfenstein 3D, this approach is mostly limited to render indoor gaming worlds.
+          </p>
+          <p>
+            Enemies were represented using sprites.
+          </p>
+        </section>
+
+        <section>
+          <h2><a href="http://playdosgamesonline.com/ecstatica.html">Ecstatica</a></h2>
+          <%= youtube '9SsR5fPjGu4' %>
+          <table class="game">
+            <tbody>
+              <tr>
+                <td>Game</td>
+                <td>Ecstatica</td>
+              </tr>
+              <tr>
+                <td>Year</td>
+                <td>1994</td>
+              </tr>
+              <tr>
+                <td>CPU</td>
+                <td><a href="https://en.wikipedia.org/wiki/Intel_80486">80486</a></td>
+              </tr>
+              <tr>
+                <td>RAM</td>
+                <td>4MB</td>
+              </tr>
+              <tr>
+                <td>GPU</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Technique</td>
+                <td>Ray casting + sprites</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Ecstatica used the same approach as Alone in the Dark, namely prerendered backgrounds with 3D characters.
+            Instead of relying on 3D triangles, spheres and ellipsoids were used, resulting, somewhat unsurprisingly,
+            in a less pointy look.
+          </p>
+        </section>
+
+        <section>
+          <h2><a href="http://playdosgamesonline.com/robinsons-requiem.html">Robinson's Requiem</a></h2>
+          Play it online</a>
+          <%= youtube 'RllFvqrMlcY' %>
+          <table class="game">
+            <tbody>
+              <tr>
+                <td>Game</td>
+                <td>Robinson's Requiem</td>
+              </tr>
+              <tr>
+                <td>Year</td>
+                <td>1994</td>
+              </tr>
+              <tr>
+                <td>CPU</td>
+                <td>?</td>
+              </tr>
+              <tr>
+                <td>RAM</td>
+                <td>?</td>
+              </tr>
+              <tr>
+                <td>GPU</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Technique</td>
+                <td>Voxels</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Like Comanche, Robinson's Requiem made use of voxels to render its world. This technique
+            allowed for large, detailed outside worlds with few restrictions.
+          </p>
+        </section>
+        
+        <section>
+          <h2><a href="http://playdosgamesonline.com/quake.html">Quake</a></h2>
+          <%= youtube '21d5_Ub9YLE' %>
+          <table class="game">
+            <tbody>
+              <tr>
+                <td>Game</td>
+                <td>Quake</td>
+              </tr>
+              <tr>
+                <td>Year</td>
+                <td>1996</td>
+              </tr>
+              <tr>
+                <td>CPU</td>
+                <td>Pentium 75MHz</td>
+              </tr>
+              <tr>
+                <td>RAM</td>
+                <td>8MB</td>
+              </tr>
+              <tr>
+                <td>GPU</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Technique</td>
+                <td>Textured triangles</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Quake required a Pentium 75Mhz with 8MB of memory. Internally, the game engine used true 3D object to represent the world,
+            with as consequence that there were no more restrictions on the architecture of the world. Enemies themselves were also in 3D.
+          </p>
+        </section>
+
+        <section>
+          <h2><a href="https://en.wikipedia.org/wiki/Unreal">Unreal (1998)</a></h2>
+          <%= youtube 'Op-tys_98Ek' %>
+          <table class="game">
+            <tbody>
+              <tr>
+                <td>Game</td>
+                <td>Unreal</td>
+              </tr>
+              <tr>
+                <td>Year</td>
+                <td>1998</td>
+              </tr>
+              <tr>
+                <td>CPU</td>
+                <td>Pentium 200MHz</td>
+              </tr>
+              <tr>
+                <td>RAM</td>
+                <td>32MB</td>
+              </tr>
+              <tr>
+                <td>GPU</td>
+                <td>Optional</td>
+              </tr>
+              <tr>
+                <td>Technique</td>
+                <td>Rasterization</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Unreal relied on 3D triangles to render its graphics. It was one of the first games that was able to make
+            use of a GPU.
+          </p>
+        </section>
+        
+        <section>
+          <h2><a href="https://en.wikipedia.org/wiki/Outcast_(video_game)">Outcast (1999)</a></h2>
+          <%= youtube 'BdB4z0xgvsw' %>
+          <table class="game">
+            <tbody>
+              <tr>
+                <td>Game</td>
+                <td>Outcast</td>
+              </tr>
+              <tr>
+                <td>Year</td>
+                <td>1999</td>
+              </tr>
+              <tr>
+                <td>CPU</td>
+                <td>Pentium 200MHz</td>
+              </tr>
+              <tr>
+                <td>RAM</td>
+                <td>32MB</td>
+              </tr>
+              <tr>
+                <td>GPU</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Technique</td>
+                <td>Voxels + rasterization</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Outcast (a Belgian game) made use of a voxel-like technology to render its landscapes but textured triangles for the characters.
+          </p>
+        </section>
+
+        <section>
+          <h2><a href="https://en.wikipedia.org/wiki/Unreal_Engine">Unreal Engine 4 (today)</a></h2>
+          <%= youtube 'HGZfUzBD8MQ' %>
+          <p>
+            Clearly, the triangles have won. GPUs all specialize in this technique alone, and other approaches to graphics
+            are required to run on the CPU, which is of course much less efficient.
+          </p>
+          <p>
+            20 years, 3D was faked with 2D. Today it is the other way around: even 2D games
+            make use of 3D elements internally. Even <a href="https://en.wikipedia.org/wiki/Desktop_Window_Manager">OSses are using the GPU to render the desktop</a>.
+          </p>
+        </section>
+      </section>
+    </div>
+  </body>
+</html>
