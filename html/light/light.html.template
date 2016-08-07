@@ -33,29 +33,42 @@
         text-align: center;
       }
 
-      table.game {
-        border: 1px solid black;
-        border-collapse: collapse;
-        margin: 5px auto;
-      }
-      
-      table.game td:first-child {
-        background: #AAA;
-        width: 10em;
-        text-align: right;
-        font-weight: bold;
-        padding: 5px;
-      }
-
-      table.game td {
-        text-align: center;
-        width: 20em;
-      }
-
       div.video {
         margin-left: auto;
         margin-right: auto;
         text-align: center;
+      }
+
+      #colors {
+        border-collapse: collapse;
+        margin: 5px auto;
+      }
+      
+      #colors td:first-child {
+        width: 1em;
+      }
+
+      #colors td {
+        padding: 10px 50px;
+      }
+
+      #photon-interactions {
+        border-collapse: collapse;
+      }
+
+      #photon-interactions td {
+        padding: 20px;
+        border: solid 1pt black;
+      }
+
+      #photon-interactions th {
+        padding: 20px;
+        border: solid 1pt black;
+        background: #AAA;
+      }
+
+      #photon-interactions img {
+        width: 200px;
       }
     </style>
 
@@ -78,381 +91,304 @@
     </header>
     <div id="contents">
       <section>
-        <h1>History of 3D Computer Graphics</h1>
+        <h1>Ray Tracing</h1>
         <p>
-          There are many different approaches to computer graphics, each with their own pros and contras. Which
-          approach is best depends on your needs.
+          As discussed <a href="../history-of-3d-graphics/history-of-3d-graphics.html">previously</a>,
+          there are many ways to tackle on 3d computer graphics. In this course, we do not have time to explore all these approaches in detail.
+          Instead, we will focus on one single technique, namely ray tracing, as used by The 7th Guest.
         </p>
         <p>
-          For example, games need to produce images in real time. Since computers have only limited power,
-          concessions have to be made in order to be able to keep up.
+          Ray tracing produces far more realistic looking images than other approaches. The reason for this is very simple:
+          ray tracing attempts to faithfully imitate the actual physics happening in reality.
         </p>
+        <p>
+          There is a major downside however: ray tracing is <em>slow</em>. Take for example <a href="https://renderman.pixar.com/view/renderman">RenderMan</a>,
+          software that is used in <a href="https://renderman.pixar.com/view/movies-and-awards">many movies</a> such as Finding Dory, Ex Machina, Mad Max: Fury Road,
+          Interstellar, Star Wars VII, etc. Using a render farm, it can take many hours to produce even a single frame.
+        </p>
+        <p>
+          So, in order to understand ray tracing, you must first understand how "seeing" works in reality.
+        </p>
+
         <section>
-          <h2><a href="https://en.wikipedia.org/wiki/Wolfenstein_3D">Wolfenstein 3D</a></h2>
-          <%= youtube 'NdcnQISuF_Y' %>
-          <table class="game">
+          <h2>Photons</h2>
+          <p>
+            Let us be honest straight away: all the following explanations are actually lies. The reason for this blatant dishonesty
+            is that real photons are actually <em>very</em> strange little things, and we fear for your sanity if we were to try to make
+            you understand how they really went about their business.
+          </p>
+          <p>
+            Photons are what lie at the very heart of our sense of vision. Without photons, we would not be able to see anything.
+            For the sake of simplicity, we'll just pretend that photons are tiny spheres of light.
+            These photons always travel in straight lines at the speed of light. A photon has something akin to a "heartbeat", this is called its frequency.
+            Often people talk about the "wavelength" of a photon, which is another way of expressing the heartbeat of the photon:
+            the wavelength is the distance the photon traverses between two heartbeats.
+          </p>
+          <p>
+            The frequency uniquely determines the wavelength and vice versa. Compare it to your length: you can express it in meters or centimeters,
+            but one determines the other. You cannot choose to be both 1.80m and 150cm tall. From now on, we will always talk about the wavelength of a photon,
+            as this is typical when talking about light-related things.
+          </p>
+          <p>
+            So, where do photons come into play in all of this? Simple:
+            our eyes are state of the <span style="text-decoration: line-through;">art</span> evolution photon-detectors.
+            Whenever a photon enters our eye through the pupil and reaches the retina, our brain is notified of this event with a nerve impulse
+            which it translates into "seeing".
+          </p>
+          <p>
+            The wavelength of a photon determines its <a href="https://en.wikipedia.org/wiki/Color">color</a>.
+            For example, if a photon with wavelength 700nm is detected by our eyes, our brain tells us we see red.
+            A photon with wavelength 400nm would be translated to violet.
+          </p>
+          <table id="colors">
             <tbody>
               <tr>
-                <td>Game</td>
-                <td>Wolfenstein 3D</td>
+                <td>IR</td>
+                <td>&gt; 700nm</td>
               </tr>
               <tr>
-                <td>Year</td>
-                <td>1992</td>
+                <td style="background: red;"></td>
+                <td>700-635nm</td>
               </tr>
               <tr>
-                <td>CPU</td>
-                <td><a href="https://en.wikipedia.org/wiki/Intel_80286">80286</a></td>
+                <td style="background: orange;"></td>
+                <td>635-590nm</td>
               </tr>
               <tr>
-                <td>RAM</td>
-                <td>528KB</td>
+                <td style="background: yellow;"></td>
+                <td>590-560nm</td>
               </tr>
               <tr>
-                <td>GPU</td>
-                <td>No</td>
+                <td style="background: green;"></td>
+                <td>560-520nm</td>
               </tr>
               <tr>
-                <td>Technique</td>
-                <td>Ray casting + sprites</td>
+                <td style="background: cyan;"></td>
+                <td>520-490nm</td>
+              </tr>
+              <tr>
+                <td style="background: blue;"></td>
+                <td>490-450nm</td>
+              </tr>
+              <tr>
+                <td style="background: violet;"></td>
+                <td>450-400nm</td>
+              </tr>
+              <tr>
+                <td>UV</td>
+                <td>&lt;400nm</td>
               </tr>
             </tbody>
           </table>
           <p>
-            The world was represented internally as a 2D grid, meaning walls could only be placed at 90&deg; angles; e.g. a wall making a 45&deg; angle was not supported by the game engine.
-            Floors and ceilings had fixed heights: there were no stairs, no huge halls, no holes in the ground. The world was truly flat.
-            This engine could only be used to render indoor game worlds convincingly.
+            Just like with sounds, where we cannot hear very low sounds (&lt; 20Hz) or very high sounds (anything above 20KHz), the same is
+            true for photons: our eyes can only detect a certain range of photon wavelengths. If the wavelength is greater than 700nm,
+            the photon is said to be infrared. Likewise for wavelengths below 400nm: these photons are said to be ultraviolet. Both are invisible to us.
           </p>
-          <%= tex_image('wolfenstein-world', style:"width: 40%;") %>
           <p>
-            Enemies were represented using sprites, i.e. flat bitmaps that were drawn where the enemy was. The closer the enemy was,
-            the more stretched out the bitmap had to be, leading to serious pixellation when you got up close to an enemy.
+            Note that not all colors are displayed in the table above. This is because many colors are actually inventions of our brain.
+            If photons of different color arrive with enough delay between them, our brain will let us let us see each photon's "true" color
+            and we will perceive flickering. However, if many photons are arrive approximately at the same time, the brain
+            does not want to overload our mind with specifics and instead will pack these photons together into a new color.
+            For example, if many photons of different colors arrive at once, we will perceive this as  white, but in reality,
+            there is no such thing as a white photon.
           </p>
         </section>
+        <section>
+          <h2>The Secret Lives of Photons</h2>
+          <p>
+            How photons are born is a complicated matter and beyond the scope of this course.
+            All we were able to find out is that it involves cabbages, bees and storks,
+            and that you should feel free to ask your parents for more details.
+          </p>
+          <p>
+            For this course, we will abstract this all away and say that there are "photon sources", also known as "light sources",
+            that somehow produce photons. Examples of such light sources are the sun, lamps, your computer screen, etc.
+            Not only do these light sources generate photons, they generate them en masse.
+            To give you an idea of how many photons you are constantly bombarded with: a conservative approximation tells us
+            that a regular lamp easily emits 10<sup>18</sup> photons each second.
+          </p>
+          <p>
+            Let's say the light source produces white light. As explained before, there is no such thing as white photons. What
+            really happens is that a white light source produces photons of all colors at once.
+          </p>
+          <p>
+            After a photon is generated, it moves in a straight line at the speed of light until it bumps into something,
+            at which time one of three things can happen:
+          </p>
+          <table class="centered" id="photon-interactions">
+            <thead>
+              <tr>
+                <th>Reflection</th>
+                <th>Absorption</th>
+                <th>Refraction</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><img src="reflection.svg" /></td>
+                <td><img src="absorption.svg" /></td>
+                <td><img src="refraction.svg" /></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Which of these happens depends on the color of the photon and the object itself:
+          </p>
+          <ul>
+            <li>A red object will absorb all non-red photons and only reflect the red ones.</li>
+            <li>A white object will reflect all photons indiscriminately.</li>
+            <li>A black object absorbs them all.</li>
+            <li>Refraction means a photon goes through the object, meaning the object is transparent. Such is the case for
+              water, glass, etc. Refraction will be discussed in detail later.
+            </li>
+          </ul>
+          <p>
+            When a photon is reflected by an object, the question remains in which direction it is reflected. You could expect
+            it to happen the same way as when a snooker ball hits the border of the table, i.e. that the incoming angle
+            and the outgoing angle are the same. This is hardly ever the case with photons. Photons are very small,
+            and objects are quite bumpy at the microscopic level. From our standpoint, it will look as if photons
+            bounce back off of object in random directions. This is called <em>diffuse reflection</em>.
+          </p>
+          <p>
+            Mirrors are an exception to this: these have very smooth surfaces, and when a photon bumps into one,
+            it will bounce off of it in the same manner as a snooker ball would. This is called <em>specular reflection</em>. Mirrors are in fact white, as they
+            do reflect photons of all colors. So, when you stand in front of a white wall, you actually perceive a scrambled reflection of yourself:
+            all colors are mixed up together, your brain can't make any sense of it, throws its arms up in the air in despair, and resigns itself to interpret
+            the multicolored avalanche of photons as white.
+          </p>
+          <table class="centered">
+            <thead>
+              <tr>
+                <th>Diffuse</th>
+                <th>Specular</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= tex_image 'diffuse-reflection' %></td>
+                <td><%= tex_image 'specular-reflection' %></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Some photons are lucky enough to have their journey end up in our eyes. An eye has a relatively complex <a href="https://en.wikipedia.org/wiki/Eye">internal structure</a>
+            but we will limit ourselves to the bare minimum. The eye can be seen as a sphere with an opening in front (the pupil) through which photons enter.
+            They then travel through the inside of the eye and crash into the back side where the retina is located.
+          </p>
+          <p>
+            Our retina is like some two-dimensional canvas on which photons are continuously landing and thereby drawing an image, as if they are tiny blobs of paint.
+            This image, however, fades away very quickly, so for us to be able to continue seeing something, we need a constant stream of incoming photons that
+            keeps on regenerating the image. Fortunately for us, there are huge amounts of photons arriving each second. But once the photons stop coming in,
+            everything goes black immediately.
+          </p>
+          <p>
+            So, in summary, when we see an object, it is because a light source generated a photon, which then bounced around the world a number of times,
+            surviving each of these reflection (i.e. not being absorbed) and finally ended up on our retina.
+          </p>
+          <img src="photon-life.svg" class="centered" />
+        </section>
+
+        <section>
+          <h2>The Eye</h2>
+          <p>
+            There is one slight problem with the above explanations: it does not explain how a clear image can appear on the retina.
+            Consider the figure above showing the life of a photon: the light source is shown to produce one photon, which
+            is reflected into the eye. But in reality, the light source produces many photons, and these are reflected in all directions.
+          </p>
+          <img src="problem.svg" class="centered" />
+          <p>
+            Photons being reflected by the red sphere do not arrive at the retina at only one single spot, but instead
+            the retina is flooded by red photons. How is the brain to know where these photons came from,
+            how can it form the image of a sphere?
+          </p>
+          <img src="brain-pov.svg" class="centered" />
+          <p>
+            The main issue is that when a photon hits the retina, the brain has no clue about which direction the photon came from.
+            Take a look at the figure above and put yourself in the brain's shoes: you are told that a red photon has reached the retina at location L.
+            The red lines show possible paths the photon took to reach that location.
+            If you are to successfully reconstruct an image, you need to know exactly which direction a photon came from.
+          </p>
+          <p>
+            The simplest solution to this problem is to make the pupil very small, ideally so small that a photon barely gets through it.
+            Let's call it a pinhole pupil. With such a small hole to enter the eye, if a photon hits the retina at some location L, we can deduce where it came from:
+          </p>
+          <ul>
+            <li>
+              We know a photon travels in a straight path.
+            </li>
+            <li>
+              This path ends at location L.
+            </li>
+            <li>
+              The path goes through the pinhole pupil.
+            </li>
+          </ul>
+          <img src="pinhole.svg" class="centered" />
+          <p>
+            You probably heard before that the image you see is actually upside down and the brain learns to
+            turn it upside down. The above figure corroborates this: the green ray comes from below yet
+            it hits the retina in a higher location than the red ray, which comes from above.
+          </p>
+          <p>
+            In reality, a "pinhole eye" would not work very well: the eye's photon sensors are not perfect
+            and we need a minimal amount of photons entering our eye for us to be able to see clearly.
+            Unfortunately, this is not the case with a pinhole eye.
+          </p>
+          <p>
+            Evolution has solved this problem by equipping our eye with a lens,
+            which is placed just behind the pupil and is able to bend a photon's path.
+            Ideally, the lens would redirect photons so that each lands on "the right spot" on the retina
+            and a clear image would ensue.
+          </p>
+          <p>
+            Unfortunately, this is not the case. The lens can only make those photons "arrive correctly"
+            that originate from objects from a certain distance. For example, you would
+            be able to see objects that are exactly 5m away from you sharply, but objects
+            closer or farther away would become blurry. The more an object is located
+            from the "ideal distance" of 5m, the blurrier it gets. This ideal distance is called
+            the <em>focal length</em> of the lens.
+          </p>
+          <p>
+            Being able to see only objects exactly 5m away clearly would be rather detrimental to our survival,
+            so evolution's way of making up for it is to allow the lens to change shape,
+            thereby modifying its focal length. This means that if you want to see an object
+            3m away clearly, the brain will send a message to your eye to change the lens's shape
+            so that its focal distance becomes 3m.
+          </p>
+          <p>
+            <a href="https://en.wikipedia.org/wiki/Near-sightedness">Myopia</a>, for example, can be caused
+            by the lens's inability to change its shape sufficiently so that photons
+            arrive at the retina at the right location.
+          </p>
+          <p>
+            Compare the three images below. The left image is rendered using a pinhole camera. Notice
+            how everything is in focus: both the front and back sphere sharp. The middle
+            image shows what a regular eye might see when it focuses on the front sphere.
+            Notice how the checkerboard pattern in front and the sphere in the back are blurry.
+            The right image shows what happens when the eye focuses on the back sphere.
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Pinhole</th>
+                <th>Lens (focal length 5)</th>
+                <th>Lens (focal length 10)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= raytrace 'pinhole' %></td>
+                <td><%= raytrace 'eye' %></td>
+                <td><%= raytrace 'eye2' %></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
         
-        <section>
-          <h2><a href="http://playdosgamesonline.com/Alone-in-the-dark.html">Alone in the Dark</a></h2>
-          <%= youtube 'iSwYY2eoKhQ' %>
-          <table class="game">
-            <tbody>
-              <tr>
-                <td>Game</td>
-                <td>Alone in the Dark</td>
-              </tr>
-              <tr>
-                <td>Year</td>
-                <td>1992</td>
-              </tr>
-              <tr>
-                <td>CPU</td>
-                <td><a href="https://en.wikipedia.org/wiki/Intel_80386">80386</a></td>
-              </tr>
-              <tr>
-                <td>RAM</td>
-                <td>4MB</td>
-              </tr>
-              <tr>
-                <td>GPU</td>
-                <td>No</td>
-              </tr>
-              <tr>
-                <td>Technique</td>
-                <td>2D Backgrounds + rasterization</td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            The game world itself was rendered in a fully 2D fashion (background were prerendered bitmaps), but it was inhabited by 3D creatures:
-            these were made out of 3D triangles. These triangles were flat shaded, meaning that each triangle was drawn using exactly one color
-            (i.e. no textures or lighting.)
-          </p>
-        </section>
-
-        <section>
-          <h2><a href="https://en.wikipedia.org/wiki/Comanche_(series)">Comanche</a></h2>
-          <%= youtube 'snWmPWfeS6Y' %>
-          <table class="game">
-            <tbody>
-              <tr>
-                <td>Game</td>
-                <td>Comanche</td>
-              </tr>
-              <tr>
-                <td>Year</td>
-                <td>1992</td>
-              </tr>
-              <tr>
-                <td>CPU</td>
-                <td><a href="https://en.wikipedia.org/wiki/Intel_80386">80386</a></td>
-              </tr>
-              <tr>
-                <td>RAM</td>
-                <td>4MB</td>
-              </tr>
-              <tr>
-                <td>GPU</td>
-                <td>No</td>
-              </tr>
-              <tr>
-                <td>Technique</td>
-                <td>2D Backgrounds + flated shaded triangles</td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            Comanche sported a fully 3D world which it rendered using voxels (volumetric pixels). This is similar to MineCraft, but with much smaller 'boxes'.
-            This approach allowed it to produce convincing outside worlds with great detail.
-          </p>
-        </section>
-
-        <section>
-          <h2><a href="http://playdosgamesonline.com/doom-evil-unleashed.html">Doom</a></h2>
-          <%= youtube '8mEP4cflrd4' %>
-          <table class="game">
-            <tbody>
-              <tr>
-                <td>Game</td>
-                <td>Doom</td>
-              </tr>
-              <tr>
-                <td>Year</td>
-                <td>1993</td>
-              </tr>
-              <tr>
-                <td>CPU</td>
-                <td><a href="https://en.wikipedia.org/wiki/Intel_80386">80386</a></td>
-              </tr>
-              <tr>
-                <td>RAM</td>
-                <td>4MB</td>
-              </tr>
-              <tr>
-                <td>GPU</td>
-                <td>No</td>
-              </tr>
-              <tr>
-                <td>Technique</td>
-                <td>Ray casting + sprites</td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            Doom required a <a href="https://en.wikipedia.org/wiki/Intel_80386">80386</a> with 4MB of memory.
-            The game world was internally represented by 2D polygons, meaning this game was still not truly 3D. Each 2D-polygon was allowed to
-            have its own floor and ceiling height. For example, using many small such polygons allowed you to model stairs.
-          </p>
-          <%= tex_image('doom-world', style:"width: 40%;") %>
-          <p>
-            The world was still "flat" in a way: these 2D polygons could not overlap, so you could not have a bridge for which
-            it was possible both to walk on and under. You could not have a building with several floors on top of each other.
-            (Actually, that's a bit of a lie: floors that were supposedly on above the other were internally modelled
-            as areas placed adjacent next to each other. An elevator that pretended moving you up and down would actually teleport you
-            horizontally.) Like Wolfenstein 3D, this approach is mostly limited to render indoor gaming worlds.
-          </p>
-          <p>
-            Enemies were represented using sprites.
-          </p>
-        </section>
-
-        <section>
-          <h2><a href="http://playdosgamesonline.com/ecstatica.html">Ecstatica</a></h2>
-          <%= youtube '9SsR5fPjGu4' %>
-          <table class="game">
-            <tbody>
-              <tr>
-                <td>Game</td>
-                <td>Ecstatica</td>
-              </tr>
-              <tr>
-                <td>Year</td>
-                <td>1994</td>
-              </tr>
-              <tr>
-                <td>CPU</td>
-                <td><a href="https://en.wikipedia.org/wiki/Intel_80486">80486</a></td>
-              </tr>
-              <tr>
-                <td>RAM</td>
-                <td>4MB</td>
-              </tr>
-              <tr>
-                <td>GPU</td>
-                <td>No</td>
-              </tr>
-              <tr>
-                <td>Technique</td>
-                <td>Ray casting + sprites</td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            Ecstatica used the same approach as Alone in the Dark, namely prerendered backgrounds with 3D characters.
-            Instead of relying on 3D triangles, spheres and ellipsoids were used, resulting, somewhat unsurprisingly,
-            in a less pointy look.
-          </p>
-        </section>
-
-        <section>
-          <h2><a href="http://playdosgamesonline.com/robinsons-requiem.html">Robinson's Requiem</a></h2>
-          Play it online</a>
-          <%= youtube 'RllFvqrMlcY' %>
-          <table class="game">
-            <tbody>
-              <tr>
-                <td>Game</td>
-                <td>Robinson's Requiem</td>
-              </tr>
-              <tr>
-                <td>Year</td>
-                <td>1994</td>
-              </tr>
-              <tr>
-                <td>CPU</td>
-                <td>?</td>
-              </tr>
-              <tr>
-                <td>RAM</td>
-                <td>?</td>
-              </tr>
-              <tr>
-                <td>GPU</td>
-                <td>No</td>
-              </tr>
-              <tr>
-                <td>Technique</td>
-                <td>Voxels</td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            Like Comanche, Robinson's Requiem made use of voxels to render its world. This technique
-            allowed for large, detailed outside worlds with few restrictions.
-          </p>
-        </section>
-        
-        <section>
-          <h2><a href="http://playdosgamesonline.com/quake.html">Quake</a></h2>
-          <%= youtube '21d5_Ub9YLE' %>
-          <table class="game">
-            <tbody>
-              <tr>
-                <td>Game</td>
-                <td>Quake</td>
-              </tr>
-              <tr>
-                <td>Year</td>
-                <td>1996</td>
-              </tr>
-              <tr>
-                <td>CPU</td>
-                <td>Pentium 75MHz</td>
-              </tr>
-              <tr>
-                <td>RAM</td>
-                <td>8MB</td>
-              </tr>
-              <tr>
-                <td>GPU</td>
-                <td>No</td>
-              </tr>
-              <tr>
-                <td>Technique</td>
-                <td>Textured triangles</td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            Quake required a Pentium 75Mhz with 8MB of memory. Internally, the game engine used true 3D object to represent the world,
-            with as consequence that there were no more restrictions on the architecture of the world. Enemies themselves were also in 3D.
-          </p>
-        </section>
-
-        <section>
-          <h2><a href="https://en.wikipedia.org/wiki/Unreal">Unreal (1998)</a></h2>
-          <%= youtube 'Op-tys_98Ek' %>
-          <table class="game">
-            <tbody>
-              <tr>
-                <td>Game</td>
-                <td>Unreal</td>
-              </tr>
-              <tr>
-                <td>Year</td>
-                <td>1998</td>
-              </tr>
-              <tr>
-                <td>CPU</td>
-                <td>Pentium 200MHz</td>
-              </tr>
-              <tr>
-                <td>RAM</td>
-                <td>32MB</td>
-              </tr>
-              <tr>
-                <td>GPU</td>
-                <td>Optional</td>
-              </tr>
-              <tr>
-                <td>Technique</td>
-                <td>Rasterization</td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            Unreal relied on 3D triangles to render its graphics. It was one of the first games that was able to make
-            use of a GPU.
-          </p>
-        </section>
-        
-        <section>
-          <h2><a href="https://en.wikipedia.org/wiki/Outcast_(video_game)">Outcast (1999)</a></h2>
-          <%= youtube 'BdB4z0xgvsw' %>
-          <table class="game">
-            <tbody>
-              <tr>
-                <td>Game</td>
-                <td>Outcast</td>
-              </tr>
-              <tr>
-                <td>Year</td>
-                <td>1999</td>
-              </tr>
-              <tr>
-                <td>CPU</td>
-                <td>Pentium 200MHz</td>
-              </tr>
-              <tr>
-                <td>RAM</td>
-                <td>32MB</td>
-              </tr>
-              <tr>
-                <td>GPU</td>
-                <td>No</td>
-              </tr>
-              <tr>
-                <td>Technique</td>
-                <td>Voxels + rasterization</td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            Outcast (a Belgian game) made use of a voxel-like technology to render its landscapes but textured triangles for the characters.
-          </p>
-        </section>
-
-        <section>
-          <h2><a href="https://en.wikipedia.org/wiki/Unreal_Engine">Unreal Engine 4 (today)</a></h2>
-          <%= youtube 'HGZfUzBD8MQ' %>
-          <p>
-            Clearly, the triangles have won. GPUs all specialize in this technique alone, and other approaches to graphics
-            are required to run on the CPU, which is of course much less efficient.
-          </p>
-          <p>
-            20 years, 3D was faked with 2D. Today it is the other way around: even 2D games
-            make use of 3D elements internally. Even <a href="https://en.wikipedia.org/wiki/Desktop_Window_Manager">OSses are using the GPU to render the desktop</a>.
-          </p>
-        </section>
       </section>
+
     </div>
   </body>
 </html>
