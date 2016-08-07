@@ -43,11 +43,16 @@ class Context
       assert(script_path: file('.chai'))
     end
 
-    RayTracer3.render(script_path)
-
-    abort "Could not find render output #{bmp_path}" unless bmp_path.file?
+    if Dynamic.lookup(:quick, false) and png_path.file? and script_path.mtime < png_path.mtime
+    then
+      puts "Skipping rendering #{script_name}"
+    else
+      RayTracer3.render(script_path)
+      
+      abort "Could not find render output #{bmp_path}" unless bmp_path.file?
     
-    Image2.convert(bmp_path, png_path)
+      Image2.convert(bmp_path, png_path)
+    end
 
     %{<a href="#{png_path.basename}"><img src="#{png_path.basename}" class="#{html_class}" /></a>}
   end

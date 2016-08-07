@@ -386,7 +386,34 @@
           </table>
         </section>
 
-        
+        <section>
+          <h2>Turning Things Around</h2>
+          <p>
+            Now that you have an idea of how sight works, we can now discuss
+            how to fake it in software.
+          </p>
+          <p>
+            One way would be to actually simulate reality: we generate a photon in a light source,
+            compute its journey across the scene and check whether it ends up in our eye.
+            While this technique is valid and yields the best results, it is also incredibly inefficient.
+            The changes that a photon actually ends up on the retina are very small, so we'll
+            need to simulate millions of them in the hope that enough reach the retina.
+          </p>
+          <p>
+            Luckily for us, there is a smarter way to go about it. It turns out that
+            the laws of physics exhibit many symmetries, and that it makes no difference
+            if you simulate them forwards or backwards in time. Concretely, this means
+            that instead of starting at a light source and ending in the eye,
+            we do the opposite: we start in the eye in the search of a light source.
+          </p>
+          <p>
+            First, we need a <em>scene</em> which defines what objects the world contains.
+            In the example images above, the scene consists of two white spheres and a plane.
+            Then we choose a location for our eye.
+            Next, we place a "virtual retina" in front of the eye. This virtual retina
+            is nothing more than a rectangular grid, which in fact represents 
+          </p>
+        </section>
       </section>
 
     </div>
