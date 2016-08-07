@@ -57,27 +57,6 @@
         margin-right: auto;
         text-align: center;
       }
-
-      #colors {
-        border-collapse: collapse;
-        margin: 5px auto;
-      }
-      
-      #colors td:first-child {
-        width: 1em;
-      }
-
-      #colors td {
-        padding: 10px 50px;
-      }
-
-      #photon-interactions td {
-        padding: 20px;
-      }
-
-      #photon-interactions img {
-        width: 200px;
-      }
     </style>
 
     <script type="text/x-mathjax-config">
