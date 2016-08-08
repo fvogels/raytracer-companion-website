@@ -6,27 +6,11 @@ require 'Shortcuts'
 require 'LaTeX2'
 require 'Image2'
 require 'Contracts'
+require '../shared.rb'
 
 
-class Context
-  include Contracts::TypeChecking
-  include Html2::Generation
+class Context < SharedContext
 
-  def tex_image(basename, quality: 90, density: 300, html_class: 'centered large')
-    typecheck do
-      assert(basename: string)
-    end
-
-    tex_filename = "#{basename}.tex"
-    png_filename = "#{basename}.png"
-    tex_path = Pathname.new tex_filename
-    png_path = Pathname.new png_filename
-    
-    pdf_path = LaTeX2.compile(tex_path)
-    Image2.convert(pdf_path, png_path, trim: true, quality: quality, density: density)
-
-    %{<img class="#{html_class}" src="#{png_filename}" />}
-  end
 end
 
 
