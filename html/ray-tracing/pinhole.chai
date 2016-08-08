@@ -28,7 +28,7 @@ var root        = union( [ decorate( checkered, translate(vec(0,-1,0), xz_plane(
                            decorate( white, translate(vec(1,0,0), sphere()) ),
                            decorate( white, translate(vec(-1,0,-5), sphere()) ) ])
 var lights      = [ Lights.omnidirectional( pos(0, 5, 5), Colors.white() ) ]
-var scene       = scene(camera, root, lights)
+var scene       = create_scene(camera, root, lights)
 var raytracer   = Raytracers.v6()
 var renderer    = Renderers.standard(500, 500, Samplers.multijittered(2), raytracer)
 var output_file = "pinhole.bmp"
