@@ -29,12 +29,6 @@ def scene_at(now)
 
   var checkered = Materials.checkered(black, white)
 
-  var animation = Animations.circular( pos(0, 0, 2.5),
-                                       pos(0, 0, 0),
-                                       vec(0, 1, 0),
-                                       interval( degrees(0), degrees(360) ),
-                                       seconds(1) )
-
   var spheres   = []
 
   for_each([-2..5], bind(fun (i, spheres) {
