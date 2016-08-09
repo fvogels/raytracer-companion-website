@@ -23,14 +23,27 @@ class SharedContext
     %{<img class="#{html_class}" src="#{png_filename}"#{style} />}
   end
 
-  def raytrace(script_name)
-    path = Pathname.new("#{script_name}.chai")
+  def raytrace(script_name, html_class: 'centered large')
+    script_path = Pathname.new("#{script_name}.chai")
+    bmp_path = script_path.sub_ext('.bmp')
+    png_path = script_path.sub_ext('.png')
     
     typecheck do
-      assert(path: file('.chai'))
+      assert(script_path: file('.chai'))
     end
 
-    RayTracer3.render(path)
+    if Dynamic.lookup(:quick, false) and png_path.file? and script_path.mtime < png_path.mtime
+    then
+      puts "Skipping rendering #{script_name}"
+    else
+      RayTracer3.render(script_path)
+      
+      abort "Could not find render output #{bmp_path}" unless bmp_path.file?
+      
+      Image2.convert(bmp_path, png_path)
+    end
+    
+    %{<a href="#{png_path.basename}"><img src="#{png_path.basename}" class="#{html_class}" /></a>}
   end
 
   def youtube(id)
