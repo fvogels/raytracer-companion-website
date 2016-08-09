@@ -38,6 +38,6 @@ var renderer    = Renderers.split_depth( [ "width": 500,
                                            "split_depth": 5.0 ] )
 
 pipeline( anim,
-          [ Pipeline.animation(25),
+          [ Pipeline.animation(30),
             Pipeline.renderer(renderer),
-            Pipeline.wif("demo.wif") ] )
+            Pipeline.ppm() ] )
