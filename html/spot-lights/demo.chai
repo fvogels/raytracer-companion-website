@@ -28,9 +28,6 @@ def scene_at(now)
                                      "z_phase": degrees(180),
                                      "duration": seconds(1) ] )
   
-  // var lights = [ Lights.spot( pos(-5,5,1), pos(5*sin(2.0*t), 0, 5*cos(t)), degrees(20), Colors.red() ),
-  //                Lights.spot( pos(5,5,1), pos(5*sin(2.0*t + degrees(180)), 0, 5*cos(t + degrees(180))), degrees(20), Colors.green() ) ]
-
   var lights = [ Lights.spot( pos(-5,5,1), pos1[now], degrees(20), Colors.red() ),
                  Lights.spot( pos(5,5,1), pos2[now], degrees(20), Colors.green() ) ]
 
