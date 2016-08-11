@@ -11,12 +11,29 @@ def scene_at(now)
                                       "transparency": 0,
                                       "refractive_index": 0 ] )
 
-  var root        = decorate(material, union([ translate(vec(0,-1,0),xz_plane()), sphere() ]))
+  var root = decorate(material, union([ translate(vec(0,-1,0),xz_plane()), sphere() ]))
 
   var t = Animations.animate(degrees(0), degrees(360), seconds(1))[now]
+
+  var pos1 = Animations.lissajous( [ "x_amplitude": 5,
+                                     "x_frequency": 2,
+                                     "z_amplitude": 5,
+                                     "z_frequency": 1,
+                                     "duration": seconds(1) ] )
+  var pos2 = Animations.lissajous( [ "x_amplitude": 5,
+                                     "x_frequency": 2,
+                                     "x_phase": degrees(180),
+                                     "z_amplitude": 5,
+                                     "z_frequency": 1,
+                                     "z_phase": degrees(180),
+                                     "duration": seconds(1) ] )
   
-  var lights      = [ Lights.spot( pos(-5,5,1), pos(5*sin(2.0*t), 0, 5*cos(t)), degrees(20), Colors.red() ),
-                      Lights.spot( pos(5,5,1), pos(5*sin(2.0*t + degrees(180)), 0, 5*cos(t + degrees(180))), degrees(20), Colors.green() ) ]
+  // var lights = [ Lights.spot( pos(-5,5,1), pos(5*sin(2.0*t), 0, 5*cos(t)), degrees(20), Colors.red() ),
+  //                Lights.spot( pos(5,5,1), pos(5*sin(2.0*t + degrees(180)), 0, 5*cos(t + degrees(180))), degrees(20), Colors.green() ) ]
+
+  var lights = [ Lights.spot( pos(-5,5,1), pos1[now], degrees(20), Colors.red() ),
+                 Lights.spot( pos(5,5,1), pos2[now], degrees(20), Colors.green() ) ]
+
 
   create_scene(camera, root, lights)
 }
