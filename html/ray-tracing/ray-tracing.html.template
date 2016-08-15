@@ -414,9 +414,51 @@
             that instead of starting at a light source and hoping to end up in the eye,
             we do the opposite: we start in the eye in the search of a light source.
           </p>
+        </section>
+        <section>
+          <h2>An Odd Paint Job</h2>
           <p>
-            We will start off with a simple rendering algorithm, which we will
-            iteratively improve upon.
+            Imagine that during a trip you discover a truly beautiful landscape
+            which you want to immortalize by painting it. You decide to use the
+            <a href="https://en.wikipedia.org/wiki/Pointillism">Pointillism</a> technique, i.e.
+            painting using tiny little dots on the canvas.
+          </p>
+          <p>
+            You carefully choose a location from which to paint. You prepare an easle and canvas on that spot.
+            You pick up your brush and your paint and want to start painting, when you suddenly realize
+            you've never painted anything before.
+          </p>
+          <p>
+            You decide to take a scientific approach. The painting will be a success if you manage
+            to assign the correct color to every pointillistic dot. In order to do so,
+            you fetch your tripod on which you attach a laser pointer, and you put it right in front of your easle.
+            Next, you turn on the laser pointer and swivel it so that a little red laser dot appears on the upper left corner
+            of your canvas.
+          </p>
+          <p>
+            Then, you remove the canvas. The laser beam is able to travel farther and will hit the landscape
+            somewhere at some location. You travel to that location in search of the red laser dot.
+            It turns out it landed on the trunk of a tree, which is brown. You go back to your easle
+            and put the canvas back. The laser again points at the upper left corner of the canvas.
+            You now paint a little brown dot at exactly that point.
+          </p>
+          <p>
+            Next, you swivel the laser point a minute amount to the right so that the laser dot lands
+            just next to the brown paint dot. You again remove the canvas and go find where the laser hits
+            the landscape. Turns out it's again the same tree. You go back, put the canvas back on the easle,
+            and draw a second brown dot. You continue this way until your entire canvas is filled with little dots.
+          </p>
+          <p>
+            Simulating this process using a computer is what ray tracing amounts to. The pointillism dots correspond
+            to pixels and the canvas to a bitmap. The landscape itself is modelled using mathematical objects
+            such as spheres and triangles.
+          </p>
+        </section>
+        <section>
+          <h2>The Evolution of a Ray Tracer</h2>
+          <p>
+            We will start off with a basic rendering algorithm, which we will
+            iteratively improve upon during this course.
           </p>
           <table id="raytracers" class="centered">
             <tbody>
@@ -424,51 +466,67 @@
                 <td><%= raytrace 'ray-tracer-v0' %></td>
                 <td>
                   The first version will be a "binary ray tracer":
-                  black and white represent the absence and presence
-                  of objects, respectively.
+                  if the laser beam hits the landscape, you paint a white dot.
+                  If the laser beam instead misses the landscape (i.e.
+                  escapes into space), you paint a black dot.
                 </td>
               </tr>
               <tr>
                 <td><%= raytrace 'ray-tracer-v1' %></td>
                 <td>
-                  Next, ambient lighting is added, which is a very rudimentary lighting method.
+                  Next, ambient lighting is added. You achieve this by
+                  traveling down to where the laser hits the landscape,
+                  then point a bright flashlight at it to better see which color
+                  the landscape has at that point, and use that to determine
+                  the color of your pointillistic dot.
+                  The problem with this approach is that you "destroy" all lighting information:
+                  you don't take into account <em>how much</em> light arrived at that point.
                 </td>
               </tr>
               <tr>
                 <td><%= raytrace 'ray-tracer-v2' %></td>
                 <td>
-                  Next comes diffuse lighting.
+                  Next comes diffuse lighting. You do now take into account
+                  how much light arrives at the laser dot. You do this
+                  by finding all light sources (e.g. the sun) and seeing how
+                  bright they are.
                 </td>
               </tr>
               <tr>
                 <td><%= raytrace 'ray-tracer-v3' %></td>
                 <td>
-                  Specular highlights add a metallic look.
+                  Specular highlights add a metallic look. This is hard to explain using the pointillism analogy.
+                  In ray tracing terms, it's just a more elaborate mathematical formula that produces
+                  bright spots.
                 </td>
               </tr>
               <tr>
                 <td><%= raytrace 'ray-tracer-v4' %></td>
                 <td>
-                  Shadows arise when rays coming from light sources are blocked by objects in the world.
+                  Shadows arise when you check whether the light from light sources (e.g. the sun) actually arrives
+                  at the laser dot position. For this, you need a secundary laser pointer. You place it
+                  at where the first laser's dot hits the landscape and you point it to the light source.
+                  If the second laser beam is blocked by another part of the landscape, you know that
+                  no light arrives from that direction.
                 </td>
               </tr>
               <tr>
                 <td><%= raytrace 'ray-tracer-v5' %></td>
                 <td>
-                  Reflection: light rays can bounce off of the surfaces of objects.
+                  Reflection: if the laser hits a reflective object, you use a secundary laser to determine
+                  what color it reflects.
                 </td>
               </tr>
               <tr>
                 <td><%= raytrace 'ray-tracer-v6' %></td>
                 <td>
-                  Refraction: objects can be transparent, meaning light rays can travel through them.
+                  Refraction: objects can be transparent, meaning laser beams can travel through them.
                 </td>
               </tr>
             </tbody>
           </table>
         </section>
       </section>
-
     </div>
   </body>
 </html>
