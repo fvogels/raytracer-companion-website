@@ -70,6 +70,14 @@
       #photon-interactions img {
         width: 200px;
       }
+
+      #raytracers td {
+        width: 30%;
+      }
+
+      #raytracers td:nth-child(2) {
+        width: 30%;
+      }
     </style>
 
     <script type="text/x-mathjax-config">
@@ -394,25 +402,70 @@
           </p>
           <p>
             One way would be to actually simulate reality: we generate a photon in a light source,
-            compute its journey across the scene and check whether it ends up in our eye.
+            compute its journey across the world and check whether it ends up in our eye.
             While this technique is valid and yields the best results, it is also incredibly inefficient.
-            The changes that a photon actually ends up on the retina are very small, so we'll
+            The chances that a photon actually ends up on the retina are pretty small, so we'll
             need to simulate millions of them in the hope that enough reach the retina.
           </p>
           <p>
-            Luckily for us, there is a smarter way to go about it. It turns out that
+            Luckily, there is a smarter way to go about it. It turns out that
             the laws of physics exhibit many symmetries, and that it makes no difference
             if you simulate them forwards or backwards in time. Concretely, this means
-            that instead of starting at a light source and ending in the eye,
+            that instead of starting at a light source and hoping to end up in the eye,
             we do the opposite: we start in the eye in the search of a light source.
           </p>
           <p>
-            First, we need a <em>scene</em> which defines what objects the world contains.
-            In the example images above, the scene consists of two white spheres and a plane.
-            Then we choose a location for our eye.
-            Next, we place a "virtual retina" in front of the eye. This virtual retina
-            is nothing more than a rectangular grid, which in fact represents 
+            We will start off with a simple rendering algorithm, which we will
+            iteratively improve upon.
           </p>
+          <table id="raytracers" class="centered">
+            <tbody>
+              <tr>
+                <td><%= raytrace 'ray-tracer-v0' %></td>
+                <td>
+                  The first version will be a "binary ray tracer":
+                  black and white represent the absence and presence
+                  of objects, respectively.
+                </td>
+              </tr>
+              <tr>
+                <td><%= raytrace 'ray-tracer-v1' %></td>
+                <td>
+                  Next, ambient lighting is added, which is a very rudimentary lighting method.
+                </td>
+              </tr>
+              <tr>
+                <td><%= raytrace 'ray-tracer-v2' %></td>
+                <td>
+                  Next comes diffuse lighting.
+                </td>
+              </tr>
+              <tr>
+                <td><%= raytrace 'ray-tracer-v3' %></td>
+                <td>
+                  Specular highlights add a metallic look.
+                </td>
+              </tr>
+              <tr>
+                <td><%= raytrace 'ray-tracer-v4' %></td>
+                <td>
+                  Shadows arise when rays coming from light sources are blocked by objects in the world.
+                </td>
+              </tr>
+              <tr>
+                <td><%= raytrace 'ray-tracer-v5' %></td>
+                <td>
+                  Reflection: light rays can bounce off of the surfaces of objects.
+                </td>
+              </tr>
+              <tr>
+                <td><%= raytrace 'ray-tracer-v6' %></td>
+                <td>
+                  Refraction: objects can be transparent, meaning light rays can travel through them.
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </section>
       </section>
 
