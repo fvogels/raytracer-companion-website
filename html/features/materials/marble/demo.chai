@@ -1,0 +1,21 @@
+var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                    "look_at": pos(0,0,0) ] )
+
+var material = Materials.marble2d(2, 1)
+
+var root = decorate(material, union( [ translate(vec(0,-1,0), xz_plane()), scale_material2d(5, 5, sphere()) ]))
+
+var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
+
+var scene = create_scene(camera, root, lights)
+
+var raytracer   = Raytracers.v6()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                       "height": 500,
+                                       "sampler": Samplers.multijittered(2),
+                                       "ray_tracer": raytracer ] )
+
+pipeline( scene,
+          [ Pipeline.renderer(renderer),
+            Pipeline.wif("demo.wif") ] )
