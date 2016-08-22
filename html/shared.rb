@@ -1,3 +1,6 @@
+require 'Raytracer3'
+require 'Html2'
+
 class SharedContext
   include Contracts::TypeChecking
   include Html2::Generation
@@ -52,5 +55,10 @@ class SharedContext
         <iframe width="420" height="315" src="https://www.youtube.com/embed/#{id}" frameborder="0" allowfullscreen></iframe>
       </div>
     END
+  end
+
+  def source(filename, **opts)
+    contents = IO.read(filename)
+    source_editor(contents, **opts)
   end
 end
