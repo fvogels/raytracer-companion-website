@@ -50,6 +50,124 @@
         <%= raytrace 'demo' %>
         <%= source 'demo.chai' %>
       </section>
+      <section>
+        <h1>Mathematics</h1>
+        
+        <section>
+          <h2>Ray Intersection</h2>
+
+          <section>
+             <h3>Derivation</h3>
+            <p>
+              We want to find the intersections of
+            </p>
+            <ul>
+              <li>A ray starting at point $O$ and having direction $\vec\Delta$.</li>
+              <li>A sphere with radius $R$ centered at $C$.</li>
+            </ul>
+            <p>
+              A sphere is defined as the set of all points $P$ that are at a distance $R$ from a center $C$.
+              Put into formula, each $P$ must satisfy the following equation:
+              \[ \mathrm{dist}(P, C) = R \]
+              Making use of the dot product, the distance $\mathrm{dist}(P, C)$ can be written as $\sqrt{(P-C)\cdot(P-C)}$.
+              The square root being rather bothersome, we square it away:
+              \[ (P-C)\cdot(P-C) = R^2 \]
+            </p>
+            <p>
+              We know that $P$ must reside on the ray, i.e. $P$ must <em>also</em> satisfy
+              \[ P = O + \vec\Delta \cdot t \]
+              for some $t$. Combining these two equations we get
+              \[ (O + \vec\Delta \cdot t - C) \cdot (O + \vec\Delta \cdot t - C) = R^2 \]
+              Expanding and rearranging terms gives
+              \[ (\vec\Delta \cdot \vec\Delta) \cdot t^2 + ((O - C) \cdot \vec\Delta) \cdot t + (O - C) \cdot (O - C) - R^2 = 0 \]
+            </p>
+            <p>
+              We simplify the equation replacing the larger subexpressions by letters:
+              \[
+                \begin{array}{rcl}
+                  a & = & \vec\Delta \cdot \vec\Delta \\
+                  b & = & (O - C) \cdot \vec\Delta \\
+                  c & = & (O - C) \cdot (O - C) - R^2
+                \end{array}
+              \]
+              Thus giving as new equation
+              \[ a \cdot t^2 + b \cdot t + c = 0 \]
+              This quadratic equation can be solved using standard techniques.
+            </p>
+            <ol>
+              <li>
+                Compute the discriminant:
+                \[ D = b^2 - 4 \cdot a \cdot c \]
+              </li>
+              <li>
+                If $D &lt; 0$, there are no solutions. This means the ray does not intersect the sphere.
+              </li>
+              <li>
+                If $D \geq 0$, there are two solutions.
+                \[ t_1 = \frac{-b-\sqrt{D}}{2 \cdot a} \qquad t_2 = \frac{-b+\sqrt{D}}{2 \cdot a} \]
+              </li>
+            </ol>
+            <p>
+              Both $t$ values indicate where on the ray the intersections lie. If $t &gt; 0$, the intersection
+              lies in front of the beginning of the ray, i.e. these are generally the intersections that matter to us.
+            </p>
+            <p>
+              The actual intersection positions can be found using
+              \[
+                P_1 = O + \vec\Delta \cdot t_1 \qquad P_2 = O + \vec\Delta \cdot t_2
+              \]
+            </p>
+          </section>
+          <section>
+            <h3>Summary</h3>
+            <p>
+              Given
+            </p>
+            <ul>
+              <li>A ray starting at point $O$ and having direction $\vec\Delta$.</li>
+              <li>A sphere with radius $R$ centered at $C$.</li>
+            </ul>
+            <p>
+              The intersections can be found using the following steps:
+            </p>
+            <ol>
+              <li>
+                Compute $a = \vec\Delta \cdot \vec\Delta$.
+              </li>
+              <li>
+                Compute $b = (O - C) \cdot \vec\Delta$.
+              </li>
+              <li>
+                Compute $c = (O - C) \cdot (O - C) - R^2$.
+              </li>
+              <li>
+                Compute $D = b^2 - 4 \cdot a \cdot c$.
+              </li>
+              <li>
+                If $D &lt; 0$, there are no intersections.
+              </li>
+              <li>
+                If $D &gt; 0$, there are two intersections:
+                \[
+                  t_1 = \frac{-b-\sqrt{D}}{2 \cdot a} \qquad t_2 = \frac{-b+\sqrt{D}}{2 \cdot a}
+                \]
+              </li>
+              <li>
+                The hit positions can be found using
+                \[
+                  P_1 = O + \vec\Delta \cdot t_1 \qquad P_2 = O + \vec\Delta \cdot t_2
+                \]
+              </li>
+              <li>
+                The normals are
+                \[
+                  N_1 = \frac{P_1 - C}{R} \qquad N_2 = \frac{P_2 - C}{R}
+                \]
+              </li>
+            </ol>
+          </section>
+        </section>
+      </section>
     </div>
   </body>
 
@@ -60,7 +178,7 @@
       SourceEditor.initialize();
     }
 
-    $( initialize );    
+    $( initialize );   
   </script>
 
 </html>
