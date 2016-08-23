@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Cylinder</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.tabular {
+        border-collapse; collapse;
+      }
+
+      table.tabular tr:first-child {
+        background: #AAA;
+      }
+
+      table.tabular th {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      table.tabular td {
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Cylinder</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Cylinder</h1>
+        <%= raytrace 'demo' %>
+        <%= source 'demo.chai' %>
+      </section>
+      <section>
+        <h1>Mathematics</h1>
+        
+        <section>
+          <h2>Ray Intersection</h2>
+
+          <section>
+             <h3>Derivation</h3>
+            <p>
+              We want to find the intersections of
+            </p>
+            <ul>
+              <li>A ray starting at point $O$ and having direction $\vec\Delta$.</li>
+              <li>A infinitely long cylinder with radius $R$. We choose the cylinder to be aligned with the Z-axis.</li>
+            </ul>
+            <p>
+              A cylinder can be seen as an infinite number of circles stacked upon each other. To find the intersections,
+              we temporarily get rid of the Z-dimension, which reduces the problem to 2D space in which
+              we need to find the intersection of a ray with a circle. We thus have
+            </p>
+            <ul>
+              <li>
+                A ray starting at point $O' = (O_\mathrm{x}, O_\mathrm{y})$ where $O_x$ and $O_y$ are the x- and y-coordinates of the original ray's origin $O$.
+                The ray's direction is $\vec\Delta' = (\vec\Delta_\mathrm{x}, \vec\Delta_\mathrm{y})$.
+              </li>
+              <li>
+                A circle centered at $(0, 0)$ with radius $R$.
+              </li>
+            </ul>
+            <p>
+              A circle is defined as the set of all points $P$ at a distance $R$ from a given center (in our case, $(0, 0)$.)
+              $P$ must therefore satisfy the following equation:
+              \[
+                \mathrm{dist}(P, (0,0)) = R
+              \]
+              The distance can be expressed using the dot product:
+              \[
+                \sqrt{(P - (0,0)) \cdot (P - (0,0))} = R
+              \]
+              Squaring both sides gets rid of the square root:
+              \[
+                (P - (0,0)) \cdot (P - (0,0)) = R^2
+              \]
+            </p>
+            <p>
+              $P$ must also lie on the ray, which means it must also satisfy
+              \[
+                P = O' + \vec\Delta' \cdot t
+              \]
+            </p>
+            <p>
+              Combining both equations, we get
+              \[
+                (O' + \vec\Delta' \cdot t - (0,0)) \cdot (O' + \vec\Delta' \cdot t - (0,0)) = R^2
+              \]
+              Expanding and rearranging yields
+              \[
+                \vec\Delta' \cdot \vec\Delta' \cdot t^2 + (O' - (0,0)) \cdot \vec\Delta' \cdot t + (O' - (0,0)) \cdot (O' - (0,0)) - R^2 = 0
+              \]
+            </p>
+            <p>
+              We simplify this equation by introducing
+              \[
+                \begin{array}{rcl}
+                  a & = & \vec\Delta' \cdot \vec\Delta' \\
+                  b & = & (O' - (0,0)) \cdot \vec\Delta' \\
+                  c & = & (O' - (0,0)) \cdot (O' - (0,0)) - R^2
+                \end{array}
+              \]
+              which turns the equation to
+              \[
+                a \cdot t^2 + b \cdot t + c = 0
+              \]
+              This is a standard quadratic equation:              
+            </p>
+            <ol>
+              <li>
+                Compute the discriminant:
+                \[ D = b^2 - 4 \cdot a \cdot c \]
+              </li>
+              <li>
+                If $D &lt; 0$, the ray does not intersect with the circle, and hence neither does it intersect the cylinder.
+              </li>
+              <li>
+                If $D \geq 0$, there are two intersections with $t$-values
+                \[
+                  t_1 = \frac{-b-\sqrt{D}}{2 \cdot a} \qquad t_2 = \frac{-b+\sqrt{D}}{2 \cdot a}
+                \]
+              </li>
+            </ol>
+            <p>
+              $t_1$ and $t_2$ tell us where in 2D space the ray hits the circle. We can restore the Z-dimension
+              and find out the 3D-intersections:
+              \[
+                P_1 = O + \vec\Delta \cdot t_1 \qquad P_2 = O + \vec\Delta \cdot t_2
+              \]
+            </p>
+            <p>
+              The normal at position $P$ is
+              \[
+                \vec{N} = (\frac{P_\mathrm{x}}{R}, \frac{P_\mathrm{y}}{R}, 0)
+              \]
+            </p>
+          </section>
+          <section>
+            <h3>Summary</h3>
+            <p>
+              Given
+            </p>
+            <ul>
+              <li>A ray starting at point $O = (O_\mathrm{x}, O_\mathrm{y})$ and having direction $\vec\Delta = (\vec\Delta_\mathrm{x}, \vec\Delta_\mathrm{y})$.</li>
+              <li>A infinitely long cylinder with radius $R$ around the Z-axis.</li>
+            </ul>
+            <p>
+              The intersections can be found using the following steps:
+            </p>
+            <ol>
+              <li>
+                Compute $O' = (O_\mathrm{x}, O_\mathrm{y})$.
+              </li>
+              <li>
+                Compute $\vec\Delta' = (\vec\Delta_\mathrm{x}, \vec\Delta_\mathrm{y})$.
+              </li>
+              <li>
+                Compute $a = \vec\Delta' \cdot \vec\Delta'$.
+              </li>
+              <li>
+                Compute $b = (O' - (0,0)) \cdot \vec\Delta'$.
+              </li>
+              <li>
+                Compute $c = (O' - (0,0)) \cdot (O' - (0,0)) - R^2$.
+              </li>
+              <li>
+                Compute $D = b^2 - 4 \cdot a \cdot c$.
+              </li>
+              <li>
+                If $D &lt; 0$, there are no intersections.
+              </li>
+              <li>
+                If $D &gt; 0$, there are two intersections:
+                \[
+                  t_1 = \frac{-b-\sqrt{D}}{2 \cdot a} \qquad t_2 = \frac{-b+\sqrt{D}}{2 \cdot a}
+                \]
+              </li>
+              <li>
+                The hit positions can be found using
+                \[
+                  P_1 = O + \vec\Delta \cdot t_1 \qquad P_2 = O + \vec\Delta \cdot t_2
+                \]
+              </li>
+              <li>
+                The normal at an intersection point $P = (P_\mathrm{x}, P_\mathrm{y}, P_\mathrm{z})$ is
+                \[
+                  \vec{N} = (\frac{P_\mathrm{x}}{R}, \frac{P_\mathrm{y}}{R}, 0)
+                \]
+              </li>
+            </ol>
+          </section>
+        </section>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+
+</html>
