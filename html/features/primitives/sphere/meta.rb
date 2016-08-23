@@ -6,7 +6,8 @@ require 'Shortcuts'
 require 'LaTeX2'
 require 'Image2'
 require 'Contracts'
-require '../../../shared.rb'
+require 'Environment'
+repo_require 'html/shared.rb'
 
 
 class Context < SharedContext
