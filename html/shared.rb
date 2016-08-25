@@ -76,3 +76,28 @@ class SharedContext
     END
   end
 end
+
+def shared_metaobject(context = SharedContext.new)
+  extend MetaData2
+  extend Template2::Actions
+  extend Upload2::Actions
+  extend Shortcuts::Actions
+
+  inherit_remote_directory(Pathname.pwd.basename.to_s)
+
+  template_files = Dir['*.template']
+  if template_files.size != 1 then
+    abort "Exactly one .template file expected"
+  else
+    template_file = template_files[0]
+  end
+  
+  bind( { :html => template(input: template_file,
+                            context: context) } )
+
+  uploadable( *Dir['*.html'] )
+  uploadable( *Dir['*.png'] )
+  uploadable( *Dir['*.mp4'] )
+
+  quick_all(:html)
+end
