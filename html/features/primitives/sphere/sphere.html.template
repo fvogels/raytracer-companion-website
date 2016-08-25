@@ -161,7 +161,7 @@
               <li>
                 The normals are
                 \[
-                  N_1 = \frac{P_1 - C}{R} \qquad N_2 = \frac{P_2 - C}{R}
+                  \vec{N}_1 = \frac{P_1 - C}{R} \qquad \vec{N}_2 = \frac{P_2 - C}{R}
                 \]
               </li>
             </ol>
@@ -180,5 +180,4 @@
 
     $( initialize );   
   </script>
-
 </html>
