@@ -24,21 +24,21 @@ def scene_at(now)
                                                                                 pos(0,0,0),
                                                                                 vec(0,1,0),
                                                                                 interval(degrees(0), degrees(360)),
-                                                                                seconds(1))[now] - pos(0,0,0),
+                                                                                seconds(5))[now] - pos(0,0,0),
                                                             sphere()))))
   primitives.push_back(group(2, decorate(material(Colors.green()),
                                                   translate(Animations.circular(pos(0,0,2),
                                                                                 pos(0,0,0),
                                                                                 vec(0,1,0),
                                                                                 interval(degrees(120), degrees(480)),
-                                                                                seconds(1))[now] - pos(0,0,0),
+                                                                                seconds(5))[now] - pos(0,0,0),
                                                             sphere()))))
   primitives.push_back(group(3, decorate(material(Colors.blue()),
                                                   translate(Animations.circular(pos(0,0,2),
                                                                                 pos(0,0,0),
                                                                                 vec(0,1,0),
                                                                                 interval(degrees(240), degrees(360+240)),
-                                                                                seconds(1))[now] - pos(0,0,0),
+                                                                                seconds(5))[now] - pos(0,0,0),
                                                             sphere()))))
 
   primitives.push_back(decorate(material(Colors.white()), translate(vec(0,-5,0), xz_plane())))
@@ -58,7 +58,7 @@ var renderer    = Renderers.cartoon( [ "width": 500,
                                        "shade_count": 4,
                                        "edge_thickness": 0.005 ] )
 
-pipeline( scene_animation(scene_at, seconds(1)),
+pipeline( scene_animation(scene_at, seconds(5)),
           [ Pipeline.animation(30),
             Pipeline.renderer(renderer),
-            Pipeline.wif("demo.wif") ] )
+            Pipeline.ppm() ] )
