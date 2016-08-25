@@ -58,4 +58,4 @@ var renderer    = Renderers.standard( [ "width": 500,
 pipeline( anim,
           [ Pipeline.animation(30),
             Pipeline.renderer(renderer),
-            Pipeline.wif("demo.wif") ] )
+            Pipeline.ppm() ] )
