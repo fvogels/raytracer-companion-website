@@ -1,7 +1,7 @@
 def scene_at(now)
 {
-  var eye_animation = Animations.animate( [ pos(0,5,5), pos(0,0,5), pos(0,0,-5) ], seconds(2) )
-  var lookat_animation = Animations.animate( [ pos(0,0,0), pos(0,0,0), pos(0,0,-10) ], seconds(2) )       
+  var eye_animation = Animations.animate( [ pos(5, 5, 5), pos(0,5,5), pos(0,0,5), pos(0,0,-5) ], seconds(3) )
+  var lookat_animation = Animations.animate( [ pos(0, 0, 0), pos(0,0,0), pos(0,0,0), pos(0,0,-10) ], seconds(3) )       
 
   var camera = Cameras.perspective( [ "eye": eye_animation[now],
                                       "look_at": lookat_animation[now] ] )
@@ -28,7 +28,7 @@ var renderer    = Renderers.standard( [ "width": 500,
                                        "sampler": Samplers.multijittered(2),
                                        "ray_tracer": raytracer ] )
 
-pipeline( scene_animation(scene_at, seconds(2)),
+pipeline( scene_animation(scene_at, seconds(3)),
           [ Pipeline.animation(30),
             Pipeline.renderer(renderer),
-            Pipeline.wif("demo.wif") ] )
+            Pipeline.ppm() ] )
