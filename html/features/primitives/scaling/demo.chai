@@ -1,28 +1,34 @@
-var camera = Cameras.perspective( [ "eye": pos(0,5,10),
-                                    "look_at": pos(0,0,0) ] )
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0,5,10),
+                                      "look_at": pos(0,0,0) ] )
 
-var material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
-                                    "diffuse": Colors.white() * 0.8,
-                                    "specular": Colors.white() * 0.5,
-                                    "specular_exponent": 10,
-                                    "reflectivity": 0.0,
-                                    "transparency": 0,
-                                    "refractive_index": 0 ] )
+  var material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                      "diffuse": Colors.white() * 0.8,
+                                      "specular": Colors.white() * 0.5,
+                                      "specular_exponent": 10,
+                                      "reflectivity": 0.0,
+                                      "transparency": 0,
+                                      "refractive_index": 0 ] )
 
-var cylinder = crop_along_y(cylinder_along_y(), interval(-1,1))
+  var cylinder = crop_along_y(cylinder_along_y(), interval(-1,1))
 
-var primitives = []
+  var primitives = []
 
-[1..10].for_each( bind( fun (i, primitives, cylinder) {
-  var s = 0.1 * i
-  primitives.push_back( scale( s, 1/s, s, cylinder ) )
-}, _, primitives, cylinder ) )
+  [1..10].for_each( bind( fun (i, primitives, cylinder, now) {
+    var size = 0.1 * i
+    var s = Animations.animate(1.0, size, seconds(5))[now]
+    
+    primitives.push_back( scale( size, 1/s, size, cylinder ) )
+  }, _, primitives, cylinder, now ) )
 
-var root = decorate(material, union( primitives ))
+  var root = decorate(material, union( primitives ))
 
-var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
+  var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
 
-var scene = create_scene(camera, root, lights)
+  create_scene(camera, root, lights)
+}
+
 
 var raytracer   = Raytracers.v6()
 
@@ -31,6 +37,7 @@ var renderer    = Renderers.standard( [ "width": 500,
                                        "sampler": Samplers.multijittered(2),
                                        "ray_tracer": raytracer ] )
 
-pipeline( scene,
-          [ Pipeline.renderer(renderer),
-            Pipeline.wif("demo.wif") ] )
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.ppm() ] )
