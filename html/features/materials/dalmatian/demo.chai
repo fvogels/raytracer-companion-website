@@ -12,9 +12,9 @@ var camera = Cameras.perspective( [ "eye": pos(0,0,5),
 
 
 
-var material = Materials.dalmatian(4, black, white)
+var material = Materials.scale(0.1, 0.2, Materials.dalmatian(4, black, white))
 
-var root = decorate(material, union( [ translate(vec(0,-1,0), xz_plane()), scale_material2d(10, 5, sphere()) ]))
+var root = decorate(material, union( [ translate(vec(0,-1,0), xz_plane()), sphere() ] ))
 
 var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
 
