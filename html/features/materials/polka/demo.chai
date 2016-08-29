@@ -11,12 +11,12 @@ def scene_at(now)
   var camera = Cameras.perspective( [ "eye": pos(0,0,5),
                                       "look_at": pos(0,0,0) ] )
 
-  var radius1 = Animations.animate(0, 0.25, seconds(5))
-  var radius2 = Animations.animate(0, 0.1, seconds(5))
+  var radius1 = Animations.cyclic(0, 0.25, seconds(5))
+  var radius2 = Animations.cyclic(0, 0.1, seconds(5))
 
-  var material = Materials.polka(radius1[now], radius2[now], black, white)
+  var material = Materials.scale(5, 5, Materials.polka(radius1[now], radius2[now], black, white))
 
-  var root = decorate(material, union( [ translate(vec(0,-1,0), xz_plane()), scale_material2d(10, 5, sphere()) ]))
+  var root = decorate(material, union( [ translate(vec(0,-1,0), xz_plane()), sphere() ]))
 
   var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
 
