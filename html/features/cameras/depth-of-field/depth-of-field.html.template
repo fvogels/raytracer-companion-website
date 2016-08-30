@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Depth of Field</title>
+    <title>3DCG: Depth of Field Camera</title>
     <%= stylesheets('ucll', 'box') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
     <style>
@@ -23,11 +23,11 @@
 
   <body>
     <header>
-      <div class="center-vertically">Depth of Field</div>
+      <div class="center-vertically">Depth of Field Camera</div>
     </header>
     <div id="contents">
       <section>
-        <h1>Depth of Field</h1>
+        <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
       </section>      
