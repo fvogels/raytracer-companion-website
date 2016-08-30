@@ -46,7 +46,7 @@
     </header>
     <div id="contents">
       <section>
-        <h1>Sphere</h1>
+        <h1>Preview</h1>
         <%= raytrace 'demo' %>
         <%= source 'demo.chai' %>
       </section>
