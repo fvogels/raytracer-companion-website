@@ -46,8 +46,8 @@
     </header>
     <div id="contents">
       <section>
-        <h1>Cylinder</h1>
-        <%= raytrace 'demo' %>
+        <h1>Preview</h1>
+        <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
       </section>
       <section>
