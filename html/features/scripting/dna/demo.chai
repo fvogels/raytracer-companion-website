@@ -12,11 +12,22 @@ def scene_at(now)
                                       "diffuse": Colors.white() * 0.8,
                                       "specular": Colors.white(),
                                       "specular_exponent": 10,
-                                      "reflectivity": 0,
+                                      "reflectivity": 0.15,
                                       "transparency": 0,
                                       "refractive_index": 0 ] )
 
+  var white = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                   "diffuse": Colors.white() * 0.8,
+                                   "specular": Colors.black(),
+                                   "specular_exponent": 0,
+                                   "reflectivity": 0,
+                                   "transparency": 0,
+                                   "refractive_index": 1.5 ] )
+
   var primitives = []
+
+  // primitives.push_back( decorate( white, translate( vec(0,0,-100), xy_plane() ) ) )
+
   [-50..50].for_each( bind( fun (i, primitives) {
     var radius = 10
     var angle = degrees(20) * i
@@ -69,4 +80,4 @@ var renderer    = Renderers.standard( [ "width": 500,
 pipeline( scene_animation(scene_at, seconds(5)),
           [ Pipeline.animation(30),
             Pipeline.renderer(renderer),
-            Pipeline.wif("dna.wif") ] )
+            Pipeline.ppm() ] )
