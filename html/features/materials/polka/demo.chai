@@ -16,7 +16,7 @@ def scene_at(now)
 
   var material = Materials.scale(5, 5, Materials.polka(radius1[now], radius2[now], black, white))
 
-  var root = decorate(material, union( [ translate(vec(0,-1,0), xz_plane()), sphere() ]))
+  var root = union( [ decorate(material, translate(vec(0,-1,0), xz_plane())), decorate(Materials.scale(0.0125, 0.025, material), sphere()) ] )
 
   var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
 
