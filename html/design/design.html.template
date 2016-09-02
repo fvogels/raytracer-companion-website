@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Design</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'underscore', 'box') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      dt {
+        font-weight: bold;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      
+      function initialize()
+      {
+        Box.initialize();
+      }
+
+      $( initialize );    
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Design</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Design</h1>
+        <p>
+          We start off with a simplified overview of the ray tracer's architecture.
+          Know that many designs are possible and we have to settle on a specific one.
+          Sometimes, some choices might seem arbitrary to you; I will not pretend
+          my design is "the right one". You are free to think about how you would
+          change it, and maybe it can count as extension (albeit a risky one).
+        </p>
+        <p>
+          The ray tracer is built out of many different modules.
+          Each module is placed in its own subdirectory and its definitions
+          reside in a separate namespace (akin to a Java package.)
+          A module exposes only the bare minimum to the outside world.
+          You can compare this to a class: a class has to hide as much
+          as possible from its users, only making public what is truly necessary.
+          The more implementation details it can hide, the better.
+          You can apply the same principle to groups of classes:
+          some classes are meant to be seen by people outside the module,
+          but most should stay hidden as they are merely implementation detail.
+        </p>
+        <p>
+          For example, the primitives module (we'll explain the name later)
+          lets you create geometric shapes such as a sphere.
+          Internally, this sphere is implemented as a class,
+          but the module wants to hide this detail. Instead,
+          only an abstract supertype <code>Primitive</code> is made public
+          and a factory function which lets you create a sphere.
+          So, outside of the primitives module,
+          you are limited to writing <code>Primitive primitive = sphere();</code>
+          You cannot directly create a Sphere-object (i.e. no <code>new Sphere()</code>),
+          and you cannot access <code>Sphere</code>-specific methods.
+        </p>
+        <p>
+          Here's an incomplete list of the modules:
+        </p>
+        <table class="centered">
+          <thead>
+            <tr>
+              <th>Module name</th>
+              <th>Files location</th>
+              <th>Namespace</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Animation</td>
+              <td>animation/</td>
+              <td><code>animation</code></td>
+            </tr>
+            <tr>
+              <td>Cameras</td>
+              <td>cameras/</td>
+              <td><code>raytracer::cameras</code></td>
+            </tr>
+            <tr>
+              <td>Light</td>
+              <td>lights/</td>
+              <td><code>raytracer::lights</code></td>
+            </tr>
+            <tr>
+              <td>Primitives</td>
+              <td>primitives/</td>
+              <td><code>raytracer::primitives</code></td>
+            </tr>
+            <tr>
+              <td>Ray tracers</td>
+              <td>raytracers/</td>
+              <td><code>raytracer::raytracers</code></td>
+            </tr>
+            <tr>
+              <td>Renderers</td>
+              <td>renderers/</td>
+              <td><code>raytracer::renderers</code></td>
+            </tr>
+            <tr>
+              <td>Scripting</td>
+              <td>scripting/</td>
+              <td><code>raytracer::scripting</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Each of these modules will be explained in due time. For now, we will restrict
+          ourselves to only what is absolutely necessary to have a basic understanding
+          of the ray tracer, so as not to have you drown in details.
+        </p>
+        <p>
+          A module mostly only exposes factory functions. So, if you want to know
+          what kind of lights you can create, you can have the IDE enumerate
+          the members of <code>raytracer::light</code>. For now,
+          only <code>raytracer::light::omnidirectional</code> should be available to you,
+          which creates a point light that shines equally in all directions.
+        </p>
+
+        <section>
+          <h2>Overview</h2>
+          <p>
+            A ray tracer can be seen as software that allows you to build a virtual world
+            and take a picture inside it. We introduce two important terms (these same words
+            also appear the ray tracer's design):
+          </p>
+          <dl>
+            <dt>Scene</dt>
+            <dd>
+              The scene defines the virtual world and the camera we use to take a picture of it.
+            </dd>
+            <dt>Renderer</dt>
+            <dd>
+              The renderer is the "engine" that actually performs the rendering. It takes a scene
+              and outputs an image.
+            </dd>
+          </dl>
+          <p>
+            For example, consider the picture below:
+            <%= raytrace 'scene' %>
+            This rather boring scene consists of 2 reflective spheres, one red and one blue.
+            It also contains a light that shines from the upper right (notice the bright spots on both spheres.)
+            Lastly, the scene also defines where the camera is located, i.e. right before the two spheres.
+          </p>
+
+          <section>
+            <h3>The Scene</h3>
+            <p>
+              We define what a scene is more formally. A scene has three components:
+            </p>
+            <dl>
+              <dt>Root</dt>
+              <dd>
+                The root defines all the objects in the scene.
+                It is admittedly a somewhat strange name, but it will make more sense later.
+              </dd>
+              <dt>
+                Light Sources
+              </dt>
+              <dd>
+                A list of all light sources.
+              </dd>
+              <dt>
+                Camera
+              </dt>
+              <dd>
+                The location and orientation of the camera.
+              </dd>
+            </dl>
+            <p>
+              Applying this to the example above gives
+            </p>
+            <ul>
+              <li>
+                The root is what defines the location, size and color of both spheres.
+              </li>
+              <li>
+                The light sources list consists of just one light: a white light located to the upper right.
+              </li>
+              <li>
+                The camera is placed in front of the two spheres and looks straight at them.
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>The Renderer</h3>
+            <p>
+              The renderer is a bit more technical.
+              First of all, there are different types of renderers, each of which
+              will produce a different rendition of the scene.
+              The picture above was produced by the standard renderer,
+              which performs no fancy tricks. Another kind of renderer
+              could render the same scene so as to
+              <%= link( "../extensions/renderers/cartoon/cartoon-renderer.html", 'look more cartoony') %>.
+              <!-- TODO More links -->
+            </p>
+            <p>
+              Different types of renderers have different components, so for now we will
+              pretend only the standard renderer exists.
+              Go find the declaration for the factory function in the code.
+              It is located in de renderers module, in the file <code>standard-renderer.h</code>.
+              As you see, it requires the following inputs:
+            </p>
+            <dl>
+              <dt>Image size</dt>
+              <dd>The size of the output image. The example above has size 500&times;300.</dd>
+              <dt>Sampler</dt>
+              <dd>
+                This is a more advanced feature which will be explained later in greater detail.
+                Suffice it to say that it determines image quality. To create a sampler,
+                you can look what factory functions are available in the <code>raytracer::samplers</code> namespace.
+              </dd>
+              <dt>Ray tracer</dt>
+              <dd>
+                Which ray tracer to be used. This is the actual work horse: it is the ray
+                tracer that performs the heavy duty work of determining colors, shadows, reflections, etc.
+                The renderer basically just asks the ray tracer to determine what color light enters from a certain direction, and
+                the renderer will then paint the corresponding pixel in that color. We will discuss ray tracers in detail shortly.
+              </dd>
+              <dt>Looper</dt>
+              <dd>
+                Like samplers, this is more advanced stuff. In essence, it's an object that you can use for looping.
+                It's a <code>for-loop</code>, but in the form of an object. For now, you only have a basic looper, which will just loop.
+                A more advanced one <!-- TODO link to multithreaded looper extension --> will instead
+                be multithreaded, which gives a serious performace boost.
+              </dd>
+            </dl>
+          </section>
+        </section>
+      </section>
+    </div>
+  </body>
+</html>
