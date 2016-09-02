@@ -1,0 +1,40 @@
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(20,20,50),
+                                      "look_at": pos(0,0,0) ] )
+
+  var material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                      "diffuse": Colors.white() * 0.8,
+                                      "specular": Colors.white(),
+                                      "specular_exponent": 100,
+                                      "reflectivity": 0,
+                                      "transparency": 0,
+                                      "refractive_index": 0 ] )
+
+  var primitives = []
+  [-5..5].for_each( bind( fun (i, primitives) {
+    primitives.push_back( translate(vec(3*i,0,0), cylinder_along_y()) )
+  }, _, primitives ) );
+
+  var root = decorate(material, union([ translate(vec(0,-1,0),xz_plane()), union( primitives ) ]))
+
+  var t = Animations.animate(degrees(0), degrees(360), seconds(1))[now]
+
+  var pos = Animations.animate(-1,1,seconds(1))
+  var lights = [ Lights.directional( vec(pos[now],-1,1).normalized(), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+
+var raytracer   = Raytracers.v6()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.multijittered(2),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(1)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.ppm() ] )
+
