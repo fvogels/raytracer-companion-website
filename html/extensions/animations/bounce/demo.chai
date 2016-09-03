@@ -12,9 +12,9 @@ def scene_at(now)
   var camera = Cameras.perspective( [ "eye": pos(0,1,10),
                                       "look_at": pos(0,0,0) ] )
 
-  var sphere_position1 = Animations.bounce( Animations.animate( pos(-3,5,0), pos(-3,0,0), seconds(3) ), 5, 0 )[now]
-  var sphere_position2 = Animations.bounce( Animations.animate( pos(0,5,0), pos(0,0,0), seconds(3) ), 5, 3 )[now]
-  var sphere_position3 = Animations.bounce( Animations.animate( pos(3,5,0), pos(3,0,0), seconds(3) ), 10, 10 )[now]
+  var sphere_position1 = Animations.ease( Animations.animate( pos(-3,5,0), pos(-3,0,0), seconds(3) ), Easing.bounce(5, 0) )[now]
+  var sphere_position2 = Animations.ease( Animations.animate( pos(0,5,0), pos(0,0,0), seconds(3) ), Easing.bounce(5, 3) )[now]
+  var sphere_position3 = Animations.ease( Animations.animate( pos(3,5,0), pos(3,0,0), seconds(3) ), Easing.bounce(10, 10) )[now]
   
   var root = union([ translate(vec(0,-1,0), decorate( material(Colors.white()), xz_plane())),
                      translate(sphere_position1 - pos(0, 0, 0), decorate( material(Colors.red()), sphere()) ),
