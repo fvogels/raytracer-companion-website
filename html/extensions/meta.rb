@@ -9,7 +9,7 @@ meta_object do
   extend Shortcuts::Actions
   
 
-  inherit_remote_directory 'features'
+  inherit_remote_directory 'extensions'
 
   quick_recursive_all
 end
