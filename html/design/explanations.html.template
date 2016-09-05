@@ -141,7 +141,7 @@
       </section>
 
       <section>
-        <h1>Classes</h1>
+        <h1>Concepts</h1>
         <p>
           A ray tracer can be seen as software that allows you to build a virtual world
           and take a picture inside it. We introduce two important terms (these same words
@@ -284,218 +284,242 @@
             compute in which direction the ray gets reflected, and so on.
           </p>
         </section>
-      </section>
-
-      <section>
-        <h2>Primitives</h2>
-        <p>
-          In order to better understand how the ray tracer works, we must discuss in detail how a scene is modelled.
-          The light and camera components of a scene are pretty
-          straightforward: they're just subtypes of <code>LightSource</code> and <code>Camera</code> respectively,
-          and different types of lights/cameras are implemented as different subclasses.
-        </p>
-        <p>
-          The root part of the scene, however, is less straightforward, but the structure should not be unfamiliar to you.
-          First, do remember what the root represents: the actual objects the scene is built out of.
-          The implementation of the root follows the <a href="https://en.wikipedia.org/wiki/Composite_pattern">Composite design pattern</a>,
-          which is the same design typically used by GUI libraries, which you have worked with in the past.
-        </p>
 
         <section>
-          <h3>Analogy: Design of GUI Libraries</h3>
+          <h2>Primitives</h2>
           <p>
-            How are GUIs represented using object-oriented design? Simple: by composition.
+            In order to better understand how the ray tracer works, we must discuss in detail how a scene is modelled.
+            The light and camera components of a scene are pretty
+            straightforward: they're just subtypes of <code>LightSource</code> and <code>Camera</code> respectively,
+            and different types of lights/cameras are implemented as different subclasses.
           </p>
           <p>
-            First, you get access to basic building blocks: buttons, text boxes, check boxes, labels, etc.
-            Next, you get a means of putting these together into larger whole.
-            For example, using WPF terminology, a <code>StackPanel</code> allows
-            you to put GUI controls next to each other, either horizontally or vertically.
-            A <code>Grid</code> allows you to layout controls in a grid-like fashion.
-            You can see these panels as "operations" on GUI controls, a bit like the "addition" of two controls
-            yielding a new, bigger control.
+            The root part of the scene, however, is less straightforward, but the structure should not be unfamiliar to you.
+            First, do remember what the root represents: the actual objects the scene is built out of.
+            The implementation of the root follows the <a href="https://en.wikipedia.org/wiki/Composite_pattern">Composite design pattern</a>,
+            which is the same design typically used by GUI libraries, which you have worked with in the past.
           </p>
-          <p>
-            Another example of such an operation is the <code>Border</code>: this allows you to take a control
-            and have a border drawn around it. A <code>ScrollViewer</code> can be used when a control is too
-            big to fit on the screen and you need scrollbars. A <code>ViewBox</code> is another operation
-            which can scale controls.
-          </p>
-          <p>
-            The most important aspect of the Composite design pattern is the fact that it is <em>recursive</em>.
-            In other words, if you apply an operation (be it a Panel, a ViewBox, a Border, or whatever) on a control, the result
-            is once again a control, on which you can then proceed to apply the same operations again. For example, you can have a <code>Button</code>,
-            you can apply the <code>Border</code> operation on it, and then again, and then once more, and you'll have a button with three borders.
-            This three-bordered button can then be put inside a panel, which can have borders of its own, etc.
-            The fact that it is recursive, i.e. that every operation on controls yields a new control, allows you to build
-            arbitrarily large GUIs.
-          </p>
-        </section>
+
+          <section>
+            <h3>Analogy: Design of GUI Libraries</h3>
+            <p>
+              How are GUIs represented using object-oriented design? Simple: by composition.
+            </p>
+            <p>
+              First, you get access to basic building blocks: buttons, text boxes, check boxes, labels, etc.
+              Next, you get a means of putting these together into larger whole.
+              For example, using WPF terminology, a <code>StackPanel</code> allows
+              you to put GUI controls next to each other, either horizontally or vertically.
+              A <code>Grid</code> allows you to layout controls in a grid-like fashion.
+              You can see these panels as "operations" on GUI controls, a bit like the "addition" of two controls
+              yielding a new, bigger control.
+            </p>
+            <p>
+              Another example of such an operation is the <code>Border</code>: this allows you to take a control
+              and have a border drawn around it. A <code>ScrollViewer</code> can be used when a control is too
+              big to fit on the screen and you need scrollbars. A <code>ViewBox</code> is another operation
+              which can scale controls.
+            </p>
+            <p>
+              The most important aspect of the Composite design pattern is the fact that it is <em>recursive</em>.
+              In other words, if you apply an operation (be it a Panel, a ViewBox, a Border, or whatever) on a control, the result
+              is once again a control, on which you can then proceed to apply the same operations again. For example, you can have a <code>Button</code>,
+              you can apply the <code>Border</code> operation on it, and then again, and then once more, and you'll have a button with three borders.
+              This three-bordered button can then be put inside a panel, which can have borders of its own, etc.
+              The fact that it is recursive, i.e. that every operation on controls yields a new control, allows you to build
+              arbitrarily large GUIs.
+            </p>
+          </section>
+
+          <section>
+            <h3>Primitives: Basic Building Blocks</h3>
+            <p>
+              So, how do we apply the same principles on scenes? Let's first try to find out what the basic building blocks are,
+              and then which operations can be performed on them.
+            </p>
+            <p>
+              The basic building blocks are geometric shapes. Games, for example, use only one such shape as building, namely the triangle.
+              Technically, this is enough to build even the <%= link('../extensions/primitives/mesh', 'most complex of shapes') %>: you just have to make the triangles very tiny
+              and have enough of them. While it may seem simpler to only have to implement one shape, you have to remember
+              that you'll still have to find a way to produce all the right triangles so as to create, say, a sphere.
+              You're just shifting the complexity elsewhere.
+            </p>
+            <p>
+              In other words, it is easier to implement both <code>Triangle</code> and <code>Sphere</code> than to just
+              implement <code>Triangle</code> and build a <code>Sphere</code> out of it. Working with a single sphere
+              is also much more efficient than to have to work with thousands of tiny triangles.
+            </p>
+            <p>
+              So, what will our basic shapes be? Well, any shape that have a simple enough mathematical formula. Examples are:
+            </p>
+            <ul>
+              <li>Spheres</li>
+              <li><%= link('../extensions/primitives/plane', 'Planes') %></li>              
+              <li><%= link('../extensions/primitives/cylinder', 'Cylinders') %></li>
+              <li><%= link('../extensions/primitives/cone', 'Cones') %></li>
+              <li><%= link('../extensions/primitives/triangle', 'Triangles') %> (you weren't planning on building triangles out of many tiny spheres, were you?)</li>
+              <li><%= link('../extensions/primitives/disk', 'Disks') %></li>
+              <li><%= link('../extensions/primitives/square', 'Squares') %></li>
+              <li><%= link('../extensions/primitives/cube', 'Cubes') %></li>
+            </ul>
+            <p>
+              These basic shapes are so primitive that (in our design) you cannot even change their size or position in space (except for triangles.)
+              For example, you can only create spheres with radius 1 that are centered at $(0, 0, 0)$.
+            </p>
+          </section>
+
+          <section>
+            <h3>Transformations</h3>
+            <p>
+              This brings us to the operations we can apply on these primitives. There are actually many types of operations available,
+              some more abstract than others. The most straightforward operations are transformations:
+            </p>
+            <ul>
+              <li>Translation</li>
+              <li><%= link('../extensions/primitives/scaling', 'Scaling') %></li>
+              <li><%= link('../extensions/primitives/rotation', 'Rotation') %></li>
+            </ul>
+            <p>
+              So, even if spheres themselves only come in size 1, you can use scaling to make them as big or as small as you want.
+              This approach has the advantage that it makes the implementation much simpler. It is certainly possible to
+              create a <code>Sphere</code> class whose constructor takes a center and radius parameter, but the mathematical formula
+              behind it will be more complex.
+            </p>
+            <p>
+              For example, take the cylinder primitive. For an arbitrary cylinder with radius $R$ whose axis has direction $\vec N$ and goes through some point $P$,
+              the formula is
+              \[
+                \left(O + \vec\Delta \cdot t - \frac{O + \vec\Delta \cdot t - P}{\vec N \cdot \vec N} \cdot \vec N\right) \cdot \left(O + \vec\Delta \cdot t - \frac{O + \vec\Delta \cdot t - P}{\vec N \cdot \vec N} \cdot \vec N\right) = R^2
+              \]
+              This is quite an intimidating formula. If, however, we choose to only support vertical cylinders (i.e. $\vec N = (0, 1, 0)$ and $P = (0,0,0)$) with radius 1 ($R = 1$), this formula can be simplified considerably.
+            </p>
+            <p>
+              So, either we write $N$ smart shape classes that are difficult to implement,
+              or $N + 3$ "dumb" classes ($N$ shape + 3 transformation classes) that are much easier to implement.
+              Our design will follow the latter path.
+            </p>
+          </section>
+
+          <section>
+            <h3>Combining Shapes</h3>
+            <p>
+              We have discussed the basic building blocks (sphere, cylinder, cone, &hellip;) and
+              transformations (translating, scaling, rotating). This still merely allows us to
+              create scenes consisting of a single shape, but hey, look at the bright side,
+              it be as big as you want.
+            </p>
+            <p>
+              In order to allow for scenes built out of multiple shapes, we need
+              some "grouping" operation, like panels in GUI libraries. For this,
+              we provide <a href="https://en.wikipedia.org/wiki/Constructive_solid_geometry">Constructive Solid Geometry</a> operations:
+            </p>
+            <ul>
+              <li>
+                <%= link('../extensions/primitives/union', 'Unions') %> allows you to have multiple primitives in the scene, i.e.
+                the union of two spheres is&hellip; two spheres.
+              </li>
+              <li>
+                <%= link('../extensions/primitives/intersection', 'Intersections') %>
+              </li>
+              <li>
+                <%= link('../extensions/primitives/difference', 'Difference') %>
+              </li>
+            </ul>
+            <p>
+              These operations together with transformations allow you to craft any shape you want.
+            </p>
+          </section>
+
+          <section>
+            <h3>Decorators and Materials</h3>
+            <p>
+              Another important operation on primitives is the <em>decorator</em> which assigns a <em>material</em> to a primitive.
+              By default, a basic shape has no material assigned to it, meaning it has no color (not even black),
+              no reflectance properties, etc. It is therefore an error to try to render an undecorated shape.
+            </p>
+            <p>
+              We can define any kind of materials. Examples are
+            </p>
+            <ul>
+              <li>
+                <%= link('../extensions/materials/marble', 'Marble') %>
+              </li>
+              <li>
+                <%= link('../extensions/materials/dalmatian', 'Dalmation spots') %>
+              </li>
+              <li>
+                <%= link('../extensions/materials/texture', 'Textures') %>
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>Example</h3>
+            <p>
+              Consider the scene show below.
+            </p>
+            <%= raytrace_movie 'example' %>
+            <p>
+              It is described by the following hierarchy:
+            </p>
+            <%= tex_image 'example-hierarchy' %>
+            <p>
+              In the animation above, you can see two separate objects:
+              a plane with a grid drawn on it and a green lens. The union at the
+              top of the hierarchy has as sole purpose of grouping the plane and lens together.
+              Both the plane and the lens need to be decorated; as you can see,
+              there's indeed a separate decorator for both. We omitted the details of the material.
+              The plane material is responsible for the grid pattern, while the lens's material
+              specifies that the lens is green and refracts light.
+            </p>
+            <p>
+              The lens is placed above the plane. We can achieve this in multiple ways:
+              we could lower the plane or raise let the lens. We decided to move the plane downwards.
+            </p>
+            <p>
+              Lastly, we need to create the lens. The lens is not a basic shape, but it can be
+              created by intersecting two spheres: we create two spheres, move one a bit to the left,
+              the other to the right, and we only keep their intersection.
+            </p>
+            <p>
+              The following C++ code performs all necessary steps to create this scene. Take some time to see how it works.
+            </p>
+            <%= source 'example.cpp' %>
+            <p>
+              The ray tracer is also equipped with a <a href="http://chaiscript.com/">scripting language</a>.
+              Using this language is much more practical: if you were to create each scene in C++,
+              you'd have both to deal with C++'s complexity and long compilation times.
+              Using the scripting language avoids all of C++'s pitfalls (such as pointers) and it requires no compilation.
+              In this scripting language, the above scene would look as follows:
+            </p>
+            <%= source 'example.chai' %>
+          </section>
+
+          <section>
+            <h3>Classes</h3>
+            <p>
+              We now focus on how primitives are implemented. First, a warning: we will not immediately be telling you the
+              whole truth, but instead explain in steps how the design has evolved. As as result, you will have a better understanding
+              of the resulting design.
+            </p>
+            <p>
+              We've been talking incessentantly about primitives that it should come as no surprise
+              that there is a superclass representing this concept. So, let's start with an abstract superclass <code>Primitive</code>.
+              Methods are not important for now, so there's nothing else to say for the moment about <code>Primitive</code> itself.
+            </p>
+            <p>
+              The basic shapes such as sphere, plane, cone, cube, cylinder are as you would expect subclasses of <code>Primitive</code>.
+            </p>
+            <%= tex_image('classes1', html_class:'centered') %>
+          </section>
+        </section>        
 
         <section>
-          <h3>Primitives: Basic Building Blocks</h3>
+          <h2>Algorithm in Broad Strokes</h2>
           <p>
-            So, how do we apply the same principles on scenes? Let's first try to find out what the basic building blocks are,
-            and then which operations can be performed on them.
-          </p>
-          <p>
-            The basic building blocks are geometric shapes. Games, for example, use only one such shape as building, namely the triangle.
-            Technically, this is enough to build even the <%= link('../extensions/primitives/mesh', 'most complex of shapes') %>: you just have to make the triangles very tiny
-            and have enough of them. While it may seem simpler to only have to implement one shape, you have to remember
-            that you'll still have to find a way to produce all the right triangles so as to create, say, a sphere.
-            You're just shifting the complexity elsewhere.
-          </p>
-          <p>
-            In other words, it is easier to implement both <code>Triangle</code> and <code>Sphere</code> than to just
-            implement <code>Triangle</code> and build a <code>Sphere</code> out of it. Working with a single sphere
-            is also much more efficient than to have to work with thousands of tiny triangles.
-          </p>
-          <p>
-            So, what will our basic shapes be? Well, any shape that have a simple enough mathematical formula. Examples are:
-          </p>
-          <ul>
-            <li>Spheres</li>
-            <li><%= link('../extensions/primitives/plane', 'Planes') %></li>              
-            <li><%= link('../extensions/primitives/cylinder', 'Cylinders') %></li>
-            <li><%= link('../extensions/primitives/cone', 'Cones') %></li>
-            <li><%= link('../extensions/primitives/triangle', 'Triangles') %> (you weren't planning on building triangles out of many tiny spheres, were you?)</li>
-            <li><%= link('../extensions/primitives/disk', 'Disks') %></li>
-            <li><%= link('../extensions/primitives/square', 'Squares') %></li>
-            <li><%= link('../extensions/primitives/cube', 'Cubes') %></li>
-          </ul>
-          <p>
-            These basic shapes are so primitive that (in our design) you cannot even change their size or position in space (except for triangles.)
-            For example, you can only create spheres with radius 1 that are centered at $(0, 0, 0)$.
+            As explained above, a scene is built out of blocks called primitives. 
           </p>
         </section>
-
-        <section>
-          <h3>Transformations</h3>
-          <p>
-            This brings us to the operations we can apply on these primitives. There are actually many types of operations available,
-            some more abstract than others. The most straightforward operations are transformations:
-          </p>
-          <ul>
-            <li>Translation</li>
-            <li><%= link('../extensions/primitives/scaling', 'Scaling') %></li>
-            <li><%= link('../extensions/primitives/rotation', 'Rotation') %></li>
-          </ul>
-          <p>
-            So, even if spheres themselves only come in size 1, you can use scaling to make them as big or as small as you want.
-            This approach has the advantage that it makes the implementation much simpler. It is certainly possible to
-            create a <code>Sphere</code> class whose constructor takes a center and radius parameter, but the mathematical formula
-            behind it will be more complex.
-          </p>
-          <p>
-            For example, take the cylinder primitive. For an arbitrary cylinder with radius $R$ whose axis has direction $\vec N$ and goes through some point $P$,
-            the formula is
-            \[
-              \left(O + \vec\Delta \cdot t - \frac{O + \vec\Delta \cdot t - P}{\vec N \cdot \vec N} \cdot \vec N\right) \cdot \left(O + \vec\Delta \cdot t - \frac{O + \vec\Delta \cdot t - P}{\vec N \cdot \vec N} \cdot \vec N\right) = R^2
-            \]
-            This is quite an intimidating formula. If, however, we choose to only support vertical cylinders (i.e. $\vec N = (0, 1, 0)$ and $P = (0,0,0)$) with radius 1 ($R = 1$), this formula can be simplified considerably.
-          </p>
-          <p>
-            So, either we write $N$ smart shape classes that are difficult to implement,
-            or $N + 3$ "dumb" classes ($N$ shape + 3 transformation classes) that are much easier to implement.
-            Our design will follow the latter path.
-          </p>
-        </section>
-
-        <section>
-          <h3>Combining Shapes</h3>
-          <p>
-            We have discussed the basic building blocks (sphere, cylinder, cone, &hellip;) and
-            transformations (translating, scaling, rotating). This still merely allows us to
-            create scenes consisting of a single shape, but hey, look at the bright side,
-            it be as big as you want.
-          </p>
-          <p>
-            In order to allow for scenes built out of multiple shapes, we need
-            some "grouping" operation, like panels in GUI libraries. For this,
-            we provide <a href="https://en.wikipedia.org/wiki/Constructive_solid_geometry">Constructive Solid Geometry</a> operations:
-          </p>
-          <ul>
-            <li>
-              <%= link('../extensions/primitives/union', 'Unions') %> allows you to have multiple primitives in the scene, i.e.
-              the union of two spheres is&hellip; two spheres.
-            </li>
-            <li>
-              <%= link('../extensions/primitives/intersection', 'Intersections') %>
-            </li>
-            <li>
-              <%= link('../extensions/primitives/difference', 'Difference') %>
-            </li>
-          </ul>
-          <p>
-            These operations together with transformations allow you to craft any shape you want.
-          </p>
-        </section>
-
-        <section>
-          <h3>Decorators and Materials</h3>
-          <p>
-            Another important operation on primitives is the <em>decorator</em> which assigns a <em>material</em> to a primitive.
-            By default, a basic shape has no material assigned to it, meaning it has no color (not even black),
-            no reflectance properties, etc. It is therefore an error to try to render an undecorated shape.
-          </p>
-          <p>
-            We can define any kind of materials. Examples are
-          </p>
-          <ul>
-            <li>
-              <%= link('../extensions/materials/marble', 'Marble') %>
-            </li>
-            <li>
-              <%= link('../extensions/materials/dalmatian', 'Dalmation spots') %>
-            </li>
-            <li>
-              <%= link('../extensions/materials/texture', 'Textures') %>
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Example</h3>
-          <p>
-            Consider the scene show below.
-          </p>
-          <%= raytrace_movie 'example' %>
-          <p>
-            It is described by the following hierarchy:
-          </p>
-          <%= tex_image 'example-hierarchy' %>
-          <p>
-            In the animation above, you can see two separate objects:
-            a plane with a grid drawn on it and a green lens. The union at the
-            top of the hierarchy has as sole purpose of grouping the plane and lens together.
-            Both the plane and the lens need to be decorated; as you can see,
-            there's indeed a separate decorator for both. We omitted the details of the material.
-            The plane material is responsible for the grid pattern, while the lens's material
-            specifies that the lens is green and refracts light.
-          </p>
-          <p>
-            The lens is placed above the plane. We can achieve this in multiple ways:
-            we could lower the plane or raise let the lens. We decided to move the plane downwards.
-          </p>
-          <p>
-            Lastly, we need to create the lens. The lens is not a basic shape, but it can be
-            created by intersecting two spheres: we create two spheres, move one a bit to the left,
-            the other to the right, and we only keep their intersection.
-          </p>
-          <p>
-            The following C++ code performs all necessary steps to create this scene. Take some time to see how it works.
-          </p>
-          <%= source 'example.cpp' %>
-          <p>
-            The ray tracer is also equipped with a <a href="http://chaiscript.com/">scripting language</a>.
-            Using this language is much more practical: if you were to create each scene in C++,
-            you'd have both to deal with C++'s complexity and long compilation times.
-            Using the scripting language avoids all of C++'s pitfalls (such as pointers) and it requires no compilation.
-            Using this scripting language, the above scene would look as follows:
-          </p>
-          <%= source 'example.chai' %>
-        </section>
-        
       </section>
     </div>
   </body>
