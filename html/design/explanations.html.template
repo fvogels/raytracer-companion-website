@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>3DCG: Design</title>
     <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'underscore', 'box') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -41,11 +41,11 @@
 
   <body>
     <header>
-      <div class="center-vertically">Code Organization</div>
+      <div class="center-vertically">Design</div>
     </header>
     <div id="contents">
       <section>
-        <h1>Design</h1>
+        <h1>Code Organization</h1>
         <p>
           We start off with a simplified overview of the ray tracer's architecture.
           Know that many designs are possible and we have to settle on a specific one.
@@ -340,7 +340,7 @@
           </p>
           <p>
             The basic building blocks are geometric shapes. Games, for example, use only one such shape as building, namely the triangle.
-            Technically, this is enough to build even the most complex of shapes: you just have to make the triangles very tiny
+            Technically, this is enough to build even the <%= link('../extensions/primitives/mesh', 'most complex of shapes') %>: you just have to make the triangles very tiny
             and have enough of them. While it may seem simpler to only have to implement one shape, you have to remember
             that you'll still have to find a way to produce all the right triangles so as to create, say, a sphere.
             You're just shifting the complexity elsewhere.
@@ -358,8 +358,10 @@
             <li><%= link('../extensions/primitives/plane', 'Planes') %></li>              
             <li><%= link('../extensions/primitives/cylinder', 'Cylinders') %></li>
             <li><%= link('../extensions/primitives/cone', 'Cones') %></li>
-            <li><%= link('../extensions/primitives/disk', 'Disks') %></li>
             <li><%= link('../extensions/primitives/triangle', 'Triangles') %> (you weren't planning on building triangles out of many tiny spheres, were you?)</li>
+            <li><%= link('../extensions/primitives/disk', 'Disks') %></li>
+            <li><%= link('../extensions/primitives/square', 'Squares') %></li>
+            <li><%= link('../extensions/primitives/cube', 'Cubes') %></li>
           </ul>
           <p>
             These basic shapes are so primitive that (in our design) you cannot even change their size or position in space (except for triangles.)
@@ -414,12 +416,96 @@
           </p>
           <ul>
             <li>
-              <%= link('../extensions/primitives/union', 'Unions') %>
+              <%= link('../extensions/primitives/union', 'Unions') %> allows you to have multiple primitives in the scene, i.e.
+              the union of two spheres is&hellip; two spheres.
+            </li>
+            <li>
+              <%= link('../extensions/primitives/intersection', 'Intersections') %>
+            </li>
+            <li>
+              <%= link('../extensions/primitives/difference', 'Difference') %>
             </li>
           </ul>
+          <p>
+            These operations together with transformations allow you to craft any shape you want.
+          </p>
+        </section>
+
+        <section>
+          <h3>Decorators and Materials</h3>
+          <p>
+            Another important operation on primitives is the <em>decorator</em> which assigns a <em>material</em> to a primitive.
+            By default, a basic shape has no material assigned to it, meaning it has no color (not even black),
+            no reflectance properties, etc. It is therefore an error to try to render an undecorated shape.
+          </p>
+          <p>
+            We can define any kind of materials. Examples are
+          </p>
+          <ul>
+            <li>
+              <%= link('../extensions/materials/marble', 'Marble') %>
+            </li>
+            <li>
+              <%= link('../extensions/materials/dalmatian', 'Dalmation spots') %>
+            </li>
+            <li>
+              <%= link('../extensions/materials/texture', 'Textures') %>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Example</h3>
+          <p>
+            Consider the scene show below.
+          </p>
+          <%= raytrace_movie 'example' %>
+          <p>
+            It is described by the following hierarchy:
+          </p>
+          <%= tex_image 'example-hierarchy' %>
+          <p>
+            In the animation above, you can see two separate objects:
+            a plane with a grid drawn on it and a green lens. The union at the
+            top of the hierarchy has as sole purpose of grouping the plane and lens together.
+            Both the plane and the lens need to be decorated; as you can see,
+            there's indeed a separate decorator for both. We omitted the details of the material.
+            The plane material is responsible for the grid pattern, while the lens's material
+            specifies that the lens is green and refracts light.
+          </p>
+          <p>
+            The lens is placed above the plane. We can achieve this in multiple ways:
+            we could lower the plane or raise let the lens. We decided to move the plane downwards.
+          </p>
+          <p>
+            Lastly, we need to create the lens. The lens is not a basic shape, but it can be
+            created by intersecting two spheres: we create two spheres, move one a bit to the left,
+            the other to the right, and we only keep their intersection.
+          </p>
+          <p>
+            The following C++ code performs all necessary steps to create this scene. Take some time to see how it works.
+          </p>
+          <%= source 'example.cpp' %>
+          <p>
+            The ray tracer is also equipped with a <a href="http://chaiscript.com/">scripting language</a>.
+            Using this language is much more practical: if you were to create each scene in C++,
+            you'd have both to deal with C++'s complexity and long compilation times.
+            Using the scripting language avoids all of C++'s pitfalls (such as pointers) and it requires no compilation.
+            Using this scripting language, the above scene would look as follows:
+          </p>
+          <%= source 'example.chai' %>
         </section>
         
       </section>
     </div>
   </body>
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
 </html>
