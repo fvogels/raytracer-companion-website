@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Wrappers</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin: 10px auto;
+      }
+
+      table th {
+        width: 30%;
+        text-align: left;
+        background: #AAA;
+        padding: 2px;
+      }
+
+      dt {
+        font-weight: bold;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      
+      function initialize()
+      {
+        Box.initialize();
+      }
+
+      $( initialize );    
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Wrappers</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Quick Explanation</h1>
+        <p>
+          The ray tracer makes extensive use of small wrapper types such as
+        </p>
+        <ul>
+          <li><code>raytracer::primitives::Primitive</code></li>
+          <li><code>raytracer::materials::Material</code></li>
+          <li><code>raytracer::lights::LightSource</code></li>
+          <li><code>raytracer::cameras::Camera</code></li>
+        </ul>
+        <p>
+          If you look at these classes, you will notice that they look quite alike.
+          Even though they model very different concepts, their members do not differ.
+          The reason for this is that they are just "gateways" to the actual objects.
+        </p>
+        <p>
+          If you would take a quick look at <code>raytracer::primitives::Primitive</code>,
+          you'll see that it keeps a pointer to a <code>PrimitiveImplementation</code> object.
+          This object provides the actual <code>Primitive</code>-related functionality.
+        </p>
+        <p>
+          So, given a <code>Primitive</code> object, you normally would have to first
+          get to the <code>PrimitiveImplementation</code> object it points to, on which
+          you can call methods: <code>primitive.getImplementation()->doSomethingUseful()</code>.
+          However, having to write this all the time would get tiresome very quickly.
+        </p>
+        <p>
+          Luckily, C++ lets you overload the <code>-&gt;</code> operator.
+          Normally, <code>-&gt;</code> is only meant to be used on pointers,
+          but you can define what it means when it's being used on objects
+          of your own class. In our case, <code>Primitive</code> overloads
+          <code>-&gt;</code> such that it "redirects" you automatically towards the implementation object.
+          This means that instead of having to write <code>primitive.getImplementation()->doSomethingUseful()</code>,
+          you can use the shorter notation <code>primitive->doSomethingUseful()</code>.
+        </p>
+        <p>
+          In summary, whenever you're working with a wrapper type such as <code>Primitive</code>, <code>Material</code>,
+          <code>LightSource</code>, <code>Camera</code>, and so on, you should use the <code>-&gt;</code> operator to get
+          easy access to the "real object"'s functionality.
+      </section>
+
+      <section>
+        <h1>Rationale</h1>
+        <p>
+          Wrapper types are used where there are class hierarchies (i.e. inheritance) making use of
+          dynamic dispatch (i.e. overriding member functions). Let's say there's a superclass <code>S</code> with
+          subclasses <code>A</code> and <code>B</code>. <code>S</code> defines a virtual method <code>m()</code>,
+          which is overriden in both subclasses.
+        </p>
+        <p>
+          Remember that in C++, overriding only works correctly when working with pointers:
+        </p>
+        <%= source 'using-pointers.cpp' %>
+        <p>
+          This means that you should never work with <code>S</code>, but instead with <code>S*</code>.
+          The problem with pointers is that they are quite brittle. A more robust solution would
+          be to rely on <code>std::shared_ptr</code>.
+        </p>
+        <%= source 'using-smart-pointers.cpp' %>
+        <p>
+          While this approach is technically better, it is also overly verbose.
+          Having to type <code>std::shared_ptr&lt;S&gt;</code> all the time
+          will become annoying very quickly.
+        </p>
+        <p>
+          Fortunately, C++ allows you to define type aliases. This way,
+          you can introduce a shorter name for <code>std::shared_ptr&lt;S&gt;</code>:
+        </p>
+        <%= source 'using-typedef.cpp' %>
+        <p>
+          In the design of our ray tracer, we went a step further:
+          we defined a separate helper class.
+        </p>
+        <%= source 'using-wrapper.cpp' %>
+        <p>
+          These helper classes (wrappers) are extensively relied upon in our ray tracer's design.
+          For example, the <code>primitives</code> module contains a hierarchy of classes
+          each representing different shapes and operations. These classes are private to the module,
+          i.e. code outside the module can't see the class hierarchy. The only class made public
+          is the wrapper class for the supertype, which in the case of the <code>primitives</code> module
+          is <code>Primitive</code>. To create specific kinds of primitives (e.g. a sphere or a cone),
+          the module also exposes factory functions:
+        </p>
+        <%= source 'module-api.cpp' %>
+        <p>
+          This design has the following advantages:
+        </p>
+        <ul>
+          <li>
+            The module's internal design can easily be changed without affecting the outside world.
+          </li>
+          <li>
+            You can pass primitives as arguments or return them without syntactic clutter.
+            The parameter type can just be <code>Primitive</code>, no need for pointers or references.
+          </li>
+          <li>
+            We can define operators on <code>Primitive</code>s. We didn't make use of this possibility
+            in the case of <code>Primitive</code>s, but we did for <code>Function</code>s.
+          </li>
+          <li>
+            It comes at no performance penalty.
+          </li>
+        </ul>
+      </section>
+    </div>
+  </body>
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
