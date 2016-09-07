@@ -5,3 +5,5 @@
 *.gif
 *.png
 *.html
+*.mesh
+*.bmesh
