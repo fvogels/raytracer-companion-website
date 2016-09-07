@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: File Organization</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin: 10px auto;
+      }
+
+      table {
+        border: 1px solid black;
+      }
+
+      table td {
+        padding-right: 1em;
+      }
+
+      table th {
+        text-align: left;
+        background: #AAA;
+        margin: 0.2em 1em;
+      }
+
+      dt {
+        font-weight: bold;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      
+      function initialize()
+      {
+        Box.initialize();
+      }
+
+      $( initialize );    
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">File Organization</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>File Organization</h1>
+        <p>
+          The ray tracer is built out of many different modules.
+          Each module is placed in its own subdirectory and its members (classes, functions)
+          reside in a separate namespace, akin to Java packages.
+        </p>
+        <p>
+          A module exposes only the bare minimum to the outside world.
+          You can compare this to a class: a class has to hide as much
+          as possible from its users, only making public what is truly necessary.
+          The less it makes public, the more it can change things internally afterwards.
+          You can apply the same principle to groups of classes:
+          some classes are meant to be seen by people outside the module,
+          but most should stay hidden as they are merely implementation detail.
+          You can compare this with the module having a "public facade".
+        </p>
+
+        <section>
+          <h2>Example: the Primitives Module</h2>
+          <p>
+            For example, the <code>primitives</code> module
+            lets you create geometric shapes such as spheres, planes, triangles, &hellip;
+            Internally, a sphere is implemented as a class,
+            but the module wants to hide this detail. Instead,
+            only an abstract type <code>Primitive</code> is made public
+            and a factory function which lets you create a sphere.
+            So, outside the <code>primitives</code> module,
+            you are limited to writing <code>Primitive primitive = sphere();</code>
+            You cannot directly create a Sphere-object (i.e. no <code>new Sphere()</code>),
+            and you cannot access <code>Sphere</code>-specific methods.
+          </p>
+          <p>
+            Each member of the <code>primitives</code> module resides in its pair of <code>.h</code>/<code>.cpp</code> files:
+          </p>
+          <table class="centered">
+            <thead>
+              <tr>
+                <th>Primitive</th>
+                <th>.h file</th>
+                <th>.h file</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sphere</td>
+                <td><code>primitives/sphere-primitive.h</code></td>
+                <td><code>primitives/sphere-primitive.cpp</code></td>
+              </tr>
+              <tr>
+                <td>Plane</td>
+                <td><code>primitives/plane-primitive.h</code></td>
+                <td><code>primitives/plane-primitive.cpp</code></td>
+              </tr>
+              <tr>
+                <td>Cube</td>
+                <td><code>primitives/cube-primitive.h</code></td>
+                <td><code>primitives/cube-primitive.cpp</code></td>
+              </tr>
+              <tr>
+                <td>Decorator</td>
+                <td><code>primitives/decorator-primitive.h</code></td>
+                <td><code>primitives/decorator-primitive.cpp</code></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            The <code>.cpp</code> file contains the implementation details. The <code>.h</code> file
+            determines what is made public. Generally, each <code>.h</code> only exposes factory functions:
+          </p>
+          <table class="centered">
+            <thead>
+              <tr>
+                <th>.h file</th>
+                <th>Exposes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>primitives/sphere.h</td>
+                <td><code>Primitive raytracer::primitives::sphere()</code></td>
+              </tr>
+              <tr>
+                <td>primitives/plane.h</td>
+                <td><code>Primitive raytracer::primitives::xy_plane()</code></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>Primitive raytracer::primitives::xz_plane()</code></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>Primitive raytracer::primitives::yz_plane()</code></td>
+              </tr>
+              <tr>
+                <td>primitives/cube.h</td>
+                <td><code>Primitive raytracer::primitives::cube()</code></td>
+              </tr>
+              <tr>
+                <td>primitives/decorator.h</td>
+                <td><code>Primitive raytracer::primitives::decorator(Material, Primitive)</code></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Say you're writing code that relies on spheres, planes and decorators. You would
+            have to <code>#include</code> their respective header files. Most probably
+            you will need other classes too, such as materials, lights, cameras, meaning
+            you'd have more <code>#include</code>-ing to do. This can become bothersome
+            quite quickly, which is why modules generally also offer a separate header file
+            that includes all other header files from the module.
+          </p>
+          <p>
+            For example, the <code>primitives</code> module provides you with
+            <code>primitives/primitives.h</code>, which is nothing more than a list of includes:
+          </p>
+          <%= source 'primitives.h' %>
+          <p>
+            So, instead of having to <code>#include</code> every primitive, material, light and camera
+            separately, you can just <code>#include</code> <code>primitives/primitives.h</code>,
+            <code>materials/materials.h</code>, <code>lights/lights.h</code> and <code>camera/cameras.h</code>.
+          </p>
+        </section>
+
+        <section>
+          <h2>Overview of Modules</h2>
+          <p>
+            Here's an incomplete list of the modules:
+          </p>
+          <table class="centered">
+            <thead>
+              <tr>
+                <th>Module name</th>
+                <th>Files location</th>
+                <th>Namespace</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Animation</td>
+                <td>animation/</td>
+                <td><code>animation</code></td>
+              </tr>
+              <tr>
+                <td>Cameras</td>
+                <td>cameras/</td>
+                <td><code>raytracer::cameras</code></td>
+              </tr>
+              <tr>
+                <td>Light</td>
+                <td>lights/</td>
+                <td><code>raytracer::lights</code></td>
+              </tr>
+              <tr>
+                <td>Primitives</td>
+                <td>primitives/</td>
+                <td><code>raytracer::primitives</code></td>
+              </tr>
+              <tr>
+                <td>Ray tracers</td>
+                <td>raytracers/</td>
+                <td><code>raytracer::raytracers</code></td>
+              </tr>
+              <tr>
+                <td>Renderers</td>
+                <td>renderers/</td>
+                <td><code>raytracer::renderers</code></td>
+              </tr>
+              <tr>
+                <td>Scripting</td>
+                <td>scripting/</td>
+                <td><code>raytracer::scripting</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </div>
+  </body>
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
