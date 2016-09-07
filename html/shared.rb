@@ -75,6 +75,13 @@ class SharedContext
       </video>
     END
   end
+
+  def link(relative_path_to_root, text)
+    absolute_path = Environment.git_root + 'html' + relative_path_to_root
+    current_path = Pathname.pwd
+               
+    %{<a href="#{absolute_path.relative_path_from current_path}/explanations.html">#{text}</a>}
+  end
 end
 
 def shared_metaobject(context = SharedContext.new)
@@ -87,7 +94,8 @@ def shared_metaobject(context = SharedContext.new)
 
   template_files = Dir['*.template']
   if template_files.size != 1 then
-    abort "Exactly one .template file expected"
+    STDERR.puts "Exactly one .template file expected in #{Dir.pwd}"
+    abort
   else
     template_file = template_files[0]
   end
