@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Multithreaded Looper</title>
+    <title>3DCG: Parallel Task Scheduler</title>
     <%= stylesheets('ucll', 'box') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
     <style>
@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Multithreaded Looper</div>
+      <div class="center-vertically">Parallel Task Scheduler</div>
     </header>
     <div id="contents">
       <section>
