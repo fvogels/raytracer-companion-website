@@ -236,7 +236,7 @@
         </p>
       </section>
       <section>
-        <h2>The Ray Tracer</h2>
+        <h1>The Ray Tracer</h1>
         <p>
           As mentioned before, the ray tracer is where the actual works gets done.
           It is responsible for following light rays around the scene and determining
@@ -303,7 +303,7 @@
       </section>
 
       <section>
-        <h2>Light Sources</h2>
+        <h1>Light Sources</h1>
         <p>
           Light sources specify where light comes from. Without them,
           the (standard) renderer would just produce a boring black bitmap.
@@ -336,7 +336,7 @@
       </section>
 
       <section>
-        <h2>Cameras</h2>
+        <h1>Cameras</h1>
         <p>
           After having defined which objects (primitives) the scene contains
           and what light sources there are, we need to specify a camera.
