@@ -313,6 +313,75 @@
         <p>
           There are multiple kinds of lights.
         </p>
+        <ul>
+          <li>
+            Omnidirectional point lights are the simplest: it's akin to an infinitely small
+            lamp that emits photons uniformly in all directions.
+          </li>
+          <li>
+            <%= link('extensions/lights/directional-light', 'Directional lights') %>
+            represents lights that are infinitely far away. For example,
+            sunlight can be approximated by a directional light.
+          </li>
+          <li>
+            <%= link('extensions/lights/spot-lights', 'Spotlights') %>
+            are point lights that only shine in a specific direction.
+          </li>
+          <li>
+            <%= link('extensions/lights/area-light', 'Area lights') %>
+            make lights a bit more realistic: they're not infinitely small anymore.
+            This results in soft shadows (penumbras).
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Cameras</h2>
+        <p>
+          After having defined which objects (primitives) the scene contains
+          and what light sources there are, we need to specify a camera.
+        </p>
+        <p>
+          The most obvious effect a camera has on the final result is that
+          its location determines from what point of view the scene
+          is rendered. For example, we can put the camera high in the sky or low to the ground.
+          In the RayTracer, the location of the camera is represented by a <code>Point3D</code> and
+          generally referred to as the eye's position.
+        </p>
+        <p>
+          We of course also need to specify the camera's orientation: what is it looking at?
+          In the RayTracer, this corresponds to the <code>look_at</code>, of type <code>Point3D</code>.
+        </p>
+        <p>
+          Even with the position and the look_at point, the orientation of the camera is not yet fully determined:
+          it is possible to tilt the camera. For example, you can choose to turn the camera upside down.
+          How the camera is positioned is determined by the <em>up-vector</em> (of type <code>Vector3D</code>). If you
+          want the camera to stand up right, choose $(0, 1, 0)$ as up-vector. To turn the camera upside down,
+          take $(0, -1, 0)$, etc.
+        </p>
+        <p>
+          Given this information, the camera will generate rays originating in the eye and going through each pixel
+          of the canvas/bitmap. The renderer will ask the ray tracer to follow each of these rays around the scene,
+          in order to determine what color photons arrive from that direction.
+        </p>
+        <p>
+          However, there is no single way of generating these rays, each way corresponding to a different type of camera.
+        </p>
+        <ul>
+          <li>
+            The perspective camera is the one you are most familiar with: your eye works the same way.
+          </li>
+          <li>
+            <%= link 'extensions/cameras/orthographic', 'Orthographic cameras' %> is a camera without perspective.
+          </li>
+          <li>
+            <%= link 'extensions/cameras/fisheye', 'Fisheye cameras' %> add a spherical quality to rendering.
+          </li>
+          <li>
+            <%= link 'extensions/cameras/depth-of-field', 'Depth of field' %> is a perspective camera but with depth of field added to it,
+            so that out-of-focus shapes are blurred.
+          </li>
+        </ul>
       </section>
     </div>
   </body>
