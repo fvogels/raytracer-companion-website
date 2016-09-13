@@ -300,6 +300,11 @@
             <%= link('extensions/primitives/difference', 'Difference') %>
           </li>
         </ul>
+        <p>
+          A more abstract kind of primitive is the bounding box accelerator, which
+          is invisible but allows to dramatically speed up ray tracing,
+          enabling the rendering of scenes involving <%= link 'extensions/primitives/mesh', 'millions of primitives' %>.
+        </p>
       </section>
 
       <section>
