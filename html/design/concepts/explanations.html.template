@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Design</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin: 10px auto;
+      }
+
+      table th {
+        width: 30%;
+        text-align: left;
+        background: #AAA;
+        padding: 2px;
+      }
+
+      dt {
+        font-weight: bold;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      
+      function initialize()
+      {
+        Box.initialize();
+      }
+
+      $( initialize );    
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Design</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Ray Tracers</h1>
+        <p>
+          On this page, we introduce you to the central concepts of the ray tracer.
+          Before we start, we need to point out that "ray tracer" will have two meanings:
+        </p>
+        <ul>
+          <li>
+            Ray tracer can refer to the whole piece of software.
+          </li>
+          <li>
+            Ray tracer can also refer to the specific part that traces rays.
+          </li>
+        </ul>
+        <p>
+          To disambiguate between the two meanings, we'll write RayTracer when we mean
+          the whole, and ray tracer to designate the part.
+        </p>
+      </section>
+
+      <section>
+        <h1>Pipeline</h1>
+        <p>
+          A pipeline is a series of operations that are to be performed one after the other.
+          Each segment of a pipeline receives an input, processes it, and (generally) produces some output.
+          The different segments are linked together so that one's segment output is the next segment's input.
+          The simplest pipeline for our purposes is the one consisting of just one segment:
+        </p>
+        <%= tex_image 'pipeline' %>
+        <p>
+          This pipeline consists of just the renderer segment. A renderer takes a scene, renders it,
+          and outputs the results as a bitmap. Pipeline segments are showns as rectangles,
+          while the objects they receive or produce are represented by circles.
+        </p>
+        <p>
+          This pipeline is not very useful, as the bitmap exists only in memory and we'd prefer having it written to file.
+          There's a separate pipeline segment available to you for exactly this purpose:
+        </p>
+        <%= tex_image 'pipeline-with-wif' %>
+        <p>
+          Here, the bitmap produced by the renderer is passed on to the WIF pipeline segment, which
+          writes the bitmap to file. WIF is the name of the graphics file format (like jpeg or png).
+          The reason we use our own image format is to be able to easily output it (WIF is very simple) and supports animations.
+        </p>
+        <p>
+          There is no arrow leaving the WIF rectangle because it does not produce any output. You can
+          see it as a <code>void</code>-returning function. It takes the bitmap, writes it to file, and that's it.
+        </p>
+        <p>
+          A pipeline segment that accepts input is called a <em>consumer</em>. One that produces
+          output is called a <em>producer</em>. Most pipeline segments are both. WIF is one of the few
+          segments that is only a consumer, not a producer.
+        </p>
+        <p>
+          All functionality related to pipelines can be found in the <code>pipeline</code> module.
+          Examples of other pipeline segments are
+        </p>
+        <ul>
+          <li>
+            The animation pipeline segment belongs in front of the pipeline:
+            its purpose is to produce a sequence of scenes, each of which
+            represents a frame of an animation. Each scene then gets passed on to the renderer,
+            which produces a series of bitmaps. Stringing those bitmaps together produces a movie.
+          </li>
+          <li>
+            <%= link 'extensions/pipeline/bmp', 'BMP' %> produces BMP files instead of WIFs. While BMP might be
+            readable by most graphics programs, it does not support animations.
+          </li>
+          <li>
+            <%= link 'extensions/pipeline/ppm', 'PPM' %> produces PPM files instead of WIFs.
+            This makes it possible to produce "real" movies (mp4, animated gifs, &hellip;) using an external tool like <code>ffmpeg</code>.
+          </li>
+          <li>
+            <%= link 'extensions/pipeline/motion-blur', 'Motion blur' %> comes after the renderer and adds bitmaps together, thereby creating
+            a motion blur effect.
+          </li>
+          <li>
+            <%= link 'extensions/pipeline/inverter', 'Inverter' %> inverts the bitmaps produced by the renderer.
+          </li>
+          <li>
+            <%= link 'extensions/pipeline/overprint', 'Overprint' %> combines all bitmaps into one bitmap.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h1>Scene</h1>
+        <p>
+          A <em>scene</em> defines the virtual world and the camera we use to take a picture of it.
+          For example, consider the picture below:
+        </p>
+        <%= raytrace 'scene' %>
+        <p>
+          This rather boring scene consists of two reflective spheres, one red and one blue.
+          It also contains a light that shines from the upper right (notice the bright spots on both spheres.)
+          Lastly, the scene also defines where the camera is located, i.e. right in front the two spheres.
+        </p>
+        <section>
+          <h2>Anatomy of a Scene</h2>
+          <p>
+            We define what a scene is more formally. A scene has three components:
+          </p>
+          <dl>
+            <dt>Root</dt>
+            <dd>
+              The root defines all the shapes in the scene. In the example above,
+              the root is what defines the location, size and color of both spheres.
+            </dd>
+            <dt>
+              Light Sources
+            </dt>
+            <dd>
+              A list of all light sources. In the example above,
+              there is one white light located to the upper right.
+            </dd>
+            <dt>
+              Camera
+            </dt>
+            <dd>
+              The location and orientation of the camera.
+              In the example above, the camera is placed in front
+              of the two spheres and looks straight at them.
+            </dd>
+          </dl>
+        </section>
+      </section>
+      <section>
+        <h1>Renderer</h1>
+        <p>
+          The renderer's purpose in life is turning scenes into bitmaps.
+          There are different types of renderers, each of which
+          will produce a different rendition of the scene.
+          The picture above was produced by the standard renderer,
+          which performs no fancy tricks. Other renderers are
+        </p>
+        <ul>
+          <li>
+            The <%= link 'extensions/renderers/cartoon', 'Cartoon Renderer' %>
+            gives the scene a cartoony look.
+          </li>
+          <li>
+            The <%= link 'extensions/renderers/edge', 'Edge Renderer' %>
+            only draws the edges of objects.
+          </li>
+          <li>
+            The <%= link 'extensions/renderers/split-depth', 'Split Depth Renderer' %>
+            produces <a href="https://www.reddit.com/r/SplitDepthGIFS/">split depth animations</a>.
+          </li>
+        </ul>
+        <p>
+          Different types of renderers have different components, so for now we will
+          pretend only the standard renderer exists.
+          Go find the declaration for the factory function in the code.
+          It is located in de renderers module, in the file <code>standard-renderer.h</code>.
+          As you see, it requires the following inputs:
+        </p>
+        <dl>
+          <dt>Image size</dt>
+          <dd>The size of the output image. The example above has size 500&times;300.</dd>
+          <dt>Sampler</dt>
+          <dd>
+            This is a more advanced feature which will be explained later in greater detail.
+            Suffice it to say that it determines image quality. To create a sampler,
+            you can look what factory functions are available in the
+            <code>raytracer::samplers</code> namespace.
+          </dd>
+          <dt>Ray tracer</dt>
+          <dd>
+            Which ray tracer to be used. This is the actual work horse: it is the ray
+            tracer that performs the heavy duty work of determining colors, shadows, reflections, etc.
+            The renderer basically just asks the ray tracer to determine what
+            color light enters from a certain direction, and
+            the renderer will then paint the corresponding pixel in that color.
+            We will discuss ray tracers in detail shortly.
+          </dd>
+          <dt>Task scheduler</dt>
+          <dd>
+            Like samplers, this is more advanced stuff. A <em>task</em> is a unit of work that needs
+            to be performed. Ray tracing involves many such units of work. The <em>task scheduler</em>
+            will, given a list of tasks, perform them. So, in essence, it's just an object faking a loop.
+            What makes it interesting is that a 
+            <%= link('extensions/performance/parallel-task-scheduler', 'more advanced scheduler') %>
+            will be able to assign tasks to different threads, thereby performing the tasks in parallel,
+            resulting in a large performance boost.
+          </dd>
+        </dl>
+        <p>
+          Once you've created a renderer, you can feed it a scene using the <code>render</code> method
+          (see renderers/renderer.h), and it will give you a nice bitmap in return.
+        </p>
+      </section>
+      <section>
+        <h2>The Ray Tracer</h2>
+        <p>
+          As mentioned before, the ray tracer is where the actual works gets done.
+          It is responsible for following light rays around the scene and determining
+          the color of each object, taking into account lights, materials, reflection, refraction, etc.
+          We won't develop all these features in one go but instead incrementally.
+        </p>
+        <p>
+          Here's a list of the ray tracer extensions. Each is built upon the previous one.
+        </p>
+        <ul>
+          <li><%= link('extensions/ray-tracers/v1', 'v1') %>: everything is lit the same</li>
+          <li><%= link('extensions/ray-tracers/v2', 'v2') %>: light position is taken into account</li>
+          <li>
+            <%= link('extensions/ray-tracers/v3', 'v3') %>: specular highlights,
+            i.e. the shiny highlights giving a more metallic look</li>
+          <li><%= link('extensions/ray-tracers/v4', 'v4') %>: shadows</li>
+          <li><%= link('extensions/ray-tracers/v5', 'v5') %>: reflection</li>
+          <li><%= link('extensions/ray-tracers/v6', 'v6') %>: refraction</li>
+        </ul>
+        <p>
+          Go take a look in raytracers/ray-tracer.h and you'll find that ray tracers offers
+          only a single method: <code>trace</code>.
+          This method takes two parameters: a scene and a ray. The ray tracer then traces the ray, i.e. computes
+          what object in the scene it hits and finds out what color the object has at that point.
+          If the object is transparent, the ray tracer will (if it supports refraction at least) compute
+          how the ray passes through the object. If the object is reflective, the ray tracer must
+          compute in which direction the ray gets reflected, and so on.
+        </p>
+      </section>
+      <section>
+        <h1>Primitives</h1>
+        <p>
+          As discussed previously, the scene consists of lights, a camera and a root,
+          where the root is that part of the scene that describes the actual objects
+          in 3D space. The root is built out of primitives.
+        </p>
+        <p>
+          The primitives are the building blocks for scenes. Examples are
+        </p>
+        <ul>
+          <li>Spheres</li>
+          <li><%= link('extensions/primitives/plane', 'Planes') %></li>              
+          <li><%= link('extensions/primitives/cylinder', 'Cylinders') %></li>
+          <li><%= link('extensions/primitives/cone', 'Cones') %></li>
+          <li><%= link('extensions/primitives/triangle', 'Triangles') %></li>
+          <li><%= link('extensions/primitives/disk', 'Disks') %></li>
+          <li><%= link('extensions/primitives/square', 'Squares') %></li>
+          <li><%= link('extensions/primitives/cube', 'Cubes') %></li>
+        </ul>
+        <p>
+          You can also combine primitives, yielding new primitives:
+        </p>
+        <ul>
+          <li>
+            <%= link('extensions/primitives/union', 'Unions') %>
+          </li>
+          <li>
+            <%= link('extensions/primitives/intersection', 'Intersections') %>
+          </li>
+          <li>
+            <%= link('extensions/primitives/difference', 'Difference') %>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Light Sources</h2>
+        <p>
+          Light sources specify where light comes from. Without them,
+          the (standard) renderer would just produce a boring black bitmap.
+          If that's all we wanted, we wouldn't go to the trouble
+          of defining cameras and primitives and all that.
+        </p>
+        <p>
+          There are multiple kinds of lights.
+        </p>
+      </section>
+    </div>
+  </body>
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
