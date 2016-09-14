@@ -581,6 +581,88 @@
         </section>
         <section>
           <h2>bounding_box</h2>
+          <p>
+            Compared to <code>find_all_hits</code>, <code>bounding_box</code> is quite easy.
+            The only thing it must do is return a <em>bounding box</em>, i.e. a box
+            that encompasses the entire primitive:
+          </p>
+          <%= tex_image 'bounding-box' %>
+          <p>
+            The box should be as small as possible, yet still completely contain the primitive.
+            The best box is colored green. The orange ones are acceptable, the red ones are plain wrong.
+          </p>
+          <p>
+            A bounding box is used to speed up the rendering process.
+            Say you have a very complex shape S which is built from millions of triangles, meaning that finding intersections with it
+            is computationally expensive: you have to look for intersection with each triangle in turn.
+            Let's also assume this complex shape S will only cover a small
+            part of the final result, meaning that most rays will miss S.
+          </p>
+          <p>
+            We can make use of bounding boxes as follows to speed up the process: we build a box around
+            all millions of triangles. The <code>find_all_hits</code> function will, instead
+            of immediately collecting all hits with all triangles, first perform a quick check:
+            does the ray hit the box? If it does not, we can safely say that it won't hit any of the triangles.
+            We've just avoided having to perform millions of computations.
+          </p>
+          <%= tex_image 'bb-miss' %>
+
+          <section>
+            <h3>bounding_box on spheres</h3>
+            <p>
+              Let's take a look at how the <code>bounding_box</code> function might be implemented for different primitives.
+              For spheres, it's quite simple: we know the sphere has radius 1, so we build a box around it with corners
+              $(-1,-1,-1)$ and $(1,1,1)$.
+            </p>
+          </section>
+          
+          <section>
+            <h3>bounding_box on decorators</h3>
+            <p>
+              A decorator does not change anything about its child's shape, so it can directly reuse its child bounding box
+              without modifications. Do remember that a bounding box is invisible, so material does not matter.
+            </p>
+          </section>
+
+          <section>
+            <h3>bounding_box on transformers</h3>
+            <p>
+              There is a bit of hidden complexity here. At first glance, you might think implementing
+              <code>bounding_box</code> on transformers is simple: just transform the bounding box.
+              There are, however, two issues.
+            </p>
+            <p>
+              Bounding boxes need to be very efficient: we want to be able to tell
+              whether a ray hits a box very quickly. This is why we chose to make bounding
+              boxes axis-aligned, meaning each side of the box needs to be parallel to either one of the X, Y or Z axis.
+              If we allow any kind of box orientation, the is-there-a-hit algorithm would be much slower.
+            </p>
+            <p>
+              Translating an axis-aligned bounding box yields another axis-aligned bounding box, so no problems there.
+              The same is true for scaling. Rotation, however, is another matter:
+            </p>
+            <%= 'bb-rotation' %>
+            <p>
+              The tilted box is not axis aligned anymore, so we need to build a new bounding box around it (dashed).
+              While this is not difficult, it does require a fair amount of calculations.
+            </p>
+            <p>
+              The second issue arises with infinite bounding boxes. Planes, cylinders and cones are infinitely large,
+              so their bounding boxes must be too. Computations involving infinite values, however,
+              tend to go awry. This can be solved by
+            </p>
+            <ul>
+              <li>
+                first checking whether the bounding box is infinite, and if so, turn to a specialized algorithm. The safest
+                way is to return a box with corners $(-\infty, -\infty, -\infty)$ and $(\infty, \infty, \infty)$.
+                Technically, this box is always correct, but will slow down the rendering.
+              </li>
+              <li>
+                Make the infinite primitive finite, for example using a <%= link 'extensions/primitives/cropper', 'cropper' %>.
+              </li>
+            </ul>
+          </section>
+          
         </section>
       </section>
     </div>
