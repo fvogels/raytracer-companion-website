@@ -4,11 +4,11 @@ namespace raytracer
   namespace primitives
   {
     std::shared_ptr<Primitive> sphere();
-    std::shared_ptr<Primitive> translate(double x, double y, double z, std::shared_ptr<Primitive> transformee);
+    std::shared_ptr<Primitive> translate(const Vector3D& v, std::shared_ptr<Primitive> transformee);
     std::shared_ptr<Primitive> scale(double x, double y, double z, std::shared_ptr<Primitive> transformee);
-    std::shared_ptr<Primitive> rotate_around_x(double angle, std::shared_ptr<Primitive> transformee);
-    std::shared_ptr<Primitive> rotate_around_y(double angle, std::shared_ptr<Primitive> transformee);
-    std::shared_ptr<Primitive> rotate_around_z(double angle, std::shared_ptr<Primitive> transformee);
+    std::shared_ptr<Primitive> rotate_around_x(Angle angle, std::shared_ptr<Primitive> transformee);
+    std::shared_ptr<Primitive> rotate_around_y(Angle angle, std::shared_ptr<Primitive> transformee);
+    std::shared_ptr<Primitive> rotate_around_z(Angle angle, std::shared_ptr<Primitive> transformee);
   }
 }
 

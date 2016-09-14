@@ -4,11 +4,11 @@ namespace raytracer
   namespace primitives
   {
     Primitive* sphere();
-    Primitive* translate(double x, double y, double z, Primitive* transformee);
+    Primitive* translate(const Vector3D& v, Primitive* transformee);
     Primitive* scale(double x, double y, double z, Primitive* transformee);
-    Primitive* rotate_around_x(double angle, Primitive* transformee);
-    Primitive* rotate_around_y(double angle, Primitive* transformee);
-    Primitive* rotate_around_z(double angle, Primitive* transformee);
+    Primitive* rotate_around_x(Angle angle, Primitive* transformee);
+    Primitive* rotate_around_y(Angle angle, Primitive* transformee);
+    Primitive* rotate_around_z(Angle angle, Primitive* transformee);
   }
 }
 

@@ -7,11 +7,11 @@ namespace raytracer
     using PPrimitive = std::shared_ptr<Primitive>;
     
     PPrimitive sphere();
-    PPrimitive translate(double x, double y, double z, PPrimitive transformee);
+    PPrimitive translate(const Vector3D& v, PPrimitive transformee);
     PPrimitive scale(double x, double y, double z, PPrimitive transformee);
-    PPrimitive rotate_around_x(double angle, PPrimitive transformee);
-    PPrimitive rotate_around_y(double angle, PPrimitive transformee);
-    PPrimitive rotate_around_z(double angle, PPrimitive transformee);
+    PPrimitive rotate_around_x(Angle angle, PPrimitive transformee);
+    PPrimitive rotate_around_y(Angle angle, PPrimitive transformee);
+    PPrimitive rotate_around_z(Angle angle, PPrimitive transformee);
   }
 }
 

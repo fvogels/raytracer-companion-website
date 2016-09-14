@@ -181,7 +181,7 @@
             This is quite an intimidating formula. If, however, we choose to only support vertical cylinders (i.e. $\vec N = (0, 1, 0)$ and $P = (0,0,0)$) with radius 1 ($R = 1$), this formula can be simplified considerably.
           </p>
           <p>
-            In summary, although this approach requires us to write more classes, they are much easier to write since they
+            So, although this approach requires us to write more classes, they are much easier to write since they
             each have very limited responsibilities. Each class can also be tested separately, further simplifying our job.
           </p>
         </section>
@@ -299,7 +299,7 @@
         </p>
         <%= tex_image('shape-hierarchy', html_class:'centered', style: 'width: 30%;') %>
         <p>
-          Things get more interesting with transformations. A transformation is something that takes a <code>Primitive</code>
+          Things get more interesting with transformers. A transformer is something that takes a <code>Primitive</code>
           and is in itself also a <code>Primitive</code>. Compare this to mathematical operators: the addition
           takes two values, and is in itself also a value.
         </p>
@@ -309,10 +309,10 @@
         </p>
         <ul>
           <li>
-            Each <code>Transformation</code> object keeps a link to a <code>Primitive</code>.
+            Each <code>Transformer</code> object keeps a link to a <code>Primitive</code>.
           </li>
           <li>
-            Each <code>Transformation</code> object is itself a <code>Primitive</code>. This is where the power of the composite design pattern lies.
+            Each <code>Transformer</code> object is itself a <code>Primitive</code>. Herein lies the power of the composite design pattern lies.
           </li>
           <li>
             <code>Rotation</code> is split up into three specialized rotations: around the X-axis, around the Y-axis and around the Z-axis.
@@ -325,7 +325,7 @@
         </p>
         <%= source 'sphere-example.cpp' %>
         <p>
-          Because each transformation is in itself a primitive, we can keep applying multiple transformations in row. Without this recursiveness,
+          Because each transformer is in itself a primitive, we can keep applying multiple transformations in row. Without this recursiveness,
           we could not have translated the scaling.
         </p>
         <p>
@@ -358,10 +358,230 @@
           of <code>Primitive</code> being an alias for <code>std::shared_ptr&lt;PrimitiveImplementation&gt;</code>,
           it is a small <%= link 'design/wrappers', 'wrapper class' %>, but this makes almost no difference.
         </p>
+        <section>
+          <h2>The Truth About Transformers</h2>
+          <p>
+            We warned you we wouldn't be completely honest with you, but now it's time for the truth.
+            In the actual RayTracer's design, there is no transformer class hierarchy, but just one transformer class
+            which supports all transformations. This seemingly violates the single responsibility principle,
+            but rest assured, it does not.
+          </p>
+          <p>
+            What happened is that we traded in inheritance for composition. Compare it to creating a <code>Person</code> class,
+            where each <code>Person</code> has an age. While it is certainly possible to have a <code>Person</code> superclass
+            with subclasses <code>PersonAged1</code>, <code>PersonAged2</code>, <code>PersonAged3</code>, etc. you would
+            probably prefer to just use a single <code>Person</code> class with a member variable <code>age</code>.
+          </p>
+          <p>
+            The same principle applies to transformers, but instead of having an age, transformers have <em>transformation matrices</em>.
+            For reasons that will become apparent later, a transformer needs to be able to transform both ways. For example,
+            a transformer that doubles primitives in size also needs to know how to halve them back to their original size.
+            So, the transformer needs both a transformation matrix and its inverse. We group these two together in
+            a separate class called a <em>transformation</em>.
+          </p>
+          <p>
+            This all may seem quite confusing, so let's give a quick overview of the different concepts:
+          </p>
+          <ul>
+            <li>
+              A <em>transformation matrix</em> is a matrix representing a transformation. Internally, it is nothing but a bunch of numbers.
+              Transformation matrices are accessible through <code>math/transformation-matrices.h</code>.
+            </li>
+            <li>
+              A <em>transformation</em> groups two transformation matrices together, one representing the "forward" transformation,
+              the other the inverse. For example, a scaling transformation groups together these matrices:
+              \[
+                M =
+                \begin{bmatrix}
+                  2 & 0 & 0 & 0 \\
+                  0 & 2 & 0 & 0 \\
+                  0 & 0 & 2 & 0 \\
+                  0 & 0 & 0 & 1 \\
+                \end{bmatrix}
+                \qquad
+                M^{-1} =
+                \begin{bmatrix}
+                  1/2 & 0 & 0 & 0 \\
+                  0 & 1/2 & 0 & 0 \\
+                  0 & 0 & 1/2 & 0 \\
+                  0 & 0 & 0 & 1 \\
+                \end{bmatrix}
+              \]
+              Transformations are declared in <code>math/transformation3d.h</code>.
+            </li>
+            <li>
+              A <em>transformer</em> takes a transformation and a primitive and applies the former on the latter.
+              You can find its declaration in <code>primitives/transformer-primitive</code>.
+            </li>
+          </ul>
+          <%= tex_image 'scale-objects' %>
+        </section>
       </section>
       
       <section>
         <h1>Functionality</h1>
+        <p>
+          We've discussed what the primitive class hierarchy looks like, but we ignored what member functions were
+          necessary. In other words, given that <code>PrimitiveImplementation</code> is the superclass of all
+          primitives, what are its member functions?
+        </p>
+        <p>
+          You'll be happy to learn that for each primitive, you only need to implement a grand total of two member functions:
+        </p>
+        <ul>
+          <li>
+            <code>std::vector&lt;std::shared_ptr&lt;Hit&gt;&gt; find_all_hits(const Ray&amp; ray) const</code>
+            computes where the <%= link 'glossary/math/ray', 'ray' %> hits the primitive.
+          </li>
+          <li>
+            <code>Box bounding_box() const</code> returns a 3D box that should be barely large enough to contain the whole primitive.
+          </li>
+        </ul>
+        <p>
+          A third member function, <code>find_first_positive_hit</code>, can optionally be overridden for optimization purposes.
+          If you do not override it, it will fall back on its default implementation, i.e. calling <code>find_all_hits</code>
+          and returning the first positive hit. It should be obvious that writing a separate algorithm
+          that specializes in only finding the first positive hit should work much faster than one that computes all hits.
+        </p>
+        <section>
+          <h2>find_all_hits</h2>
+          <p>
+            Finding all hits between a ray and a primitive is the hardest part of writing the RayTracer, as it involves
+            a bit of math. Fortunately for you, you will not have to derive the necessary formulae; we will just give them to you.
+            It will be up to you to translate a mathematical expression into C++ code.
+          </p>
+          <section>
+            <h3>find_all_hits for spheres</h3>
+            <p>
+              As mentioned above, <code>find_all_hits</code>'s job is to determine where a <%= link 'glossary/math/ray', 'ray' %> hits the primitive.
+              Let's consider the case of a sphere:
+            </p>
+            <%= tex_image 'find-all-hits' %>
+            <p>
+              The ray (yellow) hits the sphere in two locations $H_1$ and $H_2$. For each hit, the following information has to be computed:
+            </p>
+            <ul>
+              <li>
+                The <%= link 'glossary/math/ray', '$t$-value' %> indicating where on the ray the intersection is positioned. If $t &gt; 0$,
+                the hit is located in front of the ray's origin, which is generally the intersection we are interested in.
+              </li>
+              <li>
+                The local position: where on the sphere the hit is located, expressed in the sphere's own coordinate system.
+              </li>
+              <li>
+                The (global) position: where the hit is located, expressed in the world's coordinate system.
+              </li>
+              <li>
+                The normal vector: a vector of length 1 that is perpendicular on the sphere at the hit position.
+              </li>
+              <li>
+                The material: what material the primitive is made of at that point.
+              </li>
+              <li>
+                The group id: this allows you to specify which primitives form a whole. This is important for <%= link 'extensions/renderers/cartoon', 'edge detection' %>.
+              </li>
+            </ul>
+            <p>
+              The difference between the local and the global position only becomes apparent when primitives are moved around.
+              Say, for example, that the ray goes through the top of the sphere. The sphere itself is centered at $(0,0,0)$.
+              Both the local and global position are then equal to $(0,1,0)$. If we were to move the sphere to $(5,1,2)$,
+              the local position would still be $(0,1,0)$, but the global
+              position would become $(5,2,2)$. In other words, the local hit position is not affected by transformations, but
+              the global position is.
+            </p>
+            <p>
+              All these pieces of information correspond to member variables of the RayTracer's <code>Hit</code> structure.
+              A primitive does not have to update each field, but only those that apply to the primitive in question.
+              A sphere primitive will have to fill out the t-value, the local and global position, and the normal.
+              The material and group id are ignored: these are the responsibility of other primitives (namely
+              the decorator and group primitive, respectively.)
+            </p>
+          </section>
+          <section>
+            <h3>find_all_hits for decorators</h3>
+            <p>
+              Let's now consider the decorator primitive. A decorator object has two member variables:
+            </p>
+            <ul>
+              <li>
+                The child primitive: the primitive being decorated.
+              </li>
+              <li>
+                The material: the "paint" used to decorate the child primitive.
+              </li>
+            </ul>
+            <p>
+              So, how does <code>find_all_hits</code> work in the case of decorators? It's very simple:
+              since a primitive and a decorated primitive have exactly the same shape,
+              the hits will also be the same. This means that a decorator object can simply
+              ask its child primitives for its hit list. Go take a look at the code to see how this happens.
+            </p>
+            <p>
+              Once the decorator gets hold of the hit list returned by the child primitive,
+              it has to update the <code>Hit</code> objects somehow, otherwise the decorator wouldn't be much use.
+              For every hit in the list, it updates the material member variable, thereby
+              assigning a material to the hit.
+            </p>
+          </section>
+          <section>
+            <h3>find_all_hits for transformers</h3>
+            <p>
+              A transformer primitive has two components: a transformation (which in turn keeps 2 matrices)
+              and a primitive. What does a transformer need to do when asked for its hit list?
+            </p>
+            <p>
+              To better understand what happens, let's again venture into a completely different situation.
+              Say you want to make a monster movie about a 100m tall monster, but you only have
+              the budget to buy a small 10cm stuffed animal. How do you make it look big and terrifying?
+              The answer is simple: you place the camera very low to the ground and make it look up
+              towards your stuffed animal.
+            </p>
+            <p>
+              In our RayTracer, the same problem arises: we only support small spheres, yet we need
+              to make it look big. Instead of growing the sphere, we choose to shrink the camera.
+              Earlier we mentioned the transformer also needed the inverse transformation:
+              this is the reason why. If we want to enlarge a primitive 20 times, we need to be able
+              to miniaturize the camera 20 times.
+            </p>
+            <p>
+              Say a transformer is initialized with matrices $M$ and $M^{-1}$. When asked to give a list of hits,
+              it proceeds as follows:
+            </p>
+            <ol>
+              <li>
+                It performs the inverse transformation on the ray, using $M^{-1}$.
+              </li>
+              <li>
+                It asks the child primitive for all hits with this transformed ray.
+              </li>
+              <li>
+                It transforms each hit using $M$.
+              </li>
+            </ol>
+            <p>
+              Let's apply this on an example:
+            </p>
+            <%= tex_image 'transformer-hits' %>
+            <p>
+              We have a sphere with radius 3 (solid white circle), which is actually a regular sphere of radius 1 (dashed white circle) scaled by a factor 3.
+              We want to find the intersections of the ray $O + \vec\Delta t$ with this big sphere (lower yellow line).
+            </p>
+            <ol>
+              <li>
+                We shrink the ray by a factor 3. This gives the ray $O' + \vec\Delta' t$ (upper yellow line).
+              </li>
+              <li>
+                We ask the small sphere for its intersections. It returns $H'_1$ and $H'_2$.
+              </li>
+              <li>
+                We "enlarge" these hits, giving $H_1$ and $H_2$, which are returned by the transformer's <code>find_all_hits</code> member function.
+              </li>
+            </ol>
+          </section>
+        </section>
+        <section>
+          <h2>bounding_box</h2>
+        </section>
       </section>
     </div>
   </body>
