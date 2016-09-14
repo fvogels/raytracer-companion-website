@@ -641,7 +641,7 @@
               Translating an axis-aligned bounding box yields another axis-aligned bounding box, so no problems there.
               The same is true for scaling. Rotation, however, is another matter:
             </p>
-            <%= 'bb-rotation' %>
+            <%= tex_image 'bb-rotation' %>
             <p>
               The tilted box is not axis aligned anymore, so we need to build a new bounding box around it (dashed).
               While this is not difficult, it does require a fair amount of calculations.
