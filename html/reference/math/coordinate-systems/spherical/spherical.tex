@@ -1,0 +1,39 @@
+\documentclass{standalone}
+\usepackage{tikz,tikz-3dplot}
+
+\usetikzlibrary{math}
+
+\begin{document}
+
+\tdplotsetmaincoords{-20}{0}
+\begin{tikzpicture}[tdplot_main_coords]
+  \tikzmath{
+    real \x;
+    real \y;
+    real \z;
+    \x = 1;
+    \y = 3;
+    \z = 3;
+  }
+  \tdplotsetrotatedcoords{0}{-30}{0}
+
+  \draw[thin,-latex,tdplot_rotated_coords] (-2,0,0) -- (3,0,0) node[above] {X};
+  \draw[thin,-latex,tdplot_rotated_coords] (0,-2,0) -- (0,3,0) node[above] {Y};
+  \draw[thin,-latex,tdplot_rotated_coords] (0,0,-2) -- (0,0,4) node[above] {Z};
+
+
+  \draw[tdplot_rotated_coords,fill=black] (\x,\y,\z) circle [radius=0.05cm];
+
+  \draw[thin,dashed,tdplot_rotated_coords] (\x,\y,\z) -- (\x,0,\z);
+  \draw[thin,dashed,tdplot_rotated_coords] (\x,0,\z) -- (0,0,\z);
+  \draw[thin,dashed,tdplot_rotated_coords] (\x,0,\z) -- (\x,0,0);
+  \draw[thin,dashed,tdplot_rotated_coords] (\x,\y,\z) -- (0,0,0);
+  \draw[thin,dashed,tdplot_rotated_coords] (\x,0,\z) -- (0,0,0);
+
+  \node[anchor=south,tdplot_rotated_coords] at (0,0,0) {O};
+  \node[anchor=south,tdplot_rotated_coords] at (\x,\y,\z) {P};
+  \node[anchor=north,tdplot_rotated_coords] at (\x,0,\z) {Q};
+  \node[anchor=south west,tdplot_rotated_coords] at (\x,0,0) {R};
+\end{tikzpicture}
+
+\end{document}

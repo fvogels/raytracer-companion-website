@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Points and Vectors</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'underscore', 'box') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.tabular {
+        border-collapse; collapse;
+      }
+
+      table.tabular tr:first-child {
+        background: #AAA;
+      }
+
+      table.tabular th {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      table.tabular td {
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Points and Vectors</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Spherical Coordinates</h1>
+        <p>
+          Spherical coordinates are similar to <%= link 'reference/math/coordinate-systems/polar', 'polar coordinates' %>,
+          except for the fact that these are used in 3D space.
+        </p>
+        <%= tex_image 'spherical' %>
+        <p>
+          Spherical coordinates consist of three components:
+        </p>
+        <ul>
+          <li>
+            The <em>azimuth angle</em> indicates in which direction on the horizontal plane the point lies.
+            This angle varies from 0&deg; and 360&deg (or -180&deg; and +180&deg;, which is exactly the same, since -90&deg; equals 270&deg; etc.) The angle is measured counterclockwise.
+            On the above figure, ROQ is the azimuth angle and should be approximately -60&deg;.
+          </li>
+          <li>
+            The <em>elevation angle</em> corresponds to the angle between OP and the vertical plane. It varies between -90&deg; and +90&deg;.
+            On the figure, QOP is the elevation angle and is about +60&deg;.
+          </li>
+          <li>
+            The <em>radius</em> tells you how far away the point lies in the direction specified by the azimuth and elevation angles.
+            On the figure, the radius corresponds to the distance |OP|.
+          </li>
+        </ul>          
+        
+        <div class="boxed" data-category="example">
+          <p>
+            Say you are located at the origin (0,0,0).
+            To the left of you is a 5km height mountain. It is 100km away.
+          </p>
+          <ul>
+            <li>
+              The Cartesian coordinates of the top are (-100, 5, 0).
+            </li>
+            <li>
+              The spherical coordinates are
+              <ul>
+                <li>
+                  Azimuth angle: 90&deg; because the mountain top is to your left.
+                </li>
+                <li>
+                  Elevation angle: 16&deg; because the top is higher.
+                </li>
+                <li>
+                  Radius: 100.125 which is the distance between you and the mountain top.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <p>
+          More information can be found on <a href="https://en.wikipedia.org/wiki/Spherical_coordinate_system">Wikipedia</a>.
+          Note that there are many ways to define spherical coordinates. For example, it is possible to replace
+          the elevation angle by the zenith angle, which corresponds to the angle between the $Y$ axis and $OP$.
+          In this course, we choose to work with the elevation angle.
+        </p>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+    }
+
+    $( initialize );    
+  </script>
+
+</html>
