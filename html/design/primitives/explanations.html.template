@@ -431,7 +431,7 @@
         <ul>
           <li>
             <code>std::vector&lt;std::shared_ptr&lt;Hit&gt;&gt; find_all_hits(const Ray&amp; ray) const</code>
-            computes where the <%= link 'glossary/math/ray', 'ray' %> hits the primitive.
+            computes where the <%= link 'reference/math/ray', 'ray' %> hits the primitive.
           </li>
           <li>
             <code>Box bounding_box() const</code> returns a 3D box that should be barely large enough to contain the whole primitive.
@@ -453,7 +453,7 @@
           <section>
             <h3>find_all_hits for spheres</h3>
             <p>
-              As mentioned above, <code>find_all_hits</code>'s job is to determine where a <%= link 'glossary/math/ray', 'ray' %> hits the primitive.
+              As mentioned above, <code>find_all_hits</code>'s job is to determine where a <%= link 'reference/math/ray', 'ray' %> hits the primitive.
               Let's consider the case of a sphere:
             </p>
             <%= tex_image 'find-all-hits' %>
@@ -462,7 +462,7 @@
             </p>
             <ul>
               <li>
-                The <%= link 'glossary/math/ray', '$t$-value' %> indicating where on the ray the intersection is positioned. If $t &gt; 0$,
+                The <%= link 'reference/math/ray', '$t$-value' %> indicating where on the ray the intersection is positioned. If $t &gt; 0$,
                 the hit is located in front of the ray's origin, which is generally the intersection we are interested in.
               </li>
               <li>
