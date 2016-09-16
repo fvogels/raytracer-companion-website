@@ -46,206 +46,80 @@
     </header>
     <div id="contents">
       <section>
-        <h1>Points</h1>
+        <h1>Definition</h1>
         <p>
-          A point is characterized by its location in space.
-          One way to specify this location is to rely on <em>coordinates</em>.
+          A <em>point</em> is an infinitely small "dot" whose sole characteristic is its location in space.
+          Two points at the same location are considered to be the same.
         </p>
-
+        <p>
+          A <em>vector</em> is the difference between two points.
+        </p>
+        <p>
+          To differentiate between points and vectors, we'll also use different naming conventions.
+          Point names will consist of a single capital letter ($P$, $Q$, $P_1$, &hellip;),
+          whereas vector shall be denoted using lowercase letters hatted with a fashionable arrow ($\vec u$, $\vec v$, &hellip;).
         <section>
-          <h2>2D Cartesian Coordinates</h2>
+          <h2>Analogy</h2>
           <p>
-            You most probably are already familiar with 2D Cartesian coordinates:
+            Let us pick two numbers at random, say 5 and 9. If we wish to compute their difference, or the "distance" between them,
+            we can subtract them, giving us 4, which is again a number. This means the difference between two numbers is a number.
           </p>
-          <%= tex_image '2d-cartesian' %>
-        </section>
-
-        <section>
-          <h2>Polar Coordinates</h2>
           <p>
-            Where 2D Cartesian coordinates consist of two numbers $x$ and $y$,
-            polar coordinates specify a location using an angle $\theta$;
-            and a radius $r$.
-            <ul>
-              <li>
-                The angle $\theta$ can vary from 0&deg; to 360&deg; and
-                indicates the direction in which to look.
-              </li>
-              <li>
-                The radius $r$ indicates how far away
-                in this direction the point is located.
-              </li>
-            </ul>
+            Let us now pick two dates: 8 September 2000 and 18 September 2000. What is the "distance" between them?
+            The difference is 10 <em>days</em>, which is obviously not a date. We can never express the
+            difference between two dates as a new date: it makes no sense. Instead, the difference between
+            two dates is a <em>time span</em>, or a <em>duration</em>.
           </p>
-          <%= tex_image 'polar' %>
-        </section>
-        
-        <section>
-          <h2>3D Cartesian Coordinates</h2>
           <p>
-            3D Cartesian coordinates are identical to the 2D variant, except for the third coordinate $z$.
+            A date is generally represented by three numbers, written day/month/year.
+            A duration can be represented similarly: #days/#months/#years.
+            So we could say that the difference between dates 8/9/2000 and 18/9/2000 is 10/0/0.
+            Even though dates and durations can be expressed using three numbers, it is clearly
+            absurd to interpret 10/0/0 as a date.
           </p>
-          <%= tex_image '3d-cartesian' %>
           <p>
-            Note that the XYZ axes cannot be chosen arbitrarily. We will discuss why later on.
-            Suffice it to say for now that during this course we will always position the XYZ axes as shown in the above figure.
+            The same goes with points and vectors. A point corresponds to a date, whereas vectors
+            correspond to durations. Given two points (4, 1, 9) and (4, 7, 6), the difference
+            between them is the <em>vector</em> (0, 6, -3).
           </p>
         </section>
 
         <section>
-          <h2>Spherical Coordinates</h2>
+          <h2>Specifying Points and Vectors</h2>
           <p>
-            Spherical coordinates are similar to polar coordinates,
-            except for the fact that these are used in 3D space.
-          </p>
-          <%= tex_image 'spherical' %>
-          <p>
-            Spherical coordinates consist of three numbers:
+            Both points and vectors can be specified using coordinates. There are many different coordinate systems.
           </p>
           <ul>
-            <li>
-              The <em>azimuth angle</em> indicates in which direction on the horizontal plane the point lies.
-              This angle varies from 0&deg; and 360&deg (or -180&deg; and +180&deg;, which is exactly the same, since -90&deg; equals 270&deg; etc.) The angle is measured counterclockwise.
-              On the above figure, ROQ is the azimuth angle and should be approximately -60&deg;.
+            <li>            
+              <%= link 'reference/math/coordinate-systems/cartesian2d', '2D Cartesian' %>
             </li>
             <li>
-              The <em>elevation angle</em> corresponds to the angle in the vertical plane. It varies between -90&deg; and +90&deg;.
-              On the figure, QOP is the elevation angle and looks to be about +60&deg;.
+              <%= link 'reference/math/coordinate-systems/polar', 'Polar' %>
             </li>
             <li>
-              The <em>radius</em> tells you how far away the point lies in the direction specified by the azimuth and elevation angles.
-              On the figure, the radius corresponds to the distance |OP|.
-            </li>
-          </ul>          
-          
-          <div class="boxed" data-category="example">
-            <p>
-              Say you are located at the origin (0,0,0).
-              To the left of you is a 5km height mountain. It is 100km away.
-            </p>
-            <ul>
-              <li>
-                The Cartesian coordinates of the top are (-100, 5, 0).
-              </li>
-              <li>
-                The spherical coordinates are
-                <ul>
-                  <li>
-                    Azimuth angle: 90&deg; because the mountain top is to your left.
-                  </li>
-                  <li>
-                    Elevation angle: 16&deg; because the top is higher.
-                  </li>
-                  <li>
-                    Radius: 100.125 which is the distance between you and the mountain top.
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-
-          <p>
-            More information can be found on <a href="https://en.wikipedia.org/wiki/Spherical_coordinate_system">Wikipedia</a>.
-            Note that their are many ways to define spherical coordinates: you can change which angles and in which direction to measure them.
-            For example, Wikipedia uses the zenith angle instead of the elevation angle. We choose to use the latter as it is easier to reason about in our context.
-          </p>
-        </section>
-
-        <section>
-          <h2>Conversions Between Coordinate Systems</h2>
-          <p>
-            You can convert from one coordinate system to another using the following formulae:
-          </p>
-          <ul>
-            <li>
-              From 2D Cartesian to polar:
-              \[
-                \begin{array}{rcl}
-                  r & = & \sqrt{x^2 + y^2} \\
-                  \theta & = & \mathrm{atan2}(y, x) \\
-                \end{array}
-              \]
-              where <a href="http://en.cppreference.com/w/cpp/numeric/math/atan2">atan2</a>
-              is an arc tangent function which takes into account the quadrant.
+              <%= link 'reference/math/coordinate-systems/cartesian3d', '3D Cartesian' %>
             </li>
             <li>
-              From polar to 2D Cartesian:
-             \[
-               \begin{array}{rcl}
-                 x & = & r \cdot \cos(\theta) \\
-                 y & = & r \cdot \sin(\theta) \\
-               \end{array}
-             \]
-            </li>
-            <li>
-              From 3D Cartesian to spherical:
-              \[
-                \begin{array}{rcl}
-                  r & = & \sqrt{x^2 + y^2 + z^2} \\
-                  \theta & = & \mathrm{atan2}(z, x) \\
-                  \phi & = & 90^\circ - \arccos(y/r) \\
-                \end{array}
-              \]
-              where $\theta$ corresponds to the azimuth angle and $\phi$ to the elevation angle.
-            </li>
-            <li>
-              From spherical to 3D Cartesian:
-              \[
-                \begin{array}{rcl}
-                  x & = & r \cdot \cos\theta \cdot \cos\phi \\
-                  y & = & r \cdot \sin\phi \\
-                  z & = & r \cdot \sin\theta \cdot \cos\phi \\
-                \end{array}
-              \]
-              where $\theta$ corresponds to the azimuth angle and $\phi$ to the elevation angle.
+              <%= link 'reference/math/coordinate-systems/spherical', 'Spherical' %>
             </li>
           </ul>
         </section>
-      </section>
 
-      <section>
-        <h1>Vectors</h1>
-        <p>
-          Vectors look very similar to points because they can also be specified using coordinates. Just like there is a point with coordinates (1, 2, 3),
-          there is also a vector (1, 2, 3). However, there is an important conceptual difference between points and vectors.
-        </p>
-        <p>
-          A point defines a <em>location</em>. A vector defines a <em>difference in locations</em>. To clarify this distinction,
-          we take a brief detour.
-        </p>
-        <p>
-          Let us pick two numbers at random, say 5 and 9. If we wish to compute their difference, or the "distance" between them,
-          we can subtract them, giving us 4, which is again a number. This means the difference between two numbers is a number.
-        </p>
-        <p>
-          Let us now pick two dates: 8 September 2000 and 18 September 2000. What is the "distance" between them?
-          The difference is 10 <em>days</em>, which is obviously not a date. We can never express the
-          difference between two dates as a new date: it makes no sense. Instead, the difference between
-          two dates is a <em>time span</em> or <em>duration</em>.
-        </p>
-        <p>
-          A date is generally represented by three numbers, written day/month/year.
-          A duration can be represented similarly: #days/#months/#years.
-          So we could say that the difference between dates 8/9/2000 and 18/9/2000 is 10/0/0.
-          Even though dates and durations can be expressed using three numbers, it is clearly
-          absurd to interpret 10/0/0 as a date.
-        </p>
-        <p>
-          The same goes with points and vectors. A point corresponds to a date, whereas vectors
-          correspond to durations. Given two points (4, 1, 9) and (4, 7, 6), the difference
-          between them is the <em>vector</em> (0, 6, -3).
-        </p>
-        <p>
-          Visually, a vector is represented by an arrow.
-        </p>
-        <%= tex_image('vector', html_class: 'centered') %>
-        <p>
-          Realize that only the length, orientation and direction of the arrow have significance.
-          All arrows below represent the same vector.
-        </p>
-        <%= tex_image('equal-vectors', html_class: 'centered') %>
+        <section>
+          <h2>Visualization</h2>
+          <p>
+            Visually, a point is represented by a dot and a vector is by an arrow.
+          </p>
+          <%= tex_image('visualization', html_class: 'centered') %>
+          <p>
+            Here, $\vec v$ equals the difference between $P$ and $Q$: $\vec v=Q-P$.
+          <p>
+            Realize that only the length, orientation and direction of the arrow have significance.
+            All arrows below represent the same vector.
+          </p>
+          <%= tex_image('equal-vectors', html_class: 'centered') %>          
+        </section>
       </section>
-
       <section>
         <h1>Operations on Points and Vectors</h1>
         <p>
@@ -259,26 +133,6 @@
           <h2>Addition</h2>
           <p>
             Following additions are defined:
-          </p>
-          <ul>
-            <li>
-              The addition of two vectors can be computed using the following formula:
-              \[ (x_1, y_1, z_1) \cdot (x_2, y_2, z_2) = (x_1 \cdot x_2, y_1 \cdot y_2, z_1 \cdot z_2) \]
-              You can interpret this as sequencing directions. For example, "go 10m northwards, then go 5m eastwards"
-              can be mathematically described as $(0,10) + (5,0) = (5, 10)$.
-            </li>
-            <li>
-              The addition of a point and a vector (or a vector and a point) can be computed with the same formula as above, i.e. take
-              the sum of the x-, y- and (if in 3D) z-coordinates. The result is a new point. You can interpret this
-              as moving a point in a certain direction.
-            </li>           
-          </ul>
-          <p>
-            You <em>cannot</em> add two points together.
-          </p>
-          <p>
-            If you need to add points and vectors described in polar or spherical coordinates,
-            you have to convert these into Cartesian coordinates first.
           </p>
           <table class="tabular centered">
             <tbody>
@@ -312,6 +166,30 @@
               </tr>
             </tbody>
           </table>
+          <p>
+            The addition can be computed using the following formula:
+            \[
+              \begin{array}{rclclr}
+                (x_1, y_1) &amp; + &amp; (x_2, y_2) &amp; = &amp; (x_1 + x_2, y_1 + y_2) &amp; \qquad\mathrm{(2D)} \\
+                (x_1, y_1, z_1) &amp; + &amp; (x_2, y_2, z_2) &amp; = &amp; (x_1 + x_2, y_1 + y_2, z_1 + z_2) &amp; \qquad\mathrm{(3D)}
+              \end{array}
+            \]
+          </p>
+          <p>
+            The addition of two vectors corresponds to the combination of both displacements they represent.
+          </p>
+          <%= tex_image('vector-plus-vector', style:'width: 25%;') %>
+          <p>
+            The addition of a point $P$ and a vector $\vec v$ corresponds to the displacement of $P$ in the direction designated by $v$.
+          </p>
+          <%= tex_image('point-plus-vector', style:'width: 50%;') %>          
+          <p>
+            Notice that you <em>cannot</em> add two points together.
+          </p>
+          <p>
+            If you need to add points and vectors described in polar or spherical coordinates,
+            you have to <%= link 'reference/math/coordinate-systems/conversions', 'convert these into Cartesian coordinates first' %>.
+          </p>
         </section>
 
         <section>
@@ -320,8 +198,15 @@
             Subtraction is quite similar to addition. Again, take care of noticing
             which combinations of operands are allowed. The formula is what you would
             expect it to be:
-            \[ (x, y, z) - (x', y', z') = (x-x', y-y', z-z') \]
-            where (x, y, z) and (x', y', z') are the Cartesian coordinates of the points/vectors.
+            \[
+              \begin{array}{rclclr}
+                (x_1, y_1) &amp; - &amp; (x_2, y_2) &amp; = &amp; (x_1 - x_2, y_1 - y_2) &amp; \qquad\mathrm{(2D)} \\
+                (x_1, y_1, z_1) &amp; - &amp; (x_2, y_2, z_2) &amp; = &amp; (x_1 - x_2, y_1 - y_2, z_1 - z_2) &amp; \qquad\mathrm{(3D)}
+              \end{array}
+            \]
+          </p>
+          <p>
+            Following operands are allowed:
           </p>
           <table class="tabular centered">
             <tbody>
@@ -355,12 +240,32 @@
               </tr>
             </tbody>
           </table>
+          <p>
+            Point subtraction deserves a special mention: we'll often rely on it to find the difference between points.
+            The vector representing the difference between a point $P$ and a point $Q$ equals $Q - P$.
+          </p>
+          <p>
+            The order is important: $Q - P$ will bring you from $P$ to $Q$, whereas $P - Q$ will take you from $Q$ to $P$.
+            You can easily see this using the following math:
+            \[
+              P + (Q - P) = P + Q - P = P - P + Q = Q
+            \]
+            whereas
+            \[
+              P + (P - Q)
+            \]
+            cannot be simplified any further. $P + P - Q = (P + P) - Q = 2 \cdot P - Q$ is not correct: it involves adding
+            two points together, which is undefined.
+          </p>
         </section>
 
         <section>
           <h2>Multiplication and Division</h2>
           <p>
-            Multiplication is less intuitive than addition and subtraction.            
+            Multiplication is a bit more complex than addition and subtraction, as there are more possibilities.
+            Vectors can both be multiplied by scalars (numbers) and other vectors. When multiplying vectors,
+            there are two different ways of multiplying: the <%= link 'reference/math/dot-product', 'dot product' %> with symbol $\cdot$
+            and the <%= link 'reference/math/cross-product', 'cross product' %> with symbol $\times$.
           </p>
           <table class="tabular centered">
             <tbody>
@@ -408,34 +313,19 @@
               </tr>
             </tbody>
           </table>
-          <p>
-            Scalar is just a fancy name for "a number". For example, $5 \cdot (1, 2, 3)$ is an example of multiplying a scalar and a vector.
-          </p>
-          <p>
-            The first thing you need to notice is that there are <em>two</em> different multiplication symbols (&middot; and &times;)
-            each denoting a different kind of multiplication. Note also that no multiplication or division is defined on points.
-          </p>
-          <p>
-            Remark: the &middot; operator can also be used on two scalars: $5 \cdot 4 = 20$. So, when you encounter $\cdot$,
-            it is important that you determine what type the operands have.
-          </p>
-          <p>
-            We discuss the different kinds of multiplication in turn.
-          </p>
-
+          
           <section>
-            <h3>Scalar-Vector Multiplication and Division</h3>
+            <h3>Multiplication and Division By Scalars</h3>
             <p>
-              Multiplying a vector (x, y, z) with a scalar c results in a new vector:
+              Scalar is just a fancy name for "a number".
+              Multiplying a vector $(x, y, z)$ with a scalar $c$, written $(x, y, z) \cdot c$, results in a new vector:
               \[
                 (x, y, z) \cdot c = c \cdot (x, y, z) = (c \cdot x, c \cdot y, c \cdot z)
               \]
-              i.e. you multiply each coordinate with the scalar. You can also easily compute multiplication using polar and spherical coordinates,
-              in which case only the radius needs to be multiplied
-              by the scalar. However, in our ray tracer, we will represent vectors using Cartesian coordinates, so the polar/spherical version is not important to us.
+              i.e. you multiply each coordinate with the scalar.
             </p>
             <p>
-              Multiplication of a vector corresponds to lengthening (or shortening) the vector while keeping its orientation intact.
+              Multiplication of a vector corresponds to lengthening (or shortening) the vector.
             </p>
             <%= tex_image 'vector-multiplication' %>
             <p>
@@ -449,7 +339,7 @@
                 Multiplying a vector by a scalar whose absolute value is less than 1 shortens the vector.
               </li>
               <li>
-                Multiplying a vector by a negative number flips the vector around. The orientation remains the same, but the direction is inverted.
+                Multiplying a vector by a negative number flips the vector around.
               </li>
             </ul>
             <p>
@@ -462,147 +352,32 @@
           </section>
 
           <section>
-            <h3>Dot Product</h3>
+            <h3>Multiplication With Two Vector Operands</h3>
             <p>
-              A vector can be multiplied with another vector in two ways. In English, these two multiplications
-              are named after their respective symbols, while in Dutch they are named after their result.              
-            </p>
-            
-            <table class="tabular centered">
-              <tbody>
-                <tr>
-                  <th>Symbol</th>
-                  <th>English name</th>
-                  <th>Dutch name</th>
-                </tr>
-                <tr>
-                  <td>&middot;</td>
-                  <td>Dot product</td>
-                  <td>Scalair product</td>
-                </tr>
-                <tr>
-                  <td>&times;</td>
-                  <td>Cross product</td>
-                  <td>Vectorieel product</td>
-                </tr>
-              </tbody>
-            </table>
-            <p>
-              The <a href="https://en.wikipedia.org/wiki/Dot_product">dot product</a> of two vectors yields a scalar, which is computed as follows:
-              \[
-                (x_1, y_1, z_1) \cdot (x_2, y_2, z_2) = x_1 x_2 + y_1 y_2 + z_1 z_2
-              \]
-            </p>
-            <p>
-              Without <em>meaning</em> this operator wouldn't have much use. So, what
-              does this scalar represent? What can we use it for?
-            </p>
-            <p>
-              To answer this question, you need two know of an alternative way or computing the dot product:
-              \[
-                \vec u \cdot \vec v = |\vec u| \cdot |\vec v| \cdot cos(\theta)
-              \]
-              In other words,
-              the dot product equals the multiplication of the length of both vectors
-              and the cosine of the angle between them.
-            </p>
-            <%= tex_image 'dot-product' %>
-            <p>
-              This alternative formula makes it possible to use the dot product to compute the length
-              of vectors and the angle between them.
-            </p>
-            <p>
-              To determine the length of a vector $\vec{v}(x,y,z)$ we can multiplying $\vec v$ by itself.
-              In this case the dot product yields $|\vec v| \cdot |\vec v| \cdot \cos(0^\circ)$. Because $\cos(0^\circ) = 1$,
-              we ultimately get
-              \[
-                x^2 + y^2 + z^2 = |\vec v|^2
-              \]
-              Taking the square root yields the length of the vector.
-            </p>
-            <p>
-              Finding the angle between the vectors is a bit more complicated.
-              We know
-              \[ \vec u \cdot \vec v = |\vec u| \cdot |\vec v| \cdot cos(\theta) \]
-              and we are interested in $\cos(\theta)$. We move the vector lengths to the left hand side of the equation.
-              Computing the length of both vectors is a problem already solved, so we get
-              \[
-                \cos(\theta) = \frac{\vec u \cdot \vec v}{|\vec u| \cdot |\vec v|} = \frac{\vec u \cdot \vec v}{\sqrt{\vec u \cdot \vec u} \cdot \sqrt{\vec v \cdot \vec v}}
-              \]
-            </p>
-            <p>
-              So, now we have $\cos(\theta)$ from which it is possible to compute $\theta$. However, this extra stap will seldom be necessary:
-              having $\cos(\theta)$ itself will often be exactly what we need in this course.
-            </p>
-            <p>
-              Lastly, the dot product allows us to easily find out whether two vectors are perpendicular on each other.
-              If they are, their dot product is 0. This is due to the fact that $\cos(90^\circ) = 0$.
-            </p>
-            \[
-              \vec u \perp \vec v \qquad \Leftrightarrow \qquad \vec u \cdot \vec v = 0
-            \]
-          </section>
-
-          <section>
-            <h3>Cross Product</h3>
-            <p>
-              The <a href="https://en.wikipedia.org/wiki/Cross_product">cross product</a> is a much different beast than the dot product. Whereas the dot product
-              resulted in a scalar, the cross product yields a vector, which can be found using the following formula:
-            </p>
-            \[
-              (x_1, y_1, z_1) \times (x_2, y_2, z_2) = (y_1 z_2-y_2 z_1, x_2 z_1-x_1 z_2, x_1 y_2 - x_2 y_1)
-            \]
-            <p>
-              The resulting vector has the following characteristics:
+              As mentioned above, there are two ways to multiply two vectors: $\vec u \cdot \vec v$ and $\vec u \times \vec v$.
+              Both these multiplications are important enough to deserve having their own page.
             </p>
             <ul>
-              <li>
-                $\vec u \times \vec v$ is perpendicular on both $\vec u$ and $\vec v$.
-              </li>
-              <li>
-                The length equals the product of the lengths of the operands times the <em>sine</em> of the angle they form.
-                \[
-                  |\vec u \times \vec v| = |\vec u| \cdot |\vec v| \cdot \sin(\theta)
-                \]
-              </li>
-              <li>
-                Be careful: the cross product is <em>not</em> commutative: $\vec u \times \vec v \neq \vec v \times \vec u$. We will expand upon this shortly.
-              </li>
+              <li><%= link 'reference/math/dot-product', 'Dot product' %></li>
+              <li><%= link 'reference/math/cross-product', 'Cross product' %></li>
             </ul>
-            <%= tex_image('cross-product', html_class: 'centered') %>
-            <p>
-              In this course, we will mostly rely on the first property: being able to find a vector that is perpendicular on two others
-              will come in handy.
-            </p>
-            <p>
-              There is one catch, though. Given two (nonparallel) vectors, there are always <em>two</em> vectors perpendicular on both.
-              If some vector $\vec p$ is perpendicular on both $\vec u$ and $\vec v$, then so is $-\vec{p}$.
-            </p>
-            <%= tex_image('perpendicular-vectors', html_class: 'centered') %>
-            <p>
-              One perpendicular vector will be given by $\vec u \times \vec v$, the other by $\vec v \times \vec u$.
-              It is very important to know which product yields which vector. This 
-              <a href="https://en.wikipedia.org/wiki/Cartesian_coordinate_system#Orientation_and_handedness">depends on the coordinate system used</a>.
-            </p>
-            <%= tex_image 'coordinate-system' %>
-            <p>
-              Say we position ourselves in front of the XY-axes so that X points right and Y points upwards.
-              Then there are two possible choices for Z: either Z points away from us, or it comes towards us.
-              If it points away, it is called a left-hand coordinate system, otherwise a right-hand coordinate system.
-              The reasoning behind this naming goes as follows: let your thumb point in X-direction
-              and your index in the Y-direction.
-              Depending on which hand you used, your middle finger will then, if extended,
-              either point towards you or away from you. This determines the Z-direction.
-            </p>
-            <p>
-              The cross product obeys the same rule: to find out which way $\vec u \times \vec v$ points,
-              align your thumb with $\vec u$ and your index finger with $\vec v$. Your middle finger then points in the same direction as $\vec{u} \times \vec{v}$.
-            </p>
-            <p>
-              During this course, we will make use of right hand systems exclusively.
-            </p>
           </section>
-          
+        </section>
+
+        <section>
+          <h3>Norm of a Vector</h3>
+          <p>
+            The <em>norm</em>, <em>size</em> or <em>length</em> of a vector $\vec v(x, y, z)$ can be computed with the follow formula:
+            \[
+              |\vec v| = \sqrt{x^2 + y^2 + z^2}
+            \]
+          </p>
+          <p>
+            To find the distance between two points $P$ and $Q$, take the length of their difference:
+            \[
+              \mathrm{distance}(P, Q) = |Q-P|
+            \]
+          </p>
         </section>
       </section>
     </div>
