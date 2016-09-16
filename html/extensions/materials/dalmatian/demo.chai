@@ -12,7 +12,7 @@ var camera = Cameras.perspective( [ "eye": pos(0,0,5),
 
 
 
-var material = Materials.scale(0.1, 0.2, Materials.dalmatian(4, black, white))
+var material = Materials.scale(0.1, 0.2, Materials.dalmatian2d(4, black, white))
 
 var root = decorate(material, union( [ translate(vec(0,-1,0), xz_plane()), sphere() ] ))
 
