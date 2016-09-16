@@ -46,7 +46,7 @@
     </header>
     <div id="contents">
       <section>
-        <h3>Dot Product</h3>
+        <h1>Definition</h1>
         <p>
           The <a href="https://en.wikipedia.org/wiki/Dot_product">dot product</a> of two vectors yields a scalar, which is computed as follows:
           \[
