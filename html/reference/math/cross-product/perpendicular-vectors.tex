@@ -1,0 +1,18 @@
+\documentclass{standalone}
+\usepackage{tikz,tikz-3dplot}
+
+\usetikzlibrary{math}
+
+\begin{document}
+
+\tdplotsetmaincoords{-20}{0}
+\begin{tikzpicture}[tdplot_main_coords]
+  \tdplotsetrotatedcoords{0}{-30}{0}
+
+  \draw[-latex,tdplot_rotated_coords] (0,0,0) -- (0,0,1) node [above] {$\vec u$};
+  \draw[-latex,tdplot_rotated_coords] (0,0,0) -- (1,0,0) node [above] {$\vec v$};
+  \draw[-latex,tdplot_rotated_coords] (0,0,0) -- (0,1,0) node [above] {$\vec u \times \vec v$};
+  \draw[-latex,tdplot_rotated_coords] (0,0,0) -- (0,-1,0) node [below] {$\vec v \times \vec u$};
+\end{tikzpicture}
+
+\end{document}
