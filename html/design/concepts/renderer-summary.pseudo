@@ -1,0 +1,19 @@
+create bitmap of size width x height
+create rectangle [0,1] x [0,1]
+create rasterizer that subdivides rectangle into width x height pixel rectangles
+
+for each x in range(0, width)
+  for each y in range(1, height)
+    determine pixel rectangle of pixel at (x, y)
+    colors = empty list
+
+    sampler picks random points in rectangle
+    for each point
+      camera generates rays for each point
+
+      for each ray
+        ray trace ray, resulting in color c
+        store c in colors list
+
+    compute average of all colors
+    write average to bitmap to (x, y)
