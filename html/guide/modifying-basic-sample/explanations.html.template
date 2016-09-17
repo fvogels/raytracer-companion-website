@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: 2D Cartesian Coordinate System</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.tabular {
+        border-collapse; collapse;
+      }
+
+      table.tabular tr:first-child {
+        background: #AAA;
+      }
+
+      table.tabular th {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      table.tabular td {
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Modifying Basic Sample</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Your First Animation</h1>
+        <p>
+          When you first run the RayTracer without having made any changes, you should get the following animation:
+        </p>
+        <%= raytrace_movie 'basic-sample' %>
+        <p>
+          During this assignment, you will familiarize yourself with the different parts of the RayTracer by making
+          simple changes to this basic animation.
+        </p>
+      </section>
+
+      <section>
+        <h1>Identifying The Key Parts</h1>
+        <p>
+          Open <code>demos/basic-sample.cpp</code>. This file contains all necessary code
+          to create the above scene.
+        </p>
+        <p>
+          Admittedly, there's a lot of code for so little result. The reason for this
+          is that all parts still need to be set up and linked together. Your first
+          task is to find out which code deals with which part.
+        </p>
+        <div class="boxed" data-category="Task">
+          <p>
+            Find answers to the following questions. Let the comments
+            and the functions and variables' names guide you.            
+          </p>
+          <ul>
+            <li>
+              Where is the bitmap size specified?
+            </li>
+            <li>
+              How many frames are rendered in total?
+            </li>
+            <li>
+              Where is the eye located in 3D space?
+            </li>
+            <li>
+              How many lights are defined?
+            </li>
+            <li>
+              What are the starting and ending position of the sphere?
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h1>Modifying the Animation</h1>
+        <p>
+          Make a copy of <code>basic-sample.cpp</code> and modify it so as to get the following results.
+        </p>
+        <div class="boxed" data-category="Task">
+          <p>
+            Adapt the animation so that the sphere moves from right to left.
+          </p>
+          <%= raytrace_movie 'right-to-left' %>
+        </div>
+        <div class="boxed" data-category="Task">
+          <p>
+            Adapt the animation so that the sphere moves from top to bottom.
+          </p>
+          <%= raytrace_movie 'top-to-bottom' %>
+        </div>
+        <div class="boxed" data-category="Task">
+          <p>
+            Add a second sphere. Use <code>make_union</code> to group primitives together, as
+            shown in the code below.
+          </p>
+          <%= source 'make-union.cpp' %>
+          <p>
+            Never use <code>union</code> as a variable or function name: <code>union</code> is a C++ keyword.
+          </p>
+          <%= raytrace_movie 'two-spheres' %>
+        </div>
+        <div class="boxed" data-category="Task">
+          <p>
+            Find two ways of making the sphere look bigger. Note: scaling is not implemented yet, so that's not an option.
+          </p>
+          <%= raytrace_movie 'zoom' %>
+        </div>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+      SourceEditor.initialize();
+    }
+
+    $( initialize );    
+  </script>
+
+</html>
