@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Extensions Overview</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore') %>
+    <style>
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Extensions</div>
+    </header>
+    <div id="contents">
+      <section>
+        <%= generate_links_to_extensions %>
+      </section>
+    </div>
+  </body>
+</html>
