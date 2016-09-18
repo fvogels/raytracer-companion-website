@@ -96,7 +96,10 @@
       <section>
         <h1>Modifying the Animation</h1>
         <p>
-          Make a copy of <code>basic-sample.cpp</code> and modify it so as to get the following results.
+          Create a new demo by making a copy of the files <code>basic-sample.h</code> and <code>basic-sample.cpp</code>.
+          Choose names of your own liking (e.g. <code>my-demo.h</code> and <code>my-demo.cpp</code>).
+          Rename the function <code>basic_sample</code> to e.g. <code>my_demo</code> and update <code>app.cpp</code> to call this new function.
+          Make the following changes to your own demo file:
         </p>
         <div class="boxed" data-category="Task">
           <p>
