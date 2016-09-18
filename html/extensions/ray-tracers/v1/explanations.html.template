@@ -79,8 +79,11 @@
           </p>
           <ul>
             <li>
-              Update <code>basic-sample</code> so as to use ray tracer <code>v1</code> instead of <code>v0</code>. You
+              Create a new demo file by copying <code>basic-sample</code> and updating it so as to use ray tracer <code>v1</code> instead of <code>v0</code>. You
               may have to take a look into the superclass <code>Demo</code> to get this done.
+            </li>
+            <li>
+              Don't forget to update <code>app.cpp</code> so that it makes use of the new demo.
             </li>
             <li>
               Compile.
