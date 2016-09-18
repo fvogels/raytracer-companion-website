@@ -60,7 +60,7 @@
             </p>
             <ul>
               <li>A ray starting at point $O$ and having direction $\vec\Delta$.</li>
-              <li>A infinitely long cylinder with radius $R$. We choose the cylinder to be aligned with the Z-axis.</li>
+              <li>An infinitely long cylinder with radius $R$. We choose the cylinder to be aligned with the Z-axis.</li>
             </ul>
             <p>
               A cylinder can be seen as an infinite number of circles stacked upon each other. To find the intersections,
