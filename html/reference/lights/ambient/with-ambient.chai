@@ -1,0 +1,54 @@
+def material(color) {
+  Materials.uniform( [ "ambient": Colors.white() * 0.2,
+                       "diffuse": color ] )
+}
+
+def scene_at(now)
+{
+  var ball_material = Materials.uniform( [ "ambient": Colors.white() * 0.2,
+                                           "diffuse": Colors.yellow() * 0.8,
+                                           "specular": Colors.white() * 0.8,
+                                           "specular_exponent": 50,
+                                           "reflectivity": 0.1 ] )
+
+
+  var camera = Cameras.perspective( [ "eye": pos(0.5,0.5,5),
+                                      "look_at": pos(0,0,0) ] )
+
+  var left_plane = decorate( material(Colors.cyan()), translate(vec(-1,0,0), yz_plane()) )
+  var upper_plane = decorate( material(Colors.red()), translate(vec(0,1,0), xz_plane()) )
+  var right_plane = decorate( material(Colors.white()), translate(vec(1,0,0), yz_plane()) )
+  var lower_plane = decorate( material(Colors.blue()), translate(vec(0,-1,0), xz_plane()) )
+  var back_plane = decorate( material(Colors.green()), translate(vec(0,0,-1), xy_plane()) )
+
+  var box = crop_box( union( [ left_plane, upper_plane, right_plane, lower_plane, back_plane ] ),
+                      interval(-1.001, 1.001),
+                      interval(-1.001, 1.001),
+                      interval(-1.001, 1.001) )
+
+  var splitter = decorate( material(Colors.red() * 0.5), translate(vec(-0.5,0,0), scale(0.5, 0.05, 1, cube())) )
+  var ball = decorate( ball_material, translate(vec(-0.5,-0.5,0), scale(0.2, 0.2, 0.2, sphere())) )
+
+  var root = union( [ box, splitter, ball ] )
+
+  var light_position = Animations.animate( [ pos(0.5, -0.5, 1.5),
+                                             pos(0.5, -0.5, 0),
+                                             pos(0.5, 0.5, 0),
+                                             pos(-0.5, 0.5, 0),
+                                             pos(-0.5, 0.5, 0) ], seconds(4) )
+
+  var lights = [ Lights.omnidirectional( light_position[now], Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v6()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.multijittered(2),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(4)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.ppm() ] )
