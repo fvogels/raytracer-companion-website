@@ -5,11 +5,10 @@ def material(color) {
 
 def scene_at(now)
 {
-  var ball_material = Materials.uniform( [ "ambient": Colors.white() * 0.2,
+  var ball_material = Materials.uniform( [ "ambient": Colors.yellow() * 0.2,
                                            "diffuse": Colors.yellow() * 0.8,
                                            "specular": Colors.white() * 0.8,
-                                           "specular_exponent": 50,
-                                           "reflectivity": 0.1 ] )
+                                           "specular_exponent": 50 ] )
 
 
   var camera = Cameras.perspective( [ "eye": pos(0.5,0.5,5),
