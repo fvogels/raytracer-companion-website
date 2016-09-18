@@ -30,7 +30,123 @@
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+
+      <section>
+        <h1>Introducing ray tracer v1</h1>
+        <p>
+          Go take a look at the code for original ray tracer in <code>raytracers/ray-tracer-v0</code>.
+          The <code>trace</code> member function must, given a ray and a scene, determine
+          what (among other things) determine which object in the scene is hit by the ray first
+          and find out what color this object has.
+        </p>
+        <p>
+          Ray tracer v0 is a rather lazy implementation: if there's a hit, it simply returns white instead
+          of actually trying to find out which color the object has. Ray tracer v1 will improve upon.
+        </p>
+        <div class="boxed" data-category="task">
+          <p>
+            Add the following files to the project:
+          </p>
+          <ul>
+            <li>
+              <code>raytracers/ray-tracer-v1.cpp</code>
+            </li>
+            <li>
+            <code>raytracers/ray-tracer-v1.h</code>
+            </li>
+          </ul>
+          <p>
+            Copy the contents of <code>raytracers/ray-tracer-v0.cpp</code> and <code>raytracers/ray-tracer-v0.h</code> into them.
+            Update the code for the name change, e.g.
+          </p>
+          <ul>
+            <li>
+              In <code>ray-tracer-v1.h</code>, change the class name from <code>RayTracerV0</code> to <code>RayTracerV1</code>.
+            </li>
+            <li>
+              In <code>ray-tracer-v1.h</code>, change the factory function's name from <code>v0</code> to <code>v1</code>.
+            </li>
+            <li>
+              In <code>ray-tracer-v1.cpp</code>, change <code>#include "raytracers/ray-tracer-v0.h"</code> to <code>#include "raytracers/ray-tracer-v1.h"</code>.
+            </li>
+            <li>
+              And so on.
+            </li>
+          </ul>
+          <p>
+            To check your work,
+          </p>
+          <ul>
+            <li>
+              Update <code>basic-sample</code> so as to use ray tracer <code>v1</code> instead of <code>v0</code>. You
+              may have to take a look into the superclass <code>Demo</code> to get this done.
+            </li>
+            <li>
+              Compile.
+            </li>
+            <li>
+              Run. It should produce exactly the same results as before your change.
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <h1>Ambient Lighting</h1>
+        <p>
+          Ray tracer v1 adds support for <%= link 'reference/lighting/ambient', 'ambient lighting' %>. Be sure to read the linked material
+          as otherwise you will not understand what you need to implement.
+        </p>
+        <p>
+          There are multiple ways to introduce ambient lighting to our RayTracer. We chose to associate a ambient lighting
+          factor to materials: you can create a sphere with a lot of ambient lighting and just to it another
+          sphere with no ambient lighting. This is highly unrealistic, but it's up to the creator of the scene to avoid such pitfalls.
+        </p>
+        <div class="boxed" data-category="task">
+          <p>
+            In order to add support for ambient lighting, you need to update <code>RayTracerV1::trace</code> as follows:
+          </p>
+          <ul>
+            <li>
+              The function should start with finding the first positive hit between the given ray and the given scene.
+            </li>
+            <li>
+              If a hit is found, the <code>hit</code> object will contain all necessary information you need to continue.
+              Most noteworthy is the <code>hit</code> object's <code>material</code> field, which contains information
+              about the material that's been hit by the ray. For example, if the ray hits a tree, the <code>material</code> field
+              will contain information about wood.
+            </li>
+            <li>
+              Materials are not necessarily uniform. For example, wood is seldom homogeneously brown but contains lines and rings.
+              This means there is not one single material color. Instead of asking the material "What is your color?",
+              you need to ask "What is your color <em>at that location</em>?" This is done using the <code>at</code> method:
+              it takes a <code>Point3D</code> and returns a <code>MaterialProperties</code> object that contains location-specific information.
+            </li>
+            <li>
+              The <code>Point3D</code> you need to pass to <code>Material::at</code> is the primitive's <em>local</em> hit position.
+              You can find it in the <code>hit</code> object (it was initialized by <code>find_first_positive_hit</code>).
+            </li>
+            <li>
+              <code>trace</code> must return a <code>TraceResult</code>, which has four components. The <code>group_id</code>,
+              <code>ray</code> and <code>hit</code> parts can be initialized in the same way is in <code>RayTracerV0</code>.
+              The color component is different though: instead of always using white, you should return the color returned by the material.
+              You can find it in the <code>MaterialProperties</code> object.
+            </li>
+          </ul>
+        </div>
+        <p>
+          It is of paramount importance that you <em>always</em> check that your changes work.
+        </p>
+        <div class="boxed" data-structure="task">
+          <p>
+            Run your project. Everything should look black since instead of returning white you return the material's ambient color, which is black.
+          </p>
+          <p>
+            Now modify <code>basic-sample.cpp</code> so that the sphere has a red as ambient color (use <code>colors::red()</code>).
+            Compile and run to see if it works.
+          </p>
+        </div>
+      </section>
     </div>
   </body>
 
