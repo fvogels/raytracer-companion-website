@@ -30,7 +30,68 @@
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>Understanding Planes</h1>
+        <p>
+          The RayTracer comes with an implementation for XY-planes.
+          As a first step, you need to understand how the ray-plane intersection algorithm works.
+        </p>
+        <div class="boxed" data-category="task">
+          <p>
+            Compare the <%= link 'reference/math/plane', 'plane formulae' %> to the code in <code>primitives/plane-primitive.cpp</code>.
+            Find answers to the following questions:
+          </p>
+          <ul>
+            <li>
+              There are two classes involved in the implementation of XY-Planes. Which are they and how is the functionality divided amongst them?
+            </li>
+            <li>
+              What are the values for $P$ and $\vec n$? We refer here to the $P$ and $\vec n$ mentioned <%= link 'reference/math/plane', 'in the plane-related math' %>.
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <h1>Using Planes</h1>
+        <div class="boxed" data-category="task">
+          <p>
+            Make a copy of <code>basic-sample</code> and modify it to make it renderer a plane.
+          </p>
+        </div>
+      </section>
+      
+      <section>
+        <h1>Adding Planes</h1>
+        <p>
+          Now it is time to add support for XZ- and YZ-planes.
+        </p>
+        <div class="boxed" data-category="task">
+          <p>
+            Make two classes <code>PlaneXZImplementation</code> and <code>PlaneYZImplementation</code> that
+            represent the XZ- and YZ-plane respectively. Let <code>PlaneXYImplementation</code> be your guide.
+            The most notable differences between these planes are
+          </p>
+          <ul>
+            <li>
+              The normal vector: for the XY-plane $\vec n = (0,0,1)$, for the XZ-plane $\vec n = (0,1,0)$.
+              We'll let you guess what $\vec n$ could be for the YZ-plane.
+            </li>
+            <li>
+              The hit object must be initialized slightly differently for each plane.
+            </li>
+            <li>
+              Don't forget to update the bounding box for each plane.
+            </li>
+          </ul>
+          <p>
+            Run the tests to check your work.
+          </p>
+          <p>
+            Create a new demo file that makes use of the new planes.
+          </p>
+        </div>
+      </section>
     </div>
   </body>
 
