@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Random Sampler</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      .centered {
+        margin: 10px auto;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Random Sampler</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Definition</h1>
+        <p>
+          A random sampler can be parameterized by the number of samples $N$.
+          Give a rectangle, a $N$-random sampler will pick $N$ random
+          points in this rectangle.
+        </p>
+      </section>
+      <section>
+        <h1>Comparison</h1>
+        <table class="centered">
+          <tbody>
+            <tr>
+              <th>Single Sampler</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('single', style:'width:90%;') %>
+              </td>
+            </tr>
+            <tr>
+              <th>Random Sampler, n = 1</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('random1', style:'width:90%;') %>
+              </td>
+            </tr>
+            <tr>
+              <th>Random Sampler, n = 2</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('random2', style:'width:90%;') %>
+              </td>
+            </tr>
+            <tr>
+              <th>Random Sampler, n = 3</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('random3', style:'width:90%;') %>
+              </td>
+            </tr>
+            <tr>
+              <th>Random Sampler, n = 4</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('random4', style:'width:90%;') %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
