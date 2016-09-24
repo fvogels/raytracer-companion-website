@@ -47,7 +47,7 @@
             </tr>
             <tr>
               <td>
-                <%= raytrace('random1', style:'width:90%;') %>
+                <%= raytrace('demo1', style:'width:90%;') %>
               </td>
             </tr>
             <tr>
@@ -55,7 +55,7 @@
             </tr>
             <tr>
               <td>
-                <%= raytrace('random2', style:'width:90%;') %>
+                <%= raytrace('demo2', style:'width:90%;') %>
               </td>
             </tr>
             <tr>
@@ -63,7 +63,7 @@
             </tr>
             <tr>
               <td>
-                <%= raytrace('random3', style:'width:90%;') %>
+                <%= raytrace('demo3', style:'width:90%;') %>
               </td>
             </tr>
             <tr>
@@ -71,7 +71,7 @@
             </tr>
             <tr>
               <td>
-                <%= raytrace('random4', style:'width:90%;') %>
+                <%= raytrace('demo4', style:'width:90%;') %>
               </td>
             </tr>
           </tbody>

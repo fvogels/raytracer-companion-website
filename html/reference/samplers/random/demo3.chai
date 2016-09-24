@@ -26,9 +26,9 @@ var scene = create_scene(camera, root, lights)
 var raytracer   = Raytracers.v6()
 var renderer    = Renderers.standard( [ "width": 500,
                                         "height": 500,
-                                        "sampler": Samplers.random(2),
+                                        "sampler": Samplers.random(3),
                                         "ray_tracer": raytracer ] )
 
 pipeline( scene,
           [ Pipeline.renderer(renderer),
-            Pipeline.bmp("random2.bmp") ] )
+            Pipeline.bmp("demo3.bmp") ] )
