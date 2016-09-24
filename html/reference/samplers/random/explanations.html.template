@@ -6,10 +6,6 @@
     <%= stylesheets('ucll', 'box') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
     <style>
-      img.large {
-        width: 60%;
-      }
-
       .centered {
         margin: 10px auto;
       }
