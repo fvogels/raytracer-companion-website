@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Stratified Sampler</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <style>
+      .centered {
+        margin: 10px auto;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Stratified Sampler</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Definition</h1>
+        <p>
+          A stratified sampler takes two parameter $N$ and $M$. Given a rectangle to be sampled,
+          it subdivides this rectangle into $N \times M$ subrectangles of equal size.
+          The sampler then returns the center point of each of these rectangles.
+        </p>
+        <%= tex_image 'stratified' %>
+      </section>
+      <section>
+        <h1>Comparison</h1>
+        <table class="centered">
+          <tbody>
+            <tr>
+              <th>Single Sampler</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('single', style:'width:90%;') %>
+              </td>
+            </tr>
+            <tr>
+              <th>Stratified Sampler, n = 1</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('stratified1', style:'width:90%;') %>
+              </td>
+            </tr>
+            <tr>
+              <th>Stratified Sampler, n = 2</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('stratified2', style:'width:90%;') %>
+              </td>
+            </tr>
+            <tr>
+              <th>Stratified Sampler, n = 3</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('stratified3', style:'width:90%;') %>
+              </td>
+            </tr>
+            <tr>
+              <th>Stratified Sampler, n = 4</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('stratified4', style:'width:90%;') %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
