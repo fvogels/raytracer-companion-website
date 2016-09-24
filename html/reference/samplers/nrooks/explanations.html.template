@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: n-Rooks Sampler</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <style>
+      .centered {
+        margin: 10px auto;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">n-Rooks Sampler</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Definition</h1>
+        <p>
+          An n-rooks sampler takes a single parameter $N$. It subdivides the given rectangle in $N \times N$ subrectangles.
+          It then picks $N$ random subrectangles so that in exactly one subrectangle is picked in each row and
+          exactly one subrectangle is picked in each column. The name comes from the fact that if you view the subdivided
+          rectangle as a chess board and rooks are placed on the selected subrectangles, that none
+          of the rooks can capture any of the other rooks.
+        </p>
+        <p>
+          From each selected subrectangle, a random point is returned.
+        </p>
+        <%= tex_image 'n-rooks' %>
+      </section>
+      <section>
+        <h1>Comparison</h1>
+        <table class="centered">
+          <tbody>
+            <tr>
+              <th>Single Sampler</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('single', style:'width:90%;') %>
+              </td>
+            </tr>
+            <tr>
+              <th>1-Rooks Sampler</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('demo1', style:'width:90%;') %>
+              </td>
+            </tr>
+            <tr>
+              <th>2-Rooks Sampler</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('demo2', style:'width:90%;') %>
+              </td>
+            </tr>
+            <tr>
+              <th>3-Rooks Sampler</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('demo3', style:'width:90%;') %>
+              </td>
+            </tr>
+            <tr>
+              <th>4-Rooks Sampler</th>
+            </tr>
+            <tr>
+              <td>
+                <%= raytrace('demo4', style:'width:90%;') %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
