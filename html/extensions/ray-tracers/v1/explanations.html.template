@@ -140,7 +140,7 @@
         <p>
           It is of paramount importance that you <em>always</em> check that your changes work.
         </p>
-        <div class="boxed" data-structure="task">
+        <div class="boxed" data-category="task">
           <p>
             Run your project. Everything should look black since instead of returning white you return the material's ambient color, which is black.
           </p>
