@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Complex Numbers</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'underscore', 'box') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.tabular {
+        border-collapse; collapse;
+      }
+
+      table.tabular tr:first-child {
+        background: #AAA;
+      }
+
+      table.tabular th {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      table.tabular td {
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Complex Numbers</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Context</h1>
+        <p>
+          As a reminder, these are the common number sets:
+          \[
+            \begin{array}{rcl}
+              \mathbb{N} &amp; = &amp; \{ 0, 1, 2, 3, 4, \dots \} \\
+              \mathbb{Z} &amp; = &amp; \mathbb{N} \; \bigcup \; \{ -1, -2, -3, -4, \dots \} \\
+              \mathbb{Q} &amp; = &amp; \mathbb{Z} \; \bigcup \; \{ \frac{1}{2}, -\frac{1}{2}, \frac{1}{3}, -\frac{1}{3}, \frac{2}{3}, -\frac{2}{3}, \dots \} \\
+              \mathbb{R} &amp; = &amp; \mathbb{Q} \; \bigcup \; \{ \sqrt{2}, \sqrt{3}, \pi, \dots \} \\
+            \end{array}
+          \]
+        </p>
+        <section>
+          <h2>History of Numbers</h2>
+          <p>
+            First there was set set of natural numbers $\mathbb{N}$. Addition never posed a problem, but subtraction $a - b$
+            was only possible if $a \geq b$.
+          </p>
+          <p>
+            To make subtraction $a - b$ possible where $a &lt; b$, such as $3 - 5$, negative numbers were invented ($\mathbb{Z}$).
+            All was good, until someone noticed that division wasn't always possible: while $8 / 2$ was perfectly defined,
+            what is $8 / 3$ equal to?
+          </p>
+          <p>
+            Rational numbers solve this division problem by introducing rational numbers ($\mathbb{Q}$). Then someone came along
+            pointing out that $\sqrt{2}$ could not be written as a fraction. <a href="https://en.wikipedia.org/wiki/Irrational_number">According to legend</a>,
+            this person was prompty thrown out to sea for his efforts.
+          </p>
+          <p>
+            The real numbers ($\mathbb{R}$) were then defined so as to make it possible to take the root of any number. Any positive number, that is.
+          </p>        
+        </section>
+        <section>
+          <h2>Imaginary Numbers</h2>
+          <p>
+            Mathematicians have a tendency to be quite the rebels. Whenever someone tells them something is impossible,
+            they promptly set out to axiomatically state that the answer exists. In our case, while everyone tells
+            you $\sqrt{-1}$ is not possible, some mathematician stated the opposite: the square root of $-1$ <em>does</em>
+            exist and it has a name: $i$, short for <em>imaginary unit</em>.
+          </p>
+        </section>
+      </section>
+
+      <section>
+        <h1>Definition</h1>
+        <p>
+          The imaginary unit $i$ is defined as
+          \[
+            i = \sqrt{-1}
+          \]
+        </p>
+        <p>
+          A complex number has the form
+          \[
+            a + b \cdot i
+          \]
+          where $a, b \in \mathbb{R}$. The set of complex numbers is called $\mathbb{C}$.
+        </p>
+        <p>
+          When working with complex numbers, you simply have to treat $i$ as if it were some unknown value of which you know
+          that $i^2 = -1$.
+        </p>
+
+        <section>
+          <h2>Interpretation</h2>
+          <p>
+            While real numbers form a <em>totally ordered set</em>, which means that for
+            any two real numbers $x$ and $y$, either $x &lt; y$, $x &gt; y$ or $x = y$ must be true.
+            This has as consequence that real numbers can be laid out on a line:
+            take a line, pick a point to represent $0$, and all other numbers must then be placed
+            according to the rule "if $x &lt; y$ then $x$ must be placed to the left of $y$".
+          </p>
+          <p>
+            Complex numbers do not fit on a single line as they are inherently 2 dimensional.
+            Instead, we speak of the complex <em>plane</em>.
+          </p>
+          <p>
+            The complex number $a + b \cdot i$'s position can be found as follows: interpret $a$
+            and $b$ as the $x$ and $y$ coordinates. The result looks like this:
+          </p>
+          <%= tex_image 'complex-plane' %>
+        </section>
+
+        <section>
+          <h2>Operations on Complex Numbers</h2>
+          <p>
+            Most standard operations are defined on complex numbers:
+            \[
+              (a_1 + b_1 \cdot i) + (a_2 + b_2 \cdot i) = (a_1 + a_2) + (b_1 + b_2) \cdot i
+            \]
+            \[
+              (a_1 + b_1 \cdot i) - (a_2 + b_2 \cdot i) = (a_1 - a_2) + (b_1 - b_2) \cdot i
+            \]
+            Multiplication consists of applying distributivity and simplifying $i^2$ to $-1$:
+            \[
+              (a_1 + b_1 i) \cdot (a_2 + b_2i) = a_1a_2 + a_1b_2i+a_2b_1i+b_1b_2i^2 = (a_1 a_2 - b_1 b_2) + (a_1 b_2 + a_2 b_1) \cdot i
+            \]
+            The absolute value of a complex number is its distance from $0$:
+            \[
+              |a + bi| = \sqrt{a^2 + b^2}
+            \]
+          </p>
+        </section>
+
+        <section>
+          <h2>Visual Interpretation of Multiplication</h2>
+          <p>
+            Multiplication of complex numbers coincides with rotation in 2D.
+            Say you have a point $(x, y)$ that you want to rotate $\theta^\circ$ around the origin, you can find it using
+            \[
+              x' + y' i = (x + y i) \cdot (\cos(\theta) + \sin(\theta) i) = (x \cos(\theta) - y \sin(\theta)) + (x \sin(\theta)+y \cos(\theta)) i
+            \]
+            which yields the same result as when using rotation matrices:
+            \[
+              \begin{bmatrix}
+                \cos\theta & -\sin\theta \\
+                \sin\theta & \cos\theta
+              \end{bmatrix}
+              \cdot
+              \begin{bmatrix}
+                x \\
+                y
+              \end{bmatrix}
+              =
+              \begin{bmatrix}
+                x \cos(\theta) - y \sin(\theta) \\
+                x \sin(\theta)+y \cos(\theta)
+              \end{bmatrix}
+            \]
+          </p>
+        </section>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+    }
+
+    $( initialize );    
+  </script>
+</html>
