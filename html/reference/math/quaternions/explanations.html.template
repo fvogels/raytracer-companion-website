@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Quaternions</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'underscore', 'box') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.tabular {
+        border-collapse; collapse;
+      }
+
+      table.tabular tr:first-child {
+        background: #AAA;
+      }
+
+      table.tabular th {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      table.tabular td {
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Quaternions</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Definition</h1>
+        <p>
+          Quaternions are very much like <%= link 'reference/math/complex', 'complex numbers' %> in that
+          they add new dimensions to the otherwise one dimensional real numbers.
+        </p>
+        <p>
+          Complex numbers introduced the imaginary unit $i$. Quaternions go a step further:
+          there are three <em>quaternion units</em> named $i$, $j$ and $k$, each adding a new dimension.
+          A quaternion can be written as
+          \[
+            a + bi + cj + dk
+          \]
+        </p>
+        <p>
+          The rules governing $i$, $j$ and $k$ are a bit more difficult than when dealing with complex numbers,
+          which only added the new rule $i^2 = -1$. Quaternions need rules for every possible combination:
+          \[
+            \begin{array}{r|ccc}
+              \times &amp; i &amp; j &amp; k \\
+              \hline
+              i &amp; -1 &amp; k &amp; -j \\
+              j &amp; -k &amp; -1 &amp; i \\
+              k &amp; j &amp; -i &amp; -1 \\
+            \end{array}
+          \]
+          Note that multiplication is <em>not</em> multiplicative: $i \cdot j = k$ whereas $j \cdot i = -k$.
+        </p>
+      </section>
+      <section>
+        <h1>Operations</h1>
+        <p>
+          Quaternions without any operations defined upon them would not be of much use.
+        </p>
+        <section>
+          <h2>Addition and Subtraction></h2>
+          <p>
+            Addition and subtraction are defined in the usual way. We don't go into detail as we won't need
+            these operations in this course.
+          </p>
+        </section>
+        <section>
+          <h2>Multiplication</h2>
+          <p>
+            As with complex numbers, multiplication is a matter of applying distributivity and then simplifying
+            the rules shown in the table above.
+            \[
+              (a_1+b_1i+c_1j+d_1k) \cdot (a_2+b_2i+c_2j+d_2k) = \begin{array}{clc}
+                                                                  a_1a_2-b_1b_2-c_1c_2-d_1d_2 & & + \\
+                                                                  (a_1b_2+b_1a_2+c_1d_2-d_1c_2) & i & + \\
+                                                                  (a_1c_2-b_1d_2+c_1a_2+d_1b_2) & j & + \\
+                                                                  (a_1d_2+b_1c_2-c_1b_2+d_1a_2) & k
+                                                                \end{array}
+            \]
+          </p>
+        </section>
+        <section>
+          <h2>Conjugate</h2>
+          <p>
+            The <em>conjugate</em> of a quaternion $q$, written $q^*$, is defined as
+            \[
+              (a + bi + cj + dk)^* = a - bi - cj - dk
+            \]
+          </p>
+        </section>
+      </section>
+      <section>
+        <h1>Usage</h1>
+        <p>
+          On the <%= link 'reference/math/complex', 'page about complex numbers' %> we briefly mentioned
+          multiplication corresponded to rotation in 2D. Similarly, quaternion multiplication
+          can be used to perform 3D rotations.
+        </p>
+        <p>
+          Using quaternions, you can rotate a point around an arbitrary axis <em>that goes through the origin</em>.
+          To rotate around an axis that does no go through the origin, some extra effort is needed (see later.)
+        </p>
+        <p>
+          If you want to rotate point $P(x, y, z)$ an angle $\theta$ around the axis whose direction is represented by the <em>unit vector</em> $\vec v(r_\mathrm{x}, r_\mathrm{y}, r_\mathrm{z})$, follow
+          these steps:          
+        </p>
+        <ol>
+          <li>
+            Compute the quaternion $p$:
+            \[ p = x i + y j + z k \]
+          </li>
+          <li>
+            Compute the quaternion $q$:
+            \[ q = \cos(\frac\theta2) + \sin(\frac\theta2) r_\mathrm{x} i + \sin(\frac\theta2) r_\mathrm{y} j + \sin(\frac\theta2) r_\mathrm{z} k \]
+          </li>
+          <li>
+            Multiply as follows:
+            \[ p' = q \cdot p \cdot q^* \]
+          </li>
+          <li>
+            $p'$ will have the form $x' i+y' j+z' k$. The rotation of $P$ is $P'(x', y', z')$.
+          </li>
+        </ol>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+    }
+
+    $( initialize );    
+  </script>
+</html>
