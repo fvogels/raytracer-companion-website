@@ -35,6 +35,7 @@ meta_object do
 
   uploadable( *Dir['*.html'] )
   uploadable( *Dir['*.png'] )
+  uploadable( *Dir['*.svg'] )
 
   quick_all(:html)
 end
