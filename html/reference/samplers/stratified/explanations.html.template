@@ -48,7 +48,7 @@
             </tr>
             <tr>
               <td>
-                <%= raytrace('stratified1', style:'width:90%;') %>
+                <%= raytrace('demo1', style:'width:90%;') %>
               </td>
             </tr>
             <tr>
@@ -56,7 +56,7 @@
             </tr>
             <tr>
               <td>
-                <%= raytrace('stratified2', style:'width:90%;') %>
+                <%= raytrace('demo2', style:'width:90%;') %>
               </td>
             </tr>
             <tr>
@@ -64,7 +64,7 @@
             </tr>
             <tr>
               <td>
-                <%= raytrace('stratified3', style:'width:90%;') %>
+                <%= raytrace('demo3', style:'width:90%;') %>
               </td>
             </tr>
             <tr>
@@ -72,7 +72,7 @@
             </tr>
             <tr>
               <td>
-                <%= raytrace('stratified4', style:'width:90%;') %>
+                <%= raytrace('demo4', style:'width:90%;') %>
               </td>
             </tr>
           </tbody>
