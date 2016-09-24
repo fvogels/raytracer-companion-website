@@ -26,7 +26,7 @@ var scene = create_scene(camera, root, lights)
 var raytracer   = Raytracers.v6()
 var renderer    = Renderers.standard( [ "width": 500,
                                         "height": 500,
-                                        "sampler": Samplers.jittered(3, 3),
+                                        "sampler": Samplers.nrooks(3),
                                         "ray_tracer": raytracer ] )
 
 pipeline( scene,
