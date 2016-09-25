@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Voronoi</title>
+    <title>3DCG: Voronoi 2D</title>
     <%= stylesheets('ucll', 'box') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
     <style>
@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Voronoi</div>
+      <div class="center-vertically">Voronoi 2D</div>
     </header>
     <div id="contents">
       <section>
