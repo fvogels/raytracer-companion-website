@@ -1,0 +1,25 @@
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                      "look_at": pos(0,0,0) ] )
+
+  var material3d = Materials.worley3d(1, 5, 1.5)
+  var material = Materials.slice(material3d, now)
+
+  var root = union( [ decorate(material, translate(vec(0,-1,0), xz_plane())),
+                      decorate(Materials.scale(0.1, 0.1, material), sphere()) ] )
+
+  var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.multijittered(2),
+                                     "ray_tracer": Raytracers.v6() ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.ppm() ] )
