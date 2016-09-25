@@ -11,20 +11,22 @@
 
 \begin{document}
 
-\begin{tikzpicture}[extension/.style={draw,minimum width=5cm,minimum height=1cm,font=\scshape},
+\begin{tikzpicture}[extension/.style={draw,minimum width=5cm,minimum height=1cm,font=\scshape,rounded corners=4pt,drop shadow},
                     dependency/.style={thick,latex-},
-                    area/.style={top color=gray!50,bottom color=gray!20},
+                    area/.style={left color=gray!30,right color=gray!10,rounded corners=4pt},
                     easy/.style={top color=green!50,bottom color=green!20},
                     medium/.style={top color=orange!50,bottom color=orange!20},
-                    hard/.style={top color=red!50,bottom color=red!20}]
+                    hard/.style={top color=red!50,bottom color=red!20},
+                    order/.style={draw,circle,fill=white}]
   \pgfdeclarelayer{background}
-  \pgfsetlayers{background,main}
+  \pgfdeclarelayer{foreground}
+  \pgfsetlayers{background,main,foreground}
 
   \begin{pgfonlayer}{main}
     \node[extension,top color=blue!50,bottom color=blue!20] (start) {start};
 
-    \node[extension,anchor=north,easy] (modifying-basic-sample) at ($ (start.south) + (-7,-1) $) {\html{extensions/modifying-basic-sample}{Basic Sample}};
-    \draw[dependency] (modifying-basic-sample) |- (start);
+    \node[extension,anchor=north,easy] (modifying basic sample) at ($ (start.south) + (-7,-1) $) {\html{extensions/modifying-basic-sample}{Basic Sample}};
+    \draw[dependency] (modifying basic sample) |- (start);
 
     \node[extension,anchor=north,easy] (ray tracer v1) at ($ (start.south) + (0,-1) $) {\html{extensions/ray-tracers/v1}{Ray Tracer v1}};
     \draw[dependency] (ray tracer v1) -- (start);
@@ -61,11 +63,18 @@
 
     \node[extension,anchor=north,medium] (multijittered sampler) at ($ (nrooks sampler.south) + (0,-1) $) {Multi-Jittered Sampler};
     \draw[dependency] (multijittered sampler) -- (nrooks sampler);
-
   \end{pgfonlayer}
 
   \begin{pgfonlayer}{background}
     \draw[area] ($ (ray tracer v1.north west) + (-0.5,0.5) $) rectangle ($ (ray tracer v6.south east) + (0.5,-0.5) $);
+
+    \draw[area] ($ ( random sampler.north west) + (-0.5,0.5) $) rectangle ($ (multijittered sampler.south east) + (0.5,-0.5) $);
+  \end{pgfonlayer}
+
+  \begin{pgfonlayer}{foreground}
+    \foreach[count=\i] \id in {modifying basic sample,ray tracer v1} {
+      \node[order] at (\id.north west) {\i};
+    }
   \end{pgfonlayer}
 \end{tikzpicture}
 
