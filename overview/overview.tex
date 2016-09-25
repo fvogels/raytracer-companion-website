@@ -25,8 +25,11 @@
   \begin{pgfonlayer}{main}
     \node[extension,top color=blue!50,bottom color=blue!20] (start) {start};
 
-    \node[extension,anchor=north,easy] (modifying basic sample) at ($ (start.south) + (-7,-1) $) {\html{extensions/modifying-basic-sample}{Basic Sample}};
+    \node[extension,anchor=north,easy] (modifying basic sample) at ($ (start.south) + (-13,-1) $) {\html{extensions/modifying-basic-sample}{Basic Sample}};
     \draw[dependency] (modifying basic sample) |- (start);
+
+    \node[extension,anchor=north,easy] (scripting basics) at ($ (start.south) + (-7,-1) $) {\html{extensions/scripting/basics}{Basic Scripting}};
+    \draw[dependency] (scripting basics) |- (start);
 
     \node[extension,anchor=north,easy] (ray tracer v1) at ($ (start.south) + (0,-1) $) {\html{extensions/ray-tracers/v1}{Ray Tracer v1}};
     \draw[dependency] (ray tracer v1) -- (start);
@@ -72,7 +75,7 @@
   \end{pgfonlayer}
 
   \begin{pgfonlayer}{foreground}
-    \foreach[count=\i] \id in {modifying basic sample,ray tracer v1} {
+    \foreach[count=\i] \id in {modifying basic sample,scripting basics,ray tracer v1} {
       \node[order] at (\id.north west) {\i};
     }
   \end{pgfonlayer}
