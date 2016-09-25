@@ -150,6 +150,75 @@
           </p>
         </div>
       </section>
+      <section>
+        <h1>Scripting</h1>
+        <p>
+          We want to make our new ray tracer available for scripting. For each extension we make, we need to "export" it
+          to the scripting language.
+        </p>
+        <div class="boxed" data-category="task">
+          <p>
+            Open the file <code>scripting/raytracing-module.cpp</code>.
+          </p>
+        </div>
+        <p>
+          Right now, the scripting language knows only about one ray tracer, namely v0. You can create it within the scripting
+          language as follows: <code>var raytracer = Raytracers.v0()</code>. Our goal is to make <code>Raytracers.v1()</code>
+          create a v1 ray tracer.
+        </p>
+        <p>
+          <code>v0</code> and <code>v1</code> are in essence ray tracer factories. We grouped all ray traces factories
+          into some kind of package named <code>Raytracers</code>. The same thing applies for other kinds of factories,
+          for example, all samplers can be created using <code>Samplers.<span style="font-style: italic;">name</span>()</code>,
+          such as <code>Samplers.single()</code> or <code>Samplers.nrooks(3)</code>.
+        </p>
+        <p>
+          In order to have these factories grouped in a package, we need to create C++ object
+          that contains all these factories. If you go take a look in <code>scripting/raytracing-module</code>, you'll
+          see that there is a struct called <code>RaytracerLibrary</code> which contains a member function <code>v0()</code>.
+          This member function has the sole responsibility of creating a <code>v0</code> ray tracer object.
+        </p>
+        <p>
+          To inform the scripting language of this library object, we undertake the following steps (see
+          <code>raytracer::scripting::_private_::create_raytracing_module</code> in <code>scripting/raytracing-module</code>):
+        </p>
+        <ol>
+          <li>
+            We create the library object.
+          </li>
+          <li>
+            We declare a constant <code>Raytracers</code> within the scripting language which
+            is then linked with the object. This is done using <code>module-&gt;add_global_const</code>.
+          </li>
+          <li>
+            Next, we must expose each member function in turn. This is achieved
+            with <code>module-&gt;add</code>. Since the syntax is not trivial
+            and this needs to be done for each ray tracer version,
+            we defined a macro <code>BIND</code> that takes most of the syntactic burden
+            away from us: if <code>RaytracerLibrary</code> has a member function F,
+            you can expose it using <code>BIND(F)</code>.
+          </li>
+        </ol>
+        <p>
+          We do not put all factories within packages, as it would become too much of a syntactic
+          burden for often used factories. For example, primitives can be created
+          using top level functions, i.e. you simply write <code>sphere()</code> instead
+          of <code>Primitives.sphere()</code>.
+        </p>
+        <p>
+          An example of how to export something as a top level function is <code>create_scene</code>.
+          In C++, <code>create_scene</code> is a top level function. <code>module-&gt;add</code> recognizes
+          this fact and mirrors it by exposing <code>create_scene</code> as a top level function inside the scripting language.
+        </p>
+        <div class="boxed" data-category="task">
+          <p>
+            Add a binding for <code>v1</code>.
+          </p>
+          <p>
+            Check your work by creating a script that uses ray tracer v1 and rendering it.
+          </p>
+        </div>
+      </section>
     </div>
   </body>
 
