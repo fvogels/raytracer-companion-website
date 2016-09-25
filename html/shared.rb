@@ -26,7 +26,7 @@ class SharedContext
     %{<img class="#{html_class}" src="#{png_filename}"#{style} />}
   end
 
-  def raytrace(script_name, html_class: 'centered large')
+  def raytrace(script_name, html_class: 'centered large', style: nil)
     script_path = Pathname.new("#{script_name}.chai")
     bmp_path = script_path.sub_ext('.bmp')
     png_path = script_path.sub_ext('.png')
@@ -45,8 +45,13 @@ class SharedContext
       
       Image2.convert(bmp_path, png_path)
     end
+
+    if style
+    then style = %{style="#{style} "}
+    else style = ""
+    end
     
-    %{<a href="#{png_path.basename}"><img src="#{png_path.basename}" class="#{html_class}" /></a>}
+    %{<a href="#{png_path.basename}"><img src="#{png_path.basename}" class="#{html_class}" #{style}/></a>}
   end
 
   def youtube(id)
