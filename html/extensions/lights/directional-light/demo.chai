@@ -3,13 +3,8 @@ def scene_at(now)
   var camera = Cameras.perspective( [ "eye": pos(20,20,50),
                                       "look_at": pos(0,0,0) ] )
 
-  var material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
-                                      "diffuse": Colors.white() * 0.8,
-                                      "specular": Colors.white(),
-                                      "specular_exponent": 100,
-                                      "reflectivity": 0,
-                                      "transparency": 0,
-                                      "refractive_index": 0 ] )
+  var material = Materials.uniform( [ "ambient": Colors.black(),
+                                      "diffuse": Colors.white() * 1 ] )
 
   var primitives = []
   [-5..5].for_each( bind( fun (i, primitives) {
@@ -18,10 +13,11 @@ def scene_at(now)
 
   var root = decorate(material, union([ translate(vec(0,-1,0),xz_plane()), union( primitives ) ]))
 
-  var t = Animations.animate(degrees(0), degrees(360), seconds(1))[now]
+  var t = Animations.animate(degrees(0), degrees(360), seconds(5))[now]
 
-  var pos = Animations.animate(-1,1,seconds(1))
-  var lights = [ Lights.directional( vec(pos[now],-1,1).normalized(), Colors.white() ) ]
+  var p = Animations.animate(-1,1,seconds(5))
+  var lights = [ Lights.directional( vec(p[now],-1,1).normalized(), Colors.white() * 0.5 ),
+                 Lights.omnidirectional( pos(p[now] * 15, 5, -5), Colors.white() * 0.5 ) ]
 
   create_scene(camera, root, lights)
 }
@@ -33,8 +29,7 @@ var renderer    = Renderers.standard( [ "width": 500,
                                         "sampler": Samplers.multijittered(2),
                                         "ray_tracer": raytracer ] )
 
-pipeline( scene_animation(scene_at, seconds(1)),
+pipeline( scene_animation(scene_at, seconds(4)),
           [ Pipeline.animation(30),
             Pipeline.renderer(renderer),
-            Pipeline.ppm() ] )
-
+            Pipeline.wif("demo.wif") ] )
