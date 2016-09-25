@@ -1,0 +1,29 @@
+// This function is called for multiple values of "now"
+def scene_at(now)
+{
+  var x = Animations.animate(-10, 10, seconds(5))
+
+  var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                      "look_at": pos(0,0,0),
+                                      "up": vec(x[now],1,0).normalized() ] )
+
+  var material = Materials.uniform( [ "ambient": Colors.white(),
+                                      "diffuse": Colors.white() * 0.8 ] )
+
+  var root = decorate(material, union( [ translate( vec(-2, 0, 0), sphere() ),
+                                         translate( vec(2, 0, 0), sphere() ) ] ))
+
+  var lights = [ ]
+
+  create_scene(camera, root, lights)
+}
+
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.single(),
+                                     "ray_tracer": Raytracers.v0() ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.ppm() ] )
