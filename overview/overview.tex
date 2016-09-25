@@ -1,12 +1,13 @@
 \documentclass{standalone}
 \usepackage{tikz}
 \usepackage{hyperref}
+\usepackage{dictsym}
 
 \usetikzlibrary{shadows,calc,math,shadings}
 
 
 \newcommand{\html}[2]{\href{../html/#1/explanations.html}{#2}}
-
+\newcommand{\mathy}{\dsmathematical}
 
 
 \begin{document}
@@ -59,22 +60,22 @@
     \node[node] (samplers) at ($ (ray tracers) + (8,0) $) {Samplers};
     \draw[dependency] (samplers) |- (start);
 
-    \node[extension,anchor=north,easy] (random sampler) at ($ (samplers) + (0,-2) $) {Random Sampler};
+    \node[extension,anchor=north,easy] (random sampler) at ($ (samplers) + (0,-2) $) {\html{extensions/samplers/random}{Random Sampler}};
     \draw[dependency] (random sampler) -- (samplers);
 
-    \node[extension,anchor=north,easy] (stratified sampler) at ($ (random sampler.south) + (0,-1) $) {Stratified};
+    \node[extension,anchor=north,easy] (stratified sampler) at ($ (random sampler.south) + (0,-1) $) {\html{extensions/samplers/stratified}{Stratified}};
     \draw[dependency] (stratified sampler) -- (random sampler);
 
-    \node[extension,anchor=north,easy] (jittered sampler) at ($ (stratified sampler.south) + (0,-1) $) {Jittered};
+    \node[extension,anchor=north,easy] (jittered sampler) at ($ (stratified sampler.south) + (0,-1) $) {\html{extensions/samplers/stratified-jittered}{Jittered}};
     \draw[dependency] (jittered sampler) -- (stratified sampler);
 
-    \node[extension,anchor=north,easy] (half jittered sampler) at ($ (jittered sampler.south) + (0,-1) $) {Half Jittered};
+    \node[extension,anchor=north,easy] (half jittered sampler) at ($ (jittered sampler.south) + (0,-1) $) {\html{extensions/samplers/stratified-half-jittered}{Half Jittered}};
     \draw[dependency] (half jittered sampler) -- (jittered sampler);
 
-    \node[extension,anchor=north,medium] (nrooks sampler) at ($ (half jittered sampler.south) + (0,-1) $) {n-Rooks};
+    \node[extension,anchor=north,medium] (nrooks sampler) at ($ (half jittered sampler.south) + (0,-1) $) {\html{extensions/samplers/nrooks}{n-Rooks}};
     \draw[dependency] (nrooks sampler) -- (half jittered sampler);
 
-    \node[extension,anchor=north,medium] (multijittered sampler) at ($ (nrooks sampler.south) + (0,-1) $) {Multi-Jittered};
+    \node[extension,anchor=north,medium] (multijittered sampler) at ($ (nrooks sampler.south) + (0,-1) $) {\html{extensions/samplers/multijittered}{Multi-Jittered}};
     \draw[dependency] (multijittered sampler) -- (nrooks sampler);
 
     \node[node] (cameras) at ($ (samplers) + (10,0) $) {Cameras};
@@ -92,14 +93,67 @@
     \node[node] (lights) at ($ (cameras) + (8,-5) $) {Lights};
     \draw[dependency] (lights) |- (start);
 
-    \node[extension,medium] (area light) at ($ (lights) + (-30:4) $) {\html{extensions/lights/area-light}{Area}};
+    \node[extension,easy] (area light) at ($ (lights) + (-30:4) $) {\html{extensions/lights/area-light}{Area}};
     \draw[dependency] (area light) -- (lights);
 
-    \node[extension,medium] (spot light) at ($ (lights) + (-90:4) $) {\html{extensions/lights/spot-lights}{Spot}};
+    \node[extension,easy] (spot light) at ($ (lights) + (-90:4) $) {\html{extensions/lights/spot-lights}{Spot}};
     \draw[dependency] (spot light) -- (lights);
 
-    \node[extension,medium] (directional light) at ($ (lights) + (-150:4) $) {\html{extensions/lights/directional-light}{Directional}};
+    \node[extension,easy] (directional light) at ($ (lights) + (-150:4) $) {\html{extensions/lights/directional-light}{Directional}};
     \draw[dependency] (directional light) -- (lights);
+
+    \node[node] (materials) at ($ (cameras) + (15,-4) $) {Materials};
+    \draw[dependency] (materials) |- (start);
+
+    \node[extension,easy] (pattern 2d materials) at ($ (materials) + (6,0) $) {\html{extensions/materials/patterns2d}{Patterns 2D}};
+    \draw[dependency] (pattern 2d materials) -- (materials);
+
+    \node[extension,hard] (dalmatian 2d material) at ($ (pattern 2d materials) + (6,0) $) {\html{extensions/materials/pattern2d/dalmatian2d}{Dalmatian 2D}};
+    \draw[dependency] (dalmatian 2d material) -- (pattern 2d materials);
+
+    \node[extension,medium] (worley 2d material) at ($ (materials) + (6,-8) $) {\html{extensions/math/worley}{Worley 2D}};
+    \draw[dependency] (worley 2d material) -| (materials);
+
+    \node[extension,hard] (dalmatian 3d material) at ($ (pattern 2d materials) + (6,2) $) {\html{extensions/materials/pattern2d/dalmatian3d}{Dalmatian 3D}};
+    \draw[dependency] (dalmatian 3d material) -| (pattern 2d materials);
+
+    \node[extension,medium] (worley 3d material) at ($ (materials) + (6,-10) $) {\html{extensions/materials/worley}{Worley 3D}};
+    \draw[dependency] (worley 3d material) -| (materials);
+
+    \node[extension,easy] (lines pattern material) at ($ (pattern 2d materials) + (6,-2) $) {\html{extensions/materials/pattern2d/lines}{Lines}};
+    \draw[dependency] (lines pattern material) -| (pattern 2d materials);
+
+    \node[extension,easy] (grid pattern material) at ($ (pattern 2d materials) + (6,-4) $) {\html{extensions/materials/pattern2d/grid}{Grid}};
+    \draw[dependency] (grid pattern material) -| (pattern 2d materials);
+
+    \node[extension,easy] (checkered pattern material) at ($ (pattern 2d materials) + (6,-6) $) {\html{extensions/materials/pattern2d/checkered}{Checkered}};
+    \draw[dependency] (checkered pattern material) -| (pattern 2d materials);
+
+    \node[extension,medium] (marble 2d material) at ($ (materials) + (6,-12) $) {\html{extensions/materials/marble2d}{Marble 2D}};
+    \draw[dependency] (marble 2d material) -| (materials);
+
+    \node[extension,medium] (marble 3d material) at ($ (materials) + (6,-14) $) {\html{extensions/materials/marble3d}{Marble 3D}};
+    \draw[dependency] (marble 3d material) -| (materials);
+
+    \node[extension,hard] (voronoi 2d) at ($ (dalmatian 2d material) + (6,0) $) {\html{extensions/math/voronoi2d}{Voronoi 2D \mathy}};
+    \draw[dependency] (dalmatian 2d material) -- (voronoi 2d);
+    \draw[dependency] (worley 2d material) -| (voronoi 2d);
+
+    \node[extension,hard] (voronoi 3d) at ($ (dalmatian 3d material) + (10,0) $) {\html{extensions/math/voronoi3d}{Voronoi 3D \mathy}};
+    \draw[dependency] (dalmatian 3d material) -- (voronoi 3d);
+    \draw[dependency] (worley 3d material) -| (voronoi 3d);
+
+    \node[extension,hard] (perlin 2d) at ($ (marble 2d material) + (6,0) $) {\html{extensions/math/perlin2d}{Perlin 2D \mathy}};
+    \draw[dependency] (marble 2d material) -- (perlin 2d);
+
+    \node[extension,hard] (perlin 3d) at ($ (marble 3d material) + (6,0) $) {\html{extensions/math/perlin3d}{Perlin 3D \mathy}};
+    \draw[dependency] (marble 3d material) -- (perlin 3d);
+
+    \node[extension,medium] (texture materials) at ($ (materials) + (6,-16) $) {\html{extensions/materials/texture}{Textures}};
+    \draw[dependency] (texture materials) -| (materials);
+
+    \node[extension,easy] (material transformer) at ($ (materials) + (6,-18) $) {\html{extensions/materials/transformer}{Transformer}};
+    \draw[dependency] (material transformer) -| (materials);
   \end{pgfonlayer}
 
   % \begin{pgfonlayer}{background}
