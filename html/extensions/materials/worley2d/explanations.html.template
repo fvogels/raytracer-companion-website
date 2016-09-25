@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Worley Noise</title>
+    <title>3DCG: Worley 2D</title>
     <%= stylesheets('ucll', 'box') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
     <style>
@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Worley Noise</div>
+      <div class="center-vertically">Worley 2D</div>
     </header>
     <div id="contents">
       <section>
