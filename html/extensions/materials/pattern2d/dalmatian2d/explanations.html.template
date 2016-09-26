@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Dalmatian</title>
+    <title>3DCG: Dalmatian 2D</title>
     <%= stylesheets('ucll', 'box') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
     <style>
