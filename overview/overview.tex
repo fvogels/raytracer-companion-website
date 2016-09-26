@@ -28,7 +28,7 @@
   \begin{pgfonlayer}{main}
     \node[node] (start) {start};
 
-    \node[node] (basics) at ($ (start) + (-10, -3) $) {Basics};
+    \node[node] (basics) at ($ (start) + (-40, -4) $) {Basics};
     \draw[dependency] (basics) |- (start);
 
     \node[extension,easy] (modifying basic sample) at ($ (basics) + (-150:4) $) {\html{extensions/modifying-basic-sample}{Basic Sample}};
@@ -37,8 +37,8 @@
     \node[extension,easy] (scripting basics) at ($ (basics) + (-30:4) $) {\html{extensions/scripting/basics}{Basic Scripting}};
     \draw[dependency] (scripting basics) |- (basics);
 
-    \node[node] (ray tracers) at ($ (start) + (0,-4) $) {Ray Tracers};
-    \draw[dependency] (ray tracers) -- (start);
+    \node[node] (ray tracers) at ($ (basics) + (10,0) $) {Ray Tracers};
+    \draw[dependency] (ray tracers) |- (start);
 
     \node[extension,anchor=north,easy] (ray tracer v1) at ($ (ray tracers.south) + (0,-1) $) {\html{extensions/ray-tracers/v1}{Ray Tracer v1}};
     \draw[dependency] (ray tracer v1) -- (ray tracers);
@@ -136,18 +136,18 @@
     \node[extension,medium] (marble 3d material) at ($ (materials) + (6,-14) $) {\html{extensions/materials/marble3d}{Marble 3D}};
     \draw[dependency] (marble 3d material) -| (materials);
 
-    \node[extension,hard] (voronoi 2d) at ($ (dalmatian 2d material) + (6,0) $) {\html{extensions/math/voronoi2d}{Voronoi 2D \mathy}};
+    \node[extension,hard] (voronoi 2d) at ($ (dalmatian 2d material) + (6,0) $) {\html{extensions/math/voronoi2d}{Voronoi 2D} \mathy};
     \draw[dependency] (dalmatian 2d material) -- (voronoi 2d);
     \draw[dependency] (worley 2d material) -| (voronoi 2d);
 
-    \node[extension,hard] (voronoi 3d) at ($ (dalmatian 3d material) + (10,0) $) {\html{extensions/math/voronoi3d}{Voronoi 3D \mathy}};
+    \node[extension,hard] (voronoi 3d) at ($ (dalmatian 3d material) + (10,0) $) {\html{extensions/math/voronoi3d}{Voronoi 3D} \mathy};
     \draw[dependency] (dalmatian 3d material) -- (voronoi 3d);
     \draw[dependency] (worley 3d material) -| (voronoi 3d);
 
-    \node[extension,hard] (perlin 2d) at ($ (marble 2d material) + (6,0) $) {\html{extensions/math/perlin2d}{Perlin 2D \mathy}};
+    \node[extension,hard] (perlin 2d) at ($ (marble 2d material) + (6,0) $) {\html{extensions/math/perlin2d}{Perlin 2D} \mathy};
     \draw[dependency] (marble 2d material) -- (perlin 2d);
 
-    \node[extension,hard] (perlin 3d) at ($ (marble 3d material) + (6,0) $) {\html{extensions/math/perlin3d}{Perlin 3D \mathy}};
+    \node[extension,hard] (perlin 3d) at ($ (marble 3d material) + (6,0) $) {\html{extensions/math/perlin3d}{Perlin 3D} \mathy};
     \draw[dependency] (marble 3d material) -- (perlin 3d);
 
     \node[extension,medium] (texture materials) at ($ (materials) + (6,-16) $) {\html{extensions/materials/texture}{Textures}};
@@ -210,6 +210,15 @@
     \node[extension,easy,todo] (triangle) at ($ (primitives) + (6,-14) $) {\html{extensions/primitives/triangle}{Triangle}};
     \draw[dependency] (triangle) -| (primitives);
 
+    \node[extension,easy,todo] (smooth triangle) at ($ (triangle) + (6,0) $) {\html{extensions/primitives/smooth-triangle}{Smooth Triangle}};
+    \draw[dependency] (smooth triangle) -| (triangle);
+
+    \node[extension,easy,todo] (perlin terrain) at ($ (smooth triangle) + (6,0) $) {\html{extensions/primitives/terrains/perlin}{Perlin Terrain}};
+    \draw[dependency] (perlin terrain) -| (smooth triangle);
+
+    \node[extension,hard] (perlin 2d 2) at ($ (perlin terrain) + (6,0) $) {\html{extensions/math/perlin2d}{Perlin 2D} \mathy};
+    \draw[dependency] (perlin terrain) -- (perlin 2d 2);
+
     \node[extension,easy,todo] (cropper) at ($ (primitives) + (6,-16) $) {\html{extensions/primitives/cropper}{Cropper}};
     \draw[dependency] (cropper) -| (primitives);
 
@@ -246,7 +255,81 @@
     \node[extension,medium,todo] (split depth renderer) at ($ (renderers) + (6,-2) $) {\html{extensions/primitives/split-depth}{Split Depth}};
     \draw[dependency] (split depth renderer) -| (renderers);
 
+    \node[node] (performance) at ($ (renderers) + (24,0) $) {Performance};
+    \draw[dependency] (performance) |- (start);
 
+    \node[extension,easy,todo] (parallel task scheduler) at ($ (performance) + (6,0) $) {\html{extensions/performance/parallel-task-scheduler}{Parallel Scheduler}};
+    \draw[dependency] (parallel task scheduler) -- (performance);
+
+    \node[extension,easy,todo] (bounding box) at ($ (performance) + (6,-2) $) {\html{extensions/performance/bounding-box}{Bounding Box}};
+    \draw[dependency] (bounding box) -| (performance);
+
+    \node[node] (pipeline) at ($ (performance) + (12,0) $) {Pipeline};
+    \draw[dependency] (pipeline) |- (start);
+
+    \node[extension,easy,todo] (motion blur) at ($ (pipeline) + (6,0) $) {\html{extensions/pipeline/motion-blur}{Motion Blur}};
+    \draw[dependency] (motion blur) -- (pipeline);
+
+    \node[extension,easy,todo] (bmp) at ($ (pipeline) + (6,-2) $) {\html{extensions/pipeline/bmp}{BMP}};
+    \draw[dependency] (bmp) -| (pipeline);
+    
+    \node[extension,easy,todo] (ppm) at ($ (pipeline) + (6,-4) $) {\html{extensions/pipeline/ppm}{PPM}};
+    \draw[dependency] (ppm) -| (pipeline);
+
+    \node[node] (animations) at ($ (pipeline) + (12,0) $) {Animations};
+    \draw[dependency] (animations) |- (start);
+
+    \node[extension,easy,todo] (bounce animation) at ($ (animations) + (6,0) $) {\html{extensions/animations/bounce}{Bounce}};
+    \draw[dependency] (bounce animation) -- (animations);
+
+    \node[extension,easy,todo] (elastic animation) at ($ (animations) + (6,-2) $) {\html{extensions/animations/elastic}{Elastic}};
+    \draw[dependency] (elastic animation) -| (animations);
+
+    \node[extension,easy,todo] (quaternions) at ($ (animations) + (6,-4) $) {\html{extensions/math/quaternions}{Quaternions} \mathy};
+    \draw[dependency] (quaternions) -| (animations);
+
+    \node[extension,easy,todo] (circular animation) at ($ (quaternions) + (6,0) $) {\html{extensions/animations/circular}{Circular}};
+    \draw[dependency] (circular animation) -- (quaternions);
+
+    \node[extension,easy,todo] (lissajous animation) at ($ (animations) + (6,-6) $) {\html{extensions/animations/lissajous}{Lissajous}};
+    \draw[dependency] (lissajous animation) -| (animations);
+
+    \node[extension,easy,todo] (cyclic animation) at ($ (animations) + (6,-8) $) {\html{extensions/animations/cyclic}{Cyclic}};
+    \draw[dependency] (cyclic animation) -| (animations);
+
+    \node[extension,easy,todo] (quadratic in animation) at ($ (animations) + (6,-10) $) {\html{extensions/animations/quadratic-in}{Quadratic In}};
+    \draw[dependency] (quadratic in animation) -| (animations);
+
+    \node[extension,easy,todo] (quadratic out animation) at ($ (animations) + (6,-12) $) {\html{extensions/animations/quadratic-out}{Quadratic Out}};
+    \draw[dependency] (quadratic out animation) -| (animations);
+
+    \node[extension,easy,todo] (quadratic inout animation) at ($ (animations) + (6,-14) $) {\html{extensions/animations/quadratic-inout}{Quadratic InOut}};
+    \draw[dependency] (quadratic inout animation) -| (animations);
+
+    \node[extension,easy,todo] (cubic in animation) at ($ (animations) + (6,-16) $) {\html{extensions/animations/cubic-in}{Cubic In}};
+    \draw[dependency] (cubic in animation) -| (animations);
+
+    \node[extension,easy,todo] (cubic out animation) at ($ (animations) + (6,-18) $) {\html{extensions/animations/cubic-out}{Cubic Out}};
+    \draw[dependency] (cubic out animation) -| (animations);
+
+    \node[extension,easy,todo] (cubic inout animation) at ($ (animations) + (6,-20) $) {\html{extensions/animations/cubic-inout}{Cubic InOut}};
+    \draw[dependency] (cubic inout animation) -| (animations);
+
+    \node[extension,easy,todo] (quintic in animation) at ($ (animations) + (6,-22) $) {\html{extensions/animations/quintic-in}{Quintic In}};
+    \draw[dependency] (quintic in animation) -| (animations);
+
+    \node[extension,easy,todo] (quintic out animation) at ($ (animations) + (6,-24) $) {\html{extensions/animations/quintic-out}{Quintic Out}};
+    \draw[dependency] (quintic out animation) -| (animations);
+
+    \node[extension,easy,todo] (quintic inout animation) at ($ (animations) + (6,-26) $) {\html{extensions/animations/quintic-inout}{Quintic InOut}};
+    \draw[dependency] (quintic inout animation) -| (animations);
+
+    \node[extension,easy,todo] (point animation) at ($ (animations) + (6,-28) $) {\html{extensions/animations/point}{Points}};
+    \draw[dependency] (point animation) -| (animations);
+
+    \node[extension,easy,todo] (angle animation) at ($ (animations) + (6,-30) $) {\html{extensions/animations/angle}{Angles}};
+    \draw[dependency] (angle animation) -| (animations);
+    
 
   \end{pgfonlayer}
 
