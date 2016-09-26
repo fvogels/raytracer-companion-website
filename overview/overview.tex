@@ -19,7 +19,8 @@
                     easy/.style={top color=green!50,bottom color=green!20},
                     medium/.style={top color=orange!50,bottom color=orange!20},
                     hard/.style={top color=red!50,bottom color=red!20},
-                    order/.style={draw,circle,fill=white}]
+                    order/.style={draw,circle,fill=white},
+                    todo/.style={red,ultra thick}]
   \pgfdeclarelayer{background}
   \pgfdeclarelayer{foreground}
   \pgfsetlayers{background,main,foreground}
@@ -102,7 +103,7 @@
     \node[extension,easy] (directional light) at ($ (lights) + (-150:4) $) {\html{extensions/lights/directional-light}{Directional}};
     \draw[dependency] (directional light) -- (lights);
 
-    \node[node] (materials) at ($ (cameras) + (15,-4) $) {Materials};
+    \node[node] (materials) at ($ (cameras) + (15,0) $) {Materials};
     \draw[dependency] (materials) |- (start);
 
     \node[extension,easy] (pattern 2d materials) at ($ (materials) + (6,0) $) {\html{extensions/materials/patterns2d}{Patterns 2D}};
@@ -155,32 +156,98 @@
     \node[extension,easy] (material transformer) at ($ (materials) + (6,-18) $) {\html{extensions/materials/transformer}{Transformer}};
     \draw[dependency] (material transformer) -| (materials);
 
-    \node[extension,easy] (material scale 2d) at ($ (material transformer) + (6,0) $) {\html{extensions/materials/transformers/scale2d}{Scale 2D}}; % todo
+    \node[extension,easy,todo] (material scale 2d) at ($ (material transformer) + (6,0) $) {\html{extensions/materials/transformers/scale2d}{Scale 2D}};
     \draw[dependency] (material scale 2d) -- (material transformer);
 
-    \node[extension,easy] (material scale 3d) at ($ (material transformer) + (6,-2) $) {\html{extensions/materials/transformers/scale3d}{Scale 3D}}; % todo
+    \node[extension,easy,todo] (material scale 3d) at ($ (material transformer) + (6,-2) $) {\html{extensions/materials/transformers/scale3d}{Scale 3D}};
     \draw[dependency] (material scale 3d) -| (material transformer);
 
-    \node[extension,easy] (material translate 2d) at ($ (material transformer) + (6,-4) $) {\html{extensions/materials/transformers/translate2d}{Translate 2D}}; % todo
+    \node[extension,easy,todo] (material translate 2d) at ($ (material transformer) + (6,-4) $) {\html{extensions/materials/transformers/translate2d}{Translate 2D}};
     \draw[dependency] (material translate 2d) -| (material transformer);
 
-    \node[extension,easy] (material translate 3d) at ($ (material transformer) + (6,-6) $) {\html{extensions/materials/transformers/translate3d}{Translate 3D}}; % todo
+    \node[extension,easy,todo] (material translate 3d) at ($ (material transformer) + (6,-6) $) {\html{extensions/materials/transformers/translate3d}{Translate 3D}};
     \draw[dependency] (material translate 3d) -| (material transformer);
 
-    \node[extension,easy] (material rotate 2d) at ($ (material transformer) + (6,-8) $) {\html{extensions/materials/transformers/rotate2d}{Rotate 2D}}; % todo
+    \node[extension,easy,todo] (material rotate 2d) at ($ (material transformer) + (6,-8) $) {\html{extensions/materials/transformers/rotate2d}{Rotate 2D}};
     \draw[dependency] (material rotate 2d) -| (material transformer);
 
-    \node[extension,easy] (material rotate 3d x) at ($ (material transformer) + (6,-10) $) {\html{extensions/materials/transformers/rotate3d-x}{RotateX 3D}}; % todo
+    \node[extension,easy,todo] (material rotate 3d x) at ($ (material transformer) + (6,-10) $) {\html{extensions/materials/transformers/rotate3d-x}{RotateX 3D}};
     \draw[dependency] (material rotate 3d x) -| (material transformer);
 
-    \node[extension,easy] (material rotate 3d y) at ($ (material transformer) + (6,-12) $) {\html{extensions/materials/transformers/rotate3d-y}{RotateY 3D}}; % todo
+    \node[extension,easy,todo] (material rotate 3d y) at ($ (material transformer) + (6,-12) $) {\html{extensions/materials/transformers/rotate3d-y}{RotateY 3D}};
     \draw[dependency] (material rotate 3d y) -| (material transformer);
 
-    \node[extension,easy] (material rotate 3d z) at ($ (material transformer) + (6,-14) $) {\html{extensions/materials/transformers/rotate3d-z}{RotateZ 3D}}; % todo
+    \node[extension,easy,todo] (material rotate 3d z) at ($ (material transformer) + (6,-14) $) {\html{extensions/materials/transformers/rotate3d-z}{RotateZ 3D}};
     \draw[dependency] (material rotate 3d z) -| (material transformer);
 
-    \node[extension,easy] (material slicer) at ($ (materials) + (6,-34) $) {\html{extensions/materials/slicer}{Slicer}}; % todo
+    \node[extension,easy,todo] (material slicer) at ($ (materials) + (6,-34) $) {\html{extensions/materials/slicer}{Slicer}};
     \draw[dependency] (material slicer) -| (materials);
+
+    \node[node] (primitives) at ($ (materials) + (28,0) $) {Primitives};
+    \draw[dependency] (primitives) |- (start);
+
+    \node[extension,easy,todo] (plane xz) at ($ (primitives) + (6,0) $) {\html{extensions/primitives/plane-xz}{Plane XZ}};
+    \draw[dependency] (plane xz) -- (primitives);
+
+    \node[extension,easy,todo] (plane yz) at ($ (primitives) + (6,-2) $) {\html{extensions/primitives/plane-xz}{Plane YZ}};
+    \draw[dependency] (plane yz) -| (primitives);
+
+    \node[extension,easy,todo] (cone) at ($ (primitives) + (6,-4) $) {\html{extensions/primitives/plane-xz}{Cone}};
+    \draw[dependency] (cone) -| (primitives);
+
+    \node[extension,easy,todo] (square) at ($ (primitives) + (6,-6) $) {\html{extensions/primitives/cube}{Square}};
+    \draw[dependency] (square) -| (primitives);
+
+    \node[extension,easy,todo] (cube) at ($ (primitives) + (6,-8) $) {\html{extensions/primitives/cube}{Cube}};
+    \draw[dependency] (cube) -| (primitives);
+
+    \node[extension,easy,todo] (cylinder) at ($ (primitives) + (6,-10) $) {\html{extensions/primitives/cylinder}{Cylinder}};
+    \draw[dependency] (cylinder) -| (primitives);
+
+    \node[extension,easy,todo] (disk) at ($ (primitives) + (6,-12) $) {\html{extensions/primitives/cylinder}{Disk}};
+    \draw[dependency] (disk) -| (primitives);
+
+    \node[extension,easy,todo] (triangle) at ($ (primitives) + (6,-14) $) {\html{extensions/primitives/triangle}{Triangle}};
+    \draw[dependency] (triangle) -| (primitives);
+
+    \node[extension,easy,todo] (cropper) at ($ (primitives) + (6,-16) $) {\html{extensions/primitives/cropper}{Cropper}};
+    \draw[dependency] (cropper) -| (primitives);
+
+    \node[extension,easy,todo] (bumpifier) at ($ (primitives) + (6,-18) $) {\html{extensions/primitives/bumpifier}{Bumpifier}};
+    \draw[dependency] (bumpifier) -| (primitives);
+
+    \node[extension,easy,todo] (intersection) at ($ (primitives) + (6,-20) $) {\html{extensions/primitives/bumpifier}{Intersection}};
+    \draw[dependency] (intersection) -| (primitives);
+
+    \node[extension,easy,todo] (difference) at ($ (primitives) + (6,-22) $) {\html{extensions/primitives/bumpifier}{Difference}};
+    \draw[dependency] (difference) -| (primitives);
+
+    \node[extension,hard,todo] (mesh) at ($ (primitives) + (6,-24) $) {\html{extensions/primitives/mesh}{Mesh}};
+    \draw[dependency] (mesh) -| (primitives);
+
+    \node[extension,hard,todo] (scaling) at ($ (primitives) + (6,-26) $) {\html{extensions/primitives/scaling}{Scaling}};
+    \draw[dependency] (mesh) -| (primitives);
+
+    \node[extension,hard,todo] (rotation) at ($ (primitives) + (6,-28) $) {\html{extensions/primitives/rotation}{Rotation}};
+    \draw[dependency] (rotation) -| (primitives);
+
+    \node[node] (renderers) at ($ (primitives) + (12,0) $) {Renderers};
+    \draw[dependency] (renderers) |- (start);
+
+    \node[extension,easy,todo] (group) at ($ (renderers) + (6,0) $) {\html{extensions/primitives/group}{Group}};
+    \draw[dependency] (group) -- (renderers);
+
+    \node[extension,hard,todo] (edge renderer) at ($ (group) + (6,0) $) {\html{extensions/renderers/edge}{Edge}};
+    \draw[dependency] (edge renderer) -- (group);
+
+    \node[extension,easy,todo] (cartoon renderer) at ($ (edge renderer) + (6,0) $) {\html{extensions/renderers/cartoon}{Cartoon}};
+    \draw[dependency] (cartoon renderer) -- (edge renderer);
+
+    \node[extension,medium,todo] (split depth renderer) at ($ (renderers) + (6,-2) $) {\html{extensions/primitives/split-depth}{Split Depth}};
+    \draw[dependency] (split depth renderer) -| (renderers);
+
+
+
   \end{pgfonlayer}
 
   \begin{pgfonlayer}{foreground}
