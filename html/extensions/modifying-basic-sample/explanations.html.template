@@ -120,7 +120,7 @@
           </p>
           <%= source 'make-union.cpp' %>
           <p>
-            Never use <code>union</code> as a variable or function name: <code>union</code> is a C++ keyword.
+            Never use <code>union</code> as a variable or function name: <code>union</code> is already a C++ keyword.
           </p>
           <%= raytrace_movie 'two-spheres' %>
         </div>
