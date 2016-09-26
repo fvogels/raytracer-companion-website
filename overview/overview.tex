@@ -180,9 +180,6 @@
     \node[extension,easy,todo] (material rotate 3d z) at ($ (material transformer) + (6,-14) $) {\html{extensions/materials/transformers/rotate3d-z}{RotateZ 3D}};
     \draw[dependency] (material rotate 3d z) -| (material transformer);
 
-    \node[extension,easy,todo] (material slicer) at ($ (materials) + (6,-34) $) {\html{extensions/materials/slicer}{Slicer}};
-    \draw[dependency] (material slicer) -| (materials);
-
     \node[node] (primitives) at ($ (materials) + (28,0) $) {Primitives};
     \draw[dependency] (primitives) |- (start);
 
@@ -330,6 +327,9 @@
     \node[extension,easy,todo] (angle animation) at ($ (animations) + (6,-30) $) {\html{extensions/animations/angle}{Angles}};
     \draw[dependency] (angle animation) -| (animations);
     
+    \node[extension,easy,todo] (material slicer) at ($ (animations) + (6,-32) $) {\html{extensions/materials/slicer}{Slicer}};
+    \draw[dependency] (material slicer) -| (animations);
+
 
   \end{pgfonlayer}
 
