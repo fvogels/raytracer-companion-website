@@ -111,13 +111,13 @@
     \node[extension,hard] (dalmatian 2d material) at ($ (pattern 2d materials) + (6,0) $) {\html{extensions/materials/pattern2d/dalmatian2d}{Dalmatian 2D}};
     \draw[dependency] (dalmatian 2d material) -- (pattern 2d materials);
 
-    \node[extension,medium] (worley 2d material) at ($ (materials) + (6,-8) $) {\html{extensions/math/worley}{Worley 2D}};
+    \node[extension,medium] (worley 2d material) at ($ (materials) + (6,-8) $) {\html{extensions/materials/worley2d}{Worley 2D}};
     \draw[dependency] (worley 2d material) -| (materials);
 
     \node[extension,hard] (dalmatian 3d material) at ($ (pattern 2d materials) + (6,2) $) {\html{extensions/materials/pattern2d/dalmatian3d}{Dalmatian 3D}};
     \draw[dependency] (dalmatian 3d material) -| (pattern 2d materials);
 
-    \node[extension,medium] (worley 3d material) at ($ (materials) + (6,-10) $) {\html{extensions/materials/worley}{Worley 3D}};
+    \node[extension,medium] (worley 3d material) at ($ (materials) + (6,-10) $) {\html{extensions/materials/worley3d}{Worley 3D}};
     \draw[dependency] (worley 3d material) -| (materials);
 
     \node[extension,easy] (lines pattern material) at ($ (pattern 2d materials) + (6,-2) $) {\html{extensions/materials/pattern2d/lines}{Lines}};
