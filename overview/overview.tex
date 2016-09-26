@@ -154,12 +154,34 @@
 
     \node[extension,easy] (material transformer) at ($ (materials) + (6,-18) $) {\html{extensions/materials/transformer}{Transformer}};
     \draw[dependency] (material transformer) -| (materials);
-  \end{pgfonlayer}
 
-  % \begin{pgfonlayer}{background}
-  %   \draw[area] ($ (ray tracer v1.north west) + (-0.5,0.5) $) rectangle ($ (ray tracer v6.south east) + (0.5,-0.5) $);
-  %   \draw[area] ($ ( random sampler.north west) + (-0.5,0.5) $) rectangle ($ (multijittered sampler.south east) + (0.5,-0.5) $);
-  % \end{pgfonlayer}
+    \node[extension,easy] (material scale 2d) at ($ (material transformer) + (6,0) $) {\html{extensions/materials/transformers/scale2d}{Scale 2D}}; % todo
+    \draw[dependency] (material scale 2d) -- (material transformer);
+
+    \node[extension,easy] (material scale 3d) at ($ (material transformer) + (6,-2) $) {\html{extensions/materials/transformers/scale3d}{Scale 3D}}; % todo
+    \draw[dependency] (material scale 3d) -| (material transformer);
+
+    \node[extension,easy] (material translate 2d) at ($ (material transformer) + (6,-4) $) {\html{extensions/materials/transformers/translate2d}{Translate 2D}}; % todo
+    \draw[dependency] (material translate 2d) -| (material transformer);
+
+    \node[extension,easy] (material translate 3d) at ($ (material transformer) + (6,-6) $) {\html{extensions/materials/transformers/translate3d}{Translate 3D}}; % todo
+    \draw[dependency] (material translate 3d) -| (material transformer);
+
+    \node[extension,easy] (material rotate 2d) at ($ (material transformer) + (6,-8) $) {\html{extensions/materials/transformers/rotate2d}{Rotate 2D}}; % todo
+    \draw[dependency] (material rotate 2d) -| (material transformer);
+
+    \node[extension,easy] (material rotate 3d x) at ($ (material transformer) + (6,-10) $) {\html{extensions/materials/transformers/rotate3d-x}{RotateX 3D}}; % todo
+    \draw[dependency] (material rotate 3d x) -| (material transformer);
+
+    \node[extension,easy] (material rotate 3d y) at ($ (material transformer) + (6,-12) $) {\html{extensions/materials/transformers/rotate3d-y}{RotateY 3D}}; % todo
+    \draw[dependency] (material rotate 3d y) -| (material transformer);
+
+    \node[extension,easy] (material rotate 3d z) at ($ (material transformer) + (6,-14) $) {\html{extensions/materials/transformers/rotate3d-z}{RotateZ 3D}}; % todo
+    \draw[dependency] (material rotate 3d z) -| (material transformer);
+
+    \node[extension,easy] (material slicer) at ($ (materials) + (6,-34) $) {\html{extensions/materials/slicer}{Slicer}}; % todo
+    \draw[dependency] (material slicer) -| (materials);
+  \end{pgfonlayer}
 
   \begin{pgfonlayer}{foreground}
     \foreach[count=\i] \id in {modifying basic sample,scripting basics,ray tracer v1} {
