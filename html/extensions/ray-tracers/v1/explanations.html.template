@@ -97,7 +97,7 @@
       <section>
         <h1>Ambient Lighting</h1>
         <p>
-          Ray tracer v1 adds support for <%= link 'reference/lighting/ambient', 'ambient lighting' %>. Be sure to read the linked material
+          Ray tracer v1 adds support for <%= link 'reference/lights/ambient', 'ambient lighting' %>. Be sure to read the linked material
           as otherwise you will not understand what you need to implement.
         </p>
         <p>
