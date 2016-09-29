@@ -214,9 +214,18 @@
         </ul>
         <%= tex_image 'diffuse' %>
         <p>
+          Compute the cosine of the angle $\alpha$:
+          \[
+            \cos\alpha = \frac{L-P}{|L-P|} \cdot \vec{n}
+          \]
           The amount of light reflected in each direction is then
           \[
-            \frac{L-P}{|L-P|} \cdot \vec{n} \cdot C_\mathrm{L} \cdot C_\mathrm{S}
+            \left\{
+            \begin{array}{rr}
+              \cos\alpha \cdot \vec{n} \cdot C_\mathrm{L} \cdot C_\mathrm{S} &amp; \qquad \cos\alpha &gt; 0 \\ \\
+              0 &amp; \cos\alpha \leq 0 \\
+            \end{array}
+            \right.
           \]
         </p>
       </section>
