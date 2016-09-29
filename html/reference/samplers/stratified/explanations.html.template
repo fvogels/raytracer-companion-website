@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Stratified Sampler</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box', 'imgslider') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor', 'imgslider') %>
     <style>
       .centered {
         margin: 10px auto;
@@ -33,50 +33,22 @@
       </section>
       <section>
         <h1>Comparison</h1>
-        <table class="centered">
-          <tbody>
-            <tr>
-              <th>Single Sampler</th>
-            </tr>
-            <tr>
-              <td>
-                <%= raytrace('single', style:'width:90%;') %>
-              </td>
-            </tr>
-            <tr>
-              <th>Stratified Sampler, n = 1</th>
-            </tr>
-            <tr>
-              <td>
-                <%= raytrace('demo1', style:'width:90%;') %>
-              </td>
-            </tr>
-            <tr>
-              <th>Stratified Sampler, n = 2</th>
-            </tr>
-            <tr>
-              <td>
-                <%= raytrace('demo2', style:'width:90%;') %>
-              </td>
-            </tr>
-            <tr>
-              <th>Stratified Sampler, n = 3</th>
-            </tr>
-            <tr>
-              <td>
-                <%= raytrace('demo3', style:'width:90%;') %>
-              </td>
-            </tr>
-            <tr>
-              <th>Stratified Sampler, n = 4</th>
-            </tr>
-            <tr>
-              <td>
-                <%= raytrace('demo4', style:'width:90%;') %>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <section>
+          <h2>n = 1</h2>
+          <%= raytrace_comparison 'single', 'demo1' %>
+        </section>
+        <section>
+          <h2>n = 2</h2>
+          <%= raytrace_comparison 'single', 'demo2' %>
+        </section>
+        <section>
+          <h2>n = 3</h2>
+          <%= raytrace_comparison 'single', 'demo3' %>
+        </section>
+        <section>
+          <h2>n = 4</h2>
+          <%= raytrace_comparison 'single', 'demo4' %>
+        </section>
       </section>
     </div>
   </body>
@@ -86,6 +58,7 @@
     {
       Box.initialize();
       SourceEditor.initialize();
+      $('.slider').slider( { showInstruction: false } );
     }
 
     $( initialize );   
