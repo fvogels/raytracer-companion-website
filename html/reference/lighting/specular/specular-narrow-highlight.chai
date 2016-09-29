@@ -1,0 +1,22 @@
+var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                    "look_at": pos(0,0,0) ] )
+
+var material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                    "diffuse": Colors.white() * 0.8,
+                                    "specular": Colors.white(),
+                                    "specular_exponent": 500 ] )
+
+var root = decorate(material, sphere())
+
+var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
+
+var scene = create_scene(camera, root, lights)
+
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.multijittered(2),
+                                     "ray_tracer": Raytracers.v3() ] )
+
+pipeline( scene,
+          [ Pipeline.renderer(renderer),
+            Pipeline.bmp("specular-narrow-highlight.bmp") ] )

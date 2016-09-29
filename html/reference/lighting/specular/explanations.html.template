@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Specular Highlights</title>
+    <%= stylesheets('ucll', 'box', 'imgslider') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor', 'imgslider') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      .centered {
+        margin: 10px auto;
+      }
+
+      #highlights {
+        width: 80%;
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+
+      #highlights td {
+        border: 1px solid black;
+      }
+
+      #highlights img {
+        width: 90%;
+      }
+
+      .slider {
+        margin: 10px auto;
+        width: 60%;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      
+      function initialize()
+      {
+        Box.initialize();
+      }
+
+      $( initialize );    
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Specular Highlights</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Comparison</h1>
+        <%= raytrace_comparison 'without-highlights', 'with-highlights' %>
+      </section>
+      <section>
+        <h1>Explanation</h1>
+        <p>
+          One peculiar thing about our RayTracer is that light sources are actually invisible.
+          Consider the figure below:
+        </p>
+        <%= tex_image 'photons' %>
+        <p>
+          The light source $L$ emits white photons. In reality, photons travel from $L$ to our eye $E$,
+          making us perceive the light source as a bright white spot. In our implementation, however,
+          only photons that travel from $L$ to $P$ to $E$ are taken into account.
+        </p>
+        <p>
+          Specular highlights are the reflection of the light source in other objects.
+          In a way, light sources are, in our implementation, the opposite of vampires:
+          you can see their reflection in the mirror, but you cannot see them
+          if you look straight at them.
+        </p>
+        <%= tex_image 'specular' %>
+        <p>
+          In the figure above, light arriving at $P$ is reflected in a mirrorlike fashion.
+          This reflected beam of light flies by the eye $E$, meaning we do not perceive it.
+          If we were to only consider such perfect mirrorlike reflections, a point light would
+          always be seen as a dot, which is quite uninteresting.
+          For this reason, we add a little bit of wiggle room.
+        </p>
+        <%= tex_image 'specular2' %>
+        <p>
+          As shown on the figure above, the red line shows the "perfect" reflection.
+          The white lines are "slightly off" reflections: the more they deviate
+          from the one true reflection, the less photons they carry.
+          How much deviation we allow is up to us.
+        </p>
+        <table class="centered" id="highlights">
+          <tbody>
+            <tr>
+              <td><%= tex_image 'specular-narrow' %></td>
+              <td><%= raytrace 'specular-narrow-highlight' %></td>
+            </tr>
+            <tr>
+              <td><%= tex_image 'specular2' %></td>
+              <td><%= raytrace 'with-highlights' %></td>
+            </tr>
+            <tr>
+              <td><%= tex_image 'specular-wide' %></td>
+              <td><%= raytrace 'specular-wide-highlight' %></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h1>Mathematics</h1>
+        <%= tex_image 'math' %>
+        <p>
+          We need the following pieces in data:
+        </p>
+        <ul>
+          <li>
+            The position of the light $L$.
+          </li>
+          <li>
+            The color of the light $C_\mathrm{L}$.
+          </li>
+          <li>
+            The hit position $P$.
+          </li>
+          <li>
+            The material's specular color $C_\mathrm{P}$.
+          </li>
+          <li>
+            The eye's position $E$.
+          </li>
+        </ul>
+        <p>
+          We perform the following steps:
+        </p>
+        <ul>
+          <li>
+            Compute the direction of the incoming light.
+            \[
+              \vec{i} = \frac{L-P}{|L-P|}
+            \]
+          </li>
+          <li>
+            Compute the reflected direction.
+            \[
+              \vec r = \vec i - 2 \cdot (\vec i \cdot \vec n) \cdot \vec n
+            \]
+          </li>
+          <li>
+            Compute the unit vector going from $P$ to $E$:
+            \[
+              \vec v = \frac{E-P}{|E-P|}
+            \]
+          </li>
+          <li>
+            Compute the cosine of the angle between $\vec r$ and $\vec v$:
+            \[
+              \cos \alpha = \vec v \cdot \vec r
+            \]
+          </li>
+          <li>
+            The amount of photons reaching $E$ from $L$ is
+            \[
+              C_\mathrm{L} \cdot C_\mathrm{P} \cdot \cos(\alpha)^e
+            \]
+            where $e$ is the specular exponent. The greater $e$ is, the smaller the specular highlight.
+          </li>
+        </p>
+      </section>
+    </div>
+  </body>
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+      SourceEditor.initialize();
+      $('.slider').slider( { showInstruction: false } );
+    }
+
+    $( initialize );   
+  </script>
+</html>
