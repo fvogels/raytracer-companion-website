@@ -9,7 +9,7 @@ meta_object do
   extend Shortcuts::Actions
   
 
-  inherit_remote_directory 'lights'
+  inherit_remote_directory 'lighting'
 
   quick_recursive_all
 end
