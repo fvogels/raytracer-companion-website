@@ -215,6 +215,9 @@
             Add a binding for <code>v1</code>.
           </p>
           <p>
+            Examine the <code>v(int)</code> function and update it as necessary.
+          </p>
+          <p>
             Check your work by creating a script that uses ray tracer v1 and rendering it.
           </p>
         </div>
