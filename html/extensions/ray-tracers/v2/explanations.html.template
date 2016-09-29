@@ -13,6 +13,18 @@
       video {
         margin: 10px auto;
       }
+
+      .centered {
+        margin: 0px auto;
+      }
+
+      #lights-comparison {
+        width: 60%;
+      }
+
+      #lights-comparison th {
+        background: #AAA;
+      }
     </style>
 
     <script type="text/x-mathjax-config">
@@ -30,7 +42,195 @@
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <p>
+          <%= link 'extensions/ray-tracers/v1', 'Ray tracer v1' %> added support for <%= link 'reference/lighting/ambient', 'ambient lighting' %>.
+          This ray tracer adds another kind of lighting, namely <%= link 'reference/lighting/diffuse', 'diffuse lighting' %>. Take some time to read up on it.
+        </p>
+        <p>
+          When ray tracing a scene, our goal is to be able to simulate each photon so that we know which effect it has on
+          our final image. Ray tracer v1 only took into consideration a small fraction of these photons,
+          namely only those due to ambient lighting. Ray tracer v2 will also take into account photons that
+          are the product of diffuse lighting.
+          \[
+            \begin{array}{rcl}
+              \textrm{v0} &amp; = &amp; \textrm{ambient photons} \\
+              \textrm{v1} &amp; = &amp; \textrm{ambient photons} + \sum_{L \in \textrm{lights}} \textrm{diffuse photons from $L$} \\
+            \end{array}
+          \]
+        </p>
+        <p>
+          We suggest the following design for v2. It might help to refactor v1 a bit so that you can make v2 a subclass
+          of v1 and reuse functionality.
+        </p>
+        <%= tex_image 'uml' %>
+        <p>
+          We now discuss each of the methods' responsibilities in turn.
+        </p>
+        <section>
+          <h2>trace</h2>
+          <p>
+            The algorithm in <code>trace</code>'s body looks as follows: given a scene and a ray,
+          </p>
+          <ol>
+            <li>
+              Determine the first positive hit between the ray and the scene.
+            </li>
+            <li>
+              If there is no hit, return a <code>TraceResult::no_hit</code>.
+            </li>
+            <li>
+              Initialize a <code>Color result</code> to <code>colors::black()</code>, i.e. with start with zero photons.
+            </li>
+            <li>
+              Ask the <code>hit.material</code> for the <code>MaterialProperties</code> at the hit location.
+            </li>
+            <li>
+              Compute the ambient lighting (as you did in v1) and add the color to <code>result</code>.
+            </li>
+            <li>
+              Call <code>process_lights</code>, which will iterate over all lights. Add the return value (a color) to <code>result</code>.
+            </li>
+            <li>
+              Return a <code>TraceResult</code> containing all necessary data, with as color <code>result</code>'s final value.
+            </li>
+          </ol>
+          <div class="boxed" data-category="task">
+            <p>
+              Implement <code>trace</code>.
+            </p>
+          </div>
+        </section>
+        <section>
+          <h2><code>process_lights</code></h2>
+          <p>
+            This method's sole responsibility is to iterate over each light and return the sum of all colors.
+          </p>
+          <ol>
+            <li>
+              Start with a fresh <code>Color result</code>.
+            </li>
+            <li>
+              Iterate over the scene's light sources. Call <code>process_light_source</code> for each light source
+              and add the return value to <code>result</code>.
+            </li>
+            <li>
+              Return <code>result</code>.
+            </li>
+          </ol>
+          <div class="boxed" data-category="task">
+            <p>
+              Implement <code>process_light_sources</code>.
+            </p>
+          </div>
+        </section>
+        <section>
+          <h2><code>process_light_source</code></h2>
+          <p>
+            This method asks the given light source to enumerate all light rays it emits in the direction of the hit position
+            and passes each to <code>process_light_ray</code>.
+            For point lights, there is only one such ray, but area lights can produce many.
+          </p>
+          <table class="centered" id="lights-comparison">
+            <thead>
+              <tr>
+                <th>Point Light</th>
+                <th>Area Light</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= tex_image 'point-light' %></td>
+                <td><%= tex_image 'area-light' %></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Note how light sources produce <code>LightRay</code> objects, not just <code>Ray</code>s. A <code>LightRay</code>
+            is a <code>Ray</code> combined with a <code>Color</code>, meaning it specifies not only where the light comes from,
+            but also which color it is.
+          </p>
+          <p>
+            <code>process_light_source</code> operates as follows:
+          </p>
+          <ol>
+            <li>
+              Initialize a local variable <code>result</code> of type <code>Color</code> to black.
+            </li>
+            <li>
+              Ask the light source to enumerate all light rays that reach <code>hit.position</code>.
+            </li>
+            <li>
+              Iterate over each of these light rays. Give each to <code>process_light_ray</code>.
+              Add the return values to <code>result</code>.
+            </li>
+            <li>
+              Return <code>result</code>.
+            </li>
+          </ol>
+          <div class="boxed" data-category="task">
+            <p>
+              Implement <code>process_light_source</code>.
+            </p>
+          </div>
+        </section>
+        <section>
+          <h2><code>process_light_ray</code></h2>
+          <p>
+            In v2, <code>process_light_ray</code> is very simple:
+          </p>
+          <ol>
+            <li>
+              Initialize local variable <code>result</code> to black.
+            </li>
+            <li>
+              Call <code>compute_diffuse</code> and add its return value to <code>result</code>.
+            </li>
+            <li>
+              Return <code>result</code>.
+            </li>
+          </ol>
+          <div class="boxed" data-category="task">
+            <p>
+              Implement <code>process_light_ray</code>.
+            </p>
+          </div>
+          <p>
+            Admittedly, this method seems like an unnecessary indirection, and at this stage, it is.
+            We chose to introduce it here so as to simplify the definition of v3: writing this
+            ray tracer will be a matter of overriding this method.
+          </p>
+        </section>
+        <section>
+          <h2><code>compute_diffuse</code></h2>
+          <p>
+            Finally comes the time to actually compute diffuse lighting.
+            The arguments provide you with all necessary data. You need:
+          </p>
+          <ul>
+            <li>
+              The direction of the incoming light.
+            </li>
+            <li>
+              The light's color.
+            </li>
+            <li>
+              The position to be lit.
+            </li>
+            <li>
+              The normal vector at the position to be lit.
+            </li>
+          </ul>
+          <div class="boxed" data-category="task">
+            <p>
+              Translate the <%= link 'reference/lighting/diffuse', 'mathematical formula for diffuse lighting' %> into code.
+            </p>
+          </div>
+        </section>
+      </section>
+            
     </div>
   </body>
 

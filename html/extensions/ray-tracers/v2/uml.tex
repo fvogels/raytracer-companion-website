@@ -1,0 +1,43 @@
+\documentclass{standalone}
+\usepackage{ucll-uml}
+
+\usetikzlibrary{calc}
+
+
+\begin{document}
+
+\begin{tikzpicture}
+  \node[/uml/class] (RayTracerImplementation) {
+    \umlclass\Abstract RayTracerImplementation%
+    \Fields%
+    \Methods%
+    \Public\Abstract trace(const Scene\&, const Ray\&) \\
+    \endumlclass
+  };
+
+  \node[/uml/class,anchor=north] (RayTracerV1) at ($ (RayTracerImplementation.south) + (0,-2) $) {
+    \umlclass RayTracerV1%
+    \Fields%
+    \Methods%
+    \Public trace(const Scene\&, const Ray\&) const :~TraceResult \\
+    \Protected compute\_ambient(const MaterialProperties\&) const :~Color \\
+    \endumlclass
+  };
+
+  \node[/uml/class,anchor=north] (RayTracerV2) at ($ (RayTracerV1.south) + (0,-2) $) {
+    \umlclass RayTracerV2%
+    \Fields%
+    \Methods%
+    \Public trace(const Scene\&, const Ray\&) const :~TraceResult \\
+    \Protected process\_lights(const Scene\&, const MaterialProperties\&, const Hit\&, const Ray\&) const \\
+    \Protected process\_light\_source(const Scene\&, const MaterialProperties\&, const Hit\&, const Ray\&, LightSource) const \\
+    \Protected process\_light\_ray(const Scene\&, const MaterialProperties\&, const Hit\&, const Ray\&, const LightRay\&) const \\
+    \Protected compute\_diffuse(const MaterialProperties\&, const Hit\&, const Ray\&, const LightRay\&) const \\
+    \endumlclass
+  };
+
+  \draw[/uml/inherits] (RayTracerV1) -- (RayTracerImplementation);
+  \draw[/uml/inherits] (RayTracerV2) -- (RayTracerV1);
+\end{tikzpicture}
+
+\end{document}
