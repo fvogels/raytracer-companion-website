@@ -16,7 +16,7 @@ class SharedContext
     png_path = Pathname.new png_filename
     
     pdf_path = LaTeX2.compile(tex_path)
-    Image2.convert(pdf_path, png_path, trim: true, quality: quality, density: density)
+    Image2.convert(pdf_path, png_path, trim: false, quality: quality, density: density)
 
     style = if style
             then style = " style=\"#{style}\""
