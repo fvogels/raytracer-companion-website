@@ -228,6 +228,29 @@
               Translate the <%= link 'reference/lighting/diffuse', 'mathematical formula for diffuse lighting' %> into code.
             </p>
           </div>
+          <div class="boxed" data-category="task">
+            <p>
+              Put the finishing touches.
+            </p>
+            <ul>
+              <li>
+                Create the factory method <code>raytracer::raytracers::v2()</code>.
+              </li>
+              <li>
+                Add the appropriate include to <code>raytracers/ray-tracers.h</code>.
+              </li>
+              <li>
+                Update <code>scripting/raytracing-module.cpp</code>.
+              </li>
+            </ul>
+          </div>
+          <div class="boxed" data-category="task">
+            <p>
+              Check your work extensivily. Render a scene
+              where you can see the lit and unlit parts of an object.
+              Make sure the results look good.
+            </p>
+          </div>
         </section>
       </section>
             
