@@ -200,10 +200,10 @@
             The color $C_\mathrm{L}$ of the light.
           </li>
           <li>
-            The position $P_\mathrm{L}$ of the light.
+            The position $L$ of the light.
           </li>
           <li>
-            The location $P_\mathrm{S}$ of the point on a surface that we need to determine the color of.
+            The location $P$ of the point on a surface that we need to determine the color of.
           </li>
           <li>
             The color $C_\mathrm{S}$ of the surface's material at $P$.
