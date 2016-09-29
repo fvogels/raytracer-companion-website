@@ -186,25 +186,46 @@
     \node[extension,easy,todo] (plane xz) at ($ (primitives) + (6,0) $) {\html{extensions/primitives/plane-xz}{Plane XZ}};
     \draw[dependency] (plane xz) -- (primitives);
 
-    \node[extension,easy,todo] (plane yz) at ($ (primitives) + (6,-2) $) {\html{extensions/primitives/plane-xz}{Plane YZ}};
+    \node[extension,easy,todo] (optimized plane xz) at ($ (plane xz) + (6,0) $) {\html{extensions/primitives/plane-xz-optimized}{Optimized Plane XZ}};
+    \draw[dependency] (optimized plane xz) -- (plane xz);
+
+    \node[extension,easy,todo] (plane yz) at ($ (plane xz) + (0,-2) $) {\html{extensions/primitives/plane-xz}{Plane YZ}};
     \draw[dependency] (plane yz) -| (primitives);
 
-    \node[extension,easy,todo] (cone) at ($ (primitives) + (6,-4) $) {\html{extensions/primitives/plane-xz}{Cone}};
+    \node[extension,easy,todo] (optimized plane yz) at ($ (plane yz) + (6,0) $) {\html{extensions/primitives/plane-yz-optimized}{Optimized Plane YZ}};
+    \draw[dependency] (optimized plane yz) -- (plane yz);
+
+    \node[extension,easy,todo] (cone) at ($ (plane yz) + (0,-2) $) {\html{extensions/primitives/plane-xz}{Cone}};
     \draw[dependency] (cone) -| (primitives);
 
-    \node[extension,easy,todo] (square) at ($ (primitives) + (6,-6) $) {\html{extensions/primitives/cube}{Square}};
+    \node[extension,easy,todo] (optimized cone) at ($ (cone) + (6,0) $) {\html{extensions/primitives/cone-optimized }{Optimized Cone}};
+    \draw[dependency] (optimized cone) -| (cone);
+
+    \node[extension,easy,todo] (square) at ($ (cone) + (0,-2) $) {\html{extensions/primitives/cube}{Square}};
     \draw[dependency] (square) -| (primitives);
 
-    \node[extension,easy,todo] (cube) at ($ (primitives) + (6,-8) $) {\html{extensions/primitives/cube}{Cube}};
+    \node[extension,easy,todo] (optimized square) at ($ (square) + (6,0) $) {\html{extensions/primitives/square-optimized}{Optimized Square}};
+    \draw[dependency] (optimized square) -| (square);
+
+    \node[extension,easy,todo] (cube) at ($ (square) + (0,-2) $) {\html{extensions/primitives/cube}{Cube}};
     \draw[dependency] (cube) -| (primitives);
 
-    \node[extension,easy,todo] (cylinder) at ($ (primitives) + (6,-10) $) {\html{extensions/primitives/cylinder}{Cylinder}};
+    \node[extension,easy,todo] (optimized cube) at ($ (cube) + (6,0) $) {\html{extensions/primitives/cube-optimized}{Optimized Cube}};
+    \draw[dependency] (optimized cube) -| (cube);
+
+    \node[extension,easy,todo] (cylinder) at ($ (cube) + (0,-2) $) {\html{extensions/primitives/cylinder}{Cylinder}};
     \draw[dependency] (cylinder) -| (primitives);
 
-    \node[extension,easy,todo] (disk) at ($ (primitives) + (6,-12) $) {\html{extensions/primitives/cylinder}{Disk}};
+    \node[extension,easy,todo] (optimized cylinder) at ($ (cylinder) + (6,0) $) {\html{extensions/primitives/cylinder-optimized}{Optimized Cylinder}};
+    \draw[dependency] (optimized cylinder) -| (cylinder);
+
+    \node[extension,easy,todo] (disk) at ($ (cylinder) + (0,-2) $) {\html{extensions/primitives/cylinder}{Disk}};
     \draw[dependency] (disk) -| (primitives);
 
-    \node[extension,easy,todo] (triangle) at ($ (primitives) + (6,-14) $) {\html{extensions/primitives/triangle}{Triangle}};
+    \node[extension,easy,todo] (optimized disk) at ($ (disk) + (6,0) $) {\html{extensions/primitives/disk-optimized}{Optimized Disk}};
+    \draw[dependency] (optimized disk) -| (disk);
+
+    \node[extension,easy,todo] (triangle) at ($ (disk) + (0,-2) $) {\html{extensions/primitives/triangle}{Triangle}};
     \draw[dependency] (triangle) -| (primitives);
 
     \node[extension,easy,todo] (smooth triangle) at ($ (triangle) + (6,0) $) {\html{extensions/primitives/smooth-triangle}{Smooth Triangle}};
@@ -216,28 +237,37 @@
     \node[extension,hard] (perlin 2d 2) at ($ (perlin terrain) + (6,0) $) {\html{extensions/math/perlin2d}{Perlin 2D} \mathy};
     \draw[dependency] (perlin terrain) -- (perlin 2d 2);
 
-    \node[extension,easy,todo] (cropper) at ($ (primitives) + (6,-16) $) {\html{extensions/primitives/cropper}{Cropper}};
+    \node[extension,easy,todo] (cropper) at ($ (triangle) + (0,-2) $) {\html{extensions/primitives/cropper}{Cropper}};
     \draw[dependency] (cropper) -| (primitives);
 
-    \node[extension,easy,todo] (bumpifier) at ($ (primitives) + (6,-18) $) {\html{extensions/primitives/bumpifier}{Bumpifier}};
+    \node[extension,easy,todo] (optimized cropper) at ($ (cropper) + (6,0) $) {\html{extensions/primitives/cropper-optimized}{Optimized Cropper}};
+    \draw[dependency] (optimized cropper) -| (cropper);
+
+    \node[extension,easy,todo] (bumpifier) at ($ (cropper) + (0,-2) $) {\html{extensions/primitives/bumpifier}{Bumpifier}};
     \draw[dependency] (bumpifier) -| (primitives);
 
-    \node[extension,easy,todo] (intersection) at ($ (primitives) + (6,-20) $) {\html{extensions/primitives/bumpifier}{Intersection}};
+    \node[extension,easy,todo] (intersection) at ($ (bumpifier) + (0,-2) $) {\html{extensions/primitives/bumpifier}{Intersection}};
     \draw[dependency] (intersection) -| (primitives);
 
-    \node[extension,easy,todo] (difference) at ($ (primitives) + (6,-22) $) {\html{extensions/primitives/bumpifier}{Difference}};
+    \node[extension,easy,todo] (optimized intersection) at ($ (intersection) + (6,0) $) {\html{extensions/primitives/intersection-optimized}{Optimized Intersection}};
+    \draw[dependency] (optimized intersection) -| (intersection);
+
+    \node[extension,easy,todo] (difference) at ($ (intersection) + (0,-2) $) {\html{extensions/primitives/bumpifier}{Difference}};
     \draw[dependency] (difference) -| (primitives);
 
-    \node[extension,hard,todo] (mesh) at ($ (primitives) + (6,-24) $) {\html{extensions/primitives/mesh}{Mesh}};
+    \node[extension,easy,todo] (optimized difference) at ($ (difference) + (6,0) $) {\html{extensions/primitives/difference-optimized}{Optimized Difference}};
+    \draw[dependency] (optimized difference) -| (difference);
+
+    \node[extension,hard,todo] (mesh) at ($ (difference) + (0,-2) $) {\html{extensions/primitives/mesh}{Mesh}};
     \draw[dependency] (mesh) -| (primitives);
 
-    \node[extension,hard,todo] (scaling) at ($ (primitives) + (6,-26) $) {\html{extensions/primitives/scaling}{Scaling}};
-    \draw[dependency] (mesh) -| (primitives);
+    \node[extension,hard,todo] (scaling) at ($ (mesh) + (0,-2) $) {\html{extensions/primitives/scaling}{Scaling}};
+    \draw[dependency] (scaling) -| (primitives);
 
-    \node[extension,hard,todo] (rotation) at ($ (primitives) + (6,-28) $) {\html{extensions/primitives/rotation}{Rotation}};
+    \node[extension,hard,todo] (rotation) at ($ (scaling) + (0,-2) $) {\html{extensions/primitives/rotation}{Rotation}};
     \draw[dependency] (rotation) -| (primitives);
 
-    \node[node] (renderers) at ($ (primitives) + (12,0) $) {Renderers};
+    \node[node] (renderers) at ($ (primitives) + (18,0) $) {Renderers};
     \draw[dependency] (renderers) |- (start);
 
     \node[extension,easy,todo] (group) at ($ (renderers) + (6,0) $) {\html{extensions/primitives/group}{Group}};
