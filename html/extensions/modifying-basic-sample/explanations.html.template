@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: 2D Cartesian Coordinate System</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -42,7 +42,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Modifying Basic Sample</div>
+      Modifying Basic Sample
     </header>
     <div id="contents">
       <section>
@@ -68,7 +68,8 @@
           is that all parts still need to be set up and linked together. Your first
           task is to find out which code deals with which part.
         </p>
-        <div class="boxed" data-category="Task">
+        <section class="boxed2">
+          <h1>Task</h1>
           <p>
             Find answers to the following questions. Let the comments
             and the functions and variables' names guide you.            
@@ -90,7 +91,7 @@
               What are the starting and ending position of the sphere?
             </li>
           </ul>
-        </div>
+        </section>
       </section>
 
       <section>
@@ -101,19 +102,24 @@
           Rename the function <code>basic_sample</code> to e.g. <code>my_demo</code> and update <code>app.cpp</code> to call this new function.
           Make the following changes to your own demo file:
         </p>
-        <div class="boxed" data-category="Task">
+        <section class="boxed2">
+          <h1>Task</h1>
           <p>
             Adapt the animation so that the sphere moves from right to left.
           </p>
           <%= raytrace_movie 'right-to-left' %>
-        </div>
-        <div class="boxed" data-category="Task">
+        </section>
+
+        <section class="boxed2">
+          <h1>Task</h1>
           <p>
             Adapt the animation so that the sphere moves from top to bottom.
           </p>
           <%= raytrace_movie 'top-to-bottom' %>
-        </div>
-        <div class="boxed" data-category="Task">
+        </section>
+        
+        <section class="boxed2">
+          <h1>Task</h1>
           <p>
             Add a second sphere. Use <code>make_union</code> to group primitives together, as
             shown in the code below.
@@ -123,13 +129,15 @@
             Never use <code>union</code> as a variable or function name: <code>union</code> is already a C++ keyword.
           </p>
           <%= raytrace_movie 'two-spheres' %>
-        </div>
-        <div class="boxed" data-category="Task">
+        </section>
+        
+        <section class="boxed2">
+          <h1>Task</h1>
           <p>
             Find two ways of making the sphere look bigger. Note: scaling is not implemented yet, so that's not an option.
           </p>
           <%= raytrace_movie 'zoom' %>
-        </div>
+        </section>
       </section>
     </div>
   </body>
@@ -137,7 +145,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
