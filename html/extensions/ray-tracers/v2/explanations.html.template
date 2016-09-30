@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Ray Tracer v2</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -35,7 +35,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Ray Tracer v2</div>
+      Ray Tracer v2
     </header>
     <div id="contents">
       <section>
@@ -97,11 +97,12 @@
               Return a <code>TraceResult</code> containing all necessary data, with as color <code>result</code>'s final value.
             </li>
           </ol>
-          <div class="boxed" data-category="task">
+          <section class="boxed2">
+            <h1>Task</h1>
             <p>
               Implement <code>trace</code>.
             </p>
-          </div>
+          </section>
         </section>
         <section>
           <h2><code>process_lights</code></h2>
@@ -120,11 +121,12 @@
               Return <code>result</code>.
             </li>
           </ol>
-          <div class="boxed" data-category="task">
+          <section class="boxed2">
+            <h1>Task</h1>
             <p>
               Implement <code>process_light_sources</code>.
             </p>
-          </div>
+          </section>
         </section>
         <section>
           <h2><code>process_light_source</code></h2>
@@ -170,11 +172,12 @@
               Return <code>result</code>.
             </li>
           </ol>
-          <div class="boxed" data-category="task">
+          <section class="boxed2">
+            <h1>Task</h1>
             <p>
               Implement <code>process_light_source</code>.
             </p>
-          </div>
+          </section>
         </section>
         <section>
           <h2><code>process_light_ray</code></h2>
@@ -192,11 +195,12 @@
               Return <code>result</code>.
             </li>
           </ol>
-          <div class="boxed" data-category="task">
+          <section class="boxed2">
+            <h1>Task</h1>
             <p>
               Implement <code>process_light_ray</code>.
             </p>
-          </div>
+          </section>
           <p>
             Admittedly, this method seems like an unnecessary indirection, and at this stage, it is.
             We chose to introduce it here so as to simplify the definition of v3: writing this
@@ -223,12 +227,15 @@
               The normal vector at the position to be lit.
             </li>
           </ul>
-          <div class="boxed" data-category="task">
+          <section class="boxed2">
+            <h1>Task</h1>
             <p>
               Translate the <%= link 'reference/lighting/diffuse', 'mathematical formula for diffuse lighting' %> into code.
             </p>
-          </div>
-          <div class="boxed" data-category="task">
+          </section>
+          
+          <section class="boxed2">
+            <h1>Task</h1>
             <p>
               Put the finishing touches.
             </p>
@@ -243,14 +250,16 @@
                 Update <code>scripting/raytracing-module.cpp</code>.
               </li>
             </ul>
-          </div>
-          <div class="boxed" data-category="task">
+          </section>
+          
+          <section class="boxed2">
+            <h1>Task</h1>
             <p>
               Check your work extensivily. Render a scene
               where you can see the lit and unlit parts of an object.
               Make sure the results look good.
             </p>
-          </div>
+          </section>
         </section>
       </section>
             
@@ -260,7 +269,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
