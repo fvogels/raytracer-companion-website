@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Ray Tracer v1</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Ray Tracer v1</div>
+      Ray Tracer v1
     </header>
     <div id="contents">
       <section>
@@ -44,7 +44,8 @@
           Ray tracer v0 is a rather lazy implementation: if there's a hit, it simply returns white instead
           of actually trying to find out which color the object has. Ray tracer v1 will improve upon.
         </p>
-        <div class="boxed" data-category="task">
+        <section class="boxed2">
+          <h1>Task</h1>
           <p>
             Add the following files to the project:
           </p>
@@ -92,7 +93,7 @@
               Run. It should produce exactly the same results as before your change.
             </li>
           </ul>
-        </div>
+        </section>
       </section>
       <section>
         <h1>Ambient Lighting</h1>
@@ -105,7 +106,8 @@
           factor to materials: you can create a sphere with a lot of ambient lighting and just to it another
           sphere with no ambient lighting. This is highly unrealistic, but it's up to the creator of the scene to avoid such pitfalls.
         </p>
-        <div class="boxed" data-category="task">
+        <section class="boxed2">
+          <h1>Task</h1>
           <p>
             In order to add support for ambient lighting, you need to update <code>RayTracerV1::trace</code> as follows:
           </p>
@@ -136,11 +138,12 @@
               You can find it in the <code>MaterialProperties</code> object.
             </li>
           </ul>
-        </div>
+        </section>
         <p>
           It is of paramount importance that you <em>always</em> check that your changes work.
         </p>
-        <div class="boxed" data-category="task">
+        <section class="boxed2">
+          <h1>Task</h1>
           <p>
             Run your project. Everything should look black since instead of returning white you return the material's ambient color, which is black.
           </p>
@@ -148,7 +151,7 @@
             Now modify <code>basic-sample.cpp</code> so that the sphere has a red as ambient color (use <code>colors::red()</code>).
             Compile and run to see if it works.
           </p>
-        </div>
+        </section>
       </section>
       <section>
         <h1>Scripting</h1>
@@ -156,11 +159,12 @@
           We want to make our new ray tracer available for scripting. For each extension we make, we need to "export" it
           to the scripting language.
         </p>
-        <div class="boxed" data-category="task">
+        <section class="boxed2">
+          <h1>Task</h1>
           <p>
             Open the file <code>scripting/raytracing-module.cpp</code>.
           </p>
-        </div>
+        </section>
         <p>
           Right now, the scripting language knows only about one ray tracer, namely v0. You can create it within the scripting
           language as follows: <code>var raytracer = Raytracers.v0()</code>. Our goal is to make <code>Raytracers.v1()</code>
@@ -210,7 +214,8 @@
           In C++, <code>create_scene</code> is a top level function. <code>module-&gt;add</code> recognizes
           this fact and mirrors it by exposing <code>create_scene</code> as a top level function inside the scripting language.
         </p>
-        <div class="boxed" data-category="task">
+        <section class="boxed2">
+          <h1>Task</h1>
           <p>
             Add a binding for <code>v1</code>.
           </p>
@@ -220,7 +225,7 @@
           <p>
             Check your work by creating a script that uses ray tracer v1 and rendering it.
           </p>
-        </div>
+        </section>
       </section>
     </div>
   </body>
@@ -228,7 +233,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
