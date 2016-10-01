@@ -66,7 +66,7 @@
         <p>
           The light source $L$ emits white photons. In reality, photons travel from $L$ to our eye $E$,
           making us perceive the light source as a bright white spot. In our implementation, however,
-          only photons that travel from $L$ to $P$ to $E$ are taken into account.
+          only photons that travel from $L$ to $P$ to $E$ are taken into account when rendering.
         </p>
         <p>
           Specular highlights are the reflection of the light source in other objects.
@@ -76,11 +76,11 @@
         </p>
         <%= tex_image 'specular' %>
         <p>
-          In the figure above, light arriving at $P$ is reflected in a mirrorlike fashion.
+          In the figure above, light arriving at $P$ is reflected in a perfect mirrorlike fashion (i.e. not diffuse).
           This reflected beam of light flies by the eye $E$, meaning we do not perceive it.
           If we were to only consider such perfect mirrorlike reflections, a point light would
-          always be seen as a dot, which is quite uninteresting.
-          For this reason, we add a little bit of wiggle room.
+          always be seen as a tiny dot, which is quite uninteresting.
+          For this reason, we allow for a little bit of wiggle room.
         </p>
         <%= tex_image 'specular2' %>
         <p>
@@ -110,7 +110,7 @@
         <h1>Mathematics</h1>
         <%= tex_image 'math' %>
         <p>
-          We need the following pieces in data:
+          We need the following pieces of data:
         </p>
         <ul>
           <li>
@@ -127,6 +127,9 @@
           </li>
           <li>
             The eye's position $E$.
+          </li>
+          <li>
+            The specular exponent $e$. This value determines the size of the specular highlight.
           </li>
         </ul>
         <p>
@@ -162,7 +165,6 @@
             \[
               C_\mathrm{L} \cdot C_\mathrm{P} \cdot \cos(\alpha)^e
             \]
-            where $e$ is the specular exponent. The greater $e$ is, the smaller the specular highlight.
           </li>
         </p>
       </section>
