@@ -108,6 +108,13 @@
               </li>
             </ul>
           </aside>
+          <aside class="boxed2">
+            <h1>Task</h1>
+            <p>
+              Add the finishing touches. Find a way to render the following animation:
+            </p>
+            <%= raytrace_movie 'specular' %>
+          </aside>
         </section>
       </section>
     </div>
