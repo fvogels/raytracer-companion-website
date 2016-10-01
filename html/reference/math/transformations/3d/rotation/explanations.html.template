@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: 3D Rotation</title>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'underscore') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.tabular {
+        border-collapse; collapse;
+      }
+
+      table.tabular tr:first-child {
+        background: #AAA;
+      }
+
+      table.tabular th {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      table.tabular td {
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>3D Rotation</header>
+    <div id="contents">
+      <section>
+        <h1>Mathematics</h1>
+        <p>
+          We discuss rotation around each axis separately.
+        </p>
+
+        <section>
+          <h2>Rotation Around the X-Axis</h2>
+          <p>
+            Rotating a point with <%= link 'reference/math/homogeneous-coordinates', 'homogeneous coordinates' %> $(x, y, z, w)$ around the X-axis by an angle $\alpha$ can be achieved using
+            \[
+              \begin{bmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & \cos\alpha & -\sin\alpha & 0 \\
+                0 & \sin\alpha & \cos\alpha & 0 \\
+                0 & 0 & 0 & 1 \\
+              \end{bmatrix}
+              \cdot
+              \begin{bmatrix}
+                x \\
+                y \\
+                z \\
+                w \\
+              \end{bmatrix}
+            \]
+          </p>
+        </section>
+
+        <section>
+          <h2>Rotation Around the Y-Axis</h2>
+          <p>
+            Rotating a point with <%= link 'reference/math/homogeneous-coordinates', 'homogeneous coordinates' %> $(x, y, z, w)$ around the Y-axis by an angle $\alpha$ can be computed as follows:
+            \[
+              \begin{bmatrix}
+                \cos\alpha & 0 & \sin\alpha & 0 \\
+                0 & 1 & 0 & 0 \\
+                -\sin\alpha & 0 & \cos\alpha & 0 \\
+                0 & 0 & 0 & 1 \\
+              \end{bmatrix}
+              \cdot
+              \begin{bmatrix}
+                x \\
+                y \\
+                z \\
+                w \\
+              \end{bmatrix}
+            \]
+          </p>
+        </section>
+
+        <section>
+          <h2>Rotation Around the Y-Axis</h2>
+          <p>
+            Rotating a point with <%= link 'reference/math/homogeneous-coordinates', 'homogeneous coordinates' %> $(x, y, z, w)$ around the Z-axis by an angle $\alpha$:
+            \[
+              \begin{bmatrix}
+                \cos\alpha & -\sin\alpha & 0 & 0 \\
+                -\sin\alpha & \cos\alpha & 0 & 0 \\
+                0 & 0 & 1 & 0 \\
+                0 & 0 & 0 & 1 \\
+              \end{bmatrix}
+              \cdot
+              \begin{bmatrix}
+                x \\
+                y \\
+                z \\
+                w \\
+              \end{bmatrix}
+            \]
+          </p>
+        </section>
+
+
+      </section>
+    </div>
+  </body>
+</html>
