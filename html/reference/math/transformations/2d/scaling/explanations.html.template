@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: 2D Translation</title>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'underscore') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.tabular {
+        border-collapse; collapse;
+      }
+
+      table.tabular tr:first-child {
+        background: #AAA;
+      }
+
+      table.tabular th {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      table.tabular td {
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">2D Translation</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Mathematics</h1>
+          <p>
+            Scaling a point with <%= link 'reference/math/homogeneous-coordinates', 'homogeneous coordinates' %> $(x, y, w)$ by a factor $s_\mathrm{x}$ along the X-axis and a factor $s_\mathrm{y}$ along the Z-axis
+            is achieved by the following matrix multiplication:
+            \[
+              \begin{bmatrix}
+                s_\mathrm{x} & 0 & 0 \\
+                0 & s_\mathrm{y} & 0 \\
+                0 & 0 & 1 \\
+              \end{bmatrix}
+              \cdot
+              \begin{bmatrix}
+                x \\
+                y \\
+                w \\
+              \end{bmatrix}
+            \]
+          </p>
+          <aside class="boxed2">
+            <h1>Example</h1>
+            <p>
+              Scaling $P(3, 5)$ by 2 along the X-axis:
+              \[
+                \begin{bmatrix}
+                  2 & 0 & 0 \\
+                  0 & 1 & 0 \\
+                  0 & 0 & 1 \\                  
+                \end{bmatrix}
+                \cdot
+                \begin{bmatrix}
+                  3 \\
+                  5 \\
+                  1 \\
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                  6 \\
+                  10 \\
+                  1 \\
+                \end{bmatrix}
+              \]
+            </p>
+          </aside>
+      </section>
+    </div>
+  </body>
+</html>
