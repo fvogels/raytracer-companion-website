@@ -161,10 +161,11 @@
             \]
           </li>
           <li>
-            The amount of photons reaching $E$ from $L$ is
+            If $\cos\alpha &gt; 0$, the amount of photons reaching $E$ from $L$ is
             \[
               C_\mathrm{L} \cdot C_\mathrm{P} \cdot \cos(\alpha)^e
             \]
+            Otherwise, there is no specular highlight at location $P$.
           </li>
         </p>
       </section>
