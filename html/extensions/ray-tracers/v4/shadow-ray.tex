@@ -1,0 +1,30 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+
+\begin{document}
+
+\begin{tikzpicture}
+  \path[clip] (-1,-1) rectangle (3.5,2.5);
+  \draw[fill=black,black] (-1,-1) rectangle (3.5,2.5);
+  \draw[thick,white] (-1,0) -- (4,0);
+
+  \coordinate (light) at (0,2);
+  \coordinate (hit) at (2,0);
+  \coordinate (eye) at (3,1.5);
+  
+  \draw[fill=blue] (eye) circle [radius=0.05cm] node[above,blue] {$E$};
+  \draw[fill=white] (light) circle [radius=0.1cm] node [white,above] {$L$};
+  \node[anchor=north,white] at (hit) {$P$};
+
+  \coordinate (sphere 1) at (0.5, 1);
+  \coordinate (sphere 2) at (-0.75, 2.5);
+  \coordinate (sphere 3) at (3, -.75);
+  \draw[fill=blue!50] (sphere 1) circle [radius=.5cm];
+  \draw[fill=red!50] (sphere 2) circle [radius=.5cm];
+  \draw[fill=green!50] (sphere 3) circle [radius=.5cm];
+
+  \draw[white,-latex] (light) -- (hit) -- (eye);
+\end{tikzpicture}
+
+\end{document}
