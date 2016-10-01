@@ -97,12 +97,12 @@
               Return a <code>TraceResult</code> containing all necessary data, with as color <code>result</code>'s final value.
             </li>
           </ol>
-          <section class="boxed2">
+          <aside class="boxed2">
             <h1>Task</h1>
             <p>
               Implement <code>trace</code>.
             </p>
-          </section>
+          </aside>
         </section>
         <section>
           <h2><code>process_lights</code></h2>
@@ -121,12 +121,12 @@
               Return <code>result</code>.
             </li>
           </ol>
-          <section class="boxed2">
+          <aside class="boxed2">
             <h1>Task</h1>
             <p>
               Implement <code>process_light_sources</code>.
             </p>
-          </section>
+          </aside>
         </section>
         <section>
           <h2><code>process_light_source</code></h2>
@@ -172,12 +172,12 @@
               Return <code>result</code>.
             </li>
           </ol>
-          <section class="boxed2">
+          <aside class="boxed2">
             <h1>Task</h1>
             <p>
               Implement <code>process_light_source</code>.
             </p>
-          </section>
+          </aside>
         </section>
         <section>
           <h2><code>process_light_ray</code></h2>
@@ -195,12 +195,12 @@
               Return <code>result</code>.
             </li>
           </ol>
-          <section class="boxed2">
+          <asideclass="boxed2">
             <h1>Task</h1>
             <p>
               Implement <code>process_light_ray</code>.
             </p>
-          </section>
+          </aside>
           <p>
             Admittedly, this method seems like an unnecessary indirection, and at this stage, it is.
             We chose to introduce it here so as to simplify the definition of v3: writing this
@@ -227,14 +227,14 @@
               The normal vector at the position to be lit.
             </li>
           </ul>
-          <section class="boxed2">
+          <aside class="boxed2">
             <h1>Task</h1>
             <p>
               Translate the <%= link 'reference/lighting/diffuse', 'mathematical formula for diffuse lighting' %> into code.
             </p>
-          </section>
+          </aside>
           
-          <section class="boxed2">
+          <aside class="boxed2">
             <h1>Task</h1>
             <p>
               Put the finishing touches.
@@ -250,16 +250,16 @@
                 Update <code>scripting/raytracing-module.cpp</code>.
               </li>
             </ul>
-          </section>
+          </aside>
           
-          <section class="boxed2">
+          <aside class="boxed2">
             <h1>Task</h1>
             <p>
               Check your work extensivily. Render a scene
               where you can see the lit and unlit parts of an object.
               Make sure the results look good.
             </p>
-          </section>
+          </aside>
         </section>
       </section>
             
