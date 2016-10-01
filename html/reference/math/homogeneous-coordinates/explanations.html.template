@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Homogeneous Coordinates</title>
+    <%= stylesheets('ucll') %>
+    <%= scripts('jquery', 'underscore') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.tabular {
+        border-collapse; collapse;
+      }
+
+      table.tabular tr:first-child {
+        background: #AAA;
+      }
+
+      table.tabular th {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      table.tabular td {
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Homogeneous Coordinates</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Homogeneous Coordinates</h1>
+        <p>
+          Homogenoous coordinates blur the distinction between points and vectors and
+          provide a unified mathematical framework. The basic idea is to see vectors
+          as being points at infinity. However, if we were to simply
+          use $(\infty, \infty, \infty)$ as the coordinates for a vector,
+          we would not know in what direction the vector points, nor what its length is.
+        </p>
+        <p>
+          The solution to this problem consists of adding an extra coordinate, often called $w$.
+          This means that when working in 2D space, we need three coordinates, while working in 3D
+          space requires 4 coordinates. During this explanation, we will work in 2D.
+        </p>
+        <p>
+          A 2D point whose "regular" Cartesian coordinates are $(x, y)$ has homogeneous coordinates $(x, y, 1)$, whereas
+          a 2D vector with Cartesian coordinates $(x, y)$ has homogeneous coordinates $(x, y, 0)$.
+          In other words, we can differentiate between points and vectors based on their $w$-value.
+        </p>
+        <p>
+          So what about other values of $w$? The general rule is that if $w \neq 0$, homogeneous
+          coordinates $(x, y, w)$ correspond to the Cartesian coordinates $(x / w, y / w)$.
+          In case $w = 0$, we would get $(x / 0, y / 0)$, which leads to infinities, hence
+          the interpretation that vectors are "points on infinity".
+        </p>
+        <p>
+          From the fact that $(x, y, w) = (x / w, y / w)$ follows that a point has infinitely many homogeneous coordinates.
+          The following examples all correspond to the same point $(2, 1)$:
+          \[
+            (2, 1, 1) \qquad (4, 2, 2) \qquad (-2, -1, -1) \qquad (20, 10, 10)
+          \]
+          Generally, we will want to keep $w = 0$ for vectors and $w = 1$ for points and not venture
+          further in the crazy abstract worlds that homogeneous coordinates produce.
+        </p>
+        <h1>Operations</h1>
+        <p>
+          As explained on <%= link 'reference/math/points-and-vectors', 'points and vectors' %>,
+          addition and subtraction is only allowed on certain combinations of operands:
+          we can add two vectors together, but not two points, etc.
+        </p>
+        <p>
+          Homogeneous coordinates provide a simple way to remember these rules:
+          any combination is allowed, as long as the result's $w$-coordinate is either $0$ or $1$.
+          For example,
+        </p>
+        <ul>
+          <li>
+            Adding a point $(x, y, 1)$ and a vector $(x', y', 0)$ is allowed, since
+            the result would be $(x + x', y + y', 1)$. This also tells us that
+            adding a point and a vector yields a point, because the result's $w$-coordinate is 1.
+          </li>
+          <li>
+            Adding two points $(x, y, 1)$ and $(x', y', 1)$ is disallowed, as we
+            would get $(x + x', y + y', 2)$. While it is technically possible to allow this result
+            (addition would correspond to some kind of weird average between points,
+            since $(x + x', y + y', 2) = (\frac{x+x'}{2}, \frac{y+y'}{2}, 1)$),
+            we will refrain to do so.
+          </li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>
