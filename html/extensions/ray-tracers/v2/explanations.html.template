@@ -56,8 +56,8 @@
           are the product of diffuse lighting.
           \[
             \begin{array}{rcl}
-              \textrm{v0} &amp; = &amp; \textrm{ambient photons} \\
-              \textrm{v1} &amp; = &amp; \textrm{ambient photons} + \sum_{L \in \textrm{lights}} \textrm{diffuse photons from $L$} \\
+              \textrm{v1} &amp; = &amp; \textrm{ambient photons} \\
+              \textrm{v2} &amp; = &amp; \textrm{ambient photons} + \sum_{L \in \textrm{lights}} \textrm{diffuse photons from $L$} \\
             \end{array}
           \]
         </p>
@@ -195,7 +195,7 @@
               Return <code>result</code>.
             </li>
           </ol>
-          <asideclass="boxed2">
+          <aside class="boxed2">
             <h1>Task</h1>
             <p>
               Implement <code>process_light_ray</code>.
