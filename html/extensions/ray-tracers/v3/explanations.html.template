@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Ray Tracer v3</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -30,14 +30,92 @@
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <p>
+          Ray tracer v1 gave us <%= link 'reference/lighting/ambient', 'ambient lighting' %>.
+          Ray tracer v2 improved upon this by introducing
+          <%= link 'reference/lighting/diffuse', 'diffuse lighting' %>.
+          Ray tracer v3 will add <%= link 'reference/lighting/specular', 'specular highlights hand' %>,
+          which enables us to make objects look metallic.
+        </p>
+        <p>
+          \[
+            \begin{array}{rcl}
+              \textrm{v1} &amp; = &amp; \textrm{ambient photons} \\
+              \textrm{v2} &amp; = &amp; \textrm{ambient photons} + \sum_{L \in \textrm{lights}} \textrm{diffuse photons from $L$} \\
+              \textrm{v3} &amp; = &amp; \textrm{ambient photons} + \sum_{L \in \textrm{lights}} (\textrm{diffuse photons from $L$ + specular photons from $L$)} \\
+            \end{array}
+          \]
+        </p>
+        <p>
+          Ray tracer v3 will built upon v2. In code, this is reflected by the fact
+          that <code>RayTracerV3</code> should be a subclass of <code>RayTracerV2</code>.
+        </p>
+        <%= tex_image 'uml' %>
+        <p>
+          As shown in the UML class diagram above, only two functions need to be implemented.
+        </p>
+        <section>
+          <h2><code>process_light_ray</code></h2>
+          <p>
+            Remember <code>process_light_ray</code> from <%= link 'html/extensions/ray-tracers/v2', 'v2' %>:
+            it is called once for every light ray emitted by each light source in the scene.
+            In the case of v2, it merely called <code>compute_diffuse</code> and returned that function's result,
+            making its existence seem pointless.
+          </p>
+          <p>
+            In v3, we can override this function so that instead of only returning the diffuse color,
+            it adds the specular highlight to this result. The algorithm looks as follows:
+          </p>
+          <ol>
+            <li>
+              Call the base class's version of <code>process_light_ray</code>. Look online for how to do this in C++.
+              Assign the result to a local variable <code>result</code>.
+            </li>
+            <li>
+              Call <code>compute_specular</code> and add its return value to <code>result</code>.
+            </li>
+            <li>
+              Return <code>result</code>.
+            </li>
+          </ol>
+          <aside class="boxed2">
+            <h1>Task</h1>
+            <p>
+              Implement <code>process_light_ray</code>.
+            </p>
+          </aside>
+        </section>
+        <section>
+          <h2><code>process_light_ray</code></h2>
+          <p>
+          </p>
+          <aside class="boxed2">
+            <h1>Task</h1>
+            <p>
+              Implement the <%= link 'reference/lighting/specular', 'specular highlight algorithm' %> in <code>compute_specular</code>.
+            </p>
+            <ul>
+              <li>You can gather all necessary information from the parameter values.</li>
+              <li>To normalize vectors, you can use <code>Vector3D::normalized</code>.</li>
+              <li>Reflection of a vector $\vec v$ by a surface with normal $\vec n$ is already implemented for you as <code>Vector3D::reflect_by</code></li>
+              <li>To compute $a^b$, use <code>pow(a, b)</code>.</li>
+              <li>
+                You can optimize the function a little bit by first checking whether the <code>specular</code> member of the given <code>MaterialProperties</code>
+                is black. If it is, there's no point performing all calculations.
+              </li>
+            </ul>
+          </aside>
+        </section>
+      </section>
     </div>
   </body>
 
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
