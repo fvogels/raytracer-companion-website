@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Scripting Basics</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Scripting Basics</div>
+      Scripting Basics
     </header>
     <div id="contents">
       <section>
@@ -42,7 +42,8 @@
           the ray tracer using raytracer <code>-s<span style="font-style: italic;">script</span></code>
           lets it read in <span style="font-style: italic;">script</span> and execute all its instructions.
         </p>
-        <div class="boxed" data-category="task">
+        <aside class="boxed2">
+          <h1>Task</h1>
           <p>
             Perform the following steps:
           </p>
@@ -70,7 +71,7 @@
               Open the WIF file.
             </li>
           </ul>
-        </div>
+        </aside>
         <p>
           If all goes well, you should the the following animation:
         </p>
@@ -78,7 +79,8 @@
         <p>
           Is this what you expected to see? Make sure you understand why this is the correct animation.
         </p>
-        <div class="boxed" data-category="task">
+        <aside class="boxed2">
+          <h1>Task</h1>
           <p>
             Write a script that produces the following animation:
           </p>
@@ -103,7 +105,7 @@
             <span style="font-weight: bold;">Hint</span> Even though the spheres appear to rotate, they are immobile. Rotation is not implemented yet anyway,
             and while you could implement rotation in the scripting language, no such advanced trickery is required.
           </p>
-        </div>
+        </aside>
       </section>      
     </div>
   </body>
@@ -111,7 +113,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
