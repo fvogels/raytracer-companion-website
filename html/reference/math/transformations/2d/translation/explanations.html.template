@@ -42,7 +42,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">2D Translation</div>
+      2D Translation
     </header>
     <div id="contents">
       <section>

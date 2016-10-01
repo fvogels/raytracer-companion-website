@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: 2D Translation</title>
+    <title>3DCG: 2D Scaling</title>
     <%= stylesheets('ucll', 'box2') %>
     <%= scripts('jquery', 'underscore') %>
     <style>
@@ -41,9 +41,7 @@
   </head>
 
   <body>
-    <header>
-      <div class="center-vertically">2D Translation</div>
-    </header>
+    <header>2D Scaling</header>
     <div id="contents">
       <section>
         <h1>Mathematics</h1>
