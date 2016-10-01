@@ -100,7 +100,11 @@
           <aside class="boxed2">
             <h1>Task</h1>
             <p>
-              Implement <code>trace</code>.
+              Create two new files <code>raytracers/ray-tracer-v2.cpp</code> and <code>raytracers/ray-tracer-v2.h</code>.
+              Add the necessary declarations in the header file (let the above UML class diagram guide you).
+            </p>
+            <p>
+              Add the definition for <code>trace</code> in the <code>.cpp</code> file.
             </p>
           </aside>
         </section>
@@ -232,6 +236,20 @@
             <p>
               Translate the <%= link 'reference/lighting/diffuse', 'mathematical formula for diffuse lighting' %> into code.
             </p>
+            <ul>
+              <li>                
+                You can make use of <code>Vector3D::normalized</code> to normalize the vector, i.e.
+                you can translate
+                \[
+                  \frac{L-P}{|L-P|}
+                \]
+                to <code>(L - P).normalized()</code>.
+              </li>
+              <li>
+                Make sure to use the right multiplication: $a \cdot b$ corresponds to <code>a.dot(b)</code> if
+                both $a$ and $b$ are vectors, otherwise you need to use <code>*</code>.
+              </li>
+            </ul>
           </aside>
           
           <aside class="boxed2">
