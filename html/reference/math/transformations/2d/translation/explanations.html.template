@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: 2D Translation</title>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'underscore') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.tabular {
+        border-collapse; collapse;
+      }
+
+      table.tabular tr:first-child {
+        background: #AAA;
+      }
+
+      table.tabular th {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      table.tabular td {
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">2D Translation</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Mathematics</h1>
+        <p>
+          Translating a point with <%= link 'reference/math/homogeneous-coordinates', 'homogeneous coordinates' %> $(x, y, w)$ by a vector $(\Delta x, \Delta y, 0)$ can be computed using the following matrix multiplication:
+          \[
+          \begin{bmatrix}
+          1 & 0 & \Delta x \\
+          0 & 1 & \Delta y \\
+          0 & 0 & 1 \\
+          \end{bmatrix}
+          \cdot
+          \begin{bmatrix}
+          x \\
+          y \\
+          w \\
+          \end{bmatrix}
+          \]
+          Note that translation only has any effect on points ($w = 1$): vectors ($w = 0$) remain unaffected.
+        </p>
+        <aside class="boxed2">
+          <h1>Example</h1>
+          <p>
+            Translating $P(3, 5)$ by $\vec v(2,-4)$:
+            \[
+            \begin{bmatrix}
+            1 & 0 & 2 \\
+            0 & 1 & -4 \\
+            0 & 0 & 1 \\                  
+            \end{bmatrix}
+            \cdot
+            \begin{bmatrix}
+            3 \\
+            5 \\
+            1 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+            4 \\
+            -1 \\
+            1 \\
+            \end{bmatrix}
+            \]
+          </p>
+        </aside>
+        <aside class="boxed2">
+          <h1>Example</h1>
+          <p>
+            Translating $\vec n(0, 1)$ by $\vec v(2,-4)$:
+            \[
+            \begin{bmatrix}
+            1 & 0 & 2 \\
+            0 & 1 & -4 \\
+            0 & 0 & 1 \\                  
+            \end{bmatrix}
+            \cdot
+            \begin{bmatrix}
+            0 \\
+            1 \\
+            0 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+            0 \\
+            1 \\
+            0 \\
+            \end{bmatrix}
+            \]
+          </p>
+        </aside>
+      </section>
+    </div>
+  </body>
+</html>
