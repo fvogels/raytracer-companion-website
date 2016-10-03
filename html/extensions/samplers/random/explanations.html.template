@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Random Sampler</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -30,14 +30,51 @@
         <h1>Preview</h1>
         <%= raytrace 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <p>
+          The purpose of samplers is explained on the <%= link 'design/concepts', 'page discussing ray tracing concepts' %>.
+          In short, we have a pixel for which we need to determine its color. We have to cast a ray through it which
+          we'll trace around the scene. But since the pixel is not a single point but is rectanguler, there are infinitely
+          many points through which we could cast the ray.
+          A sampler's job is to pick points within the pixel. The number of points and which points these are is up to the sampler.
+          The only guarantee the sampler has to give is that when given a 2D rectangle, it will produce points
+          that are within this rectangle. Go take a look at <code>samplers/sampler.h</code>. The (first) <code>sample</code> method reflects
+          this purpose: it takes a rectangle and returns a list of points. You can ignore the second <code>sample</code> overload for now.
+        </p>
+        <p>
+          The <%= link 'reference/samplers/random', 'random sampler' %> can be parameterized with an integer <code>n</code>.
+          When asked to sample a rectangle, it will return <code>n</code> random points in this rectangle.
+        </p>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Create new files <code>samplers/random-sampler.h</code> and <code>samplers/random-sampler.cpp</code>.
+            Define a new sampler class (let the existing <code>single-sampler</code> guide you.)
+          </p>
+          <ul>
+            <li>
+              <code>RandomSampler</code> should have a field <code>m_sample_count</code> which can be initialized using the constructor.
+            </li>
+            <li>
+              The factory function <code>raytracer::samplers::random</code> should accept a single integer parameter <code>sample_count</code>
+              and use it to create a new <code>RandomSampler</code>.
+            </li>
+            <li>
+              For this extension, you need only override the <code>sample</code> overload that returns a list of points.
+              Implement it so that it picks <code>m_sample_count</code> random points inside the rectangle.
+              Use a <a href="http://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution">uniform distribution</a>.
+            </li>
+          </ul>
+        </aside>
+      </section>
     </div>
   </body>
 
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
