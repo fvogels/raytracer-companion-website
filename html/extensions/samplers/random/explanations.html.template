@@ -65,6 +65,7 @@
               For this extension, you need only override the <code>sample</code> overload that returns a list of points.
               Implement it so that it picks <code>m_sample_count</code> random points inside the rectangle.
               Use a <a href="http://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution">uniform distribution</a>.
+              You might want to rely on <code>Rectangle2D::from_relative</code> to easily find points inside the rectangle.
             </li>
           </ul>
         </aside>
