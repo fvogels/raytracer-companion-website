@@ -26,7 +26,7 @@ class SharedContext
     %{<img class="#{html_class}" src="#{png_filename}"#{style} />}
   end
 
-  def raytrace(script_name, html_class: 'centered large', style: nil)
+  def raytrace_script(script_name)
     script_path = Pathname.new("#{script_name}.chai")
     bmp_path = script_path.sub_ext('.bmp')
     png_path = script_path.sub_ext('.png')
@@ -46,12 +46,39 @@ class SharedContext
       Image2.convert(bmp_path, png_path)
     end
 
+    png_path
+  end
+  
+  def raytrace(script_name, html_class: 'centered large', style: nil)
+    png_path = raytrace_script(script_name)
+
     if style
-    then style = %{style="#{style} "}
+    then style = %{style="#{style}" }
     else style = ""
     end
     
     %{<a href="#{png_path.basename}"><img src="#{png_path.basename}" class="#{html_class}" #{style}/></a>}
+  end
+
+  def raytrace_comparison(left, right, style: nil)
+    left_path = raytrace_script(left)
+    right_path = raytrace_script(right)
+
+    if style
+    then style = %{style="#{style}"}
+    else style = ""
+    end
+
+    <<-END
+      <div class="slider responsive" #{style}>
+        <div class="left image">
+          <img src="#{left_path}" />
+        </div>
+        <div class="right image">
+          <img src="#{right_path} "/>
+        </div>
+      </div>
+    END
   end
 
   def youtube(id)
@@ -63,6 +90,8 @@ class SharedContext
   end
 
   def source(filename, **opts)
+    opts = { :auto_height => true }.merge(opts)
+    
     contents = IO.read(filename)
     source_editor(contents, **opts)
   end
