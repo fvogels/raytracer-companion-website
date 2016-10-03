@@ -34,6 +34,7 @@
           Give a rectangle, a $N$-random sampler will pick $N$ random
           points in this rectangle.
         </p>
+        <%= tex_image 'sampler' %>
       </section>
       <section>
         <h1>Comparison</h1>
