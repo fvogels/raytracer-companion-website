@@ -29,7 +29,7 @@
           it subdivides this rectangle into $N \times M$ subrectangles of equal size.
           The sampler then returns the center point of each of these rectangles.
         </p>
-        <%= tex_image 'stratified' %>
+        <%= tex_image 'sampler' %>
       </section>
       <section>
         <h1>Comparison</h1>
