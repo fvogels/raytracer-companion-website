@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Stratified - Jittered Sampler</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -30,14 +30,22 @@
         <h1>Preview</h1>
         <%= raytrace 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Implement the <%= link 'reference/samplers/jittered', 'jittering sampler' %>.
+          </p>
+        </aside>
+      </section>
     </div>
   </body>
 
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
