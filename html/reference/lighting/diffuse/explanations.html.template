@@ -222,7 +222,7 @@
           \[
             \left\{
             \begin{array}{rr}
-              \cos\alpha \cdot \vec{n} \cdot C_\mathrm{L} \cdot C_\mathrm{S} &amp; \qquad \cos\alpha &gt; 0 \\ \\
+              \cos\alpha \cdot C_\mathrm{L} \cdot C_\mathrm{S} &amp; \qquad \cos\alpha &gt; 0 \\ \\
               0 &amp; \cos\alpha \leq 0 \\
             \end{array}
             \right.
