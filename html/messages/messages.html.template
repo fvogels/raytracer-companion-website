@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Message Board</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <style>
+      article
+      {
+        background: #DDF;
+        width: 80%;
+        margin: 50px auto;
+        padding: 1em;
+      }
+
+      article h1
+      {
+        margin: 0px 0px;
+        background: black;
+        color: white;
+        font-size: 100%;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      
+      function initialize()
+      {
+        Box.initialize();
+      }
+
+      $( initialize );    
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Message Board</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Troubleshooting</h1>
+        <article>
+          <h1>Release builds crash at runtime (04/10/2016)</h1>
+          <p>
+            By default, the compiler is allowed to use advanced instruction sets in order to increase performace.
+            Unfortunately, not every CPU supports these, leading to a crash when it encounters such an instruction.
+          </p>
+          <p>
+            To fix this problem, follow these steps:
+          </p>
+          <ul>
+            <li>
+              In the solution explorer, right click on the project (<em>not on the solution</em>). Pick properties.
+            </li>
+            <li>
+              In the left pane, go to Configuration Properties - C/C++. In the right part,
+              look for "Enable Enhanced Instruction Set". Put this on Not Set.
+            </li>
+          </ul>
+        </article>
+
+        <article>
+          <h1>Long Release Build Times (04/10/2016)</h1>
+          <p>
+            Release builds are quite slow due to global optimization: the linker looks at the whole program
+            and looks for all kinds of way to optimize your program. This happens even if you make a small
+            change in a single file.
+          </p>
+          <p>
+            Turning global optimization off will decrease build times dramatically. However, the produced
+            executable will not run as fast. Measurements on my PC show that the change in performance
+            is not large: rendering a complex scene wents from 2.45 minutes to 2.56 minutes, which is a difference of 6-7 seconds, which
+            is only 4%.
+          </p>
+          <p>
+            Two new builds have been introduced: "Release - Fast Compile" and "Release - No Scripting - Fast Compile".
+            Feel free to use these builds instead of "Release" and "Release - No Scripting".
+          </p>
+        </article>
+
+        <article>
+          <h1>Long Rendering Times (04/10/2016)</h1>
+          <p>
+            If rendering takes too long, try the following things:
+          </p>
+          <ul>
+            <li>
+              Make sure you're not running a debug build.
+            </li>
+            <li>
+              Decrease the resolution. Remember: going from 500 &times; 500 to 400 &times; 400 will reduce
+              your rendering times by a approximately 40%.
+            </li>
+            <li>
+              Add <%= link 'extensions/performance/parallel-task-scheduler', 'multithreading' %>. Since ray tracing
+              is <a href="https://en.wikipedia.org/wiki/Embarrassingly_parallel">embarrassingly parallel</a>,
+              you will, depending on your cpu, be able to get gains ranging for 2 to 8&times; faster.
+            </li>
+          </ul>
+        </article>
+
+        <article>
+          <h1>Cake Points! (04/10/2016)</h1>
+          <p>
+            Gain <a href="https://ucll-my.sharepoint.com/personal/u0057764_ucll_be/_layouts/15/guestaccess.aspx?guestaccesstoken=%2fGP0eRg%2bZU0DSb2MQ%2bQGUjLGcXjjAmD6Ca6x1IsEIPM%3d&docid=02ea125869aab4222a5358866e84741c9&rev=1">Cake Points</a> by finding mistakes in the html pages. Rules:
+          </p>
+          <ul>
+            <li>
+              Mistakes have to be reported by mail.
+            </li>
+            <li>
+              Only the first one to find a mistake gets the point.
+            </li>
+            <li>
+              Typos, errors in formulae, broken links, &hellip; are considered mistakes.
+            </li>
+          </ul>          
+        </article>
+      </section>
+    </div>
+  </body>
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
