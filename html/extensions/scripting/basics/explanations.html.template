@@ -68,12 +68,6 @@
               Execute <code>raytracer -stest.chai</code> and wait for the ray tracer to finish.
             </li>
             <li>
-              It should complain about not understand <code>translate</code>. This is due
-              to the fact that we need to expose this function to the scripting language.
-              Open <code>scripting/primitives-module.cpp</code> and update it by adding
-              <code>BIND_DIRECTLY(translate)</code> to the list of bindings.
-            </li>
-            <li>
               Recompile and run the raytracer again as indicated above.
             </li>
             <li>
