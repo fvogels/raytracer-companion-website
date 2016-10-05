@@ -101,7 +101,7 @@
       <section>
         <h1>Ray Tracing</h1>
         <p>
-          As discussed <a href="../history-of-3d-graphics/history-of-3d-graphics.html">previously</a>,
+          As discussed <%= link 'history-of-3d', 'previously' %>,
           there are many ways to tackle on 3d computer graphics. In this course, we do not have time to explore all these approaches in detail.
           Instead, we will focus on one single technique, namely ray tracing, as used by The 7th Guest.
         </p>
@@ -504,7 +504,7 @@
                 <td><%= raytrace 'ray-tracer-v4' %></td>
                 <td>
                   Shadows arise when you check whether the light from light sources (e.g. the sun) actually arrives
-                  at the laser dot position. For this, you need a secundary laser pointer. You place it
+                  at the laser dot position. For this, you need a secondary laser pointer. You place it
                   at where the first laser's dot hits the landscape and you point it to the light source.
                   If the second laser beam is blocked by another part of the landscape, you know that
                   no light arrives from that direction.
@@ -513,7 +513,7 @@
               <tr>
                 <td><%= raytrace 'ray-tracer-v5' %></td>
                 <td>
-                  Reflection: if the laser hits a reflective object, you use a secundary laser to determine
+                  Reflection: if the laser hits a reflective object, you use a secondary laser to determine
                   what color it reflects.
                 </td>
               </tr>
