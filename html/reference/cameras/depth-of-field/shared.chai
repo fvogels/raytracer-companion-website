@@ -1,0 +1,31 @@
+def create_scene(camera)
+{
+  var sphere1 = translate(vec(1,0,-10), sphere())
+  var sphere2 = translate(vec(-1,0,0), sphere())
+
+  var material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                      "diffuse": Colors.red() * 0.8,
+                                      "specular": Colors.white(),
+                                      "specular_exponent": 20,
+                                      "reflectivity": 0.4 ] )
+
+  var root = decorate( material, union( [ sphere1, sphere2 ] ) )
+
+  var lights = [ Lights.omnidirectional( pos(0,5,2), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+def render(camera, filename)
+{
+  var raytracer   = Raytracers.v6()
+  var renderer    = Renderers.standard( [ "width": 500,
+                                          "height": 500,
+                                          "sampler": Samplers.multijittered(2),
+                                          "ray_tracer": raytracer ] )
+
+  pipeline( create_scene(camera),
+            [ Pipeline.renderer(renderer),
+              Pipeline.bmp(filename) ] )
+
+}
