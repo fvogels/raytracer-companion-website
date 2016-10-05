@@ -78,7 +78,7 @@
           <%= tex_image 'pipeline' %>
           <p>
             This pipeline consists of just the renderer segment. A renderer takes a scene, renders it,
-            and outputs the results as a bitmap. Pipeline segments are showns as rectangles,
+            and outputs the results as a bitmap. Pipeline segments are shown as rectangles,
             while the objects they receive or produce are represented by circles.
           </p>
           <p>
