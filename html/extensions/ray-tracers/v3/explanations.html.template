@@ -89,7 +89,7 @@
           </aside>
         </section>
         <section>
-          <h2><code>process_light_ray</code></h2>
+          <h2><code>compute_specular</code></h2>
           <p>
           </p>
           <aside class="boxed2">
