@@ -228,10 +228,10 @@
           </p>
           <ul>
             <li>
-              <%= link('extensions/materials/marble', 'Marble') %>
+              <%= link('extensions/materials/marble2d', 'Marble') %>
             </li>
             <li>
-              <%= link('extensions/materials/dalmatian', 'Dalmation spots') %>
+              <%= link('extensions/materials/pattern2d/dalmatian2d', 'Dalmatian spots') %>
             </li>
             <li>
               <%= link('extensions/materials/texture', 'Textures') %>
