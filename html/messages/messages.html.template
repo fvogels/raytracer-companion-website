@@ -73,7 +73,7 @@
           <p>
             Turning global optimization off will decrease build times dramatically. However, the produced
             executable will not run as fast. Measurements on my PC show that the change in performance
-            is not large: rendering a complex scene wents from 2.45 minutes to 2.56 minutes, which is a difference of 6-7 seconds, which
+            is not large: rendering a complex scene went from 2.45 minutes to 2.56 minutes, which is a difference of 6-7 seconds, which
             is only 4%.
           </p>
           <p>
