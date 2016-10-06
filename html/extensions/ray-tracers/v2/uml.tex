@@ -29,10 +29,10 @@
     \Fields%
     \Methods%
     \Public trace(const Scene\&, const Ray\&) const :~TraceResult \\
-    \Protected process\_lights(const Scene\&, const MaterialProperties\&, const Hit\&, const Ray\&) const \\
-    \Protected process\_light\_source(const Scene\&, const MaterialProperties\&, const Hit\&, const Ray\&, LightSource) const \\
-    \Protected process\_light\_ray(const Scene\&, const MaterialProperties\&, const Hit\&, const Ray\&, const LightRay\&) const \\
-    \Protected compute\_diffuse(const MaterialProperties\&, const Hit\&, const Ray\&, const LightRay\&) const \\
+    \Protected process\_lights(const Scene\&, const MaterialProperties\&, const Hit\&, const Ray\&) const :~Color \\
+    \Protected process\_light\_source(const Scene\&, const MaterialProperties\&, const Hit\&, const Ray\&, LightSource) const :~Color \\
+    \Protected process\_light\_ray(const Scene\&, const MaterialProperties\&, const Hit\&, const Ray\&, const LightRay\&) const :~Color \\
+    \Protected compute\_diffuse(const MaterialProperties\&, const Hit\&, const Ray\&, const LightRay\&) const :~Color \\
     \endumlclass
   };
 
