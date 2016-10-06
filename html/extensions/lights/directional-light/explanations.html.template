@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Directional Light</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -23,21 +23,90 @@
 
   <body>
     <header>
-      <div class="center-vertically">Directional Light</div>
+      Directional Light
     </header>
     <div id="contents">
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <p>
+          First, read the <%= link 'reference/lights/directional', 'conceptual explanation of directional lights' %>.
+        </p>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Create a <code>lights/directional-light.cpp</code> and <code>lights/directional-light.h</code>.
+          </p>
+        </aside>
+        <p>
+          A directional light has the following parameters:
+        </p>
+        <ul>
+          <li>
+            A direction (<code>Vector3D</code>) indicating where the light comes from.
+          </li>
+          <li>
+            A color.
+          </li>
+        </ul>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Write the class <code>DirectionalLight</code> in <code>directional-light.cpp</code> in an anonymous namespace.            
+          </p>
+          <ul>
+            <li>
+              The class should subclass <code>LightSourceImplementation</code>.
+            </li>
+            <li>
+              It has two member variables: <code>direction</code> and <code>color</code>.
+            </li>
+            <li>
+              The constructor should take a <code>direction</code> and <code>color</code> parameter
+              and use them to initialize the member variables.
+            </li>
+            <li>
+              The class needs to override the method <code>lightrays_to</code>.
+              This method receives a <code>Point3D p</code> for which it is asked
+              which light rays it shines onto that point. A directional light need only
+              produce a single light ray per such point. Find out for yourself which light ray it needs to generate.
+            </li>
+          </ul>
+        </aside>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <ul>
+            <li>
+              Add a declaration for the factory function named <code>directional</code> in the header file. Put
+              it in the namespace <code>raytracers::lights</code>.
+            </li>
+            <li>
+              Add the definition for the factory function in the <code>cpp</code> file. Take
+              a look at the factory function for omnidirectional point lights for inspiration.
+            </li>
+            <li>
+              Add the directional light to <code>lights/lights.h</code>.
+            </li>
+            <li>
+              Open <code>scripting/lights-module.cpp</code>. Add an extra member function <code>directional</code> to <code>LightLibrary</code>.
+              Add an extra binding in <code>create_lights_module</code>.
+            </li>
+            <li>
+              As always, check your work by rendering a scene using the directional light.
+            </li>
+          </ul>
+        </aside>
+      </section>
     </div>
   </body>
 
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
