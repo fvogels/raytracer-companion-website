@@ -210,6 +210,27 @@
             </li>
           </ul>
         </aside>
+
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Add the finishing touches.
+          </p>
+          <ul>
+            <li>
+              Add the camera to the list of cameras in <code>cameras/cameras.h</code>.
+            </li>
+            <li>
+              Open <code>scripting/cameras-module.cpp</code>. Add an extra member function <code>depth_of_field</code>.
+              Add a binding in <code>create_cameras_module</code>.
+            </li>
+            <li>
+              In the same file, try to create <code>depth_of_field_by_map</code> and bind it.
+              This would allow you to create a depth of field camera using the keyword parameter syntax
+              (i.e. <code>Cameras.depth_of_field( [ "eye": pos(0,0,0), ... ] )</code>).
+            </li>
+          </ul>
+        </aside>
       </section>
     </div>
   </body>
