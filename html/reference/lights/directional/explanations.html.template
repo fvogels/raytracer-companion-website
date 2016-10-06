@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Directional Lights</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      
+      function initialize()
+      {
+        Box.initialize();
+      }
+
+      $( initialize );    
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Directional Lights</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Explanation</h1>
+        <p>
+          Directional light is the same as an omnidirectional point light, except that its position is infinitely far away.
+          For example, the sun can be seen as directional light.
+        </p>
+        <p>
+          Typical for directional lights is the fact that shadows are parallel. In the animation above,
+          a directional light and an omnidirectional light are combined in the same scene. The shadows
+          that are perfectly aligned to each other are cast by the directional light.
+        </p>
+        <table style="width: 80%; margin: 10px auto;">
+          <tbody>
+            <tr>
+              <td><%= tex_image('point-light', style: 'width: 100%;') %></td>
+              <td><%= tex_image('directional-light', style: 'width: 100%;') %></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </body>
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>

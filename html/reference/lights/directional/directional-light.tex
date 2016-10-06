@@ -1,0 +1,22 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+\usetikzlibrary{calc}
+
+
+\begin{document}
+
+\begin{tikzpicture}
+
+  \draw[fill=black] (-2,-1) rectangle (2,4);
+  \draw[yellow,thick,name path=wall] (-2,0) -- (2,0);
+
+  \foreach \x in {-1,-0.75,...,0.75} {
+    \draw[white,thick] (\x,1) -- ++(0.1,0);
+    \draw[black,ultra thick] (\x,0) -- ($ (\x + 0.1, 0) $);
+    \draw[yellow] (\x,4) -- ++(0,-4);
+    \draw[yellow] ($ (\x + 0.1,4) $) -- ++(0,-4);
+  }
+\end{tikzpicture}
+
+\end{document}
