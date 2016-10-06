@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Cameras Design</title>
+    <%= stylesheets('ucll', 'box') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin: 10px auto;
+      }
+
+      table th {
+        width: 30%;
+        text-align: left;
+        background: #AAA;
+        padding: 2px;
+      }
+
+      dt {
+        font-weight: bold;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      
+      function initialize()
+      {
+        Box.initialize();
+      }
+
+      $( initialize );    
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Cameras Design</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Positioning Cameras</h1>
+        <p>
+          A camera's most important properties are
+        </p>
+        <ul>
+          <li>
+            The <em>eye</em> specifies where the camera is located.
+          </li>
+          <li>
+            The <em>lookat</em> specifies what location the camera is pointed at.
+          </li>
+          <li>
+            The <em>up</em> vector determines which direction is up. For example, a value of $(0,1,0)$ means
+            the camera is standing upright, while $(1,0,0)$ indicates the camera is lying on its right side.
+          </li>
+        </ul>
+        <p>
+          Taking these parameters into account when implementing a camera is not trivial, as it requires
+          you to keep mentally keep track of these parameters. To simplify this situation, we have
+          taken the same approach as with primitives.
+        </p>
+        <p>
+          In our design, the primitive shapes (sphere, cylinder, plane, &hellip;) are always in their canonical form:
+          the <code>Sphere</code> class models a sphere with radius 1 and positioned at $(0,0,0)$, etc. In order to change
+          the position, size and orientation of a primitive, we rely on the <code>Transformer</code> class.
+        </p>
+        <p>
+          The same technique is usable on cameras. When implementing a camera, we always assume its eye is located
+          at $(0,0,0)$, that it looks straight in front of it to some point on the Z-axis, and that it is always standing upright (i.e. up = $(0,1,0)$).
+          The logic needed to moving the camera around has arleady been implemented separately for you in the
+          <code>DisplaceableCamera</code> class. This means that by subclassing <code>DisplaceableCamera</code>, you are freed
+          from the burden of having to take into account all of the above parameters (i.e. eye, lookat, up).
+        </p>
+      </section>
+      <section>
+        <h1>But What Does It Do?</h1>
+        <p>
+          A camera's duty is to determine which rays need to be cast.
+        </p>
+        <p>
+          We have <%= link 'ray-tracing', 'likened ray tracing' %> to an odd approach to painting:
+          first, you position your canvas. Then you start painting small dots of paints all over it.
+          The color of each dot is determined by shooting a laser beam originating in the eye towards
+          the dot on the canvas. You then remove the canvas and look for the location where the laser beam
+          hits the scene. This determines what color the dot should be.
+        </p>
+        <p>
+          This explanation, however, assumes you are working with a perspective camera. Other cameras correspond
+          to small variations on this story. For example, whereas a perspective camera assumes you have
+          a rectangular canvas, a <%= link 'extensions/cameras/fisheye', 'fisheye camera' %> uses a spherical canvas.
+        </p>
+        <p>
+          To get a concrete idea of what a camera does, open the file <code>cameras/camera.h</code>.
+          <code>CameraImplementation</code> is the base class for all cameras and in essence
+          only provides one method: <code>enumerate_rays</code>. There are two overloads of this method,
+          but you only need to override one of them. The easiest (but probably least efficient) choice
+          would be to override the overload returning a list of <code>Ray</code>s.
+        </p>
+        <p>
+          The <code>enumerate_rays</code> method takes only one argument: a 2D position $P$. This $P$
+          tells the camera for what point on the canvas the rays need to be generated.
+          While the canvas can actually be any size you want, say W &times; H, a camera expects it to
+          have size 1 &times; 1. It will be up to the renderer to translate coordinates from
+          W &times; H to 1 &times; 1.
+        </p>
+        <%= tex_image 'coordinates' %>
+      </section>
+    </div>
+  </body>
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
