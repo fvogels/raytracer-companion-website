@@ -112,6 +112,39 @@
         </p>
         <%= tex_image 'coordinates' %>
       </section>
+      <section>
+        <h1>Example: Perspective Camera</h1>
+        <p>
+          The perspective camera assumes (as explained above) the following camera positioning:
+        </p>
+        <ul>
+          <li>
+            Eye at $(0,0,0)$.
+          </li>
+          <li>
+            Lookat at $(0,0,1)$.
+          </li>
+          <li>
+            Up equal to $(0,1,0)$.
+          </li>
+        </ul>
+        <%= tex_image 'perspective-camera' %>
+        <p>
+          The above figure conceptually shows what a perspective camera's components look like.
+          $E$ is located at $(0,0,0)$ at the canvas is located in front of it.
+          For illustrative purposes, the canvas is subdivided in many small rectangles: these correspond
+          to the pixels of the final rendering. A perspective camera itself, however, does not know anything about pixels.
+          Instead, it considers the canvas as a continuous rectangle.
+        </p>
+        <p>
+          In order to ask a camera for rays, we need to tell it what point on the canvas we're interested in.
+          This is the above mentioned 2D point $P$. If we want to know which rays should be cast through the lower left
+          corner of the canvas, we ask the camera to enumerate rays for $(0, 0)$. Likewise, to get rays through the center of the canvas,
+          we need to pass $(0.5, 0.5)$ as coordinates to the <code>enumerate_rays</code> member function. Below are the rays a perspective camera
+          would shoot.
+        </p>
+        <%= tex_image 'perspective-camera-rays' %>
+      </section>
     </div>
   </body>
   <script>
