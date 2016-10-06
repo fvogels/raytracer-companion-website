@@ -42,6 +42,38 @@
     </header>
     <div id="contents">
       <section>
+        <h1>Coding Guidelines</h1>
+        <article>
+          <h1>Sanity Checks (06/10/2016)</h1>
+          <p>
+            Try to write as many assertions as you can. An assertion is written <code>assert(some_condition)</code>
+            and is checked only in debug builds. If the condition fails, the application will crash
+            with an error message indicating which assertion went wrong.
+          </p>
+          <p>
+            Assertions are a valuable debugging tool. Say you're writing code that should produce a unit length vector <code>v</code>
+            that's perpendicular on some other vector <code>u</code>. Before returning this vector <code>v</code>,
+            perform the following sanity checks:
+          </p>
+          <ul>
+            <li>
+              <code>assert(v.is_unit());</code>
+            </li>
+            <li>
+              <code>assert(v.is_perpendicular_on(u));</code>
+            </li>
+          </ul>
+          <p>
+            You can see assertions as some kind of inline unit tests: every time the code is executed,
+            you perform a quick test to see if the results make sense.
+          </p>
+          <p>
+            Note that assertions should not be used to verify external input: these checks should <em>always</em> be performed at runtime, i.e.
+            not just in debug builds but also in release builds. Use assertions only to check "internal" code.
+          </p>
+        </article>
+      </section>
+      <section>
         <h1>Troubleshooting</h1>
         <article>
           <h1>Release builds crash at runtime (04/10/2016)</h1>
