@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Depth of Field Camera</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -30,14 +30,193 @@
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+        <section>
+          <h2>Dependencies</h2>
+          <p>
+            You need to have at least one sampler extension.
+          <p>
+        </section>
+      </section>
+      <section>
+        <h1>Explanation</h1>
+        <p>
+          For this extension, you should have read the following pages:
+        </p>
+        <ul>
+          <li>
+            <%= link 'reference/cameras/depth-of-field', 'Depth of field cameras' %>
+          </li>
+          <li>
+            <%= link 'design/cameras', 'Design of cameras' %>
+          </li>
+        </ul>
+        <p>
+          The depth of field camera can be parameterized as follows:
+        </p>
+        <ul>
+          <li>
+            The eye, a <code>Point3D</code>.
+          </li>
+          <li>
+            The look at point (<code>Point3D</code>), which specifies what the camera is looking at. This point is also the focal point:
+            objects around this location will be sharp, far away objects will look blurry.
+          </li>
+          <li>
+            The up vector (<code>Vector3D</code>).
+          </li>
+          <li>
+            The <%= link 'design/cameras', 'distance' %> (<code>double</code>) between the eye and the canvas.
+          </li>
+          <li>
+            The <%= link 'design/cameras', 'aspect ratio' %> (<code>double</code>) of the canvas.
+          </li>
+          <li>
+            The eye size (<code>double</code>).
+          </li>
+          <li>
+            The eye sampler (<code>Sampler</code>).
+          </li>
+        </ul>
+        <p>
+          The depth of field camera can be seen as a multiple-eyed perspective camera.
+        </p>
+        <table style="width: 80%; margin: 10px auto;">
+          <tbody>
+            <tr>
+              <td><%= tex_image('perspective-camera', style: 'width:100%') %></td>
+              <td><%= tex_image('eyes', style: 'width:100%') %></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Given a point on the canvas, the perspective camera only shoots one ray through it.
+          This ray has its origin in the eye, i.e. $(0,0,0)$.
+        </p>
+        <p>
+          A depth of field camera's eye is not a single point, but a square.
+          Ideally, for a given point $P$ on the canvas, the depth of field camera would
+          should a ray from every point of this square through $P$, but since there are
+          infinitely many, this is not a realistic option. Instead, we pick
+          a finite number of points spread across the eye area and cast rays from these, thereby
+          hopefully approximating the ideal case.
+        </p>
+        <p>
+          The eye's size is determined by the eye size parameter. The larger the eye, the more
+          blurry out-of-focus objects will appear. We suggest a starting value of 0.5.
+          The choice of points within the eye area is left to the eye sampler.
+        </p>
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <p>
+          Let's start off with the definition of a <code>DepthOfFieldPerspectiveCamera</code> class.
+        </p>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <ul>
+            <li>
+              Create new files <code>camera/depth-of-field-perspective-camera.cpp</code> and
+              <code>camera/depth-of-field-perspective-camera.h</code>.
+            </li>
+            <li>
+              Define the class <code>DepthOfFieldPerspectiveCamera</code> in an anonymous namespace
+              (i.e. a namespace with no name, see <code>primitives/sphere-primitive.cpp</code> for an example.)
+              <code>DepthOfFieldPerspectiveCamera</code> should be a subclass of <code>DisplaceableCamera</code>.
+            </li>
+            <li>
+              <code>DepthOfFieldPerspectiveCamera</code> has one member variable: a list of <code>Camera</code> objects.
+              These will be a bunch of perspective cameras with slightly different eyes.
+            </li>
+            <li>
+              <code>DepthOfFieldPerspectiveCamera</code>'s constructor takes two parameters:
+              a <code>Matrix4x4</code> transformation matrix, and a list of <code>Camera</code>s.
+              The transformation matrix is passed along to the base class's constructor.
+              The list of <code>Camera</code>s is used to initialize the member variable you declared earlier.
+            </li>
+            <li>
+              <code>DepthOfFieldPerspectiveCamera</code> overrides one member function: <code>enumerate_untransformed_rays</code>
+              (from <code>DisplaceableCamera</code>.)
+              <ul>
+                <li>
+                  It takes two parameters: <code>point</code> and <code>callback</code>.
+                </li>
+                <li>
+                  Add sanity checks: write assertions (<code>assert</code>) that verify that <code>point</code>'s <code>x</code>
+                  and <code>y</code>-coordinates are indeed between <code>0</code> and <code>1</code>.
+                </li>
+                <li>
+                  Next, iterate over the <code>Camera</code> list and call <code>enumerate_rays</code> on each of them,
+                  passing along <code>point</code> and <code>callback</code> as arguments.
+                </li>
+              The <code>callback</code> parameter is a function that <code>enumerate_untransformed_rays</code>
+              must call for each ray it produces. Working this way should be more efficient than accumulating
+              <code>Ray</code> objects in lists (less memory needed, no heap allocation necessary.)
+            </li>
+          </ul>
+        </aside>
+        <p>
+          The factory function is where most complexity lies. The function will first create a series of
+          "almost-canonical" perspective cameras, i.e. cameras located around $(0,0,0)$, looking
+          straight in front of them in the direction of positive Z-axis, and with up vector $(0,1,0)$.
+          A separate transformation step will position the camera at the right spot.
+        </p>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <ul>
+            <li>
+              Declare the factory function <code>depth_of_field_perspective</code> in the header file.
+              It should be a member of the <code>raytracers::cameras</code> namespace. See other header files for help.
+              Its parameters were enumerated earlier on this page.
+            </li>
+            <li>
+              Define the factory function in the <code>cpp</code> file.
+              <ul>
+                <li>
+                  Sanity check: <code>up</code> must be a unit vector.
+                </li>
+                <li>
+                  Create the transformation matrix using <code>create_transformation</code>. This function
+                  expects an <code>eye</code>, a <code>look_at</code> and an <code>up</code> vector.
+                </li>
+                <li>
+                  Define a <code>canonical_look_at</code> point. It should lie on the Z-axis and as far away
+                  from $(0,0,0)$ as the <code>eye</code> point is from the <code>look_at</code> point.
+                </li>
+                <li>
+                  Initialize an empty list of <code>Camera</code>s named <code>cameras</code>.
+                </li>
+                <li>
+                  Create the <code>eye_area</code>, which is a <code>Rectangle2D</code>.
+                  Derive from the figures above where this <code>Rectangle2D</code> should be positioned.
+                </li>
+                <li>
+                  Ask the <code>sampler</code> to pick points from the <code>eye_area</code>.
+                </li>
+                <li>
+                  Create a new <code>PerspectiveCamera</code> for each such point $P$, where you use
+                  $P$ as the camera's eye. All cameras should share <code>relative_look_at</code>,
+                  and have $(0,1,0)$ as <code>up</code>-vector. <code>distance</code> and
+                  <code>aspect_ratio</code> should also be the same for each camera.
+                </li>
+                <li>
+                  Put each <code>PerspectiveCamera</code> in the list <code>cameras</code>.
+                </li>
+                <li>
+                  Finally, create a <code>DepthOfFieldPerspectiveCamera</code>,
+                  initializing it with the transformation matrix and the list of <code>Camera</code>s.
+                  Wrap it inside a <code>Camera</code> (same as in <code>cameras/perspective-camera.cpp</code>.)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </aside>
+      </section>
     </div>
   </body>
 
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
