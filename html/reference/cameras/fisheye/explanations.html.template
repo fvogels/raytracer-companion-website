@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Fisheye Camera</title>
+    <%= stylesheets('ucll', 'imgslider') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor', 'imgslider') %>
+    <style>
+      img.large {
+        width: 100%;
+      }
+      
+     .slider {
+        width: 80%;
+        margin: 0px auto;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Fisheye Camera</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Explanation</h1>
+        <p>
+          A fisheye camera is similar to a <%= link 'ray-tracing', 'perspective camera' %>, except
+          for the fact that instead of having a rectangular canvas, you paint on a spherical one.
+        </p>
+        <table style="width: 80%; margin: 10px auto;">
+          <tbody>
+            <tr>
+              <td><%= tex_image 'rectangular-canvas' %></td>
+              <td><%= tex_image 'spherical-canvas' %></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          We can choose how wide the fisheye camera is both horizontally and vertically. For example,
+          on the figure above, the fisheye camera spans an angle of 180&deg; both horizontally and
+          vertically. Having a 180&deg; horizontal angle means that you can see what's left and right
+          of you. A horizontal angle larger than 180&deg; allows you to see behind you.
+          Consider the scene below:
+        </p>
+        <%= raytrace 'scene' %>
+        <p>
+          We now move the camera to just above the white sphere and let it point towards the red sphere.
+          The movie below shows what happens if we gradually enlarge the horizontal angle
+          from 90&deg; to 360&deg;
+        </p>
+        <%= raytrace_movie 'fisheye' %>
+        <p>
+          Notice how the cyan sphere comes into view towards the end, at which point the canvas forms a complete sphere.
+        </p>
+      </section>
+    </div>
+  </body>
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+      $('.slider').slider( { showInstruction: false } );
+    }
+
+    $( initialize );   
+  </script>
+</html>

@@ -1,0 +1,23 @@
+use("shared.chai")
+
+def scene_at(now)
+{
+  var angle = Animations.animate(degrees(90), degrees(360), seconds(5))
+
+  var camera = Cameras.fisheye( [ "eye": pos(0,1,0),
+                                  "look_at": pos(0,1,-1),
+                                  "horizontal_angle": angle[now],
+                                  "vertical_angle": degrees(90) ] )
+
+  create_scene(camera)
+}
+
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.multijittered(3),
+                                     "ray_tracer": Raytracers.v6() ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.ppm() ] )
