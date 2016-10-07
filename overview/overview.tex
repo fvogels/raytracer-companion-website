@@ -186,7 +186,7 @@
     \node[node] (primitives) at ($ (materials) + (28,0) $) {Primitives};
     \draw[dependency] (primitives) |- (start);
 
-    \node[extension,easy,todo] (plane xz) at ($ (primitives) + (6,0) $) {\html{extensions/primitives/plane-xz}{Plane XZ}};
+    \node[extension,easy] (plane xz) at ($ (primitives) + (6,0) $) {\html{extensions/primitives/plane-xz}{Plane XZ}};
     \draw[dependency] (plane xz) -- (primitives);
 
     \node[extension,easy,todo] (optimized plane xz) at ($ (plane xz) + (6,0) $) {\html{extensions/primitives/plane-xz-optimized}{Optimized Plane XZ}};
@@ -222,7 +222,7 @@
     \node[extension,easy,todo] (optimized cylinder) at ($ (cylinder) + (6,0) $) {\html{extensions/primitives/cylinder-optimized}{Optimized Cylinder}};
     \draw[dependency] (optimized cylinder) -| (cylinder);
 
-    \node[extension,easy,todo] (disk) at ($ (cylinder) + (0,-2) $) {\html{extensions/primitives/cylinder}{Disk}};
+    \node[extension,easy,todo] (disk) at ($ (cylinder) + (0,-2) $) {\html{extensions/primitives/disk}{Disk}};
     \draw[dependency] (disk) -| (primitives);
 
     \node[extension,easy,todo] (optimized disk) at ($ (disk) + (6,0) $) {\html{extensions/primitives/disk-optimized}{Optimized Disk}};
