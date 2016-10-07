@@ -56,7 +56,7 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Write the class <code>DirectionalLight</code> in <code>directional-light.cpp</code> in an anonymous namespace.            
+            Write the class <code>DirectionalLight</code> in <code>directional-light.cpp</code> in an <%= link 'reference/cpp/anonymous-namespace', 'anonymous namespace' %>
           </p>
           <ul>
             <li>
