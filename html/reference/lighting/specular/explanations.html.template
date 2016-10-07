@@ -139,7 +139,7 @@
           <li>
             Compute the direction of the incoming light.
             \[
-              \vec{i} = \frac{L-P}{|L-P|}
+              \vec{i} = \frac{P-L}{|P-L|}
             \]
           </li>
           <li>
