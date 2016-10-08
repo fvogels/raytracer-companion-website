@@ -3,17 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Voronoi 2D</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
-    <style>
-      img.large {
-        width: 60%;
-      }
-
-      video {
-        margin: 10px auto;
-      }
-    </style>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
@@ -23,12 +14,35 @@
 
   <body>
     <header>
-      <div class="center-vertically">Voronoi 2D</div>
+      Voronoi 2D
     </header>
     <div id="contents">
       <section>
-        <h1>Preview</h1>
-
+        <h1>Explanation</h1>
+        <p>
+          Read up on <%= link 'reference/math/voronoi', 'Voronoi diagrams' %>.
+        </p>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Implement a class <code>Voronoi2D</code> that provides the following functionality.
+          </p>
+          <ul>
+            <li>
+              The constructor should receive a seed (or something functionally equivalent)
+              making it possible to generate the exact same Voronoi diagram deterministically.
+            </li>
+            <li>
+              A member function <code>closest_to</code>, that, given a <code>Point2D</code>,
+              returns the <code>Point2D</code> closest to it.
+            </li>
+          </ul>
+          <p>
+            The class should not restrict itself to a particular part of the plane.
+            Instead, it should fill the entire (infinite) plane with an infinite number of points,
+            thereby creating an infinitely large Voronoi diagram.
+          </p>
+        </aside>       
       </section>      
     </div>
   </body>
@@ -36,7 +50,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
