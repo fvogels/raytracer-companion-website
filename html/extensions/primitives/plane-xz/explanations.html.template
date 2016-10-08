@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: XZ-Plane</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">XZ-Plane</div>
+      XZ-Plane
     </header>
     <div id="contents">
       <section>
@@ -37,7 +37,8 @@
           The RayTracer comes with an implementation for XY-planes.
           As a first step, you need to understand how the ray-plane intersection algorithm works.
         </p>
-        <div class="boxed" data-category="task">
+        <aside class="boxed2">
+          <h1>Task</h1>
           <p>
             Compare the <%= link 'reference/math/plane', 'plane formulae' %> to the code in <code>primitives/plane-primitive.cpp</code>.
             Find answers to the following questions:
@@ -50,15 +51,7 @@
               What are the values for $P$ and $\vec n$? We refer here to the $P$ and $\vec n$ mentioned <%= link 'reference/math/plane', 'in the plane-related math' %>.
             </li>
           </ul>
-        </div>
-      </section>
-      <section>
-        <h1>Using Planes</h1>
-        <div class="boxed" data-category="task">
-          <p>
-            Make a copy of <code>basic-sample</code> and modify it to make it renderer a plane.
-          </p>
-        </div>
+        </aside>
       </section>
       
       <section>
@@ -66,7 +59,8 @@
         <p>
           Now it is time to add support for XZ-planes.
         </p>
-        <div class="boxed" data-category="task">
+        <aside class="boxed2">
+          <h1>Task</h1>
           <p>
             Make a <code>PlaneXZImplementation</code> that
             represents a XZ-plane. Let <code>PlaneXYImplementation</code> be your guide.
@@ -89,7 +83,7 @@
           <p>
             Create a new demo file that makes use of the new plane.
           </p>
-        </div>
+        </aside>
       </section>
     </div>
   </body>
@@ -97,7 +91,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 

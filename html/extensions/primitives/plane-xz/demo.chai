@@ -1,6 +1,6 @@
 def scene_at(now)
 {
-  var eye_position = Animations.ease(Animations.animate( pos(1, 1, 1), pos(20, 20, 20), seconds(5)), Easing.quintic_in)
+  var eye_position = Animations.ease(Animations.animate( pos(0, 1, 1), pos(20, 20, 20), seconds(5)), Easing.quintic_inout)
   var camera = Cameras.perspective( [ "eye": eye_position[now],
                                       "look_at": pos(0,0,0) ] )
 
@@ -13,11 +13,11 @@ def scene_at(now)
   var black = Materials.uniform( [ "ambient": Colors.white() * 0.1,
                                    "diffuse": Colors.black() * 0.8 ] )
 
-  var plane_material = Materials.grid( 0.1, white, black )
+  var plane_material = Materials.grid( 0.1, black, white )
 
-  var root = decorate(plane_material, union( [ xy_plane(), xz_plane(), yz_plane() ] ) )
+  var root = decorate(plane_material, xz_plane())
 
-  var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
+  var lights = [ Lights.omnidirectional( pos(0,5,0), Colors.white() ) ]
 
   create_scene(camera, root, lights)
 }
