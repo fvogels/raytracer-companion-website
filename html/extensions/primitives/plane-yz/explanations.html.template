@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: YZ-Plane</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">YZ-Plane</div>
+      YZ-Plane
     </header>
     <div id="contents">
       <section>
@@ -52,15 +52,7 @@
           </ul>
         </div>
       </section>
-      <section>
-        <h1>Using Planes</h1>
-        <div class="boxed" data-category="task">
-          <p>
-            Make a copy of <code>basic-sample</code> and modify it to make it renderer a plane.
-          </p>
-        </div>
-      </section>
-      
+
       <section>
         <h1>Adding Planes</h1>
         <p>
@@ -97,7 +89,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
