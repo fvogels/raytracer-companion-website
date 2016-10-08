@@ -1,11 +1,11 @@
 def scene_at(now)
 {
-  var hangle = Animations.animate(degrees(90), degrees(360), seconds(2))
+  var eye_height = Animations.animate(0, 20, seconds(5))
 
-  var camera = Cameras.fisheye( [ "eye": pos(0, 0, 5),
+  var camera = Cameras.fisheye( [ "eye": pos(0, eye_height[now], 5),
                                   "look_at": pos(0, 0, 0),
                                   "up": vec(0, 1, 0),
-                                  "horizontal_angle": hangle[now],
+                                  "horizontal_angle": degrees(180),
                                   "vertical_angle": degrees(180) ] )
                                       
   var white = Materials.uniform( [ "ambient": Colors.white() * 0.1,
@@ -45,13 +45,13 @@ def scene_at(now)
 }
 
 
-var anim = scene_animation(scene_at, seconds(3))
+var anim = scene_animation(scene_at, seconds(5))
 
 var raytracer   = Raytracers.v6()
 
 var renderer    = Renderers.standard( [ "width": 500,
                                         "height": 500,
-                                        "sampler": Samplers.multijittered(2),
+                                        "sampler": Samplers.multijittered(3),
                                         "ray_tracer": raytracer ] )
 
 

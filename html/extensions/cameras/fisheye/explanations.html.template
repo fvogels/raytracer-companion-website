@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Fisheye Camera</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -23,21 +23,64 @@
 
   <body>
     <header>
-      <div class="center-vertically">Fisheye Camera</div>
+      Fisheye Camera
     </header>
     <div id="contents">
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <p>
+          First read the <%= link 'references/cameras/fisheye', 'explanation about fisheye cameras' %>.
+        </p>
+        <p>
+          The parameters for a fisheye camera are
+        </p>
+        <ul>
+          <li>
+            Its eye.
+          </li>
+          <li>
+            Its look_at point.
+          </li>
+          <li>
+            Its up vector.
+          </li>
+          <li>
+            Its horizontal angle (of type <code>Angle</code>).
+          </li>
+          <li>
+            Its vertical angle (of type <code>Angle</code>).
+          </li>
+        </ul>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Create the files <code>cameras/fisheye-camera.cpp</code> and <code>cameras/fisheye-camera.h</code>.
+            We suggest you copy paste the code from perspective cameras to these files and modify them as necessary.
+          </p>
+          <p>
+            Following things might prove useful for implementing fisheye cameras are
+          </p>
+          <ul>
+            <li>
+              <code>math::Interval</code> and <code>math::IntervalMapper</code> to translate $[0, 1]$ to $[\alpha, \beta]$.
+            </li>
+            <li>
+              <code>Point3D::spherical</code> to create a point given spherical coordinates.
+            </li>
+          </ul>
+        </aside>
+      </section>
     </div>
   </body>
 
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
