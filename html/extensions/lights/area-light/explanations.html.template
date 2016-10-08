@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Area Lights</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -23,21 +23,54 @@
 
   <body>
     <header>
-      <div class="center-vertically">Area Lights</div>
+      Area Lights
     </header>
     <div id="contents">
       <section>
         <h1>Preview</h1>
         <%= raytrace 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <p>
+          Read the <%= link 'reference/lights/area', 'explanations on area lights' %> first.
+        </p>
+        <p>
+          An area light has the following properties:
+        </p>
+        <ul>
+          <li>
+            A <code>Rectangle3D</code> defining its area. 
+          </li>
+          <li>
+            A sampler, which will be used to determine which points from the area will be used as light sources.
+          </li>
+          <li>
+            A color.
+          </li>
+        </ul>
+        <p>
+          The area light operates as follows: when asked for a list of <code>LightRay</code>s that
+          reach a given <code>Point3D</code> P, it asks the sampler to pick points $L_i$ from its area.
+          For each such point, it creates a <code>LightRay</code> starting in $L_i$ going through $P$.
+          Note that it is important that the ray has to be created in such a way that
+          $t = 0$ coincides with $L_i$ and $t = 1$ with $P$, otherwise
+          the <%= link 'extensions/ray-tracers/v4', 'shadowing algorithm' %> will not work.
+        </p>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Implement area lights.
+          </p>
+        </aside>
+      </section>
     </div>
   </body>
 
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
