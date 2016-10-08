@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Voronoi Diagram</title>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      Voronoi Diagram
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Definition</h1>
+        <p>
+          A Voronoi diagram is a partitioning of a plane constructed as follows:
+        </p>
+        <ul>
+          <li>
+            Pick a random number of random points $P_i$ in the plane.
+          </li>
+          <li>
+            To each $P_i$ corresponds that part of the plane that is the set
+            of all points that are closer to $P_i$ than to any other $P$.
+          </li>
+        </ul>
+        <%= tex_image 'voronoi' %>
+        <p>
+          In the above figure, the red partition corresponds
+          to the set of all points that are closest to $P_1$.
+        </p>
+      </section>
+    </div>
+  </body>
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
