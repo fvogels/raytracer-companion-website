@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Area Lights</title>
+    <%= stylesheets('ucll', 'box2', 'imgslider') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor', 'imgslider') %>
+    <style>
+      .slider {
+        width: 80%;
+        margin: 0px auto;
+      }
+    </style>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      
+      function initialize()
+      {
+        Box.initialize();
+      }
+
+      $( initialize );    
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="center-vertically">Area Lights</div>
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Explanation</h1>
+        <p>
+          A point light is a zero-dimensional entity: it has no size. All photons emitted by such a light source
+          originate in the same point. When determining which photons reach some location $P$,
+          either all photons from a point light reach $P$, or none of them do. This has as consequence that
+          shadows are very sharp.
+        </p>
+        <p>
+          Area lights are mathematically an infinite set of point lights arranged in a rectangular area.
+          This leads to soft shadows:
+        </p>
+        <table style="width: 80%; margin: 10px auto;">
+          <tbody>
+            <tr>
+              <td><%= tex_image 'point-rays' %></td>
+              <td><%= tex_image 'area-rays' %></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Below you can compare hard and soft shadows.
+        </p>
+        <%= raytrace_comparison 'point-light', 'area-light' %>
+    </div>
+  </body>
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+      $('.slider').slider( { showInstruction: false } );
+    }
+
+    $( initialize );   
+  </script>
+</html>
