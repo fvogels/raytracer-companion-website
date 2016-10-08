@@ -23,6 +23,12 @@
                     medium/.style={top color=orange!50,bottom color=orange!20},
                     hard/.style={top color=red!50,bottom color=red!20},
                     order/.style={draw,circle,fill=white},
+                    difficulty1/.style={easy},
+                    difficulty2/.style={top color=green!50,bottom color=orange!50},
+                    difficulty3/.style={medium},
+                    difficulty4/.style={top color=orange!50,bottom color=red!50},
+                    difficulty5/.style={hard},
+                    difficulty/.style={difficulty#1},
                     todo/.style={red,ultra thick}]
   \pgfdeclarelayer{background}
   \pgfdeclarelayer{foreground}
@@ -34,7 +40,7 @@
     \node[node] (basics) at ($ (start) + (-40, -4) $) {Basics};
     \draw[dependency] (basics) |- (start);
 
-    \node[extension,easy] (modifying basic sample) at ($ (basics) + (-150:4) $) {\html{extensions/modifying-basic-sample}{Basic Sample}};
+    \node[extension,difficulty=1] (modifying basic sample) at ($ (basics) + (-150:4) $) {\html{extensions/modifying-basic-sample}{Basic Sample}};
     \draw[dependency] (modifying basic sample) |- (basics);
 
     \node[extension,easy] (scripting basics) at ($ (basics) + (-30:4) $) {\html{extensions/scripting/basics}{Basic Scripting}};
@@ -85,13 +91,13 @@
     \node[node] (cameras) at ($ (samplers) + (10,0) $) {Cameras};
     \draw[dependency] (cameras) |- (start);
 
-    \node[extension,medium] (orthographic camera) at ($ (cameras) + (-30:4) $) {\html{extensions/cameras/orthographic}{Orthographic}};
+    \node[extension,medium,todo] (orthographic camera) at ($ (cameras) + (-30:4) $) {\html{extensions/cameras/orthographic}{Orthographic}};
     \draw[dependency] (orthographic camera) -- (cameras);
 
     \node[extension,medium] (fisheye camera) at ($ (cameras) + (-90:4) $) {\html{extensions/cameras/fisheye}{Fisheye}};
     \draw[dependency] (fisheye camera) -- (cameras);
 
-    \node[extension,medium] (depth of field camera) at ($ (cameras) + (-150:4) $) {\html{extensions/cameras/depth-of-field}{Depth of Field}};
+    \node[extension,difficulty=2] (depth of field camera) at ($ (cameras) + (-150:4) $) {\html{extensions/cameras/depth-of-field}{Depth of Field}};
     \draw[dependency] (depth of field camera) -- (cameras);
 
     \node[node] (lights) at ($ (cameras) + (8,-5) $) {Lights};
@@ -100,7 +106,7 @@
     \node[extension,easy] (area light) at ($ (lights) + (-30:4) $) {\html{extensions/lights/area-light}{Area}};
     \draw[dependency] (area light) -- (lights);
 
-    \node[extension,easy] (spot light) at ($ (lights) + (-90:4) $) {\html{extensions/lights/spot-lights}{Spot}};
+    \node[extension,difficulty=3] (spot light) at ($ (lights) + (-90:4) $) {\html{extensions/lights/spot-lights}{Spot}};
     \draw[dependency] (spot light) -- (lights);
 
     \node[extension,easy] (directional light) at ($ (lights) + (-150:4) $) {\html{extensions/lights/directional-light}{Directional}};
