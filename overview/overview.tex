@@ -145,7 +145,7 @@
     \node[extension,medium,todo] (marble 3d material) at ($ (materials) + (6,-14) $) {\html{extensions/materials/marble3d}{Marble 3D}};
     \draw[dependency] (marble 3d material) -| (materials);
 
-    \node[extension,hard,todo] (voronoi 2d) at ($ (dalmatian 2d material) + (6,0) $) {\html{extensions/math/voronoi2d}{Voronoi 2D} \mathy};
+    \node[extension,difficulty=5] (voronoi 2d) at ($ (dalmatian 2d material) + (6,0) $) {\html{extensions/math/voronoi2d}{Voronoi 2D} \mathy};
     \draw[dependency] (dalmatian 2d material) -- (voronoi 2d);
     \draw[dependency] (worley 2d material) -| (voronoi 2d);
 
