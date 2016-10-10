@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Perlin Noise</title>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      Perlin Noise
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Deterministic Continuous Random Functions</h1>
+        <p>
+          To procedurally generate textures, we generally need a source of randomness.
+          Libraries often offer this functionality in the form of a function
+          that returns a new value each time it's called.
+        </p>
+        <p>
+          This kind of random number generator will not do for our purposes, for the following reasons:
+        </p>
+        <ul>
+          <li>
+            We need repeatability. Say we generate a randomly colored texture. If, during rendering, the need
+            occurs to render the same point twice (for example, due to a mirror), we want the texture
+            to yield the same color again.
+          </li>
+          <li>
+            We need smooth transitions, not chaotic jumps. Say we need to generate a random terrain, which
+            of the figures below is the most realistic?
+            <table style="width: 80%; margin: 10px auto;">
+              <tbody>
+                <tr>
+                  <td><%= tex_image('chaotic-terrain', style:'width: 80%;') %></td>
+                  <td><%= tex_image('smooth-terrain', style:'width: 80%;') %></td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+        <p>
+          What we need is some function <code>double random(double x)</code> that satisfies the following conditions:
+        </p>
+        <ul>
+          <li>
+            <code>random</code> must be deterministic: <code>random(x)</code> must return the same result when given the same <code>x</code>.
+          </li>
+          <li>
+            <code>random</code> must be continuous: <code>random(x)</code> and <code>random(x + 0.00001)</code> should be close to each other, i.e. no sudden jumps.
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h1>Perlin Noise</h1>
+        <p>
+          Perlin noise is such a deterministic continuous function. From now on, we will work in 2D, which means
+          that we will build a function <code>double perlin(const Point2D&amp;)</code> that associates a
+          value with each point on the plane.
+        </p>
+        <p>
+          Perlin noise works as follows: take a 2D grid of 1 &times; 1 cells and associate with every intersection a unit vector.
+        </p>
+        <%= tex_image 'grid-vectors' %>
+        <p>
+          In order to determine the value associated with a point $P(x, y)$, you need
+          to find out in which grid cell it resides. The corners are
+          \[
+            Q_1(\lfloor x \rfloor, \lfloor y \rfloor) \qquad
+            Q_2(\lfloor x \rfloor, \lceil y \rceil) \qquad
+            Q_3(\lceil x \rceil, \lceil y \rceil) \qquad
+            Q_4(\lceil x \rceil, \lfloor y \rfloor) \qquad
+          \]
+          where $\lfloor x \rfloor$ corresponds to rounding $x$ down and $\lceil x \rceil$ to rounding $x$ up.
+          Denote the vector corresponding to $Q_i$ with $\vec v_i$. Next, you need to take the dot product of each $Q_iP$ and $v_i$:
+          \[
+            z_i = (P - Q_i) \cdot v_i
+          \]
+        </p>
+        <%= tex_image 'computation' %>
+        <p>
+          Now we have associated a $z$-value with each corner. As last step, we need to determine
+          which $z$-value to assign to $P$ itself using interpolation.
+        </p>
+        <%= tex_image 'interpolation' %>
+        <p>
+          Interpolation goes in three steps:
+        </p>
+        <ul>
+          <li>
+            Find a function $f$ with $f(0) = z_1$ and $f(1) = z_4$. The function can be linear or, for better results, an <%= link 'reference/math/easing-function', 'easing function' %>.
+            Compute $f(x)$.
+          </li>
+          <li>
+            Find a function $f$ with $g(0) = z_2$ and $f(1) = z_3$. Compute $g(x)$.
+          </li> 
+          <li>
+            Find a function $h$ with $h(0) = f(x)$ and $h(1) = g(x)$. Compute $h(y)$.
+          </li> 
+       </ul>
+      </section>
+    </div>
+  </body>
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
