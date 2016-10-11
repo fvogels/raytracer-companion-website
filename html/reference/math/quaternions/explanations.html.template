@@ -82,12 +82,18 @@
         <section>
           <h2>Addition and Subtraction></h2>
           <p>
-            Addition and subtraction are defined in the usual way. We don't go into detail as we won't need
-            these operations in this course.
+            Addition and subtraction are defined as you would expect:
+            \[
+              \begin{array}{rcl}
+                (a + bi + cj + dk) + (a' +  b'i + c'j + d'k) & = & (a + a') + (b + b')i + (c + c')j + (d + d')k \\
+                (a + bi + cj + dk) - (a' +  b'i + c'j + d'k) & = & (a - a') + (b - b')i + (c - c')j + (d - d')k \\
+              \end{array}
+            \]
           </p>
         </section>
         <section>
           <h2>Multiplication</h2>
+          <section>
           <p>
             As with complex numbers, multiplication is a matter of applying distributivity and then simplifying
             the rules shown in the table above.
