@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Quaternions</title>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      Quaternions
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Explanation</h1>
+        <p>
+          You might want to read the <%= link 'reference/math/quaternions', 'detailed explanations' %> first.
+        </p>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Implement the class <code>Quaternion</code>. Following operations will be required:
+          </p>
+          <ul>
+            <li>
+              A constructor <code>Quaternion(double a, double b, double c, double d)</code> creating
+              the quaternion $a + bi + cj + dk$.
+            </li>
+            <li>
+              A static factory <code>rotation(Angle theta, const Vector3D&amp; axis)</code> creating a quaternion
+              representing the rotation around the given axis by the given angle.
+            </li>
+            <li>
+              A member function <code>Point3D rotate(const Point3D&amp; p)</code> which rotates <code>p</code>.
+            </li>
+            <li>
+              The member function <code>conjugate</code>.
+            </li>
+            <li>
+              The operators
+              <ul>
+                <li><code>Quaternion + Quaternion</code></li>
+                <li><code>Quaternion - Quaternion</code></li>
+                <li><code>double * Quaternion</code></li>
+                <li><code>Quaternion * double</code></li>
+                <li><code>Quaternion * Quaternion</code></li>
+                <li><code>Quaternion / double</code></li>
+                <li><code>Quaternion += Quaternion</code></li>
+                <li><code>Quaternion -= Quaternion</code></li>
+                <li><code>Quaternion *= double</code></li>
+                <li><code>Quaternion /= double</code></li>                
+              </ul>
+            </li>
+          </ul>
+        </aside>       
+      </section>      
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
