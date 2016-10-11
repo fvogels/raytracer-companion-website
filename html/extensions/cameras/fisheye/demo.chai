@@ -1,11 +1,12 @@
 def scene_at(now)
 {
-  var eye_height = Animations.animate(0, 20, seconds(5))
+  var y = Animations.ease(Animations.animate(5, 0, seconds(5)), Easing.quintic_out())
+  var z = Animations.animate(10, -20, seconds(5))
 
-  var camera = Cameras.fisheye( [ "eye": pos(0, eye_height[now], 5),
-                                  "look_at": pos(0, 0, 0),
+  var camera = Cameras.fisheye( [ "eye": pos(0, y[now], z[now]),
+                                  "look_at": pos(0, 0, z[now] - 1),
                                   "up": vec(0, 1, 0),
-                                  "horizontal_angle": degrees(180),
+                                  "horizontal_angle": degrees(270),
                                   "vertical_angle": degrees(180) ] )
                                       
   var white = Materials.uniform( [ "ambient": Colors.white() * 0.1,
