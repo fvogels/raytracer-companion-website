@@ -68,9 +68,6 @@
               Execute <code>raytracer -stest.chai</code> and wait for the ray tracer to finish.
             </li>
             <li>
-              Recompile and run the raytracer again as indicated above.
-            </li>
-            <li>
               Open the WIF file.
             </li>
           </ul>
