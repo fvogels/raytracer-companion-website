@@ -149,7 +149,7 @@
     \draw[dependency] (dalmatian 2d material) -- (voronoi 2d);
     \draw[dependency] (worley 2d material) -| (voronoi 2d);
 
-    \node[extension,hard,todo] (voronoi 3d) at ($ (dalmatian 3d material) + (10,0) $) {\html{extensions/math/voronoi3d}{Voronoi 3D} \mathy};
+    \node[extension,difficulty=5] (voronoi 3d) at ($ (dalmatian 3d material) + (10,0) $) {\html{extensions/math/voronoi3d}{Voronoi 3D} \mathy};
     \draw[dependency] (dalmatian 3d material) -- (voronoi 3d);
     \draw[dependency] (worley 3d material) -| (voronoi 3d);
 
@@ -294,7 +294,7 @@
     \node[node] (performance) at ($ (renderers) + (24,0) $) {Performance};
     \draw[dependency] (performance) |- (start);
 
-    \node[extension,easy,todo] (parallel task scheduler) at ($ (performance) + (6,0) $) {\html{extensions/performance/parallel-task-scheduler}{Parallel Scheduler}};
+    \node[extension,easy] (parallel task scheduler) at ($ (performance) + (6,0) $) {\html{extensions/performance/parallel-task-scheduler}{Parallel Scheduler}};
     \draw[dependency] (parallel task scheduler) -- (performance);
 
     \node[extension,easy,todo] (bounding box) at ($ (performance) + (6,-2) $) {\html{extensions/performance/bounding-box}{Bounding Box}};
@@ -321,7 +321,7 @@
     \node[extension,easy,todo] (elastic animation) at ($ (animations) + (6,-2) $) {\html{extensions/animations/elastic}{Elastic}};
     \draw[dependency] (elastic animation) -| (animations);
 
-    \node[extension,easy,todo] (quaternions) at ($ (animations) + (6,-4) $) {\html{extensions/math/quaternions}{Quaternions} \mathy};
+    \node[extension,easy] (quaternions) at ($ (animations) + (6,-4) $) {\html{extensions/math/quaternions}{Quaternions} \mathy};
     \draw[dependency] (quaternions) -| (animations);
 
     \node[extension,easy,todo] (circular animation) at ($ (quaternions) + (6,0) $) {\html{extensions/animations/circular}{Circular}};
