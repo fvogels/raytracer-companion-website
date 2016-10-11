@@ -25,29 +25,20 @@
           that returns a new value each time it's called.
         </p>
         <p>
-          This kind of random number generator will not do for our purposes, for the following reasons:
+          A problem with these random number generators is that they are "too random" for our purposes.
+          Consider the graphs below:
         </p>
-        <ul>
-          <li>
-            We need repeatability. Say we generate a randomly colored texture. If, during rendering, the need
-            occurs to render the same point twice (for example, due to a mirror), we want the texture
-            to yield the same color again.
-          </li>
-          <li>
-            We need smooth transitions, not chaotic jumps. Say we need to generate a random terrain, which
-            of the figures below is the most realistic?
-            <table style="width: 80%; margin: 10px auto;">
-              <tbody>
-                <tr>
-                  <td><%= tex_image('chaotic-terrain', style:'width: 80%;') %></td>
-                  <td><%= tex_image('smooth-terrain', style:'width: 80%;') %></td>
-                </tr>
-              </tbody>
-            </table>
-          </li>
-        </ul>
+        <table style="width: 80%; margin: 10px auto;">
+          <tbody>
+            <tr>
+              <td><%= tex_image('chaotic-terrain', style:'width: 80%;') %></td>
+              <td><%= tex_image('smooth-terrain', style:'width: 80%;') %></td>
+            </tr>
+          </tbody>
+        </table>
         <p>
-          What we need is some function <code>double random(double x)</code> that satisfies the following conditions:
+          Perlin noise is in essence a random number generator that guarantees a certain smoothness.
+          Concretely, what we what is some function <code>double random(double x)</code> that satisfies the following conditions:
         </p>
         <ul>
           <li>
@@ -57,21 +48,35 @@
             <code>random</code> must be continuous: <code>random(x)</code> and <code>random(x + 0.00001)</code> should be close to each other, i.e. no sudden jumps.
           </li>
         </ul>
+        <p>
+          Perlin noise satisfies these criteria.
+        </p>
+        <p>
+          The function <code>double random(double x)</code> is one-dimensional: it associates a value with each <code>double</code>.
+          We can lift this to higher dimensions:
+        </p>
+        <ul>
+          <li>
+            <code>double random(const Point2D&amp;)</code> is a two dimensional variant: it associates a value with each <code>Point2D</code>.
+          </li>
+          <li>
+            <code>double random(const Point3D&amp;)</code> is three dimensional: each point in 3D space is mapped to a value.
+          </li>
+        </ul>
       </section>
       <section>
         <h1>Perlin Noise</h1>
         <p>
-          Perlin noise is such a deterministic continuous function. From now on, we will work in 2D, which means
-          that we will build a function <code>double perlin(const Point2D&amp;)</code> that associates a
-          value with each point on the plane.
+          Perlin noise is such a deterministic continuous function. For the remainder of this page, we will work in 2D, i.e.
+          we will build a function <code>double perlin(const Point2D&amp;)</code>.
         </p>
         <p>
-          Perlin noise works as follows: take a 2D grid of 1 &times; 1 cells and associate with every intersection a unit vector.
+          Perlin noise works as follows: take a 2D grid of 1 &times; 1 cells and associate a unit vector with every intersection.
         </p>
         <%= tex_image 'grid-vectors' %>
         <p>
           In order to determine the value associated with a point $P(x, y)$, you need
-          to find out in which grid cell it resides. The corners are
+          to find out in which grid cell it resides. Its corners are
           \[
             Q_1(\lfloor x \rfloor, \lfloor y \rfloor) \qquad
             Q_2(\lfloor x \rfloor, \lceil y \rceil) \qquad
@@ -79,7 +84,9 @@
             Q_4(\lceil x \rceil, \lfloor y \rfloor) \qquad
           \]
           where $\lfloor x \rfloor$ corresponds to rounding $x$ down and $\lceil x \rceil$ to rounding $x$ up.
-          Denote the vector corresponding to $Q_i$ with $\vec v_i$. Next, you need to take the dot product of each $Q_iP$ and $v_i$:
+          Each corner has a unit vector associated with it. We denote the vector corresponding to $Q_i$ with $\vec v_i$.</p>
+        <p>
+          Next, take the dot product of each $Q_iP$ and $v_i$:
           \[
             z_i = (P - Q_i) \cdot v_i
           \]
@@ -95,8 +102,7 @@
         </p>
         <ul>
           <li>
-            Find a function $f$ with $f(0) = z_1$ and $f(1) = z_4$. The function can be linear or, for better results, an <%= link 'reference/math/easing-function', 'easing function' %>.
-            Compute $f(x)$.
+            Find a function $f$ with $f(0) = z_1$ and $f(1) = z_4$. Compute $f(x)$.
           </li>
           <li>
             Find a function $f$ with $g(0) = z_2$ and $f(1) = z_3$. Compute $g(x)$.
@@ -104,7 +110,10 @@
           <li>
             Find a function $h$ with $h(0) = f(x)$ and $h(1) = g(x)$. Compute $h(y)$.
           </li> 
-       </ul>
+        </ul>
+        <p>
+          The functions $f$, $g$ and $h$ can be linear or, for better results, an <%= link 'reference/math/easing-function', 'easing functions' %>.
+        </p>
       </section>
     </div>
   </body>
