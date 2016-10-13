@@ -61,7 +61,7 @@
     \node[extension,anchor=north,easy] (ray tracer v4) at ($ (ray tracer v3.south) + (0,-1) $) {\html{extensions/ray-tracers/v4}{Ray Tracer v4}};
     \draw[dependency] (ray tracer v4) -- (ray tracer v3);
 
-    \node[extension,anchor=north,easy] (ray tracer v5) at ($ (ray tracer v4.south) + (0,-1) $) {\html{extensions/ray-tracers/v5}{Ray Tracer v5}};
+    \node[extension,anchor=north,difficulty=v2] (ray tracer v5) at ($ (ray tracer v4.south) + (0,-1) $) {\html{extensions/ray-tracers/v5}{Ray Tracer v5}};
     \draw[dependency] (ray tracer v5) -- (ray tracer v4);
 
     \node[extension,anchor=north,easy] (ray tracer v6) at ($ (ray tracer v5.south) + (0,-1) $) {\html{extensions/ray-tracers/v6}{Ray Tracer v6}};
@@ -198,19 +198,19 @@
     \node[extension,easy] (optimized plane xz) at ($ (plane xz) + (6,0) $) {\html{extensions/primitives/plane-xz-optimized}{Optimized Plane XZ}};
     \draw[dependency] (optimized plane xz) -- (plane xz);
 
-    \node[extension,easy] (plane yz) at ($ (plane xz) + (0,-2) $) {\html{extensions/primitives/plane-xz}{Plane YZ}};
+    \node[extension,easy] (plane yz) at ($ (plane xz) + (0,-2) $) {\html{extensions/primitives/plane-yz}{Plane YZ}};
     \draw[dependency] (plane yz) -| (primitives);
 
     \node[extension,easy] (optimized plane yz) at ($ (plane yz) + (6,0) $) {\html{extensions/primitives/plane-yz-optimized}{Optimized Plane YZ}};
     \draw[dependency] (optimized plane yz) -- (plane yz);
 
-    \node[extension,easy,todo] (cone) at ($ (plane yz) + (0,-2) $) {\html{extensions/primitives/plane-xz}{Cone}};
+    \node[extension,difficulty=3] (cone) at ($ (plane yz) + (0,-2) $) {\html{extensions/primitives/cone}{Cone}};
     \draw[dependency] (cone) -| (primitives);
 
-    \node[extension,easy,todo] (optimized cone) at ($ (cone) + (6,0) $) {\html{extensions/primitives/cone-optimized }{Optimized Cone}};
+    \node[extension,difficulty=2] (optimized cone) at ($ (cone) + (6,0) $) {\html{extensions/primitives/cone-optimized }{Optimized Cone}};
     \draw[dependency] (optimized cone) -| (cone);
 
-    \node[extension,easy,todo] (square) at ($ (cone) + (0,-2) $) {\html{extensions/primitives/cube}{Square}};
+    \node[extension,easy,todo] (square) at ($ (cone) + (0,-2) $) {\html{extensions/primitives/square}{Square}};
     \draw[dependency] (square) -| (primitives);
 
     \node[extension,easy,todo] (optimized square) at ($ (square) + (6,0) $) {\html{extensions/primitives/square-optimized}{Optimized Square}};
@@ -255,13 +255,13 @@
     \node[extension,easy,todo] (bumpifier) at ($ (cropper) + (0,-2) $) {\html{extensions/primitives/bumpifier}{Bumpifier}};
     \draw[dependency] (bumpifier) -| (primitives);
 
-    \node[extension,easy,todo] (intersection) at ($ (bumpifier) + (0,-2) $) {\html{extensions/primitives/bumpifier}{Intersection}};
+    \node[extension,easy,todo] (intersection) at ($ (bumpifier) + (0,-2) $) {\html{extensions/primitives/intersection}{Intersection}};
     \draw[dependency] (intersection) -| (primitives);
 
     \node[extension,easy,todo] (optimized intersection) at ($ (intersection) + (6,0) $) {\html{extensions/primitives/intersection-optimized}{Optimized Intersection}};
     \draw[dependency] (optimized intersection) -| (intersection);
 
-    \node[extension,easy,todo] (difference) at ($ (intersection) + (0,-2) $) {\html{extensions/primitives/bumpifier}{Difference}};
+    \node[extension,easy,todo] (difference) at ($ (intersection) + (0,-2) $) {\html{extensions/primitives/difference}{Difference}};
     \draw[dependency] (difference) -| (primitives);
 
     \node[extension,easy,todo] (optimized difference) at ($ (difference) + (6,0) $) {\html{extensions/primitives/difference-optimized}{Optimized Difference}};
