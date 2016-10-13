@@ -1,0 +1,15 @@
+trace(scene, ray, weight)
+  result = black
+
+  if weight > 0.01
+    find intersection between scene and ray
+
+    result += ambient
+    result += diffuse
+    result += specular
+
+    if material is reflective
+      ray' = compute reflection of ray
+      result += reflectivity * trace(scene, ray', weight * reflectivity)
+
+  retun result
