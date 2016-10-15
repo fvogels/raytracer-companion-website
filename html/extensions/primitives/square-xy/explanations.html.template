@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Square</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -23,21 +23,35 @@
 
   <body>
     <header>
-      <div class="center-vertically">Square</div>
+      Square
     </header>
     <div id="contents">
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+
+      <section>
+        <h1>Implementation</h1>
+        <p>
+          For this extension you will need to implement this square:
+        </p>
+        <%= tex_image 'square' %>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Add a <code>Primitive xy_square()</code> factory function that creates a square as shown above.
+            Use the plane primitive as a guide.
+          </p>
+        </aside>
+      </section>
     </div>
   </body>
 
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
