@@ -80,7 +80,7 @@
           </ol>
           <p>
             For example, say that $P$ is, after computing <%= link 'reference/lighting/ambient', 'ambient' %>,
-            <% link 'reference/lighting/diffuse', 'diffuse' %> and <% link 'reference/lighting/specular', 'specular' %>, determined to be blue.
+            <%= link 'reference/lighting/diffuse', 'diffuse' %> and <%= link 'reference/lighting/specular', 'specular' %>, determined to be blue.
             If the material were nonreflective, we'd stop here. Otherwise, we go for another round of merry ray tracing:
             we follow the reflection of $R$, and find that it hits some red sphere. We now know that this red sphere
             will be visible at $P$: we add red to the previously computed blue color, yielding violet.
@@ -134,6 +134,7 @@
             The $1\%$ threshold is chosen arbitrarily: if you prefer you can choose a higher or lower value.
             Higher values mean tracing will end sooner and hence will reduce rendering times.
           </p>
+          <%= tex_image 'weight' %>
           <p>
             To implement this, we need to pass along the "weight" to the <code>trace</code> function.
             The weight indicates how much the result of the call will count in the final result.
