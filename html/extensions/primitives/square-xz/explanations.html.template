@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Square</title>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      video {
+        margin: 10px auto;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      Square
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Preview</h1>
+        <%= raytrace_movie 'demo' %>
+        <%= source 'demo.chai' %>
+      </section>
+
+      <section>
+        <h1>Implementation</h1>
+        <p>
+          For this extension you will need to implement this square:
+        </p>
+        <%= tex_image 'square' %>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Add a <code>Primitive xz_square()</code> factory function that creates a square as shown above.
+            Use the plane primitive as a guide.
+          </p>
+        </aside>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
