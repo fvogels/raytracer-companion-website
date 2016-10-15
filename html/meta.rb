@@ -12,4 +12,7 @@ meta_object do
   inherit_remote_directory 'html'
 
   quick_recursive_all
+
+  register_transfer( Pathname.new('3dcg.css').expand_path,
+                     Pathname.new('/var/www/courses/shared/3dcg.css') )
 end
