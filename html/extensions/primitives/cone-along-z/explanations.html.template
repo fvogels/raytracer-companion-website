@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Cone Along Z Axis</title>
-    <%= stylesheets('ucll', 'box2') %>
+    <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
@@ -26,6 +26,8 @@
       Cone Along Z Axis
     </header>
     <div id="contents">
+      <%= overview(prerequisites: [],
+                   mutually_exclusive_with: ['primitives/cone-along-x', 'primitives/cone-along-y']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
