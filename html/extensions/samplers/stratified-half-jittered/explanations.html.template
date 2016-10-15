@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Stratified - Half Jittered Sampler</title>
-    <%= stylesheets('ucll', 'box2') %>
+    <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
@@ -23,9 +23,10 @@
 
   <body>
     <header>
-      <div class="center-vertically">Stratified - Half Jittered Sampler</div>
+      Stratified - Half Jittered Sampler
     </header>
     <div id="contents">
+      <%= overview(prerequisites: ['samplers/stratified-jittered'], reading_material: ['samplers/half-jittered']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace 'demo' %>
