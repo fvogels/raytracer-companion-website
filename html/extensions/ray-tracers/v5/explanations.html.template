@@ -170,6 +170,14 @@
                 Make sure to pass all necessary data to <code>compute_reflection</code> using parameters
                 so that it can perform its job.
               </li>
+              <li>
+                Say the light ray $O + \vec \Delta \cdot t$ hits the reflective object at some point $P$.
+                You compute the new direction $\Delta'$, and you trace the ray's reflection $P + \Delta' \cdot t$.
+                When you try to find the intersection of this second ray with the scene,
+                you may very well get $P$ as result, which is definitely not what you want. To prevent this from happening, you will
+                have to move the second ray's origin a tiny bit: instead of
+                $P + \Delta' \cdot t$, you need to trace $P + 0.00000001 \cdot \Delta' + \Delta' \cdot t$.
+              </li>
             </ul>
           </aside>
         </section>
