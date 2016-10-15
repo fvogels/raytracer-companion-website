@@ -96,6 +96,13 @@
               calls <code>trace</code> recursively, <code>compute_refraction</code> lets the ray
               pass through the shape and calls <code>trace</code> recursively on the exiting light ray.
             </li>
+            <li>
+              You might have to give the ray small "nudges" here and there. Say the ray enters the transparent
+              object at $P_1$. You compute the direction of the refracted ray and then determine where
+              this new ray exits the object. If you let the ray start at $P_1$, <code>find_first_positive_hit</code>
+              will quite probably return $P_1$. In order to prevent this, you'll have to move the origin of the refracted
+              ray a tiny bit.
+            </li>
           </ul>
         </aside>
       </section>
