@@ -5,6 +5,81 @@ class SharedContext
   include Contracts::TypeChecking
   include Html2::Generation
 
+  def overview(prerequisites: [], reading_material: [], mutually_exclusive_with: [])
+    prerequisites_html = prerequisites.map do |id|
+      base_path = Environment.git_root + 'html/extensions' + id
+      html_path = base_path + 'explanations.html'
+      template_path = base_path + 'explanations.html.template'
+
+      abort "Could not find dependency #{id}" unless template_path.file?
+      abort "Could not find header in dependency #{template_path}" unless %r{<header>(.*?)</header>}m =~ template_path.read
+      header = $1.strip
+      
+      current_path = Pathname.pwd
+    
+      %{<a href="#{html_path.relative_path_from current_path}">#{header}</a>}
+    end.join("<br>")
+
+    if prerequisites_html.empty?
+    then prerequisites_html = "None"
+    end
+
+    mutually_exclusive_with_html = mutually_exclusive_with.map do |id|
+      base_path = Environment.git_root + 'html/extensions' + id
+      html_path = base_path + 'explanations.html'
+      template_path = base_path + 'explanations.html.template'
+
+      abort "Could not find mutually exclusive #{id}" unless template_path.file?
+      abort "Could not find header in mutually exclusive #{template_path}" unless %r{<header>(.*?)</header>}m =~ template_path.read
+      header = $1.strip
+      
+      current_path = Pathname.pwd
+    
+      %{<a href="#{html_path.relative_path_from current_path}">#{header}</a>}
+    end.join("<br>")
+
+    if mutually_exclusive_with_html.empty?
+    then mutually_exclusive_with_html = "None"
+    end
+
+    reading_material_html = reading_material.map do |id|
+      base_path = Environment.git_root + 'html/reference' + id
+      html_path = base_path + 'explanations.html'
+      template_path = base_path + 'explanations.html.template'
+
+      abort "Could not find reading material #{id}" unless template_path.file?
+      abort "Could not find header in reading material #{template_path}" unless %r{<header>(.*?)</header>}m =~ template_path.read
+      header = $1.strip
+      
+      current_path = Pathname.pwd
+    
+      %{<a href="#{html_path.relative_path_from current_path}">#{header}</a>}
+    end.join("<br>")
+
+    if reading_material_html.empty?
+    then reading_material_html = "None"
+    end
+    
+    <<-END
+      <table id="overview">
+        <tbody>
+          <tr>
+            <td>Prerequisites</td>
+            <td>#{prerequisites_html}</td>
+          </tr>
+          <tr>
+            <td>Mutually Exclusive</td>
+            <td>#{mutually_exclusive_with_html}</td>
+          </tr>
+          <tr>
+            <td>Reading Material</td>
+            <td>#{reading_material_html}</td>
+          </tr>
+        </tbody>
+      </table>
+    END
+  end
+  
   def tex_image(basename, quality: 90, density: 300, html_class: 'centered large', style: nil)
     typecheck do
       assert(basename: string)
@@ -118,6 +193,7 @@ class SharedContext
   end
 end
 
+
 def shared_metaobject(context = SharedContext.new)
   extend MetaData2
   extend Template2::Actions
@@ -140,6 +216,7 @@ def shared_metaobject(context = SharedContext.new)
   uploadable( *Dir['*.html'] )
   uploadable( *Dir['*.png'] )
   uploadable( *Dir['*.mp4'] )
+  uploadable( *Dir['3dcg.css'] )
 
   quick_all(:html)
 end
