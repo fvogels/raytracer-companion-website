@@ -32,88 +32,31 @@
         <%= source 'demo.chai' %>
       </section>
       <section>
-        <h1>Transformation Matrices</h1>
+        <h1>Implementation</h1>
         <p>
-          We rely on matrices to model transformations.
-          To allow us to define scalings, rotations as well as translations on 3D points,
-          we need <%= link 'reference/math/transformations', '4 &times; 4 matrix' %>.
+          First, take a quick look at <%= link 'design/transformations', 'how transformations are implemented' %>.
         </p>
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Examine the file <code>math/trasnformation-matrices.h</code>.
+            Examine the file <code>math/transformation-matrices.h</code>.
             You will find functions that just might be quite helpful to you.
           </p>
         </aside>
-      </section>
-      <section>
-        <h1>Transformations</h1>
-        <p>
-          As <%= link 'design/primitives', 'explained' %>, transformations are actually faked.
-          If we need to render a large sphere, we actually shrink the camera. After having found
-          the intersection for a shrunk camera, we need to scale back the hit position to normal size.
-          It is therefore necessary that for each transformation, we have both the corresponding
-          matrix but also its inverse.
-        </p>
-        <p>
-          Computing the inverse is an expensive operation. However, we can be smart about it.
-          When we create a matrix for a translation by the vector $\vec v(x,y,z)$, we get
-          \[
-            T =
-            \begin{bmatrix}
-              1 & 0 & 0 & x \\
-              0 & 1 & 0 & y \\
-              0 & 0 & 1 & z \\
-              0 & 0 & 0 & 1 \\
-            \end{bmatrix}
-          \]
-          Instead of trying to directly invert this matrix, we can think in terms of transformations.
-          What is the inverse operation of moving everything a distance $(x, y, z)$? Simple:
-          it's moving it back a distance $(-x, -y, -z)$. Finding the matrix for this transformation is very easy:
-          \[
-            T^{-1} =
-            \begin{bmatrix}
-              1 & 0 & 0 & -x \\
-              0 & 1 & 0 & -y \\
-              0 & 0 & 1 & -z \\
-              0 & 0 & 0 & 1 \\
-            \end{bmatrix}
-          \]
-          To make this trick possible, we need to build this inverse matrix $T^{-1}$ immediately when building the regular $T$ matrix.
-          If we wait too long, the information about which transformation the matrix represents might be lost and
-          we would have to resort to a more complex algorithm to invert the matrix.
-        </p>
-        <p>
-          For this reason, we introduced the class <code>Transformation</code>. This class pairs up both the
-          matrix $T$ and its inverse $T^{-1}$. Whenever we need a translation transformation, we set up both matrices and
-          group them in a <code>Transformer</code> object.
-        </p>
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Open <code>math/transformation3d.cpp</code> and take a good look at <code>math::transformations::translation</code>.
+            Open <code>math/transformation3d.cpp</code>. Use <code>math::transformations::translation</code> as a guide for this task.
           </p>
-        </aside>
-        <aside class="boxed2">
-          <h1>Task</h1>
           <p>
             Define a function <code>math::transformations::scale(double sx, double sy, double sz)</code> in <code>math/transformation3d.cpp</code>.
             Expose it to the rest of the application by adding a declaration in the corresponding header.
           </p>
         </aside>
-      </section>
-      <section>
-        <h1>Transformer Primitive</h1>
         <p>
           Lastly, we need to define a scaling <code>Primitive</code>.
           The <code>Transformer</code> class has already been written for you and takes care of most of the complexity.
         </p>
-        <aside class="boxed2">
-          <h1>Task</h1>
-          <p>
-            Inspect the <code>TransformerImplementation</code> class in <code>primitives/transformer-primitive.cpp</code>.
-          </p>
-        </aside>
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
@@ -124,7 +67,7 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Check your work extensively.
+            Check your implementation extensively.
           </p>
         </aside>
       </section>  
