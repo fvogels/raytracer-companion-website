@@ -64,7 +64,7 @@
     \node[extension,anchor=north,difficulty=2] (ray tracer v5) at ($ (ray tracer v4.south) + (0,-1) $) {\html{extensions/ray-tracers/v5}{Ray Tracer v5}};
     \draw[dependency] (ray tracer v5) -- (ray tracer v4);
 
-    \node[extension,anchor=north,easy] (ray tracer v6) at ($ (ray tracer v5.south) + (0,-1) $) {\html{extensions/ray-tracers/v6}{Ray Tracer v6}};
+    \node[extension,anchor=north,difficulty=4] (ray tracer v6) at ($ (ray tracer v5.south) + (0,-1) $) {\html{extensions/ray-tracers/v6}{Ray Tracer v6}};
     \draw[dependency] (ray tracer v6) -- (ray tracer v5);
 
     \node[node] (samplers) at ($ (ray tracers) + (8,0) $) {Samplers};
@@ -204,13 +204,19 @@
     \node[extension,easy] (optimized plane yz) at ($ (plane yz) + (6,0) $) {\html{extensions/primitives/plane-yz-optimized}{Optimized Plane YZ}};
     \draw[dependency] (optimized plane yz) -- (plane yz);
 
-    \node[extension,difficulty=3] (cone) at ($ (plane yz) + (0,-2) $) {\html{extensions/primitives/cone}{Cone}};
-    \draw[dependency] (cone) -| (primitives);
+    \node[extension,difficulty=3] (cone along x) at ($ (plane yz) + (0,-2) $) {\html{extensions/primitives/cone-along-x}{Cone Along X}};
+    \draw[dependency] (cone along x) -| (primitives);
 
-    \node[extension,difficulty=2] (optimized cone) at ($ (cone) + (6,0) $) {\html{extensions/primitives/cone-optimized}{Optimized Cone}};
-    \draw[dependency] (optimized cone) -| (cone);
+    \node[extension,difficulty=2] (optimized cone) at ($ (cone along x) + (6,0) $) {\html{extensions/primitives/cone-optimized}{Optimized Cone Along X}};
+    \draw[dependency] (optimized cone) -| (cone along x);
 
-    \node[extension,easy] (square xy) at ($ (cone) + (0,-2) $) {\html{extensions/primitives/square-xy}{Square XY}};
+    \node[extension,difficulty=3] (cone along y) at ($ (cone along x) + (0,-2) $) {\html{extensions/primitives/cone-along-y}{Cone Along Y}};
+    \draw[dependency] (cone along y) -| (primitives);
+
+    \node[extension,difficulty=3] (cone along z) at ($ (cone along y) + (0,-2) $) {\html{extensions/primitives/cone-along-z}{Cone Along Z}};
+    \draw[dependency] (cone along z) -| (primitives);
+
+    \node[extension,easy] (square xy) at ($ (cone along z) + (0,-2) $) {\html{extensions/primitives/square-xy}{Square XY}};
     \draw[dependency] (square xy) -| (primitives);
 
     \node[extension,easy] (optimized square xy) at ($ (square xy) + (6,0) $) {\html{extensions/primitives/square-xy-optimized}{Optimized Square XY}};
