@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Bounce Animation</div>
+      Bounce Animation
     </header>
     <div id="contents">
       <section>
