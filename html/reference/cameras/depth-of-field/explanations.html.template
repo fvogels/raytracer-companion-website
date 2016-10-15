@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Depth of Field</title>
-    <%= stylesheets('ucll', 'imgslider') %>
+    <%= stylesheets('3dcg', 'imgslider') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor', 'imgslider') %>
     <style>
       img.large {
@@ -24,7 +24,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Depth of Field</div>
+      Depth of Field
     </header>
     <div id="contents">
       <section>
