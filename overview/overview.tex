@@ -213,14 +213,20 @@
     \node[extension,easy] (square xy) at ($ (cone) + (0,-2) $) {\html{extensions/primitives/square-xy}{Square XY}};
     \draw[dependency] (square xy) -| (primitives);
 
-    \node[extension,easy,todo] (optimized square xy) at ($ (square xy) + (6,0) $) {\html{extensions/primitives/square-optimized}{Optimized Square XY}};
+    \node[extension,easy] (optimized square xy) at ($ (square xy) + (6,0) $) {\html{extensions/primitives/square-xy-optimized}{Optimized Square XY}};
     \draw[dependency] (optimized square xy) -| (square xy);
 
     \node[extension,easy] (square xz) at ($ (square xy) + (0,-2) $) {\html{extensions/primitives/square-xz}{Square XZ}};
     \draw[dependency] (square xz) -| (primitives);
 
+    \node[extension,easy] (optimized square xz) at ($ (square xz) + (6,0) $) {\html{extensions/primitives/square-xz-optimized}{Optimized Square XZ}};
+    \draw[dependency] (optimized square xz) -| (square xz);
+
     \node[extension,easy] (square yz) at ($ (square xz) + (0,-2) $) {\html{extensions/primitives/square-yz}{Square YZ}};
     \draw[dependency] (square yz) -| (primitives);
+
+    \node[extension,easy] (optimized square yz) at ($ (square yz) + (6,0) $) {\html{extensions/primitives/square-yz-optimized}{Optimized Square YZ}};
+    \draw[dependency] (optimized square yz) -| (square yz);
 
     \node[extension,easy,todo] (cube) at ($ (square yz) + (0,-2) $) {\html{extensions/primitives/cube}{Cube}};
     \draw[dependency] (cube) -| (primitives);
