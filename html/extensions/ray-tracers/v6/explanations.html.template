@@ -26,12 +26,79 @@
       Ray Tracer v6
     </header>
     <div id="contents">
-      <%= overview(prerequisites: ['ray-tracers/v5']) %>
+      <%= overview(prerequisites: ['ray-tracers/v5'], reading_material: ['refraction']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+
+      <section>
+        <h1>Implementation</h1>
+        <p>
+          First, familiarize yourself with <%= link 'reference/refraction', 'refraction' %>.
+          Also go take a look at <code>MaterialProperties</code>: you'll find you'll need the member variables
+          <code>refractive_index</code> and <code>transparency</code> for this extension.
+        </p>
+        <p>
+          Correctly implementing refraction is not an easy task. We choose to introduce the following simplifications:
+        </p>
+        <ul>
+          <li>
+            Technically, we should find out what medium the light ray originates in.
+            In our implementation, we will make the assumption we always start in vacuum.
+          </li>
+          <li>
+            When encountering a transparent material, we assume that, after bending the ray,
+            the next intersection brings us back to the outside world (i.e. $n = 1$).
+            In reality, it can happen that upon exiting the $n_1$-material, we immediately enter a new $n_2$-material,
+            but we ignore this possibility.            
+          </li>
+          <li>
+            We ignore total internal reflection. Whenever it arises, we simply return black.
+          </li>
+        </ul>
+        <%= tex_image 'refraction' %>
+        <p>
+          The algorithm for refraction then looks as follows:
+        </p>
+        <%= source 'refraction.pseudo' %>
+        <p>
+          Note that, as with <%= link 'extensions/ray-tracers-v5', 'reflection' %>,
+          only part of the photons gets refracted. How much is specified by
+          the material's transparency: a value of 0 means none of the photons
+          get refracted (i.e. the material is not transparent), a value of 1
+          means all photons get through. In our ray tracer, like reflectivity, the transparency
+          determines the factor by which the resulting color is multiplied.
+        </p>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Implement <code>RayTracerV6</code>.
+          </p>
+          <ul>
+            <li>
+              <code>RayTracerV5</code> should have two <code>trace</code> methods: one with and one without <code>weight</code> parameter.
+              For <code>RayTracerV6</code>, you'll need to override the one with the <code>weight</code> parameter.
+            </li>
+            <li>
+              <code>RayTracerV5::trace</code> calls <code>compute_ambient</code>, <code>process_lights</code> and
+              <code>compute_reflection</code> and adds their results. <code>RayTracerV6::trace</code> is identical,
+              but should also call the new member function<code>compute_refraction</code>.
+            </li>
+            <li>
+              <code>compute_refraction</code> computes two refractions of the light ray: once
+              at the entry point, once at the exit point.
+            </li>
+            <li>
+              <code>compute_refraction</code> is in essence quite similar to <code>compute_reflection</code>:
+              where <code>compute_reflection</code> simply bounces the ray off of the surface of the shape and then
+              calls <code>trace</code> recursively, <code>compute_refraction</code> lets the ray
+              pass through the shape and calls <code>trace</code> recursively on the exiting light ray.
+            </li>
+          </ul>
+        </aside>
+      </section>
     </div>
   </body>
 
