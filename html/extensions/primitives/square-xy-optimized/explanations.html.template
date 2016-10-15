@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Optimized Square XY</title>
-    <%= stylesheets('ucll', 'box2') %>
+    <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
@@ -26,8 +26,12 @@
       Optimized Square XY
     </header>
     <div id="contents">
+      <%= overview(prerequisites: ['primitives/square-xy'],
+                   mutually_exclusive_with: ['primitives/square-xz-optimized', 'primitives/square-yz-optimized']) %>
+
       <section>
         <h1>Implementation</h1>
+        
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
