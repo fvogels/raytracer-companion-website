@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Square</title>
+    <title>3DCG: Square YZ</title>
     <%= stylesheets('ucll', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      Square
+      Square YZ
     </header>
     <div id="contents">
       <section>
@@ -41,9 +41,23 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Add a <code>Primitive xz_square()</code> factory function that creates a square as shown above.
-            Use the plane primitive as a guide.
+            Implement the following:
           </p>
+          <ul>
+            <li>
+              Define a class <code>PlaneXZImplementation</code> that subclasses <code>PrimitiveImplementation</code>.
+              It must model the square shown in the above figure. Use the plane primitive as a guide.
+            </li>
+            <li>
+              Override <code>find_all_hits</code>.
+            </li>
+            <li>
+              Define a <code>Primitive xz_square()</code> factory function.
+            </li>
+            <li>
+              Add a binding to the scripting language.
+            </li>
+          </ul>
         </aside>
       </section>
     </div>
