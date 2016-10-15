@@ -67,6 +67,12 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
+            Add the necessary bindings to the scripting language.
+          </p>
+        </aside>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
             Check your implementation extensively.
           </p>
         </aside>
