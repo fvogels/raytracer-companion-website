@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: n-Rooks Sampler</title>
-    <%= stylesheets('ucll', 'box2') %>
+    <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
@@ -23,10 +23,11 @@
 
   <body>
     <header>
-      <div class="center-vertically">n-Rooks Sampler</div>
+      n-Rooks Sampler
     </header>
     <div id="contents">
       <section>
+        <%= overview(prerequisites: ['samplers/stratified-half-jittered'], reading_material: ['samplers/nrooks']) %>
         <h1>Preview</h1>
         <%= raytrace 'demo' %>
         <%= source 'demo.chai' %>
