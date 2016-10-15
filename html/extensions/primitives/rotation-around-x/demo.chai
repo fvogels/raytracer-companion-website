@@ -8,16 +8,14 @@ def colored_material(color) {
 
 def scene_at(now)
 {
-  var camera = Cameras.perspective( [ "eye": pos(0,0,15),
+  var camera = Cameras.perspective( [ "eye": pos(0,0,10),
                                       "look_at": pos(0,0,0) ] )
 
   var cylinder = crop_along_y(cylinder_along_y(), interval(-1,1))
 
   var angle = Animations.animate(degrees(0), degrees(360), seconds(5))
 
-  var root = union( [ translate( vec(-4,0,0), decorate( colored_material(Colors.red()), rotate_around_x(angle[now], cylinder) )),
-                      decorate( colored_material(Colors.green()), rotate_around_y(angle[now], rotate_around_z(degrees(90), cylinder)) ),
-                      translate( vec(4,0,0), decorate( colored_material(Colors.blue()), rotate_around_z(angle[now], cylinder) )) ] )
+  var root = decorate( colored_material(Colors.green()), rotate_around_x(angle[now], cylinder) )
 
   var lights = [ Lights.omnidirectional( pos(0,5,5), Colors.white() ) ]
 
