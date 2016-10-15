@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Design</title>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin: 10px auto;
+      }
+
+      table th {
+        width: 30%;
+        text-align: left;
+        background: #AAA;
+        padding: 2px;
+      }
+
+      dt {
+        font-weight: bold;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      
+      function initialize()
+      {
+        Box.initialize();
+      }
+
+      $( initialize );    
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      Design
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Transformation Matrices</h1>
+        <p>
+          We rely on matrices to model transformations.
+          Since we work in 3D, you would expect us to use 3 &times; 3 matrices.
+          However, matrices of this size cannot be used to model translations.
+          In order to make this possible, we need 4 &times; 4 matrices.
+        </p>
+        <p>
+          Transformation matrices have already been implemented for you.
+          You will find them in <code>math/transformation-matrices.h</code>.
+        </p>
+      </section>
+      <section>
+        <h1>Transformations</h1>
+        <p>
+          As <%= link 'design/primitives', 'explained here' %>, transformations are actually faked.
+          If we need to render a large sphere, we actually shrink the camera. After having found
+          the intersection for a shrunk camera, we need to scale back the hit position to normal size.
+          It is therefore necessary that for each transformation, we have both the corresponding
+          matrix but also its inverse.
+        </p>
+        <p>
+          Computing the inverse is an expensive operation. However, we can be smart about it.
+          When we create a matrix for a translation by the vector $\vec v(x,y,z)$, we get
+          \[
+            T =
+            \begin{bmatrix}
+              1 & 0 & 0 & x \\
+              0 & 1 & 0 & y \\
+              0 & 0 & 1 & z \\
+              0 & 0 & 0 & 1 \\
+            \end{bmatrix}
+          \]
+          Instead of trying to directly invert this matrix, we can think in terms of transformations.
+          What is the inverse operation of moving everything a distance $(x, y, z)$? Simple:
+          it's moving it back a distance $(-x, -y, -z)$. Finding the matrix for this transformation is very easy:
+          \[
+            T^{-1} =
+            \begin{bmatrix}
+              1 & 0 & 0 & -x \\
+              0 & 1 & 0 & -y \\
+              0 & 0 & 1 & -z \\
+              0 & 0 & 0 & 1 \\
+            \end{bmatrix}
+          \]
+          To make this trick possible, we need to build this inverse matrix $T^{-1}$ immediately when building the regular $T$ matrix.
+          If we wait too long, the information about which transformation the matrix represents might be forgotten and
+          we would have to resort to a more complex algorithm to invert the matrix.
+        </p>
+        <p>
+          For this reason, we introduced the class <code>Transformation</code>. This class pairs up both the
+          matrix $T$ and its inverse $T^{-1}$. Whenever we need a translation transformation, we set up both matrices and
+          group them in a <code>Transformer</code> object.
+        </p>
+      </section>
+      <section>
+        <h1>Transformer Primitive</h1>
+        <p>
+          Lastly, we need to define a scaling <code>Primitive</code>.
+          The <code>Transformer</code> class has already been written for you and takes care of most of the complexity.
+          It takes a <code>Transformation</code> object and uses it to transform and "untransform" rays and hit locations.
+        </p>
+      </section>
+    </div>
+  </body>
+  <script>
+    function initialize()
+    {
+      Box.initialize();
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
