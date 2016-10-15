@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Ray Tracer v4</title>
-    <%= stylesheets('ucll', 'box2') %>
+    <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
@@ -23,10 +23,11 @@
 
   <body>
     <header>
-      <div class="center-vertically">Ray Tracer v4</div>
+      Ray Tracer v4
     </header>
     <div id="contents">
       <section>
+        <%= overview(prerequisites: ['ray-tracers/v3'])  %>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
