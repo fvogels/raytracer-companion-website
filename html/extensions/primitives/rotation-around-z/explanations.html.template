@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Rotation</title>
+    <%= stylesheets('ucll', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      video {
+        margin: 10px auto;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      Rotation
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Preview</h1>
+        <%= raytrace_movie 'demo' %>
+        <%= source 'demo.chai' %>
+      </section>      
+      <section>
+        <h1>Implementation</h1>
+        <p>
+          First, take a quick look at <%= link 'design/transformations', 'how transformations are implemented' %>.
+        </p>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Examine the file <code>math/transformation-matrices.h</code>.
+            You will find functions that just might be quite helpful to you.
+          </p>
+        </aside>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Open <code>math/transformation3d.cpp</code>. Use <code>math::transformations::translation</code> as a guide for this task.
+          </p>
+          <p>
+            Define a function <code>math::transformations::rotate_z(Angle angle)</code> in <code>math/transformation3d.cpp</code>.
+            Expose it to the rest of the application by adding a declaration in the corresponding header.
+          </p>
+        </aside>
+        <p>
+          Lastly, we need to define a rotating <code>Primitive</code>. The <code>Transformer</code> class models the primitive responsible
+          for all transformations and has already been written for you. What remains for you to do is to initialize it so that it rotates.
+        </p>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Define a factory function <code>Primitive raytracer::primitives::rotate_around_z(Angle angle, Primitive transformee)</code>
+            in <code>primitives/transformer-primitive.cpp</code>.
+            Use the given function <code>raytracer::primitives::translate</code> as a guide.
+          </p>
+        </aside>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Add the necessary bindings to the scripting language.
+          </p>
+        </aside>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Check your implementation extensively.
+          </p>
+        </aside>
+      </section>  
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
