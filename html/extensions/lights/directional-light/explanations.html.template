@@ -26,7 +26,7 @@
       Directional Light
     </header>
     <div id="contents">
-      <%= overview(prerequisites: ['ray-tracers/v1'], reading_material: ['lights/directional']) %>
+      <%= overview(prerequisites: ['ray-tracers/v2'], reading_material: ['lights/directional']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
