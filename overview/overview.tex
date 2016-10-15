@@ -61,7 +61,7 @@
     \node[extension,anchor=north,easy] (ray tracer v4) at ($ (ray tracer v3.south) + (0,-1) $) {\html{extensions/ray-tracers/v4}{Ray Tracer v4}};
     \draw[dependency] (ray tracer v4) -- (ray tracer v3);
 
-    \node[extension,anchor=north,difficulty=v2] (ray tracer v5) at ($ (ray tracer v4.south) + (0,-1) $) {\html{extensions/ray-tracers/v5}{Ray Tracer v5}};
+    \node[extension,anchor=north,difficulty=2] (ray tracer v5) at ($ (ray tracer v4.south) + (0,-1) $) {\html{extensions/ray-tracers/v5}{Ray Tracer v5}};
     \draw[dependency] (ray tracer v5) -- (ray tracer v4);
 
     \node[extension,anchor=north,easy] (ray tracer v6) at ($ (ray tracer v5.south) + (0,-1) $) {\html{extensions/ray-tracers/v6}{Ray Tracer v6}};
@@ -207,16 +207,22 @@
     \node[extension,difficulty=3] (cone) at ($ (plane yz) + (0,-2) $) {\html{extensions/primitives/cone}{Cone}};
     \draw[dependency] (cone) -| (primitives);
 
-    \node[extension,difficulty=2] (optimized cone) at ($ (cone) + (6,0) $) {\html{extensions/primitives/cone-optimized }{Optimized Cone}};
+    \node[extension,difficulty=2] (optimized cone) at ($ (cone) + (6,0) $) {\html{extensions/primitives/cone-optimized}{Optimized Cone}};
     \draw[dependency] (optimized cone) -| (cone);
 
-    \node[extension,easy,todo] (square) at ($ (cone) + (0,-2) $) {\html{extensions/primitives/square}{Square}};
-    \draw[dependency] (square) -| (primitives);
+    \node[extension,easy] (square xy) at ($ (cone) + (0,-2) $) {\html{extensions/primitives/square-xy}{Square XY}};
+    \draw[dependency] (square xy) -| (primitives);
 
-    \node[extension,easy,todo] (optimized square) at ($ (square) + (6,0) $) {\html{extensions/primitives/square-optimized}{Optimized Square}};
-    \draw[dependency] (optimized square) -| (square);
+    \node[extension,easy,todo] (optimized square xy) at ($ (square xy) + (6,0) $) {\html{extensions/primitives/square-optimized}{Optimized Square XY}};
+    \draw[dependency] (optimized square xy) -| (square xy);
 
-    \node[extension,easy,todo] (cube) at ($ (square) + (0,-2) $) {\html{extensions/primitives/cube}{Cube}};
+    \node[extension,easy] (square xz) at ($ (square xy) + (0,-2) $) {\html{extensions/primitives/square-xz}{Square XZ}};
+    \draw[dependency] (square xz) -| (primitives);
+
+    \node[extension,easy] (square yz) at ($ (square xz) + (0,-2) $) {\html{extensions/primitives/square-yz}{Square YZ}};
+    \draw[dependency] (square yz) -| (primitives);
+
+    \node[extension,easy,todo] (cube) at ($ (square yz) + (0,-2) $) {\html{extensions/primitives/cube}{Cube}};
     \draw[dependency] (cube) -| (primitives);
 
     \node[extension,easy,todo] (optimized cube) at ($ (cube) + (6,0) $) {\html{extensions/primitives/cube-optimized}{Optimized Cube}};
@@ -270,11 +276,17 @@
     \node[extension,hard,todo] (mesh) at ($ (difference) + (0,-2) $) {\html{extensions/primitives/mesh}{Mesh}};
     \draw[dependency] (mesh) -| (primitives);
 
-    \node[extension,hard,todo] (scaling) at ($ (mesh) + (0,-2) $) {\html{extensions/primitives/scaling}{Scaling}};
+    \node[extension,easy] (scaling) at ($ (mesh) + (0,-2) $) {\html{extensions/primitives/scaling}{Scaling}};
     \draw[dependency] (scaling) -| (primitives);
 
-    \node[extension,hard,todo] (rotation) at ($ (scaling) + (0,-2) $) {\html{extensions/primitives/rotation}{Rotation}};
-    \draw[dependency] (rotation) -| (primitives);
+    \node[extension,easy] (rotation around x) at ($ (scaling) + (0,-2) $) {\html{extensions/primitives/rotation-around-x}{X-Rotation}};
+    \draw[dependency] (rotation around x) -| (primitives);
+
+    \node[extension,easy] (rotation around y) at ($ (rotation around x) + (0,-2) $) {\html{extensions/primitives/rotation-around-y}{Y-Rotation}};
+    \draw[dependency] (rotation around y) -| (primitives);
+
+    \node[extension,easy] (rotation around z) at ($ (rotation around y) + (0,-2) $) {\html{extensions/primitives/rotation-around-z}{Z-Rotation}};
+    \draw[dependency] (rotation around z) -| (primitives);
 
     \node[node] (renderers) at ($ (primitives) + (18,0) $) {Renderers};
     \draw[dependency] (renderers) |- (start);
