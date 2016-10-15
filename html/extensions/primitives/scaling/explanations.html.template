@@ -54,13 +54,13 @@
           </p>
         </aside>
         <p>
-          Lastly, we need to define a scaling <code>Primitive</code>.
-          The <code>Transformer</code> class has already been written for you and takes care of most of the complexity.
+          Lastly, we need to define a rotating <code>Primitive</code>. The <code>Transformer</code> class models the primitive responsible
+          for all transformations and has already been written for you. What remains for you to do is to initialize it so that it scales.
         </p>
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Define a factory function <code>Primitive raytracer::primitives::scale(double sx, double sy, double sz, Primitive transformee)</code>.
+            Define a factory function <code>Primitive raytracer::primitives::scale(double sx, double sy, double sz, Primitive transformee)</code> in <code>primitives/transformer-primitive.cpp</code>.
             Use the given function <code>raytracer::primitives::translate</code> as a guide.
           </p>
         </aside>
