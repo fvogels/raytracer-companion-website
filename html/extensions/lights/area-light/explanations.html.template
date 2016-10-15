@@ -26,7 +26,7 @@
       Area Lights
     </header>
     <div id="contents">
-      <%= overview(prerequisites: ['ray-tracers/v1', 'samplers/random'], reading_material: ['lights/area']) %>
+      <%= overview(prerequisites: ['ray-tracers/v2', 'samplers/random'], reading_material: ['lights/area']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace 'demo' %>
