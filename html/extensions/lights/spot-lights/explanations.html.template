@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Spot Lights</title>
-    <%= stylesheets('ucll', 'box2') %>
+    <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
@@ -23,9 +23,10 @@
 
   <body>
     <header>
-      Spot Lights<
+      Spot Lights
     </header>
     <div id="contents">
+      <%= overview(prerequisites: ['ray-tracers/v2'], reading_material: ['lights/spot']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
