@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Cone</title>
+    <title>3DCG: Cone Along X Axis</title>
     <%= stylesheets('ucll', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      Cone
+      Cone Along X Axis
     </header>
     <div id="contents">
       <section>
@@ -36,7 +36,8 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Implement <code>Cone</code> and its <code>find_all_hits</code> member function. Yes, that's all the help you get.
+            Implement <code>ConeAlongXImplementation</code> and its <code>find_all_hits</code> member function.
+            Add a factory function <code>cone_along_x</code>. Add a binding for the scripting language.
           </p>
         </aside>
       </section>
