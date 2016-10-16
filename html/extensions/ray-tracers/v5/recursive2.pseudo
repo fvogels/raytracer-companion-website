@@ -3,12 +3,17 @@ trace(scene, ray)
 
   find intersection between scene and ray
 
-  result += ambient
-  result += diffuse
-  result += specular
-
-  if material is reflective
-    ray' = compute reflection of ray
-    result += reflectivity * trace(scene, ray')
+  result += compute_ambient
+  result += compute_diffuse
+  result += compute_specular
+  result += compute_reflection
 
   return result
+
+
+compute_reflection(...)
+  if material is reflective
+    ray' = compute reflection of ray
+    return reflectivity * trace(scene, ray')
+  else
+    return black
