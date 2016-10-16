@@ -249,13 +249,19 @@
     \node[extension,difficulty=2] (cylinder along x) at ($ (cube) + (0,-2) $) {\html{extensions/primitives/cylinder-along-x}{Cylinder Along X}};
     \draw[dependency] (cylinder along x) -| (primitives);
 
+    \node[extension,easy] (optimized cylinder along x) at ($ (cylinder along x) + (6,0) $) {\html{extensions/primitives/cylinder-along-x-optimized}{Optimized Cylinder X}};
+    \draw[dependency] (optimized cylinder along x) -| (cylinder along x);
+
     \node[extension,difficulty=2] (cylinder along y) at ($ (cylinder along x) + (0,-2) $) {\html{extensions/primitives/cylinder-along-y}{Cylinder Along Y}};
     \draw[dependency] (cylinder along y) -| (primitives);
+
+    \node[extension,easy] (optimized cylinder along y) at ($ (cylinder along y) + (6,0) $) {\html{extensions/primitives/cylinder-along-y-optimized}{Optimized Cylinder Y}};
+    \draw[dependency] (optimized cylinder along y) -| (cylinder along y);
 
     \node[extension,difficulty=2] (cylinder along z) at ($ (cylinder along y) + (0,-2) $) {\html{extensions/primitives/cylinder-along-z}{Cylinder Along Z}};
     \draw[dependency] (cylinder along z) -| (primitives);
 
-    \node[extension,easy,todo] (optimized cylinder along z) at ($ (cylinder along z) + (6,0) $) {\html{extensions/primitives/cylinder-optimized}{Optimized Cylinder Z}};
+    \node[extension,easy] (optimized cylinder along z) at ($ (cylinder along z) + (6,0) $) {\html{extensions/primitives/cylinder-along-z-optimized}{Optimized Cylinder Z}};
     \draw[dependency] (optimized cylinder along z) -| (cylinder along z);
 
     \node[extension,easy,todo] (disk) at ($ (cylinder along z) + (0,-2) $) {\html{extensions/primitives/disk}{Disk}};
