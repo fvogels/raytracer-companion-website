@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Ray Intersections</title>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.tabular {
+        border-collapse; collapse;
+      }
+
+      table.tabular tr:first-child {
+        background: #AAA;
+      }
+
+      table.tabular th {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      table.tabular td {
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      Ray Intersections
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Functions</h1>
+        <p>
+          A <code>Primitive</code>'s core functionality consists of computing
+          where a given ray intersects with it. Two functions exists that provide this functionality:
+        </p>
+        <ul>
+          <li><code>find_all_hits</code></li>
+          <li><code>find_first_positive_hit</code></li>
+        </ul>
+        <p>
+          <code>find_all_hits</code> covers all ray-intersection related functionality:
+          it returns a list of <em>all</em> intersections. However, in practice,
+          we're often only interested in the "first positive hit", that is, the
+          hit with the lowest positive <code>t</code>-value, which
+          corresponds to the hit that's closest to the eye and in front of it.
+        </p>
+        <%= tex_image 'first-positive-hit' %>
+        <p>
+          <code>find_first_positive_hit</code> is specialized in finding this first positive hit
+          and therefore is a more efficient choice if one is only interested in this hit. For example, in the figure above,
+          <code>find_all_hits</code> returns both $H_1$ and $H_2$, whereas <code>find_first_positive_hit</code> would
+          only return $H_1$.
+        </p>
+        <p>
+          As another example, consider the following situation:
+        </p>
+        <%= tex_image 'first-positive-hit2' %>
+        <p>
+          Here, <code>find_all_hits</code> will still return both $H_1$ and $H_2$, even though they occur behind the ray's origin.
+          <code>find_first_positive_hit</code>, however, will tell you that no hit has been found, as if it returns a hit,
+          it must take place in front of its origin.
+        </p>
+      </section>
+      <section>
+        <h1><code>Hit</code></h1>
+        <p>
+          A <code>Hit</code> objects contains all relevant information about a single ray/primitive intersection.
+          We discuss each member variable in turn.
+        </p>
+        <section>
+          <h2><code>t</code></h2>
+          <p>
+            The <%= link 'reference/math/ray', '<code>t</code>-value' %> indicates where on the ray the intersection occurs.
+          </p>
+          <%= tex_image 't-value' %>
+        </section>
+
+        <section>
+          <h2><code>position</code></h2>
+          <p>
+            <code>position</code> specifies where the hit took place in 3D Cartesian coordinates. It must
+            be consistent with the <code>t</code>-value: if the hit was made by ray with origin $O$ and
+            direction $\vec\Delta$, <code>position</code> must be equal to $O + \vec\Delta \cdot {\tt t}$.
+          </p>
+        </section>
+        <section>
+          <h2><code>local_position</code></h2>
+          <p>
+            <code>local_position</code> specifies the hit position with respect to the primitive's own coordinate system.
+          </p>
+          <ul>
+            <li>
+              <code>local_position</code> has two components: <code>xyz</code> and <code>uv</code>.
+            </li>
+            <li>
+              <code>local_position.xyz</code> expresses the hit position in a 3D Cartesian coordinate system.
+            </li>
+            <li>
+              <code>local_position.uv</code> expresses the hit position in a 2D Cartesian coordinate system.
+            </li>
+            <li>
+              <code>local_position</code> is used by decorators. A 2D material will look at the <code>uv</code>-component,
+              whereas a 3D material will rely on the <code>xyz</code>-component.
+            </li>
+            <li>
+              When implementing a shape primitive (e.g. a <code>Sphere</code>, <code>Cylinder</code>, <code>Cone</code>, &hellip;)
+              the <code>local_position</code> will coincide with the <code>Hit</code>'s <code>position</code> member.
+            </li>
+            <li>
+              The <code>position</code> and <code>local_position</code> will diverge when the primitive is transformed:
+              transformers only update <code>position</code>, but leave <code>local_position</code> alone.
+              The reason for this is that an object's color is not dependent on its position in the scene.
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2><code>normal</code></h2>
+          <p>
+            The unit normal vector on the primitive at <code>position</code>.
+          </p>
+          <%= tex_image 'normal' %>
+          <p>
+            The orientation of the normal vector is important, as it is used by lighting algorithms
+            to determine whether or not photons reach that point. For example,
+          </p>
+          <%= tex_image 'lighting' %>
+          <p>
+            The light ray reaching $P_1$ is greeted with normal vector $\vec n_1$ which points towards the light ray's origin $L$,
+            whereas at $P_2$ the light ray encounters $\vec n_2$, which points away from the $L$. The lighting algorithm
+            interprets this as $P_1$ receiving photons, while $P_2$ does not.
+          </p>
+          <p>
+            Now consider the following setup:
+          </p>
+          <%= tex_image 'inside' %>
+          <p>
+            Both eye and light source are inside the sphere. We expect the inside of the sphere to be illuminated
+            by $L$, but according to our lighting algorithm, it is not: the normal vectors will point away from $L$
+            each time.
+          </p>
+          <p>
+            One way to solve this problem is to let <code>Sphere</code> be smart about the direction of its normal vectors.
+            While computing hits, the primitive receives a ray whose origin represents the eye of the camera.
+            When determining the normal, it can choose its direction is such a way that it points towards this eye.
+          </p>
+          <p>
+            Mathematically, this can be done using the <%= link 'reference/math/dot-product', 'dot product' %>: given the ray origin $E$, the hit position $P$
+            and a normal $\vec n$ at $P$, it computes $(E - P) \cdot \vec n$. If it is negative, the normal points towards $E$, which is want we want.
+            If, however, the dot product turns out to be positive, we need to flip the normal around: $-\vec n$ becomes the new normal.
+          </p>
+          <p>
+            You can see this algorithm at work in <code>SphereImplementation::compute_normal_at</code>.
+          </p>
+        </section>
+        <section>
+          <h2><code>material</code></h2>
+          <p>
+            <code>material</code> contains the material which the scene object is made of at that point.
+          </p>
+        </section>
+        <section>
+          <h2><code>group_id</code></h2>
+          <p>
+            <code>group_id</code> represents which group the intersected primitive is part of. This is important
+            for edge detection.
+          </p>
+        </section>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
