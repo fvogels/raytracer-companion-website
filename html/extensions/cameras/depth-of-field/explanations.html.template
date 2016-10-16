@@ -26,17 +26,12 @@
       Depth of Field Camera
     </header>
     <div id="contents">
-      <%= overview(reading_material: ['cameras/depth-of-field']) %>
+      <%= overview(prerequisites: ['samplers/random'],
+                   reading_material: ['cameras/depth-of-field']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-        <section>
-          <h2>Dependencies</h2>
-          <p>
-            You need to have at least one sampler extension.
-          <p>
-        </section>
       </section>
       <section>
         <h1>Explanation</h1>
