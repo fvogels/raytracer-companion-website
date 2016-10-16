@@ -31,7 +31,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Message Board</div>
+      Message Board
     </header>
     <div id="contents">
       <section>
