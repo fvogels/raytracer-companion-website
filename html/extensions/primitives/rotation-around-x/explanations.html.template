@@ -27,7 +27,7 @@
     </header>
     <div id="contents">
       <%= overview(mutually_exclusive_with: ['primitives/rotation-around-y', 'primitives/rotation-around-z'],
-                   reading_material: ['design/transformations'] ) %>
+                   reading_material: ['design/transformations', 'math/transformations/3d/rotation'] ) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
