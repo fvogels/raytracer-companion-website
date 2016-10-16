@@ -27,6 +27,7 @@
     </header>
     <div id="contents">
       <%= overview(prerequisites: ['primitives/plane-yz'],
+                   reading_material: ['design/primitives/ray-intersections'],
                    mutually_exclusive_with: ['primitives/square-xy', 'primitives/square-xz']) %>
 
       <section>
