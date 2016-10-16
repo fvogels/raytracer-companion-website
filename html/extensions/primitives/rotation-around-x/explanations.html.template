@@ -2,8 +2,8 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Rotation</title>
-    <%= stylesheets('ucll', 'box2') %>
+    <title>3DCG: Rotation Around X Axis</title>
+    <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
@@ -23,9 +23,10 @@
 
   <body>
     <header>
-      Rotation
+      Rotation Around X Axis
     </header>
     <div id="contents">
+      <%= overview(mutually_exclusive_with: ['primitives/rotation-around-y', 'primitives/rotation-around-z']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
