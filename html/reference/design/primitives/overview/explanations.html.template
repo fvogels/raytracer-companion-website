@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Design</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <title>3DCG: Primitives</title>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -28,20 +28,13 @@
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-      
-      function initialize()
-      {
-        Box.initialize();
-      }
-
-      $( initialize );    
     </script>
     <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
   </head>
 
   <body>
     <header>
-      <div class="center-vertically">Design</div>
+      Primitives
     </header>
     <div id="contents">
       <section>
@@ -141,12 +134,12 @@
           </p>
           <ul>
             <li>Spheres</li>
-            <li><%= link('extensions/primitives/plane', 'Planes') %></li>              
-            <li><%= link('extensions/primitives/cylinder', 'Cylinders') %></li>
-            <li><%= link('extensions/primitives/cone', 'Cones') %></li>
+            <li><%= link('extensions/primitives/plane-xz', 'Planes') %></li>              
+            <li><%= link('extensions/primitives/cylinder-along-x', 'Cylinders') %></li>
+            <li><%= link('extensions/primitives/cone-along-x', 'Cones') %></li>
             <li><%= link('extensions/primitives/triangle', 'Triangles') %> (you weren't planning on building triangles out of many tiny spheres, were you?)</li>
             <li><%= link('extensions/primitives/disk', 'Disks') %></li>
-            <li><%= link('extensions/primitives/square', 'Squares') %></li>
+            <li><%= link('extensions/primitives/square-xy', 'Squares') %></li>
             <li><%= link('extensions/primitives/cube', 'Cubes') %></li>
           </ul>
           <p>
@@ -164,7 +157,7 @@
           <ul>
             <li>Translation</li>
             <li><%= link('extensions/primitives/scaling', 'Scaling') %></li>
-            <li><%= link('extensions/primitives/rotation', 'Rotation') %></li>
+            <li><%= link('extensions/primitives/rotation-around-x', 'Rotation') %></li>
           </ul>
           <p>
             So, even though spheres themselves only come in size 1, you can use scaling to make them as big or as small as you want.
@@ -356,7 +349,7 @@
           Now, <code>Primitive</code> is the public type, while <code>PrimitiveImplementation</code> is the private one.
           This is the naming used in the RayTracer's design. There is one small difference though: instead
           of <code>Primitive</code> being an alias for <code>std::shared_ptr&lt;PrimitiveImplementation&gt;</code>,
-          it is a small <%= link 'design/wrappers', 'wrapper class' %>, but this makes almost no difference.
+          it is a small <%= link 'reference/design/wrappers', 'wrapper class' %>, but this makes almost no difference.
         </p>
         <section>
           <h2>The Truth About Transformers</h2>
@@ -670,7 +663,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
