@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Perlin Noise</title>
-    <%= stylesheets('ucll', 'box2') %>
+    <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
 
     <script type="text/x-mathjax-config">
@@ -112,7 +112,7 @@
           </li> 
         </ul>
         <p>
-          The functions $f$, $g$ and $h$ can be linear or, for better results, an <%= link 'reference/math/easing-function', 'easing functions' %>.
+          The functions $f$, $g$ and $h$ can be linear or, for better results, an <%= link 'reference/math/easing-functions', 'easing functions' %>.
         </p>
       </section>
     </div>
