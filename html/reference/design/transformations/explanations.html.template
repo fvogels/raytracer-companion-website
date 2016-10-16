@@ -2,8 +2,8 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Design</title>
-    <%= stylesheets('ucll', 'box2') %>
+    <title>3DCG: Transformations</title>
+    <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
@@ -41,7 +41,7 @@
 
   <body>
     <header>
-      Design
+      Transformations
     </header>
     <div id="contents">
       <section>
@@ -60,7 +60,7 @@
       <section>
         <h1>Transformations</h1>
         <p>
-          As <%= link 'design/primitives', 'explained here' %>, transformations are actually faked.
+          As <%= link 'reference/design/primitives/overview', 'explained here' %>, transformations are actually faked.
           If we need to render a large sphere, we actually shrink the camera. After having found
           the intersection for a shrunk camera, we need to scale back the hit position to normal size.
           It is therefore necessary that for each transformation, we have both the corresponding
