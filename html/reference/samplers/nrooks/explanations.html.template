@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: n-Rooks Sampler</title>
-    <%= stylesheets('ucll', 'box', 'imgslider') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor', 'imgslider') %>
+    <%= stylesheets('3dcg', 'box2', 'imgslider') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor', 'imgslider') %>
     <style>
       .centered {
         margin: 10px auto;
@@ -24,7 +24,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">n-Rooks Sampler</div>
+      n-Rooks Sampler
     </header>
     <div id="contents">
       <section>
@@ -66,7 +66,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
       $('.slider').slider( { showInstruction: false } );
     }

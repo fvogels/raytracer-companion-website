@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Jittered Sampler</title>
-    <%= stylesheets('ucll', 'box2', 'imgslider') %>
+    <%= stylesheets('3dcg', 'box2', 'imgslider') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor', 'imgslider') %>
     <style>
       .centered {
@@ -24,7 +24,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Jittered Sampler</div>
+      Jittered Sampler
     </header>
     <div id="contents">
       <section>
