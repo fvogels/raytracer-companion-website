@@ -14,9 +14,9 @@ class SharedContext
       abort "Could not find dependency #{id}" unless template_path.file?
       abort "Could not find header in dependency #{template_path}" unless %r{<header>(.*?)</header>}m =~ template_path.read
       header = $1.strip
-      
+
       current_path = Pathname.pwd
-    
+
       %{<a href="#{html_path.relative_path_from current_path}">#{header}</a>}
     end.join("<br>")
 
@@ -32,9 +32,9 @@ class SharedContext
       abort "Could not find mutually exclusive #{id}" unless template_path.file?
       abort "Could not find header in mutually exclusive #{template_path}" unless %r{<header>(.*?)</header>}m =~ template_path.read
       header = $1.strip
-      
+
       current_path = Pathname.pwd
-    
+
       %{<a href="#{html_path.relative_path_from current_path}">#{header}</a>}
     end.join("<br>")
 
@@ -50,16 +50,16 @@ class SharedContext
       abort "Could not find reading material #{id}" unless template_path.file?
       abort "Could not find header in reading material #{template_path}" unless %r{<header>(.*?)</header>}m =~ template_path.read
       header = $1.strip
-      
+
       current_path = Pathname.pwd
-    
+
       %{<a href="#{html_path.relative_path_from current_path}">#{header}</a>}
     end.join("<br>")
 
     if reading_material_html.empty?
     then reading_material_html = "None"
     end
-    
+
     <<-END
       <table id="overview">
         <tbody>
@@ -79,7 +79,7 @@ class SharedContext
       </table>
     END
   end
-  
+
   def tex_image(basename, quality: 90, density: 300, html_class: 'centered large', style: nil)
     typecheck do
       assert(basename: string)
@@ -89,7 +89,7 @@ class SharedContext
     png_filename = "#{basename}.png"
     tex_path = Pathname.new tex_filename
     png_path = Pathname.new png_filename
-    
+
     pdf_path = LaTeX2.compile(tex_path)
     Image2.convert(pdf_path, png_path, trim: false, quality: quality, density: density)
 
@@ -105,7 +105,7 @@ class SharedContext
     script_path = Pathname.new("#{script_name}.chai")
     bmp_path = script_path.sub_ext('.bmp')
     png_path = script_path.sub_ext('.png')
-    
+
     typecheck do
       assert(script_path: file('.chai'))
     end
@@ -115,15 +115,15 @@ class SharedContext
       puts "Skipping rendering #{script_name}"
     else
       RayTracer3.render(script_path)
-      
+
       abort "Could not find render output #{bmp_path}" unless bmp_path.file?
-      
+
       Image2.convert(bmp_path, png_path)
     end
 
     png_path
   end
-  
+
   def raytrace(script_name, html_class: 'centered large', style: nil)
     png_path = raytrace_script(script_name)
 
@@ -131,7 +131,7 @@ class SharedContext
     then style = %{style="#{style}" }
     else style = ""
     end
-    
+
     %{<a href="#{png_path.basename}"><img src="#{png_path.basename}" class="#{html_class}" #{style}/></a>}
   end
 
@@ -166,7 +166,7 @@ class SharedContext
 
   def source(filename, **opts)
     opts = { :auto_height => true }.merge(opts)
-    
+
     contents = IO.read(filename)
     source_editor(contents, **opts)
   end
@@ -174,7 +174,7 @@ class SharedContext
   def raytrace_movie(script_name, html_class: 'video', width: 500, height: 500)
     script_path = Pathname.new("#{script_name}.chai").expand_path
     output_path = Pathname.new("#{script_name}.mp4").expand_path
-    
+
     RayTracer3.render_mp4(script_path, output_path)
 
     <<-END
@@ -188,7 +188,10 @@ class SharedContext
   def link(relative_path_to_root, text)
     absolute_path = Environment.git_root + 'html' + relative_path_to_root
     current_path = Pathname.pwd
-               
+    template_path = absolute_path + 'explanations.html.template'
+
+    abort "Link to #{relative_path_to_root} is invalid" unless template_path.file?
+
     %{<a href="#{absolute_path.relative_path_from current_path}/explanations.html">#{text}</a>}
   end
 end
@@ -209,7 +212,7 @@ def shared_metaobject(context = SharedContext.new)
   else
     template_file = template_files[0]
   end
-  
+
   bind( { :html => template(input: template_file,
                             context: context) } )
 
