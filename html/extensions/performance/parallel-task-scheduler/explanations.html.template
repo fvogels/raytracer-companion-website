@@ -26,7 +26,7 @@
       Parallel Task Scheduler
     </header>
     <div id="contents">
-      <%= overview %>
+      <%= overview(reading_material: ['design/wrappers'] ) %>
       <section>
         <h1>Concepts</h1>
 
@@ -51,7 +51,7 @@
           </p>
           <p>
             Task schedulers are modelled by the <code>TaskSchedulerImplementation</code>
-            (and <%= link 'design/wrappers', 'wrapped' %> by <code>TaskScheduler</code>s.
+            (and <%= link 'reference/design/wrappers', 'wrapped' %> by <code>TaskScheduler</code>s.
             They only provide one method: <code>perform</code>, which takes a list of tasks.
           </p>
         </section>
