@@ -246,13 +246,19 @@
     \node[extension,easy,todo] (optimized cube) at ($ (cube) + (6,0) $) {\html{extensions/primitives/cube-optimized}{Optimized Cube}};
     \draw[dependency] (optimized cube) -| (cube);
 
-    \node[extension,easy,todo] (cylinder) at ($ (cube) + (0,-2) $) {\html{extensions/primitives/cylinder}{Cylinder}};
-    \draw[dependency] (cylinder) -| (primitives);
+    \node[extension,difficulty=2] (cylinder along x) at ($ (cube) + (0,-2) $) {\html{extensions/primitives/cylinder-along-x}{Cylinder Along X}};
+    \draw[dependency] (cylinder along x) -| (primitives);
 
-    \node[extension,easy,todo] (optimized cylinder) at ($ (cylinder) + (6,0) $) {\html{extensions/primitives/cylinder-optimized}{Optimized Cylinder}};
-    \draw[dependency] (optimized cylinder) -| (cylinder);
+    \node[extension,difficulty=2] (cylinder along y) at ($ (cylinder along x) + (0,-2) $) {\html{extensions/primitives/cylinder-along-y}{Cylinder Along Y}};
+    \draw[dependency] (cylinder along y) -| (primitives);
 
-    \node[extension,easy,todo] (disk) at ($ (cylinder) + (0,-2) $) {\html{extensions/primitives/disk}{Disk}};
+    \node[extension,difficulty=2] (cylinder along z) at ($ (cylinder along y) + (0,-2) $) {\html{extensions/primitives/cylinder-along-z}{Cylinder Along Z}};
+    \draw[dependency] (cylinder along z) -| (primitives);
+
+    \node[extension,easy,todo] (optimized cylinder along z) at ($ (cylinder along z) + (6,0) $) {\html{extensions/primitives/cylinder-optimized}{Optimized Cylinder Z}};
+    \draw[dependency] (optimized cylinder along z) -| (cylinder along z);
+
+    \node[extension,easy,todo] (disk) at ($ (cylinder along z) + (0,-2) $) {\html{extensions/primitives/disk}{Disk}};
     \draw[dependency] (disk) -| (primitives);
 
     \node[extension,easy,todo] (optimized disk) at ($ (disk) + (6,0) $) {\html{extensions/primitives/disk-optimized}{Optimized Disk}};
@@ -398,8 +404,6 @@
     
     \node[extension,easy,todo] (material slicer) at ($ (animations) + (6,-32) $) {\html{extensions/materials/slicer}{Slicer}};
     \draw[dependency] (material slicer) -| (animations);
-
-
   \end{pgfonlayer}
 
   \begin{pgfonlayer}{foreground}
