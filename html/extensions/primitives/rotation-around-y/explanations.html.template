@@ -26,7 +26,8 @@
       Rotation Around Y Axis
     </header>
     <div id="contents">
-      <%= overview(mutually_exclusive_with: ['primitives/rotation-around-x', 'primitives/rotation-around-z']) %>      
+      <%= overview(mutually_exclusive_with: ['primitives/rotation-around-x', 'primitives/rotation-around-z'],
+                   reading_material: ['design/transformations'] ) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
@@ -34,9 +35,6 @@
       </section>      
       <section>
         <h1>Implementation</h1>
-        <p>
-          First, take a quick look at <%= link 'design/transformations', 'how transformations are implemented' %>.
-        </p>
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
