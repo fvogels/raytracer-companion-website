@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Motion Blur</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Motion Blur</div>
+      Motion Blur
     </header>
     <div id="contents">
       <section>
@@ -37,7 +37,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
