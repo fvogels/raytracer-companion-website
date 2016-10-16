@@ -42,7 +42,7 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Compare the <%= link 'reference/math/plane', 'plane formulae' %> to the code in <code>primitives/plane-primitive.cpp</code>.
+            Compare the <%= link 'reference/primitives/plane', 'plane formulae' %> to the code in <code>primitives/plane-primitive.cpp</code>.
             Find answers to the following questions:
           </p>
           <ul>
@@ -50,7 +50,7 @@
               There are two classes involved in the implementation of XY-Planes. Which are they and how is the functionality divided amongst them?
             </li>
             <li>
-              What are the values for $P$ and $\vec n$? We refer here to the $P$ and $\vec n$ mentioned <%= link 'reference/math/plane', 'in the plane-related math' %>.
+              What are the values for $P$ and $\vec n$? We refer here to the $P$ and $\vec n$ mentioned <%= link 'reference/primitives/plane', 'in the plane-related math' %>.
             </li>
           </ul>
         </aside>
