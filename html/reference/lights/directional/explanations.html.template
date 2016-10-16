@@ -3,15 +3,14 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Directional Lights</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
       
       function initialize()
       {
-        Box.initialize();
       }
 
       $( initialize );    
@@ -21,7 +20,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Directional Lights</div>
+      Directional Lights
     </header>
     <div id="contents">
       <section>
@@ -49,7 +48,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 

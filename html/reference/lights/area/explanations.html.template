@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Area Lights</title>
-    <%= stylesheets('ucll', 'box2', 'imgslider') %>
+    <%= stylesheets('3dcg', 'box2', 'imgslider') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor', 'imgslider') %>
     <style>
       .slider {
@@ -16,7 +16,6 @@
       
       function initialize()
       {
-        Box.initialize();
       }
 
       $( initialize );    
@@ -26,7 +25,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Area Lights</div>
+      Area Lights
     </header>
     <div id="contents">
       <section>
