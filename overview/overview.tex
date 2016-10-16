@@ -207,14 +207,20 @@
     \node[extension,difficulty=3] (cone along x) at ($ (plane yz) + (0,-2) $) {\html{extensions/primitives/cone-along-x}{Cone Along X}};
     \draw[dependency] (cone along x) -| (primitives);
 
-    \node[extension,difficulty=2] (optimized cone) at ($ (cone along x) + (6,0) $) {\html{extensions/primitives/cone-optimized}{Optimized Cone Along X}};
-    \draw[dependency] (optimized cone) -| (cone along x);
+    \node[extension,difficulty=2] (optimized cone along x) at ($ (cone along x) + (6,0) $) {\html{extensions/primitives/cone-along-x-optimized}{Optimized Cone Along X}};
+    \draw[dependency] (optimized cone along x) -| (cone along x);
 
     \node[extension,difficulty=3] (cone along y) at ($ (cone along x) + (0,-2) $) {\html{extensions/primitives/cone-along-y}{Cone Along Y}};
     \draw[dependency] (cone along y) -| (primitives);
 
+    \node[extension,difficulty=2] (optimized cone along y) at ($ (cone along y) + (6,0) $) {\html{extensions/primitives/cone-along-y-optimized}{Optimized Cone Along Y}};
+    \draw[dependency] (optimized cone along y) -| (cone along y);
+
     \node[extension,difficulty=3] (cone along z) at ($ (cone along y) + (0,-2) $) {\html{extensions/primitives/cone-along-z}{Cone Along Z}};
     \draw[dependency] (cone along z) -| (primitives);
+
+    \node[extension,difficulty=2] (optimized cone along z) at ($ (cone along z) + (6,0) $) {\html{extensions/primitives/cone-along-z-optimized}{Optimized Cone Along Z}};
+    \draw[dependency] (optimized cone along z) -| (cone along z);
 
     \node[extension,easy] (square xy) at ($ (cone along z) + (0,-2) $) {\html{extensions/primitives/square-xy}{Square XY}};
     \draw[dependency] (square xy) -| (primitives);
