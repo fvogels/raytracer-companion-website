@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Scaling</title>
-    <%= stylesheets('ucll', 'box2') %>
+    <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
@@ -26,6 +26,7 @@
       Scaling
     </header>
     <div id="contents">
+      <%= overview(reading_material: ['design/transformations', 'math/transformations/3d/scaling'] ) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
@@ -33,9 +34,6 @@
       </section>
       <section>
         <h1>Implementation</h1>
-        <p>
-          First, take a quick look at <%= link 'design/transformations', 'how transformations are implemented' %>.
-        </p>
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
