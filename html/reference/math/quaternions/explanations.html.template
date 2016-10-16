@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Quaternions</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'underscore', 'box') %>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'underscore') %>
     <style>
       img.large {
         width: 60%;
@@ -42,13 +42,13 @@
 
   <body>
     <header>
-      <div class="center-vertically">Quaternions</div>
+      Quaternions
     </header>
     <div id="contents">
       <section>
         <h1>Definition</h1>
         <p>
-          Quaternions are very much like <%= link 'reference/math/complex', 'complex numbers' %> in that
+          Quaternions are very much like <%= link 'reference/math/complex-numbers', 'complex numbers' %> in that
           they add new dimensions to the otherwise one dimensional real numbers.
         </p>
         <p>
@@ -120,7 +120,7 @@
       <section>
         <h1>Usage</h1>
         <p>
-          On the <%= link 'reference/math/complex', 'page about complex numbers' %> we briefly mentioned
+          On the <%= link 'reference/math/complex-numbers', 'page about complex numbers' %> we briefly mentioned
           multiplication corresponded to rotation in 2D. Similarly, quaternion multiplication
           can be used to perform 3D rotations.
         </p>
@@ -156,7 +156,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
     }
 
     $( initialize );    
