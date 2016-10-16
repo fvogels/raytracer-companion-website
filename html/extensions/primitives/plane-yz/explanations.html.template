@@ -94,6 +94,6 @@
       SourceEditor.initialize();
     }
 
-    $( initialize );   
+    $( initialize );
   </script>
 </html>
