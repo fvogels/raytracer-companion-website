@@ -35,7 +35,7 @@
       <section>
         <h1>Implementation</h1>
         <p>
-          The purpose of samplers is explained on the <%= link 'design/concepts', 'page discussing ray tracing concepts' %>.
+          The purpose of samplers is explained on the <%= link 'reference/design/concepts', 'page discussing ray tracing concepts' %>.
           In short, we have a pixel for which we need to determine its color. We have to cast a ray through it which
           we'll trace around the scene. But since the pixel is not a single point but is rectanguler, there are infinitely
           many points through which we could cast the ray.
