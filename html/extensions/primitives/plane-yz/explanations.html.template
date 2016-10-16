@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: YZ-Plane</title>
-    <%= stylesheets('ucll', 'box2') %>
+    <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
@@ -26,6 +26,8 @@
       YZ-Plane
     </header>
     <div id="contents">
+      <%= overview(reading_material: ['design/primitives/ray-intersections'],
+                   mutually_exclusive_with: ['primitives/plane-xz']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
