@@ -27,6 +27,7 @@
     </header>
     <div id="contents">
       <%= overview(prerequisites: [],
+                   reading_material: ['design/primitives/ray-intersections'],
                    mutually_exclusive_with: ['primitives/cone-along-x', 'primitives/cone-along-y']) %>
       <section>
         <h1>Preview</h1>
