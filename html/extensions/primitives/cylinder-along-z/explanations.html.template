@@ -45,7 +45,8 @@
       Cylinder Along Z Axis
     </header>
     <div id="contents">
-      <%= overview(reading_material: ['primitives/cylinder'], mutually_exclusive_with: ['primitives/cylinder-along-x', 'primitives/cylinder-along-y']) %>
+      <%= overview(reading_material: ['primitives/cylinder', 'design/primitives/ray-intersections'],
+                   mutually_exclusive_with: ['primitives/cylinder-along-x', 'primitives/cylinder-along-y']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
