@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Anonymous Namespaces</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -46,6 +46,7 @@
     </header>
     <div id="contents">
       <section>
+        <h1>Namespaces</h1>
         <p>
           A C++ application can comprise many <code>.cpp</code> files. These generally contain class and function definitions,
           some of which are private to the file, others which are made public by putting a declaration in a corresponding header file.
@@ -87,7 +88,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
