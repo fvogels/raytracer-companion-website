@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Orthographic Camera</title>
-    <%= stylesheets('ucll', 'box') %>
+    <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Orthographic Camera</div>
+      Orthographic Camera
     </header>
     <div id="contents">
       <section>
@@ -37,7 +37,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
