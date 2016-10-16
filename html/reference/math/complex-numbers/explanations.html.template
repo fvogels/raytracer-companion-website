@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Complex Numbers</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'underscore', 'box') %>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'underscore') %>
     <style>
       img.large {
         width: 60%;
