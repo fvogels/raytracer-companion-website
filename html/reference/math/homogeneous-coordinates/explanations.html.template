@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Homogeneous Coordinates</title>
-    <%= stylesheets('ucll') %>
+    <%= stylesheets('3dcg') %>
     <%= scripts('jquery', 'underscore') %>
     <style>
       img.large {
@@ -42,7 +42,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Homogeneous Coordinates</div>
+      Homogeneous Coordinates
     </header>
     <div id="contents">
       <section>
