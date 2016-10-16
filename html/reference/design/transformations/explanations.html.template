@@ -31,7 +31,6 @@
       
       function initialize()
       {
-        Box.initialize();
       }
 
       $( initialize );    
@@ -113,7 +112,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 

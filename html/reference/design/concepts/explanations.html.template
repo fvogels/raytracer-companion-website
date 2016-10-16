@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>3DCG: Basic Concepts</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -31,7 +31,6 @@
       
       function initialize()
       {
-        Box.initialize();
       }
 
       $( initialize );    
@@ -41,7 +40,7 @@
 
   <body>
     <header>
-      <div class="center-vertically">Basic Concepts</div>
+      Basic Concepts
     </header>
     <div id="contents">
       <section>
@@ -282,12 +281,12 @@
           </p>
           <ul>
             <li>Spheres</li>
-            <li><%= link('extensions/primitives/plane', 'Planes') %></li>              
-            <li><%= link('extensions/primitives/cylinder', 'Cylinders') %></li>
-            <li><%= link('extensions/primitives/cone', 'Cones') %></li>
+            <li><%= link('extensions/primitives/plane-xz', 'Planes') %></li>              
+            <li><%= link('extensions/primitives/cylinder-along-x', 'Cylinders') %></li>
+            <li><%= link('extensions/primitives/cone-along-x', 'Cones') %></li>
             <li><%= link('extensions/primitives/triangle', 'Triangles') %></li>
             <li><%= link('extensions/primitives/disk', 'Disks') %></li>
-            <li><%= link('extensions/primitives/square', 'Squares') %></li>
+            <li><%= link('extensions/primitives/square-xy', 'Squares') %></li>
             <li><%= link('extensions/primitives/cube', 'Cubes') %></li>
           </ul>
           <p>
@@ -530,7 +529,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
