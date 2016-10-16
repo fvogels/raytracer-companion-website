@@ -27,7 +27,7 @@
     </header>
     <div id="contents">
       <%= overview(prerequisites: ['samplers/random'],
-                   reading_material: ['cameras/depth-of-field']) %>
+                   reading_material: ['cameras/depth-of-field', 'design/cameras']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
@@ -35,17 +35,6 @@
       </section>
       <section>
         <h1>Explanation</h1>
-        <p>
-          For this extension, you should have read the following pages:
-        </p>
-        <ul>
-          <li>
-            <%= link 'reference/cameras/depth-of-field', 'Depth of field cameras' %>
-          </li>
-          <li>
-            <%= link 'design/cameras', 'Design of cameras' %>
-          </li>
-        </ul>
         <p>
           The depth of field camera can be parameterized as follows:
         </p>
@@ -61,10 +50,10 @@
             The up vector (<code>Vector3D</code>).
           </li>
           <li>
-            The <%= link 'design/cameras', 'distance' %> (<code>double</code>) between the eye and the canvas.
+            The <%= link 'reference/design/cameras', 'distance' %> (<code>double</code>) between the eye and the canvas.
           </li>
           <li>
-            The <%= link 'design/cameras', 'aspect ratio' %> (<code>double</code>) of the canvas.
+            The <%= link 'reference/design/cameras', 'aspect ratio' %> (<code>double</code>) of the canvas.
           </li>
           <li>
             The eye size (<code>double</code>).
