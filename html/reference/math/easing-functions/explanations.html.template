@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Easing Functions</title>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin: 10px auto;
+      }
+
+      table {
+        border: 1px solid black;
+      }
+
+      table td {
+        padding-right: 1em;
+      }
+
+      table th {
+        text-align: left;
+        background: #AAA;
+        margin: 0.2em 1em;
+      }
+
+      dt {
+        font-weight: bold;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      Easing Functions
+    </header>
+    <div id="contents">
+      <section>
+      </section>
+    </div>
+  </body>
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
