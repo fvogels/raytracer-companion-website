@@ -279,6 +279,14 @@
               where you can see the lit and unlit parts of an object.
               Make sure the results look good.
             </p>
+            <p>
+              Make sure that, while setting up the scene, you pick a low
+              value for the ambient color, such as <code>0.1 * colors::white()</code>. For example, if you were to set
+              ambient to <code>colors::white()</code>, the object
+              would already be maximally illuminated and the diffuse lighting
+              would simply "drown" in the ambient lighting.
+              It's as if you point a flashlight to the sun.
+            </p>
           </aside>
         </section>
       </section>
