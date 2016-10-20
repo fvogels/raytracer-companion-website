@@ -117,7 +117,7 @@
           </p>
           <ol>
             <li>
-              Start with a fresh <code>Color result</code>.
+              Start with a fresh <code>Color result</code> set to black.
             </li>
             <li>
               Iterate over the scene's light sources. Call <code>process_light_source</code> for each light source
@@ -130,7 +130,7 @@
           <aside class="boxed2">
             <h1>Task</h1>
             <p>
-              Implement <code>process_light_sources</code>.
+              Implement <code>process_lights</code>.
             </p>
           </aside>
         </section>
