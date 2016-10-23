@@ -30,7 +30,37 @@
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Create the files <code>animation/circular-animation.cpp</code> and <code>animation/circular-animation.h</code> and
+            define a factory function named <code>circular</code> returning a <code>Animation&lt;math::Point3D&gt;</code> and accepts the following parameters:
+          </p>
+          <ul>
+            <li>
+              <code>const math::Point3D&amp; point</code>: original position.
+            </li>
+            <li>
+              <code>const math::Point3D&amp; center</code>: point around which animation revolves.
+            </li>
+            <li>
+              <code>const math::Vector3D&amp; rotation_axis</code>: normal on the plane in which the circular motion takes place.
+            </li>
+            <li>
+              <code>const math::Interval&lt;math::Angle&gt;&amp; angle_interval</code>: start and end angle. Start angle should be 0&deg;.
+            </li>
+            <li>
+              <code>const Duration&amp; duration</code>: how long the animation takes.
+            </li>
+          </ul>
+          <p>            
+            Use <code>animation/interval-animation.h</code> as inspiration for how to go about implementing the animation. Don't forget to add a binding for the scripting language.
+          </p>
+        </aside>
+      </section>
     </div>
   </body>
 
