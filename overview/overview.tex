@@ -7,7 +7,8 @@
 
 
 \newcommand{\html}[2]{\href{../html/#1/explanations.html}{#2}}
-\newcommand{\mathy}{\dsmathematical}
+% \newcommand{\mathy}{\dsmathematical}
+\newcommand{\mathy}{}
 
 
 
@@ -130,11 +131,17 @@
     \node[extension,medium,todo] (worley 2d material) at ($ (voronoi 2d 2) + (6,0) $) {\html{extensions/materials/worley2d}{Worley 2D}};
     \draw[dependency] (worley 2d material) -| (voronoi 2d 2);
 
-    \node[extension,hard,todo] (dalmatian 3d material) at ($ (pattern 2d materials) + (6,2) $) {\html{extensions/materials/pattern2d/dalmatian3d}{Dalmatian 3D}};
-    \draw[dependency] (dalmatian 3d material) -| (pattern 2d materials);
+    \node[extension,difficulty=5] (voronoi 3d 1) at ($ (pattern 2d materials) + (6,2) $) {\html{extensions/math/voronoi3d}{Voronoi 3D} \mathy};
+    \draw[dependency] (voronoi 3d 1) -| (pattern 2d materials);
 
-    \node[extension,medium,todo] (worley 3d material) at ($ (materials) + (6,-10) $) {\html{extensions/materials/worley3d}{Worley 3D}};
-    \draw[dependency] (worley 3d material) -| (materials);
+    \node[extension,hard,todo] (dalmatian 3d material) at ($ (voronoi 3d 1) + (6,0) $) {\html{extensions/materials/pattern2d/dalmatian3d}{Dalmatian 3D}};
+    \draw[dependency] (dalmatian 3d material) -| (voronoi 3d 1);
+
+    \node[extension,difficulty=5] (voronoi 3d 2) at ($ (materials) + (6,-10) $) {\html{extensions/math/voronoi3d}{Voronoi 3D} \mathy};
+    \draw[dependency] (voronoi 3d 2) -| (materials);
+
+    \node[extension,medium,todo] (worley 3d material) at ($ (voronoi 3d 2) + (6,0) $) {\html{extensions/materials/worley3d}{Worley 3D}};
+    \draw[dependency] (worley 3d material) -| (voronoi 3d 2);
 
     \node[extension,easy,todo] (lines pattern material) at ($ (pattern 2d materials) + (6,-2) $) {\html{extensions/materials/pattern2d/lines}{Lines}};
     \draw[dependency] (lines pattern material) -| (pattern 2d materials);
@@ -150,10 +157,6 @@
 
     \node[extension,medium,todo] (marble 3d material) at ($ (materials) + (6,-14) $) {\html{extensions/materials/marble3d}{Marble 3D}};
     \draw[dependency] (marble 3d material) -| (materials);
-
-    \node[extension,difficulty=5] (voronoi 3d) at ($ (dalmatian 3d material) + (10,0) $) {\html{extensions/math/voronoi3d}{Voronoi 3D} \mathy};
-    \draw[dependency] (dalmatian 3d material) -- (voronoi 3d);
-    \draw[dependency] (worley 3d material) -| (voronoi 3d);
 
     \node[extension,hard,todo] (perlin 2d) at ($ (marble 2d material) + (6,0) $) {\html{extensions/math/perlin2d}{Perlin 2D} \mathy};
     \draw[dependency] (marble 2d material) -- (perlin 2d);
