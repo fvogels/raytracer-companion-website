@@ -118,11 +118,17 @@
     \node[extension,easy,todo] (pattern 2d materials) at ($ (materials) + (6,0) $) {\html{extensions/materials/patterns2d}{Patterns 2D}};
     \draw[dependency] (pattern 2d materials) -- (materials);
 
-    \node[extension,hard,todo] (dalmatian 2d material) at ($ (pattern 2d materials) + (6,0) $) {\html{extensions/materials/pattern2d/dalmatian2d}{Dalmatian 2D}};
-    \draw[dependency] (dalmatian 2d material) -- (pattern 2d materials);
+    \node[extension,difficulty=5] (voronoi 2d 1) at ($ (pattern 2d materials) + (6,0) $) {\html{extensions/math/voronoi2d}{Voronoi 2D} \mathy};
+    \draw[dependency] (voronoi 2d 1) -- (pattern 2d materials);
 
-    \node[extension,medium,todo] (worley 2d material) at ($ (materials) + (6,-8) $) {\html{extensions/materials/worley2d}{Worley 2D}};
-    \draw[dependency] (worley 2d material) -| (materials);
+    \node[extension,hard,todo] (dalmatian 2d material) at ($ (voronoi 2d 1) + (6,0) $) {\html{extensions/materials/pattern2d/dalmatian2d}{Dalmatian 2D}};
+    \draw[dependency] (dalmatian 2d material) -- (voronoi 2d 1);
+
+    \node[extension,difficulty=5] (voronoi 2d 2) at ($ (materials) + (6,-8) $) {\html{extensions/math/voronoi2d}{Voronoi 2D} \mathy};
+    \draw[dependency] (voronoi 2d 2) -| (materials);
+
+    \node[extension,medium,todo] (worley 2d material) at ($ (voronoi 2d 2) + (6,0) $) {\html{extensions/materials/worley2d}{Worley 2D}};
+    \draw[dependency] (worley 2d material) -| (voronoi 2d 2);
 
     \node[extension,hard,todo] (dalmatian 3d material) at ($ (pattern 2d materials) + (6,2) $) {\html{extensions/materials/pattern2d/dalmatian3d}{Dalmatian 3D}};
     \draw[dependency] (dalmatian 3d material) -| (pattern 2d materials);
@@ -144,10 +150,6 @@
 
     \node[extension,medium,todo] (marble 3d material) at ($ (materials) + (6,-14) $) {\html{extensions/materials/marble3d}{Marble 3D}};
     \draw[dependency] (marble 3d material) -| (materials);
-
-    \node[extension,difficulty=5] (voronoi 2d) at ($ (dalmatian 2d material) + (6,0) $) {\html{extensions/math/voronoi2d}{Voronoi 2D} \mathy};
-    \draw[dependency] (dalmatian 2d material) -- (voronoi 2d);
-    \draw[dependency] (worley 2d material) -| (voronoi 2d);
 
     \node[extension,difficulty=5] (voronoi 3d) at ($ (dalmatian 3d material) + (10,0) $) {\html{extensions/math/voronoi3d}{Voronoi 3D} \mathy};
     \draw[dependency] (dalmatian 3d material) -- (voronoi 3d);
@@ -360,7 +362,7 @@
     \node[extension,easy,todo] (bounce animation) at ($ (animations) + (6,0) $) {\html{extensions/animations/bounce}{Bounce}};
     \draw[dependency] (bounce animation) -- (animations);
 
-    \node[extension,easy,todo] (elastic animation) at ($ (animations) + (6,-2) $) {\html{extensions/animations/elastic}{Elastic}};
+    \node[extension,easy,todo] (elastic animation) at ($ (bounce animation) + (0,-2) $) {\html{extensions/animations/elastic}{Elastic}};
     \draw[dependency] (elastic animation) -| (animations);
 
     \node[extension,easy] (quaternions) at ($ (animations) + (6,-4) $) {\html{extensions/math/quaternions}{Quaternions} \mathy};
