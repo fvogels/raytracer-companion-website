@@ -38,7 +38,7 @@
     </header>
     <div id="contents">
       <section>
-        <h1>What is an Animation</h1>
+        <h1>The Quintessential Animation</h1>
         <p>
           An animation is "something" that changes in time. This something can be a simple <code>double</code>,
           an <code>Angle</code>, a <code>Point3D</code>, &hellip;
@@ -63,7 +63,8 @@
           \]
         </p>
         <p>
-          For simplicity, we assumed that the <code>double</code> moves "in a straight line" from <code>0</code> to <code>1</code>.
+          Now, there are many ways in which we could want to modify this animation.
+          For example, we assumed that the <code>double</code> moves "in a straight line" from <code>0</code> to <code>1</code>.
           Other possibilities would be
         </p>
         <table id="easing">
@@ -82,15 +83,55 @@
           </tbody>
         </table>
         <p>
-          We deal with these variations on how to get from $a$ to $b$ <%= link 'reference/math/easing-functions', 'separately' %>.
+          We may also want to change the starting and ending value of the animation, e.g. have a <code>double</code> go
+          from <code>10</code> to <code>20</code>. The duration is also an aspect we may wish to modify.
         </p>
         <p>
-          We need a mathematical expression for $X(t)$. It will be of the form $X(t) = m t + q$. The values for $m$ and $q$ can
-          easily be deduced from the constraints $X(0) = a$ and $X(\Delta t) = b$:
-          \[
-            X(t) = a + \frac{b - a}{\Delta t} t
-          \]
+          While we could bundle all parameters together into one 'superanimation', we prefer to keep things modular.
         </p>
+
+        <section>
+          <h2>Formula for the Basic Animation</h2>
+          <p>
+            Before modifying the basic animation, let's first focus on the mathematical formula behind it.
+          </p>
+          <p>
+            We know the animation goes in a straight line, meaning $X(t)$ has the form $m \cdot t + q$ where
+            $m$ and $q$ can be deduced from the constraints $X(0) = 0$ and $X(1) = 1$. We get
+            \[
+              X(t) = t
+            \]
+            which is a pretty simple formula.
+          </p>
+        </section>
+
+        <section>
+          <h2>Changing the Range</h2>
+          <p>
+            Say we don't want to animate from <code>0</code> to <code>1</code>, but from
+            <code>10</code> to <code>20</code>, or better, from $a$ to $b$. We can achieve this
+            easily by mapping the interval $[0, 1]$ to $[a, b]$.
+          </p>
+          <%= tex_image 'range-mapping' %>
+          <p>
+            We build another function, $f$, that can do this for us. Again this is linear function:
+            \[
+              f(x) = m \cdot x + q \qquad f(0) = a \qquad f(1) = b
+            \]
+            which gives
+            \[
+              f(x) = a + (b - a) \cdot x
+            \]
+          </p>
+          <p>
+            How can we combine this function $f$ with the basic animation $X(t)$ to produce
+            an animation from $a$ to $b$? Simple: we first animate $0$ to $1$ and
+            use $f$ to map the value to $[a, b]$. Let's call this new animation $X_2(t)$.
+            \[
+              X_2(t) = f(X(t)) = f \circ X
+            \]
+          </p>
+        </section>
       </section>
     </div>
   </body>
