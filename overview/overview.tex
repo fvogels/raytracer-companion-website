@@ -167,7 +167,7 @@
     \node[extension,medium,todo] (texture materials) at ($ (materials) + (6,-16) $) {\html{extensions/materials/texture}{Textures}};
     \draw[dependency] (texture materials) -| (materials);
 
-    \node[extension,easy] (material transformer) at ($ (materials) + (6,-18) $) {\html{extensions/materials/transformer}{Transformer}};
+    \node[extension,easy,todo] (material transformer) at ($ (materials) + (6,-18) $) {\html{extensions/materials/transformer}{Transformer}};
     \draw[dependency] (material transformer) -| (materials);
 
     \node[extension,easy,todo] (material scale 2d) at ($ (material transformer) + (6,0) $) {\html{extensions/materials/transformers/2d/scaling}{Scale 2D}};
