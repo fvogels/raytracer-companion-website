@@ -371,7 +371,7 @@
     \node[extension,easy] (quaternions) at ($ (animations) + (6,-4) $) {\html{extensions/math/quaternions}{Quaternions} \mathy};
     \draw[dependency] (quaternions) -| (animations);
 
-    \node[extension,easy,todo] (circular animation) at ($ (quaternions) + (6,0) $) {\html{extensions/animations/circular}{Circular}};
+    \node[extension,easy] (circular animation) at ($ (quaternions) + (6,0) $) {\html{extensions/animations/circular}{Circular}};
     \draw[dependency] (circular animation) -- (quaternions);
 
     \node[extension,easy,todo] (lissajous animation) at ($ (animations) + (6,-6) $) {\html{extensions/animations/lissajous}{Lissajous}};
