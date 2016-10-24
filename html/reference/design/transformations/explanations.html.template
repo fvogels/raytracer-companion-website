@@ -53,7 +53,7 @@
       <section>
         <h1>Transformations</h1>
         <p>
-          As <%= link 'reference/design/primitives/overview', 'explained here' %>, transformations are actually faked.
+          As <%= link 'reference/design/primitives/basics', 'explained here' %>, transformations are actually faked.
           If we need to render a large sphere, we actually shrink the camera. After having found
           the intersection for a shrunk camera, we need to scale back the hit position to normal size.
           It is therefore necessary that for each transformation, we have both the corresponding
