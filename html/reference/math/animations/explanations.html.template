@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Animations</title>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 80%;
+      }
+
+      table.centered {
+        margin: 10px auto;
+      }
+
+      table th {
+        width: 30%;
+        text-align: left;
+        background: #AAA;
+        padding: 2px;
+      }
+
+      dt {
+        font-weight: bold;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      Animations
+    </header>
+    <div id="contents">
+      <section>
+        <h1>The Quintessential Animation</h1>
+        <p>
+          An animation is "something" that changes in time. This something can be a simple <code>double</code>,
+          an <code>Angle</code>, a <code>Point3D</code>, &hellip;
+        </p>
+        <p>
+          Let us consider the most basic of animations: the <code>double</code> animation that
+          goes from <code>0</code> to <code>1</code> in <code>1</code> second.
+          If we are to visualize this, we would get:
+        </p>
+        <%= tex_image('double-animation', style:'width: 60%;') %>
+        <p>
+          The animation is actually a <em>function</em> mapping time values to <code>double</code> values.
+          Let's denote this function with $X(t)$. We can translate the properties above to mathematical formulae:
+          in the very beginning, the animated <code>double</code> should have value $0$. This is expressed by
+          \[
+            X(0) = 0
+          \]
+          Next, we know the animation takes 1 second to finish and that the <code>double</code>
+          should have value $1$ at that time:
+          \[
+            X(1) = 1
+          \]
+        </p>
+        <p>
+          Now, there are many ways in which we could want to modify this animation.
+          For example, we assumed that the <code>double</code> moves "in a straight line" from <code>0</code> to <code>1</code>.
+          Other possibilities would be
+        </p>
+        <table id="easing">
+          <tbody>
+            <tr>
+              <td>
+                <%= tex_image 'quad-in' %>
+              </td>
+              <td>
+                <%= tex_image 'quad-out' %>
+              </td>
+              <td>
+                <%= tex_image 'bounce' %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          We may also want to change the starting and ending value of the animation, e.g. have a <code>double</code> go
+          from <code>10</code> to <code>20</code>. The duration is also an aspect we may wish to modify.
+        </p>
+        <p>
+          While we could bundle all parameters together into one 'superanimation', we prefer to keep things modular.
+        </p>
+
+        <section>
+          <h2>Formula for the Basic Animation</h2>
+          <p>
+            Before modifying the basic animation, let's first focus on the mathematical formula behind it.
+          </p>
+          <p>
+            We know the animation goes in a straight line, meaning $X(t)$ has the form $m \cdot t + q$ where
+            $m$ and $q$ can be deduced from the constraints $X(0) = 0$ and $X(1) = 1$. We get
+            \[
+              X(t) = t
+            \]
+            which is a pretty simple formula.
+          </p>
+        </section>
+
+        <section>
+          <h2>Changing the Range</h2>
+          <p>
+            Say we don't want to animate from <code>0</code> to <code>1</code>, but from
+            <code>10</code> to <code>20</code>, or better, from $a$ to $b$. We can achieve this
+            easily by mapping the interval $[0, 1]$ to $[a, b]$.
+          </p>
+          <%= tex_image 'range-mapping' %>
+          <p>
+            We build another function, $f$, that can do this for us. Again this is linear function:
+            \[
+              f(x) = m \cdot x + q \qquad f(0) = a \qquad f(1) = b
+            \]
+            which gives
+            \[
+              f(x) = a + (b - a) \cdot x
+            \]
+          </p>
+          <p>
+            How can we combine this function $f$ with the basic animation $X(t)$ to produce
+            an animation from $a$ to $b$? Simple: we first animate $0$ to $1$ and
+            use $f$ to map the value to $[a, b]$. Let's call this new animation $X_2(t)$.
+            \[
+              X_2(t) = f(X(t)) = f \circ X
+            \]
+          </p>
+        </section>
+
+        <section>
+          <h2>Changing the Domain</h2>
+          <p>
+            The basic animation takes one second to complete. What if we want a shorter or longer animation?
+          </p>
+          <p>
+            Say we want the animation to take $\tau$ seconds. Our time will then vary from $0$ to $\tau$, whereas
+            the basic animation expects it to vary from $0$ to $1$. We somehow need to translate "our time" to the "basic animation's time".
+            Again we can do this with a linear transformation:
+          </p>
+          <%= tex_image 'domain-mapping' %>
+          <p>
+            Let's assign the name $g$ to the function that maps the interval $[0, \tau]$ to $[0,1]$.
+            \[
+              g(t) = \frac{t}{\tau}
+            \]
+          </p>
+          <p>
+            Given our basic animation $X(t)$, which moves from $0$ to $1$ in 1 second,
+            we can transform it to an animation $X_3(t)$ that goes from $0$ to $1$ in $\tau$ seconds as follows:
+            \[
+              X_3(t) = X(g(t)) = X \circ g
+            \]
+          </p>
+        </section>
+
+        <section>
+          <h2>Changing the Shape</h2>
+          <p>
+            The basic animation is linear: it moves from $0$ to $1$ at constant speed. However,
+            if we were to chain animations, the transition from one animation to the next
+            would be perceived as very abrupt. Compare the animations below:
+          </p>
+          <table>
+            <tbody>
+              <tr>
+                <td><%= raytrace_movie 'abrupt' %></td>
+                <td><%= raytrace_movie 'smooth' %></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Animations can be made smoother using <em>easing functions</em>. Below are a few examples:
+          </p>
+          <table id="easing">
+            <tbody>
+              <tr>
+                <td>
+                  <%= tex_image 'quad-in' %>
+                </td>
+                <td>
+                  <%= tex_image 'quad-out' %>
+                </td>
+                <td>
+                  <%= tex_image 'bounce' %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            An easing function $e(x)$ is a function for which
+            \[
+              e(0) = 0 \qquad e(1) = 1
+            \]
+            How it moves from $0$ to $1$ is up to the easing function.
+          </p>
+          <p>
+            If we want to apply some easing function $e(x)$ to the basic animation $X(t)$ yielding the new animation $X_3(t)$, we use the following formula:
+            \[
+              X_3(t) = X(e(t)) = X \circ e
+            \]
+          </p>
+        </section>
+        <section>
+          <h2>Putting It All Together</h2>
+          <p>
+            Using the range mapper $f$, the domain mapper $g$ and the easing function $e$ we can transform the basic animation any way we want:
+            \[
+              f(X(g(e(t)))) = f \circ X \circ g \circ e
+            \]
+          </p>
+        </section>
+      </section>
+    </div>
+  </body>
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
