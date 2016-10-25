@@ -48,7 +48,7 @@
           </p>
           <ul>
             <li>
-              Define a class <code>PlaneXYImplementation</code> that subclasses <code>PrimitiveImplementation</code>.
+              Define a class <code>SquareXYImplementation</code> that subclasses <code>PrimitiveImplementation</code>.
               It must model the square shown in the above figure. Use the plane primitive as a guide.
             </li>
             <li>
