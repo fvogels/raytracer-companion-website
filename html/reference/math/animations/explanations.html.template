@@ -214,7 +214,41 @@
               f(X(g(e(t)))) = f \circ X \circ g \circ e
             \]
           </p>
+          <p>
+            We can build a library of range mappers, domain mappers and easing functions and use them to produce any animation we want.
+          </p>
         </section>
+      </section>
+      <section>
+        <h1>Building Animations</h1>
+        <p>
+          The <code>double</code> animation is the basic building block for all animations: all other animations can be built from it.
+          Let's introduce a convenient notation to denote <code>double</code> animations:
+          \[
+            X(t) = x \xrightarrow{\tau} y
+          \]
+          represents a <code>double</code> animation from $x$ to $y$ in $\tau$ seconds. We ignore the shape of the animation for now, i.e.
+          we disregard easing functions.
+        </p>
+        <p>
+          Say we now want to create <code>Point3D</code> animation $P(t)$: we wish a movement
+          from $(0, 0, 10)$ to $(0, 5, 0)$. The animation of a <code>Point3D</code>
+          is the animation of its components, i.e. its x, y and z-coordinates:
+          \[
+            (0, 0, 10) \xrightarrow{\tau} (0,5,0) \quad=\quad (0 \xrightarrow{\tau} 0, 0 \xrightarrow{\tau} 5, 10 \xrightarrow{\tau} 0)
+          \]
+          or, more generally,
+          \[
+            (x, y, z) \xrightarrow{\tau} (x',y',z') \quad=\quad (x \xrightarrow{\tau} x', y \xrightarrow{\tau} y', z \xrightarrow{\tau} z')
+          \]
+          We can animate colors or any other type of value the same way:
+          \[
+            \begin{array}{rcl}
+              (r, g, b) \xrightarrow{\tau} (r', g', b') & = & (r \xrightarrow{\tau} r', g \xrightarrow{\tau} g', b \xrightarrow{\tau} b') \\ \\
+              50^\circ \xrightarrow{\tau} 100^\circ & = & (50 \xrightarrow{\tau} 100)^\circ
+             \end{array}
+          \]
+        </p>
       </section>
     </div>
   </body>
