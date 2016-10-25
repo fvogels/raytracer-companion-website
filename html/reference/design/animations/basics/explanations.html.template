@@ -38,100 +38,100 @@
     </header>
     <div id="contents">
       <section>
-        <h1>The Quintessential Animation</h1>
+        <h1>Basic Types</h1>
         <p>
-          An animation is "something" that changes in time. This something can be a simple <code>double</code>,
-          an <code>Angle</code>, a <code>Point3D</code>, &hellip;
+          An animation is, as is explained on this page regarding the <%= link 'reference/math/animations', 'mathematics behind animations' %>,
+          a function which associates each moment in time with a value. This value can be of any type:
+          <code>double</code>, <code>Angle</code>, <code>Point3D</code>, &hellip.
         </p>
         <p>
-          Let us consider the most basic of animations: the <code>double</code> animation that
-          goes from <code>0</code> to <code>1</code> in <code>1</code> second.
-          If we are to visualize this, we would get:
+          The ray tracer's animation module has three types at its core:
         </p>
-        <%= tex_image('double-animation', style:'width: 60%;') %>
+        <ul>
+          <li>
+            <code>Duration</code> models duration. This class is comparable to time spans. For example, "5 seconds" is
+            a possible valus for <code>Duration</code>.
+          </li>
+          <li>
+            <code>TimeStamp</code> represents a moment in time. You can compare this to a date or time of day, but a bit more abstract.
+            An important <code>TimeStamp</code> value is the <em>zero time</em> $T_0$, also referred to as the <em>epoch</em>, which in essence corresponds to "the beginning of time".
+            Animations will generally start at this moment. Other <code>TimeStamp</code> values are expressed as
+            "time past since epoch". For example, an animation that takes 5 seconds starts at $T_0$ and ends at $T_0 + 5\mathrm{s}$.
+          </li>
+          <li>
+            <code>Animation&lt;T&gt;</code> models an animation of a <code>T</code>. For example <code>Animation&lt;double&gt;</code>
+            represents a <code>double</code> animation. 
+          </li>
+        </ul>
         <p>
-          The animation is actually a <em>function</em> mapping time values to <code>double</code> values.
-          Let's denote this function with $X(t)$. We can translate the properties above to mathematical formulae:
-          in the very beginning, the animated <code>double</code> should have value $0$. This is expressed by
-          \[
-            X(0) = 0
-          \]
-          Next, we know the animation takes 1 second to finish and that the <code>double</code>
-          should have value $1$ at that time:
-          \[
-            X(1) = 1
-          \]
-        </p>
-        <p>
-          Now, there are many ways in which we could want to modify this animation.
-          For example, we assumed that the <code>double</code> moves "in a straight line" from <code>0</code> to <code>1</code>.
-          Other possibilities would be
-        </p>
-        <table id="easing">
-          <tbody>
-            <tr>
-              <td>
-                <%= tex_image 'quad-in' %>
-              </td>
-              <td>
-                <%= tex_image 'quad-out' %>
-              </td>
-              <td>
-                <%= tex_image 'bounce' %>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <p>
-          We may also want to change the starting and ending value of the animation, e.g. have a <code>double</code> go
-          from <code>10</code> to <code>20</code>. The duration is also an aspect we may wish to modify.
-        </p>
-        <p>
-          While we could bundle all parameters together into one 'superanimation', we prefer to keep things modular.
+          We take a detailed look at each in turn.
         </p>
 
         <section>
-          <h2>Formula for the Basic Animation</h2>
+          <h2><code>Duration</code></h2>
           <p>
-            Before modifying the basic animation, let's first focus on the mathematical formula behind it.
+            <code>Duration</code> objects are created using factory functions:
+          </p>
+          <ul>
+            <li>
+              <code>Duration::zero()</code> creates a duration of 0 seconds.
+            </li>
+            <li>
+              <code>Duration::infinite()</code> represents an infinitely long duration.
+            </li>
+            <li>
+              <code>Duration::from_milliseconds(double)</code> and <code>Duration::from_seconds(double)</code>
+              allow you to create <code>Duration</code>s from milliseconds and seconds, respectively.
+            </li>
+          </ul>
+          <p>
+            C++ allows us to define custom literals. These come in handy for durations.
+            For example, say you want to create a <code>Duration</code> of 4 seconds,
+            you can write <code>4_s</code>. It also works with milliseconds: <code>4000_ms</code>.
           </p>
           <p>
-            We know the animation goes in a straight line, meaning $X(t)$ has the form $m \cdot t + q$ where
-            $m$ and $q$ can be deduced from the constraints $X(0) = 0$ and $X(1) = 1$. We get
-            \[
-              X(t) = t
-            \]
-            which is a pretty simple formula.
+            Note that this only works with compile time constants: you cannot
+            have some variable <code>x = 5</code> and then use <code>x_s</code> to
+            create a <code>Duration</code> of 5 seconds. In this case,
+            you have no other choice than to rely on a regular factory function (e.g. <code>TimeStamp::from_seconds(double)</code>.)
+          </p>
+          <p>
+            Some standard operators have also been defined on durations, such as
+            <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>,
+            <code>&gt;=</code>, <code>==</code> and <code>!=</code>.
           </p>
         </section>
 
         <section>
-          <h2>Changing the Range</h2>
+          <h2><code>TimeStamp</code></h2>
           <p>
-            Say we don't want to animate from <code>0</code> to <code>1</code>, but from
-            <code>10</code> to <code>20</code>, or better, from $a$ to $b$. We can achieve this
-            easily by mapping the interval $[0, 1]$ to $[a, b]$.
-          </p>
-          <%= tex_image 'range-mapping' %>
-          <p>
-            We build another function, $f$, that can do this for us. Again this is linear function:
-            \[
-              f(x) = m \cdot x + q \qquad f(0) = a \qquad f(1) = b
-            \]
-            which gives
-            \[
-              f(x) = a + (b - a) \cdot x
-            \]
-          </p>
-          <p>
-            How can we combine this function $f$ with the basic animation $X(t)$ to produce
-            an animation from $a$ to $b$? Simple: we first animate $0$ to $1$ and
-            use $f$ to map the value to $[a, b]$. Let's call this new animation $X_2(t)$.
-            \[
-              X_2(t) = f(X(t)) = f \circ X
-            \]
+            
           </p>
         </section>
+
+        <section>
+          <h2><code>Animation&lt;T&gt;</code></h2>
+          <p>
+            <code>Animation&lt;T&gt;</code> represents an animation.
+            Its most important member functions are
+          </p>
+          <ul>
+            <li>
+              <code>T operator() (TimeStamp)</code>: this allows you to ask the value at some time $T$. For example, say
+              <code>anim</code> models a <code>double</code> animation from <code>0</code> to <code>1</code> taking 1 second.
+              <ul>
+                <li><code>anim(TimeStamp::zero())</code> returns <code>0</code>.</li>
+                <li><code>anim(TimeStamp::zero() + 1_s)</code> returns <code>1</code>.</li>
+                <li><code>anim(TimeStamp::zero() + 0.5_s)</code> returns <code>0.5</code>.</li>                  
+              </ul>
+
+            </li>
+            <li>
+            </li>
+          </ul>
+        </section>
+        
+
       </section>
     </div>
   </body>
