@@ -56,7 +56,7 @@
               Override <code>find_all_hits</code>.
             </li>
             <li>
-              Define a <code>Primitive xz_square()</code> factory function.
+              Define a <code>Primitive yz_square()</code> factory function.
             </li>
             <li>
               Add a binding to the scripting language.
