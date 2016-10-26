@@ -123,7 +123,7 @@
             We cast our ray beginning in the $E$. It hits the scene at $P$.
             Since the material is reflective, we create a new ray
             starting in $P$ and trace it. We know that the resulting color
-            will be multiplied by $0.9$. The secundary ray hits the scene in $P'$.
+            will be multiplied by $0.9$. The secondary ray hits the scene in $P'$.
             Again we reflect the ray, but we know this color will only count for $0.9 \times 0.9 = 0.81$.
             As the ray continuous bouncing around, the resulting's color effect will diminish at each step:
             \[
