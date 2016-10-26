@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Animations</title>
+    <title>3DCG: Design: Animations</title>
     <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
@@ -34,7 +34,7 @@
 
   <body>
     <header>
-      Animations
+      Design: Animations
     </header>
     <div id="contents">
       <section>
