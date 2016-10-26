@@ -97,7 +97,7 @@
           </p>
           <%= source 'recursive.pseudo' %>
           <p>
-            There are two detail we need to take into account:
+            There are two details we need to take into account:
           </p>
           <ul>
             <li>
