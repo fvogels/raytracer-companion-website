@@ -53,10 +53,7 @@
             a possible valus for <code>Duration</code>.
           </li>
           <li>
-            <code>TimeStamp</code> represents a moment in time. You can compare this to a date or time of day, but a bit more abstract.
-            An important <code>TimeStamp</code> value is the <em>zero time</em> $T_0$, also referred to as the <em>epoch</em>, which in essence corresponds to "the beginning of time".
-            Animations will generally start at this moment. Other <code>TimeStamp</code> values are expressed as
-            "time past since epoch". For example, an animation that takes 5 seconds starts at $T_0$ and ends at $T_0 + 5\mathrm{s}$.
+            <code>TimeStamp</code> represents a moment in time. You can compare this to a date or time of day.
           </li>
           <li>
             <code>Animation&lt;T&gt;</code> models an animation of a <code>T</code>. For example <code>Animation&lt;double&gt;</code>
@@ -105,7 +102,27 @@
         <section>
           <h2><code>TimeStamp</code></h2>
           <p>
-            
+            As explained above, a <code>TimeStamp</code> represents a specific moment in time.
+            An important <code>TimeStamp</code> value is the <em>zero time</em> $T_0$, also referred to as the <em>epoch</em>, which in essence corresponds to "the beginning of time".
+            Animations will generally start at this moment. Other <code>TimeStamp</code> values are expressed as
+            "time passed since epoch". For example, an animation that takes 5 seconds starts at $T_0$ and ends at $T_0 + 5\mathrm{s}$.
+          </p>
+          <p>
+            To create <code>TimeStamp</code>s, we once again rely on factory functions:
+          </p>
+          <ul>
+            <li>
+              <code>TimeStamp::zero()</code> return the zero time $T_0$.
+            </li>
+            <li>
+              <code>TimeStamp::from_epoch(const Duration&amp; d)</code> creates a <code>TimeStamp</code> representing
+              the moment $T_0 + d$. For example, $T_0 + 5\mathrm{s}$ is created using <code>TimeStamp::from_epoch(5_s)</code>.
+            </li>
+          </ul>
+          <p>
+            The operators <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>==</code>, <code>!=</code>
+            have been defined for <code>TimeStamp</code>s. You can add <code>Duration</code>s <code>TimeStamp</code>s and subtract
+            two <code>TimeStamp</code>s from each other.
           </p>
         </section>
 
@@ -113,25 +130,168 @@
           <h2><code>Animation&lt;T&gt;</code></h2>
           <p>
             <code>Animation&lt;T&gt;</code> represents an animation.
-            Its most important member functions are
+            Its most important member function is <code>operator ()</code>:
+            given an <code>Animation</code> object <code>anim</code> and a <code>TimeStamp timestamp</code>, you can write
+            anim(timestamp) to ask the animation what its value is at the given time.
           </p>
-          <ul>
-            <li>
-              <code>T operator() (TimeStamp)</code>: this allows you to ask the value at some time $T$. For example, say
-              <code>anim</code> models a <code>double</code> animation from <code>0</code> to <code>1</code> taking 1 second.
-              <ul>
-                <li><code>anim(TimeStamp::zero())</code> returns <code>0</code>.</li>
-                <li><code>anim(TimeStamp::zero() + 1_s)</code> returns <code>1</code>.</li>
-                <li><code>anim(TimeStamp::zero() + 0.5_s)</code> returns <code>0.5</code>.</li>                  
-              </ul>
-
-            </li>
-            <li>
-            </li>
-          </ul>
+          <p>
+            For example, say you create a <code>double</code> animation called <code>anim</code> that goes
+            from <code>10</code> to <code>20</code> in 5 seconds.
+          </p>
+          <table class="centered">
+            <thead>
+              <tr>
+                <th>
+                  Code
+                </th>
+                <th>
+                  Result
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>anim(0_s)</code>
+                </td>
+                <td>
+                  <code>10</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>anim(2.5_s)</code>
+                </td>
+                <td>
+                  <code>15</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>anim(5_s)</code>
+                </td>
+                <td>
+                  <code>20</code>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            For the purposes of creating animations, the <code>seconds()</code> member function will also come in handy:
+            <code>timestamp.seconds()</code> returns the number of seconds passed since zero time.
+            For example, <code>TimeStamp::from_epoch(5_s).seconds()</code> returns <code>5</code>.
+          </p>
+          
+          <section>
+            <h3>Creation</h3>
+            <p>
+              There are multiple ways of creating animations, but the most straightforward
+              way consists of making use of <em>lambda functions</em>. Let's dive right into it with a simple example.
+            </p>
+            <p>
+              Let's create a <code>double</code> animation that goes from <code>0</code> to <code>1</code> in 1 second.
+              If we were to write this as a regular function, we would get
+            </p>
+            <%= source 'basic-animation-function.cpp' %>
+            <p>
+              This function receives a <code>TimeStamp</code>, looks at how many seconds have past since zero time in seconds,
+              and uses that as return value. This means that after 0 seconds, it returns 0, after 0.5 seconds, it returns 0.5, etc.
+            </p>
+            <p>
+              This function takes a <code>TimeStamp</code> and returns a <code>double</code>.
+              Say we want to store this function in a variable (the function itself, not its return value!), what
+              type should this variable have? C++ offers a type <code>std::function</code> which
+              represents types of functions.
+            </p>
+            <%= source 'function-type.cpp' %>
+            <p>
+              Take a good look at its syntax: it has the form <code>std::function&lt;R(T1, T2, ...)&gt;</code>
+              where <code>T1</code>, <code>T2</code>, &hellip; are the parameter types and <code>R</code> is the
+              return type of the function.
+            </p>
+            <p>
+              A lambda function is a function you define inline, as follows:
+            </p>
+            <%= source 'basic-animation-lambda.cpp' %>
+            <p>
+              There are multiple advantages to write it as a lambda function. One is that you don't have
+              to define a separate <code>animate</code> function thereby avoiding cluttering the current scope.
+              Compare this to local variables versus member variables (fields): a member variable is visible
+              to <em>all</em> member functions of the object, while a local variable is only visible inside
+              the member function it is defined in. You should always restrict visibility as much as possible;
+              using lambda functions allows you to keep function definitions hidden within another function.
+            </p>
+            <p>
+              Once you've defined a <code>std::function&lt;double(TimeStamp)&gt;</code>, you can
+              wrap it into a <code>Function</code> object with the <code>from_lambda</code> helper function.
+              In this specific context, this is admittedly a rather redundant step,
+              but it was done to keep things consistent with other parts of the ray tracer. For now,
+              you will have to accept that you have to wrap a lambda function into a <code>Function</code> object.
+            </p>
+            <p>
+              This <code>Function</code> can be used to define an animation using <code>make_animation</code>.
+              Put together, the code to create a basic animation looks like this:
+            </p>
+            <%= source 'basic-animation.cpp' %>
+            <p>
+              What if we want to create a <code>double</code> animation that goes from <code>0</code> to
+              <code>5</code> in 1 second? We can hardcode it:
+            </p>
+            <%= source 'basic-animation-hardcode.cpp' %>
+            <p>
+              But as you know, hardcoding is rarely a good solution. If we were to need a <code>0</code> to <code>7</code>
+              or a <code>0</code> to <code>100</code> animation, we would have to duplicate this code each time.
+              We'd rather create a function that does the job for us:
+            </p>
+            <%= source 'basic-animation-factory.cpp' %>
+            <p>
+              Note how the lambda function makes use of the <code>to</code> variable, which is a local
+              variable in the surrounding scope. <code>to</code> is said to be a <em>captured variable</em>.
+              C++ requires you to be explicit about capturing: you need to mention each
+              captured variable in the lambda function's <em>capture list</em>. This list appears
+              just before the parameter list, between square brackets. In our case, this list is <code>[to]</code>.
+            </p>
+            <p>
+              There are two ways to capture variables: you can capture them either <em>by value</em> or
+              <em>by reference</em>. <code>to</code> is captured by value: this means that the lambda function
+              receives a copy. This is the safest way to go about it.
+            </p>
+            <p>
+              To capture a variable by reference, you need to prefix it with an ampersand (<code>&amp;</code>). For example,
+              to capture <code>to</code> by reference, the capture list would become
+              <code>[&amp;to]</code>. This is more efficient for large objects and allows
+              you to write to the captured variable, but it is more dangerous as you
+              need to ensure that the variable still exists when the lambda function is called.
+            </p>
+            <p>
+              In our case, <code>to</code> should definitely not be passed by reference:
+              it is a parameter of <code>create_basic_animation</code>, which means
+              that it disappears after <code>create_basic_animation</code> returns.
+              For example, the code below has undefined behavior:
+            </p>
+            <%= source 'undefined-behavior.cpp' %>
+          </section>
+          <section>
+            <h3>Example: Generalized Double Animation</h3>
+            <p>
+              We now generalize the basic animation so that we can choose an initial value $a$, a final value $b$ and a duration $\tau$.
+              The mathematical formula is
+              \[
+                X(t) = a + (b - a) \frac{t}{\tau}
+              \]
+              Translated to C++, this gives
+            </p>
+            <%= source 'generalized-animation.cpp' %>
+          </section>
+          <section>
+            <h3>Example: Color Animation</h3>
+            <p>
+              Animations can act as building blocks. For example, let's create an animation
+              that animates a color.
+            </p>
+            <%= source 'color-animation.cpp' %>
+          </section>
         </section>
-        
-
       </section>
     </div>
   </body>
