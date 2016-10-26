@@ -38,8 +38,7 @@
         <h1>Introducing ray tracer v1</h1>
         <p>
           Go take a look at the code for original ray tracer in <code>raytracers/ray-tracer-v0</code>.
-          The <code>trace</code> member function must, given a ray and a scene, determine
-          what (among other things) determine which object in the scene is hit by the ray first
+          The <code>trace</code> member function must (among other things), given a ray and a scene, determine which object in the scene is hit by the ray first
           and find out what color this object has.
         </p>
         <p>
