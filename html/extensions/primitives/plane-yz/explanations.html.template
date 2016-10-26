@@ -39,7 +39,8 @@
           The RayTracer comes with an implementation for XY-planes.
           As a first step, you need to understand how the ray-plane intersection algorithm works.
         </p>
-        <div class="boxed" data-category="task">
+        <aside class="boxed2">
+          <h1>Task</h1>
           <p>
             Compare the <%= link 'reference/primitives/plane', 'plane formulae' %> to the code in <code>primitives/plane-primitive.cpp</code>.
             Find answers to the following questions:
@@ -52,7 +53,7 @@
               What are the values for $P$ and $\vec n$? We refer here to the $P$ and $\vec n$ mentioned <%= link 'reference/primitives/plane', 'in the plane-related math' %>.
             </li>
           </ul>
-        </div>
+        </aside>
       </section>
 
       <section>
@@ -60,7 +61,8 @@
         <p>
           Now it is time to add support for YZ--planes.
         </p>
-        <div class="boxed" data-category="task">
+        <aside class="boxed2">
+          <h1>Task</h1>
           <p>
             Make a <code>PlaneYZImplementation</code> that
             represents a YZ-plane. Let <code>PlaneXYImplementation</code> be your guide.
@@ -83,7 +85,7 @@
           <p>
             Create a new demo file that makes use of the new plane.
           </p>
-        </div>
+        </aside>
       </section>
     </div>
   </body>
