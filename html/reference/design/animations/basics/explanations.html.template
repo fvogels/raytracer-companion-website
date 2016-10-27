@@ -275,9 +275,13 @@
             <h3>Example: Generalized Double Animation</h3>
             <p>
               We now generalize the basic animation so that we can choose an initial value $a$, a final value $b$ and a duration $\tau$.
-              The mathematical formula is
+              Using the <%= link 'reference/math/animations', 'mathematical formulae' %>, we get
               \[
-                X(t) = a + (b - a) \frac{t}{\tau}
+                X(t) = t \qquad f(x) = a + (b - c) \cdot x \qquad g(t) = \frac{t}{\tau}
+              \]
+              Combining these yields
+              \[
+                f \circ X \circ g = f(X(g(t))) = f(X(\frac{t}{\tau})) = f(\frac{t}{\tau}) = a + (b-c) \cdot \frac{t}{\tau}
               \]
               Translated to C++, this gives
             </p>
