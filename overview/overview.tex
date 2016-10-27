@@ -152,17 +152,17 @@
     \node[extension,easy,todo] (checkered pattern material) at ($ (pattern 2d materials) + (6,-6) $) {\html{extensions/materials/pattern2d/checkered}{Checkered}};
     \draw[dependency] (checkered pattern material) -| (pattern 2d materials);
 
-    \node[extension,medium,todo] (marble 2d material) at ($ (materials) + (6,-12) $) {\html{extensions/materials/marble2d}{Marble 2D}};
-    \draw[dependency] (marble 2d material) -| (materials);
+    \node[extension,hard,todo] (perlin 2d) at ($ (materials) + (6,-12) $) {\html{extensions/math/perlin2d}{Perlin 2D} \mathy};
+    \draw[dependency] (perlin 2d) -| (materials);
 
-    \node[extension,medium,todo] (marble 3d material) at ($ (materials) + (6,-14) $) {\html{extensions/materials/marble3d}{Marble 3D}};
-    \draw[dependency] (marble 3d material) -| (materials);
-
-    \node[extension,hard,todo] (perlin 2d) at ($ (marble 2d material) + (6,0) $) {\html{extensions/math/perlin2d}{Perlin 2D} \mathy};
+    \node[extension,medium,todo] (marble 2d material) at ($ (perlin 2d) + (6,0) $) {\html{extensions/materials/marble2d}{Marble 2D}};
     \draw[dependency] (marble 2d material) -- (perlin 2d);
 
-    \node[extension,hard,todo] (perlin 3d) at ($ (marble 3d material) + (6,0) $) {\html{extensions/math/perlin3d}{Perlin 3D} \mathy};
-    \draw[dependency] (marble 3d material) -- (perlin 3d);
+    \node[extension,hard,todo] (perlin 3d) at ($ (materials) + (6,-14) $) {\html{extensions/math/perlin3d}{Perlin 3D} \mathy};
+    \draw[dependency] (perlin 3d) -| (materials);
+
+    \node[extension,medium,todo] (marble 3d material) at ($ (perlin 3d) + (6,0) $) {\html{extensions/materials/marble3d}{Marble 3D}};
+    \draw[dependency] (marble 3d material) -| (perlin 3d);
 
     \node[extension,medium,todo] (texture materials) at ($ (materials) + (6,-16) $) {\html{extensions/materials/texture}{Textures}};
     \draw[dependency] (texture materials) -| (materials);
