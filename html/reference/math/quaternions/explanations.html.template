@@ -80,7 +80,7 @@
           Quaternions without any operations defined upon them would not be of much use.
         </p>
         <section>
-          <h2>Addition and Subtraction></h2>
+          <h2>Addition and Subtraction</h2>
           <p>
             Addition and subtraction are defined as you would expect:
             \[
