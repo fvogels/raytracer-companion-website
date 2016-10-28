@@ -52,7 +52,7 @@
           </p>
         </aside>
         <p>
-          Lastly, we need to define a rotating <code>Primitive</code>. The <code>Transformer</code> class models the primitive responsible
+          Lastly, we need to define a scaling <code>Primitive</code>. The <code>Transformer</code> class models the primitive responsible
           for all transformations and has already been written for you. What remains for you to do is to initialize it so that it scales.
         </p>
         <aside class="boxed2">
