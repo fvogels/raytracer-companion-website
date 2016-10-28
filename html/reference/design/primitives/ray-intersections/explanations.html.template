@@ -163,7 +163,7 @@
           </p>
           <p>
             Mathematically, this can be done using the <%= link 'reference/math/dot-product', 'dot product' %>: given the ray origin $E$, the hit position $P$
-            and a normal $\vec n$ at $P$, it computes $(E - P) \cdot \vec n$. If it is negative, the normal points towards $E$, which is want we want.
+            and a normal $\vec n$ at $P$, it computes $(E - P) \cdot \vec n$. If it is negative, the normal points towards $E$, which is what we want.
             If, however, the dot product turns out to be positive, we need to flip the normal around: $-\vec n$ becomes the new normal.
           </p>
           <p>
