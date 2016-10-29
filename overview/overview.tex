@@ -365,7 +365,7 @@
     \node[node] (animations) at ($ (pipeline) + (12,0) $) {Animations};
     \draw[dependency] (animations) |- (start);
 
-    \node[extension,easy,todo] (bounce animation) at ($ (animations) + (6,0) $) {\html{extensions/animations/bounce}{Bounce}};
+    \node[extension,difficulty=3] (bounce animation) at ($ (animations) + (6,0) $) {\html{extensions/animations/bounce}{Bounce}};
     \draw[dependency] (bounce animation) -- (animations);
 
     \node[extension,easy,todo] (elastic animation) at ($ (bounce animation) + (0,-2) $) {\html{extensions/animations/elastic}{Elastic}};
