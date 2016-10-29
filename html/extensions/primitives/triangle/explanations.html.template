@@ -26,11 +26,33 @@
       Triangle
     </header>
     <div id="contents">
+      <%= overview(reading_material: ['primitives/triangle']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <ul>
+            <li>
+              Create new files <code>primitives/triangle-primitive.h</code> and <code>primitives/triangle-primitives.cpp</code>.
+            </li>
+            <li>
+              Define a factory function <code>triangle</code>. It takes three <code>Point3D</code> objects representing
+              the triangle's three vertices.
+            </li>
+            <li>
+              Define the class <code>TriangleImplementation</code>.
+            </li>
+            <li>
+              Implement <code>find_all_hits</code>.
+            </li>
+          </ul>
+        </aside>
+      </section>
     </div>
   </body>
 
