@@ -26,11 +26,42 @@
       Bounce Animation
     </header>
     <div id="contents">
+      <%= overview(reading_material: ['math/animations', 'design/animations/basics']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <p>
+          The bounce animation looks as follows:
+        </p>
+        <%= tex_image 'graph' %>
+        <p>
+          The animation can be parameterized in two ways:
+        </p>
+        <ul>
+          <li>
+            Number of bounces
+            <%= tex_image 'bounces' %>
+          </li>
+          <li>
+            Bounce absorption
+            <%= tex_image 'absorption' %>
+          </li>
+        </ul>
+        <aside class="boxed2">
+          <p>
+            Create files <code>math/functions/easing/bounce-easing-function.cpp/.h</code>.
+            Use <code>linear-easing-function.h/.cpp</code> as a guide. You'll need to find the formula yourself.
+          </p>
+          <p>
+            Don't forget to add a binding for the scripting language. Update <code>scripting/math-module</code> by adding an extra <code>IMPORT</code> to
+            the <code>EasingLibrary</code> and an extra <code>BIND</code> to <code>add_easing</code>.
+          </p>
+        </aside>
+      </section>
     </div>
   </body>
 
