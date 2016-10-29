@@ -275,17 +275,20 @@
     \node[extension,easy,todo] (optimized disk) at ($ (disk) + (6,0) $) {\html{extensions/primitives/disk-optimized}{Optimized Disk}};
     \draw[dependency] (optimized disk) -| (disk);
 
-    \node[extension,easy,todo] (triangle) at ($ (disk) + (0,-2) $) {\html{extensions/primitives/triangle}{Triangle}};
+    \node[extension,difficulty=2] (triangle) at ($ (disk) + (0,-2) $) {\html{extensions/primitives/triangle}{Triangle}};
     \draw[dependency] (triangle) -| (primitives);
 
-    \node[extension,easy,todo] (smooth triangle) at ($ (triangle) + (6,0) $) {\html{extensions/primitives/smooth-triangle}{Smooth Triangle}};
-    \draw[dependency] (smooth triangle) -| (triangle);
+    \node[extension,difficulty=1] (triangle optimized) at ($ (triangle) + (6,0) $) {\html{extensions/primitives/triangle-optimized}{Optimized Triangle}};
+    \draw[dependency] (triangle optimized) -| (triangle);
 
-    \node[extension,hard,todo] (perlin 2d 2) at ($ (smooth triangle) + (6,0) $) {\html{extensions/math/perlin2d}{Perlin 2D} \mathy};
-    \draw[dependency] (perlin 2d 2) -| (smooth triangle);
+    % \node[extension,easy,todo] (smooth triangle) at ($ (triangle) + (6,0) $) {\html{extensions/primitives/smooth-triangle}{Smooth Triangle}};
+    % \draw[dependency] (smooth triangle) -| (triangle);
 
-    \node[extension,easy,todo] (perlin terrain) at ($ (perlin 2d 2) + (6,0) $) {\html{extensions/primitives/terrains/perlin}{Perlin Terrain}};
-    \draw[dependency] (perlin terrain) -- (perlin 2d 2);
+    % \node[extension,hard,todo] (perlin 2d 2) at ($ (smooth triangle) + (6,0) $) {\html{extensions/math/perlin2d}{Perlin 2D} \mathy};
+    % \draw[dependency] (perlin 2d 2) -| (smooth triangle);
+
+    % \node[extension,easy,todo] (perlin terrain) at ($ (perlin 2d 2) + (6,0) $) {\html{extensions/primitives/terrains/perlin}{Perlin Terrain}};
+    % \draw[dependency] (perlin terrain) -- (perlin 2d 2);
 
     \node[extension,easy,todo] (cropper) at ($ (triangle) + (0,-2) $) {\html{extensions/primitives/cropper}{Cropper}};
     \draw[dependency] (cropper) -| (primitives);
