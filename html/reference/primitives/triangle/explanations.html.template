@@ -165,13 +165,13 @@
             by relying on the dot product, which will be positive if this is the case. In short, $H$ is on the correct
             side of $P_1P_2$ if
             \[
-              ((P_2 - P_1) \times (H - P_1)) \cdot ((P_2 - P_1) \times (P_3 - P_1)) &gt; 0
+              ((P_2 - P_1) \times (H - P_1)) \cdot ((P_2 - P_1) \times (P_3 - P_1)) \geq 0
             \]
           </p>
         </section>
       </section>
       <section>
-        <h1>Summary</h1>
+        <h1>Hit Algorithm</h1>
         <p>
           Given the following information:
         </p>
@@ -183,6 +183,50 @@
             Three vertices $P_1$, $P_2$, $P_3$.
           </li>
         </ul>
+        <p>
+          Follow these steps:
+        </p>
+        <ol>
+          <li>
+            Compute the normal vector on the plane. Since this remains constant, you might want to do this only once, in the constructor.
+            \[
+              \vec n = \frac{(P_2 - P_1) \times (P_3 - P_1)}{|(P_2 - P_1) \times (P_3 - P_1)|}
+            \]
+          </li>
+          <li>
+            Compute the hit $t$:
+            \[
+              t = \frac{(P_1 - O) \cdot \vec n}{\vec \Delta \cdot \vec n}
+            \]
+          </li>
+          <li>
+            Compute the hit position $P$:
+            \[
+              H = O + \vec \Delta \cdot t
+            \]
+          </li>
+          <li>
+            Check if $H$ lies to the right of $P_1P_2$:
+            \[
+              ((P_2 - P_1) \times (H - P_1)) \cdot \vec n \geq 0
+            \]
+          </li>
+          <li>
+            Check if $H$ lies to the right of $P_2P_3$:
+            \[
+              ((P_3 - P_2) \times (H - P_2)) \cdot \vec n \geq 0
+            \]
+          </li>
+          <li>
+            Check if $H$ lies to the right of $P_3P_1$:
+            \[
+              ((P_1 - P_3) \times (H - P_3)) \cdot \vec n \geq 0
+            \]
+          </li>
+          <li>
+            If any of the previous checks fails, $H$ does not lie within the bounds of the triangle.
+          </li>
+        </ol>
       </section>
     </div>
   </body>
