@@ -50,6 +50,9 @@
             <li>
               Implement <code>find_all_hits</code>.
             </li>
+            <li>
+              Add a binding for the scripting language.
+            </li>
           </ul>
         </aside>
       </section>
