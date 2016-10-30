@@ -26,7 +26,7 @@
       Quadratic Easing Function
     </header>
     <div id="contents">
-      <%= overview(mutually_exclusive_with: ['animations/elastic'], reading_material: ['math/animations', 'design/animations/basics', 'math/easing-functions']) %>
+      <%= overview(mutually_exclusive_with: ['animations/cubic', 'animations/quintic'], reading_material: ['math/animations', 'design/animations/basics', 'math/easing-functions']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
