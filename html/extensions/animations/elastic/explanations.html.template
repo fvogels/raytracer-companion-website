@@ -26,7 +26,7 @@
       Elastic Animation
     </header>
     <div id="contents">
-      <%= overview(reading_material: ['math/animations', 'design/animations/basics']) %>
+      <%= overview(mutually_exclusive_with: ['animations/bounce'], reading_material: ['math/animations', 'design/animations/basics']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
