@@ -6,26 +6,23 @@
     <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
-      img.large {
+      img {
         width: 60%;
       }
 
-      table.centered {
-        margin: 10px auto;
+      table img {
+        width: 90%;
       }
 
       table {
-        border: 1px solid black;
-      }
-
-      table td {
-        padding-right: 1em;
+        width: 90%;
+        margin: 10px auto;
       }
 
       table th {
-        text-align: left;
+        text-align: center;
         background: #AAA;
-        margin: 0.2em 1em;
+        padding: 0.5em;
       }
 
       dt {
@@ -45,6 +42,197 @@
     </header>
     <div id="contents">
       <section>
+        <h1>Introduction</h1>
+        <p>
+          Easing functions are functions used to create <%= link 'reference/math/animations', 'smoother animations' %>.
+          We say a function $f$ is an easing function if
+          \[
+            f(0) = 0 \qquad f(1) = 1
+          \]
+          The simplest easing function is the linear one:
+          \[
+            f(t) = t
+          \]
+          which goes from $0$ to $1$ in a straight line:
+        </p>
+        <%= tex_image 'linear' %>
+      </section>
+
+      <section>
+        <h1>Easing Functions</h1>
+
+        <section>
+          <h2>Quadratic</h2>
+          <p>
+            A quadratic easing function must be a polynomial of the second degree, i.e. it has the form
+            \[
+              f(t) = a \cdot t^2 + b \cdot t + c
+            \]
+            We distinguish three types of quadratic easing functions:
+          </p>
+          <ul>
+            <li>
+              Quad-in starts at zero speed and accelerates. Mathematically, it is characterized by the fact that
+              \[ f'(0) = 0 \]
+            </li>
+            <li>
+              Quad-out slows down to zero speed as it approaches $1$. Put mathematically,
+              \[ f'(1) = 0 \]
+            </li>
+            <li>
+              Quad-inout both starts and finishes with zero speed. You need to cheat here a little bit by working
+              with piecewise functions: the easing function will consist of two parts, let's call them $f_1$ and $f_2$, which satisfy
+              the follow constraints:
+              \[
+                \begin{array}{rcl}
+                  f(t) & = & \left\{
+                               \begin{array}{lr}
+                                 f_1(t) & 0 \leq t &lt; \frac12 \\
+                                 f_2(t) & \frac12 \leq t \leq \frac1 \\
+                               \end{array}
+                             \right. \\ \\
+                  f_1(t) & = & a_1 \cdot t^2 + b_1 \cdot t + c_1 \\
+                  f_2(t) & = & a_2 \cdot t^2 + b_2 \cdot t + c_2 \\
+                  f'_1(0) & = & 0 \\
+                  f'_2(1) & = & 0 \\
+                  f_1(\frac12) & = & f_2(\frac12) \\
+                  f'_1(\frac12) & = & f'_2(\frac12) \\
+                \end{array}
+              \]
+            </li>
+          </ul>
+          <%= raytrace_movie 'quad' %>
+          <table>
+            <thead>
+              <tr>
+                <th>quad-in</th>
+                <th>quad-out</th>
+                <th>quad-inout</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= tex_image 'quad-in' %></td>
+                <td><%= tex_image 'quad-out' %></td>
+                <td><%= tex_image 'quad-inout' %></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Cubic</h2>
+          <p>
+            A cubic easing function must be a polynomial of the third degree, i.e. it has the form
+            \[
+              f(t) = a \cdot t^3 + b \cdot t^2 + c \cdot t + d
+            \]
+            We distinguish three types of cubic easing functions:
+          </p>
+          <ul>
+            <li>
+              Cubic-in starts at zero speed and acceleration. Mathematically, it is characterized by the fact that
+              \[ f'(0) = \qquad f''(0) = 0 \]
+            </li>
+            <li>
+              Cubic-out slows down to zero speed as it approaches $1$. Put mathematically,
+              \[ f'(1) = f''(1) = 0 \]
+            </li>
+            <li>
+              Cubic-inout both starts and finishes with zero speed.
+              \[
+                \begin{array}{rcl}
+                  f(t) & = & \left\{
+                               \begin{array}{lr}
+                                 f_1(t) & 0 \leq t &lt; \frac12 \\
+                                 f_2(t) & \frac12 \leq t \leq \frac1 \\
+                               \end{array}
+                             \right. \\ \\
+                  f_1(t) & = & a_1 \cdot t^3 + b_1 \cdot t^2 + c_1 \cdot t + d_1 \\
+                  f_2(t) & = & a_2 \cdot t^3 + b_2 \cdot t^2 + c_2 \cdot t + d_2 \\
+                  f'_1(0) = f''_1(0) = & = & 0 \\
+                  f'_2(1) = f''_2(1) & = & 0 \\
+                  f_1(\frac12) & = & f_2(\frac12) \\
+                  f'_1(\frac12) & = & f'_2(\frac12) \\
+                \end{array}
+              \]
+            </li>
+          </ul>
+          <%= raytrace_movie 'cubic' %>
+          <table>
+            <thead>
+              <tr>
+                <th>cubic-in</th>
+                <th>cubic-out</th>
+                <th>cubic-inout</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= tex_image 'cubic-in' %></td>
+                <td><%= tex_image 'cubic-out' %></td>
+                <td><%= tex_image 'cubic-inout' %></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Quintic</h2>
+          <p>
+            A quintic easing function must be a polynomial of the fifth degree, i.e. it has the form
+            \[
+              f(t) = a \cdot t^5 + b \cdot t^4 + c \cdot t^3 + d \cdot t^2 + e \cdot t + g
+            \]
+            We distinguish three types of quintic easing functions:
+          </p>
+          <ul>
+            <li>
+              Quintic-in:
+              \[ f'(0) = f''(0) = f'''(0) = f''''(0) = 0 \]
+            </li>
+            <li>
+              Quintic-out:
+              \[ f'(1) = f''(1) = f'''(1) = f''''(1) = 0 \]
+            </li>
+            <li>
+              Quintic-inout:
+              \[
+                \begin{array}{rcl}
+                  f(t) & = & \left\{
+                               \begin{array}{lr}
+                                 f_1(t) & 0 \leq t &lt; \frac12 \\
+                                 f_2(t) & \frac12 \leq t \leq \frac1 \\
+                               \end{array}
+                             \right. \\ \\
+                  f_1(t) & = & a_1 \cdot t^5 + b_1 \cdot t^4 + c_1 \cdot t^3 + d_1 \cdot t^2 + e_1 \cdot t + g_1 \\
+                  f_2(t) & = & a_2 \cdot t^5 + b_2 \cdot t^4 + c_2 \cdot t^3 + d_2 \cdot t^2 + e_2 \cdot t + g_2 \\
+                  f'_1(0) = f''_1(0) = f'''_1(0) = f''''_1(0) & = & 0 \\
+                  f'_2(1) = f''_2(1) = f'''_2(1) = f''''_2(1) & = & 0 \\
+                  f_1(\frac12) & = & f_2(\frac12) \\
+                  f'_1(\frac12) & = & f'_2(\frac12) \\
+                \end{array}
+              \]
+            </li>
+          </ul>
+          <%= raytrace_movie 'quintic' %>
+          <table>
+            <thead>
+              <tr>
+                <th>quintic-in</th>
+                <th>quintic-out</th>
+                <th>quintic-inout</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= tex_image 'quintic-in' %></td>
+                <td><%= tex_image 'quintic-out' %></td>
+                <td><%= tex_image 'quintic-inout' %></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
       </section>
     </div>
   </body>
@@ -54,6 +242,6 @@
       SourceEditor.initialize();
     }
 
-    $( initialize );   
+    $( initialize );
   </script>
 </html>
