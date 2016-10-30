@@ -12,7 +12,7 @@
     \draw[axis] (-0.2,0) -- (1.2,0);
     \draw[axis] (0,-0.2) -- (0,1.2);
   
-    \draw[graph] plot[domain=0:1,smooth,samples=1000] (\x,{1-sin(\x*360*3) * 0.5^(1*\x)});
+  \draw[graph] plot[domain=0:1,smooth,samples=1000] (\x,{1-cos(\x*360*3.25) * 0.5^(1*\x)});
   \end{scope}
 
   \begin{scope}[xshift=1.5cm]
@@ -20,7 +20,7 @@
     \draw[axis] (-0.2,0) -- (1.2,0);
     \draw[axis] (0,-0.2) -- (0,1.2);
   
-    \draw[graph] plot[domain=0:1,smooth,samples=1000] (\x,{1-sin(\x*360*3) * 0.5^(3*\x)});
+    \draw[graph] plot[domain=0:1,smooth,samples=1000] (\x,{1-cos(\x*360*3.25) * 0.5^(3*\x)});
   \end{scope}
 
   \begin{scope}[xshift=3cm]
@@ -28,7 +28,7 @@
     \draw[axis] (-0.2,0) -- (1.2,0);
     \draw[axis] (0,-0.2) -- (0,1.2);
   
-    \draw[graph] plot[domain=0:1,smooth,samples=1000] (\x,{1-sin(\x*360*3) * 0.5^(10*\x)});
+    \draw[graph] plot[domain=0:1,smooth,samples=1000] (\x,{1-cos(\x*360*3.25) * 0.5^(10*\x)});
   \end{scope}
 \end{tikzpicture}
 
