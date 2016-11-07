@@ -62,7 +62,7 @@
         <p>
           This kind of indirect lighting is both relatively complex to implement and computationally expensive.
           For this reason, we will generally limit ourselves to direct lighting, i.e.
-          in our algorithms, we take into account only light light that comes directly from a light source.
+          in our algorithms, we take into account only light that comes directly from a light source.
         </p>
         <p>
           Ambient lighting is our way of pretending that we can handle indirect lighting:
