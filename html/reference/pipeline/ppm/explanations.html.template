@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: PPM</title>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.tabular {
+        border-collapse; collapse;
+      }
+
+      table.tabular tr:first-child {
+        background: #AAA;
+      }
+
+      table.tabular th {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      table.tabular td {
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      PPM
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Rationale</h1>
+        <p>
+          In its initial state, the ray tracer produces wif files, which are a custom image format.
+          The reason for its existence is twofold:
+        </p>
+        <ul>
+          <li>
+            It is very simple to implement.
+          </li>
+          <li>
+            It supports animations.
+          </li>
+        </ul>
+        <p>
+          If you wish to create movies in a more standard format, say mp4, you will
+          either need to implement your own encoder (which might be a bit ambitious in the
+          case of mp4), or rely on an external converter. One such converter is ffmpeg, which
+          you can download for free. However, in order to make use of such a converter,
+          you need to output images in a format it can understand.
+        </p>
+        <p>
+          In order to create a movie of say, 10 seconds long at 30 frames per second,
+          we need to produce 300 frames. One possibility would be to create
+          300 separate image files, but this is rather clumsy. A more practical
+          approach would be to use pipes: the ray tracer would write to STDOUT,
+          which gets piped directly to the converter. This way, no intermediate
+          data needs to be written to disk.
+        </p>
+        <p>
+          Unfortunately, there's a small complication: STDOUT expects textual, not binary, data.
+          On some platforms this causes problems: the environment, thinking it's all text, tries
+          to be smart about it and will try to "fix" newlines, even though
+          the produced bytes are not meant to be interpreted as newlines. Therefore,
+          we cannot output binary data to STDOUT, but need to limit ourselves to text.
+        </p>
+        <p>
+          PPM is an textual image format: all data (e.g. numbers) are written out in plain
+          text, as strings. It is a <em>very</em> inefficient format indeed, but since
+          it only exists in memory, this is somewhat mitigated.
+        </p>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
