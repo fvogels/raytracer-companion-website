@@ -35,7 +35,7 @@
       <section>
         <h1>Implementation</h1>
         <p>
-          First read the <%= link 'references/cameras/fisheye', 'explanation about fisheye cameras' %>.
+          Start with the reading material mentioned in the overview above.
         </p>
         <p>
           The parameters for a fisheye camera are
