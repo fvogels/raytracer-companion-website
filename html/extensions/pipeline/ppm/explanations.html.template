@@ -26,9 +26,53 @@
       PPM Pipeline Segment
     </header>
     <div id="contents">
+      <%= overview(reading_material: ['pipeline/ppm'] ) %>
       <section>
-        <h1>Preview</h1>
-
+        <h1>PPM Image Format</h1>
+        <p>
+          This extends adds support for a new image format. This allows you to produce mp4 files. All movie clips on these pages
+          have been produced using this approach. The rationale behind it is written out in the reading material (see the overview at top of the page.)
+        </p>
+        <p>
+          First, you need to implement a PPM encoder, that will, given a bitmap and an output stream, writes all the pixel
+          data in the right format to the output stream.
+        </p>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Look up online what the PPM format looks like. PPM exists in both text and binary formats.
+            For this extension, you need to implement the text format.
+          </p>
+        </aside>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Add extra files <code>imaging/ppm-format.cpp/.h</code>.
+            Define a function <code>void imaging::write_text_ppm(const Bitmap&amp; bitmap, std::ostream&amp; out)</code> which
+            writes the given <code>bitmap</code> to the given stream <code>out</code>.
+          </p>
+        </aside>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Create a new pipeline segment.
+          </p>
+          <ul>
+            <li>
+              Add extra files <code>pipeline/ppm-consumer.cpp/.h</code>.
+            </li>
+            <li>
+              Implement a new class <code>Ppm</code> in the <code>.cpp</code> file (as there is no need
+              to make it publicly accessible). Take a look at <code>wif-consumer.cpp</code> to get an idea what it should look like.
+              Contrary to <code>Wif</code>, <code>Ppm</code> should not be given a filename; instead, it will
+              output its data to <code>std::cout</code>.
+            </li>
+            <li>
+              Define a factory function <code>std::shared_ptr&lt;Consumer&lt;std::shared_ptr&lt;imaging::Bitmap&gt;&gt;&gt; ppm()</code>.
+            </li>
+          </ul>
+          </p>
+        </aside>
       </section>      
     </div>
   </body>
