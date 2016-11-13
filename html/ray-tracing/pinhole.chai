@@ -20,7 +20,7 @@ var black = Materials.uniform( [ "ambient": Colors.white() * 0.1,
                                  "transparency": 0,
                                  "refractive_index": 0 ] )
 
-var checkered = Materials.checkered( white, black )
+var checkered = Materials.checkered2d( white, black )
 
 
 
