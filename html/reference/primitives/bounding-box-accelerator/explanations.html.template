@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Bounding Box Accelerator</title>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      table.centered {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      table.tabular {
+        border-collapse; collapse;
+      }
+
+      table.tabular tr:first-child {
+        background: #AAA;
+      }
+
+      table.tabular th {
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      table.tabular td {
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      Bounding Box Accelerator
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Explanation</h1>
+        <p>
+          There are different kinds of primitives. The most basic primitives are those modelling shapes,
+          such as <code>Sphere</code>, <code>Triangle</code> and the plane primitives.
+          A more abstract kind of primitives model operations on primitives: <code>Decorator</code>s
+          assign materials to other primitives while <code>Transformer</code>s can be used
+          to move primitives around in space. The <code>BoundingBoxAccelerator</code> primitive
+          is even more abstract: it changes absolutely nothing about the scene.
+          If it does, there's a bug.
+        </p>
+        <p>
+          The <code>BoundingBoxAccelerator</code>'s only purpose in life is to <span style="line-through">pass butter</span>
+          speed up rendering. Say you have a scene containing a complex object built out of
+          thousands or millions of triangles (i.e. a <em>mesh</em>):
+        </p>
+        <%= raytrace 'mesh' %>
+        <p>
+          Each time a ray is cast (e.g. from the camera, for shadowing purposes, reflection or refraction),
+          we need to check whether this ray intersects any of these triangles. Rendering would take an inexcusably
+          long time if we were to do nothing about it.
+        </p>
+        <p>
+          The solution is to surround the mesh by a box. This box needs to be as small as possible,
+          but still contain the entire mesh. When we need to determine whether a ray intersects the mesh,
+          we first check if it intersects the box. If the ray misses the box, we know it will
+          also miss the mesh, thereby sparing us the need to iterate over all triangles in search of hits.
+        </p>
+        <%= raytrace 'bounding-box' %>        
+      </section>
+      <section>
+        <h1>Bounding Box Hierarchy</h1>
+        <p>
+          Putting a bounding box around the mesh only speeds up rendering for those rays
+          that miss the box. Each time the ray does hit the box, we are again forced
+          to check each triangle in turn for a hit. We need to find a way to avoid this.
+        </p>
+        <p>
+          Say we split the box around the mesh in two, yielding two subboxes.
+          And say we split those boxes again, and so on, thereby creating a hierarchy of bounding boxes.
+        </p>
+        <%= tex_image 'hierarchy' %>
+        <p>
+          Finding the hits with the ray now goes as follows:
+        </p>
+        <ol>
+          <li>
+            The ray hits the outer (black) bounding box, meaning its contents (the two red boxes) cannot be skipped.
+          </li>
+          <li>
+            Left red box is hit, so is the right red box. We need to consider all blue boxes.
+          </li>
+          <li>
+            Of the four blue boxes, the ray does not hit the upper right one. We can therefore skip its contents (the two upper right green boxes and their contents).
+          </li>
+          <li>
+            Out of the remaining six green boxes, the ray hits 4.
+            Only their contents need to be considered further.
+          </li>
+        </ol>
+        <p>
+          So, if the triangles are evenly divided over all eight green boxes, using this hierarchy, only half of them need to
+          be taken into account during our search for hits. If we were to create a deeper hierarchy, even more triangles
+          can be ignored, further speeding up the process.
+        </p>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
