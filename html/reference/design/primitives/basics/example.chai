@@ -19,7 +19,7 @@ def scene_at(now)
                                    "specular_exponent": 10,
                                    "reflectivity": 0 ] )
 
-  var floor_material = Materials.grid( 0.1, white, black )
+  var floor_material = Materials.grid2d( 0.1, white, black )
 
   var lens_material = Materials.uniform( [ "ambient": Colors.green() * 0.1,
                                            "diffuse": Colors.green() * 0.1,
