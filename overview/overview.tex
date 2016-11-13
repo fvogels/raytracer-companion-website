@@ -131,7 +131,7 @@
     \node[extension,difficulty=5] (voronoi 3d 1) at ($ (pattern 3d materials) + (6,0) $) {\html{extensions/math/voronoi3d}{Voronoi 3D} \mathy};
     \draw[dependency] (voronoi 3d 1) -- (pattern 3d materials);
 
-    \node[extension,hard,todo] (dalmatian 3d material) at ($ (voronoi 3d 1) + (6,0) $) {\html{extensions/materials/pattern2d/dalmatian3d}{Dalmatian 3D}};
+    \node[extension,hard,todo] (dalmatian 3d material) at ($ (voronoi 3d 1) + (6,0) $) {\html{extensions/materials/pattern3d/dalmatian3d}{Dalmatian 3D}};
     \draw[dependency] (dalmatian 3d material) -| (voronoi 3d 1);
 
     % \node[extension,difficulty=1,todo] at ($ (pattern 3d materials) + (6,0) $) {};
@@ -151,10 +151,10 @@
     \node[extension,easy,todo] (vertical lines pattern material) at ($ (voronoi 2d 1) + (0,-2) $) {\html{extensions/materials/pattern2d/vertical-lines}{Vertical ines}};
     \draw[dependency] (vertical lines pattern material) -| (pattern 2d materials);
 
-    \node[extension,easy,todo] (grid pattern material) at ($ (vertical lines pattern material) + (0,-2) $) {\html{extensions/materials/pattern2d/grid}{Grid}};
-    \draw[dependency] (grid pattern material) -| (pattern 2d materials);
+    \node[extension,easy,todo] (grid2d pattern material) at ($ (vertical lines pattern material) + (0,-2) $) {\html{extensions/materials/pattern2d/grid}{Grid2D}};
+    \draw[dependency] (grid2d pattern material) -| (pattern 2d materials);
 
-    \node[extension,easy,todo] (checkered pattern material) at ($ (grid pattern material) + (0,-2) $) {\html{extensions/materials/pattern2d/checkered}{Checkered}};
+    \node[extension,easy,todo] (checkered pattern material) at ($ (grid2d pattern material) + (0,-2) $) {\html{extensions/materials/pattern2d/checkered}{Checkered}};
     \draw[dependency] (checkered pattern material) -| (pattern 2d materials);
 
     \node[extension,hard,todo] (perlin 2d) at ($ (voronoi 3d 2) + (0,-2) $) {\html{extensions/math/perlin2d}{Perlin 2D} \mathy};
