@@ -8,7 +8,7 @@ var camera = Cameras.perspective( [ "eye": pos(0,0,10),
 
 var white = material(Colors.white())
 var black = material(Colors.white() * 0.2)
-var material = Materials.checkered(black, white)
+var material = Materials.checkered2d(black, white)
 
 var root = union( [ decorate( Materials.scale(0.1, 0.2, material), sphere() ),
                     decorate( material, translate( vec(0, -1, 0), xz_plane() ) ) ] )
