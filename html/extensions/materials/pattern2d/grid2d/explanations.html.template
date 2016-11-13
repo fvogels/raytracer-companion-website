@@ -26,11 +26,22 @@
       Grid2D Pattern
     </header>
     <div id="contents">
+      <%= overview(mutually_exclusive_with: ['materials/pattern2d/vertical-lines', 'materials/pattern2d/checkered']) %>      
       <section>
         <h1>Preview</h1>
         <%= raytrace 'demo' %>
         <%= source 'demo.chai' %>
       </section>      
+      <section>
+        <h1>Implementation</h1>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            The basic ray tracer already has support for horizontal lines.
+            Use this to implement a grid2d pattern. Do not forget to add bindings for the scripting language.
+          </p>
+        </aside>
+      </section>
     </div>
   </body>
 
