@@ -326,6 +326,9 @@
     \node[extension,easy] (rotation around z) at ($ (rotation around y) + (0,-2) $) {\html{extensions/primitives/rotation-around-z}{Z-Rotation}};
     \draw[dependency] (rotation around z) -| (primitives);
 
+    \node[extension,difficulty=2] (bounding box) at ($ (rotation around z) + (0,-2) $) {\html{extensions/primitives/bounding-box-accelerator}{Bounding Box}};
+    \draw[dependency] (bounding box) -| (primitives);
+
     \node[node] (renderers) at ($ (primitives) + (18,0) $) {Renderers};
     \draw[dependency] (renderers) |- (start);
 
@@ -344,11 +347,8 @@
     \node[node] (performance) at ($ (renderers) + (24,0) $) {Performance};
     \draw[dependency] (performance) |- (start);
 
-    \node[extension,easy] (parallel task scheduler) at ($ (performance) + (6,0) $) {\html{extensions/performance/parallel-task-scheduler}{Parallel Scheduler}};
+    \node[extension,difficulty=4] (parallel task scheduler) at ($ (performance) + (6,0) $) {\html{extensions/performance/parallel-task-scheduler}{Parallel Scheduler}};
     \draw[dependency] (parallel task scheduler) -- (performance);
-
-    \node[extension,easy,todo] (bounding box) at ($ (performance) + (6,-2) $) {\html{extensions/performance/bounding-box}{Bounding Box}};
-    \draw[dependency] (bounding box) -| (performance);
 
     \node[node] (pipeline) at ($ (performance) + (12,0) $) {Pipeline};
     \draw[dependency] (pipeline) |- (start);
@@ -359,7 +359,7 @@
     \node[extension,easy,todo] (bmp) at ($ (pipeline) + (6,-2) $) {\html{extensions/pipeline/bmp}{BMP}};
     \draw[dependency] (bmp) -| (pipeline);
     
-    \node[extension,easy,todo] (ppm) at ($ (pipeline) + (6,-4) $) {\html{extensions/pipeline/ppm}{PPM}};
+    \node[extension,difficulty=3] (ppm) at ($ (pipeline) + (6,-4) $) {\html{extensions/pipeline/ppm}{PPM}};
     \draw[dependency] (ppm) -| (pipeline);
 
     \node[node] (animations) at ($ (pipeline) + (12,0) $) {Animations};
