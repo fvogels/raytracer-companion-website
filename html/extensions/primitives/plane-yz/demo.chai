@@ -13,7 +13,7 @@ def scene_at(now)
   var black = Materials.uniform( [ "ambient": Colors.white() * 0.1,
                                    "diffuse": Colors.black() * 0.8 ] )
 
-  var plane_material = Materials.grid( 0.1, black, white )
+  var plane_material = Materials.grid2d( 0.1, black, white )
 
   var root = decorate(plane_material, yz_plane())
 
