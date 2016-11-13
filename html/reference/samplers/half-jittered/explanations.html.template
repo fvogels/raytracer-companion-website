@@ -30,7 +30,7 @@
       <section>
         <h1>Definition</h1>
         <p>
-          A half-jittering sampler takes two parameter $N$ and $M$. Given a rectangle to be sampled,
+          A half-jittering sampler takes two parameters $N$ and $M$. Given a rectangle to be sampled,
           it subdivides this rectangle into $N \times M$ subrectangles of equal size.
           The sampler then returns a random point close to the center of each subrectangle, to make sure samples
           cannot be too close to each other.
