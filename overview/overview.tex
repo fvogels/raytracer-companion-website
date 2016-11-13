@@ -316,10 +316,13 @@
     \node[extension,easy,todo] (optimized difference) at ($ (difference) + (6,0) $) {\html{extensions/primitives/difference-optimized}{Optimized Difference}};
     \draw[dependency] (optimized difference) -| (difference);
 
-    \node[extension,hard,todo] (mesh) at ($ (difference) + (0,-2) $) {\html{extensions/primitives/mesh}{Mesh}};
-    \draw[dependency] (mesh) -| (primitives);
+    \node[extension,difficulty=2] (bounding box) at ($ (difference) + (0,-2) $) {\html{extensions/primitives/bounding-box-accelerator}{Bounding Box}};
+    \draw[dependency] (bounding box) -| (primitives);
 
-    \node[extension,easy] (scaling) at ($ (mesh) + (0,-2) $) {\html{extensions/primitives/scaling}{Scaling}};
+    \node[extension,hard,todo] (mesh) at ($ (bounding box) + (6,0) $) {\html{extensions/primitives/mesh}{Mesh}};
+    \draw[dependency] (mesh) -- (bounding box);
+
+    \node[extension,easy] (scaling) at ($ (bounding box) + (0,-2) $) {\html{extensions/primitives/scaling}{Scaling}};
     \draw[dependency] (scaling) -| (primitives);
 
     \node[extension,easy] (rotation around x) at ($ (scaling) + (0,-2) $) {\html{extensions/primitives/rotation-around-x}{X-Rotation}};
@@ -330,9 +333,6 @@
 
     \node[extension,easy] (rotation around z) at ($ (rotation around y) + (0,-2) $) {\html{extensions/primitives/rotation-around-z}{Z-Rotation}};
     \draw[dependency] (rotation around z) -| (primitives);
-
-    \node[extension,difficulty=2] (bounding box) at ($ (rotation around z) + (0,-2) $) {\html{extensions/primitives/bounding-box-accelerator}{Bounding Box}};
-    \draw[dependency] (bounding box) -| (primitives);
 
     \node[node] (renderers) at ($ (primitives) + (18,0) $) {Renderers};
     \draw[dependency] (renderers) |- (start);
