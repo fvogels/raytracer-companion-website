@@ -148,7 +148,7 @@
     \node[extension,medium,todo] (worley 3d material) at ($ (voronoi 3d 2) + (6,0) $) {\html{extensions/materials/worley3d}{Worley 3D}};
     \draw[dependency] (worley 3d material) -| (voronoi 3d 2);
 
-    \node[extension,easy,todo] (vertical lines pattern material) at ($ (voronoi 2d 1) + (0,-2) $) {\html{extensions/materials/pattern2d/vertical-lines}{Vertical ines}};
+    \node[extension,easy,todo] (vertical lines pattern material) at ($ (voronoi 2d 1) + (0,-2) $) {\html{extensions/materials/pattern2d/vertical-lines}{Vertical lines}};
     \draw[dependency] (vertical lines pattern material) -| (pattern 2d materials);
 
     \node[extension,easy,todo] (grid2d pattern material) at ($ (vertical lines pattern material) + (0,-2) $) {\html{extensions/materials/pattern2d/grid}{Grid2D}};
