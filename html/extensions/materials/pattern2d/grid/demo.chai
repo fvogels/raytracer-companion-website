@@ -8,7 +8,7 @@ var camera = Cameras.perspective( [ "eye": pos(0,0,10),
 
 var white = material(Colors.white())
 var black = material(Colors.white() * 0.2)
-var material = Materials.grid(0.1, black, white)
+var material = Materials.grid2d(0.1, black, white)
 
 var root = union( [ decorate( Materials.scale(0.1, 0.1, material), sphere() ),
                     decorate( material, translate( vec(0, -1, 0), xz_plane() ) ) ] )
