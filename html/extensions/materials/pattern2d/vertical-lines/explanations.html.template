@@ -26,7 +26,7 @@
       Vertical Lines Pattern
     </header>
     <div id="contents">
-      <%= overview() %>
+      <%= overview(mutually_exclusive_with: ['materials/pattern2d/grid2d']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace 'demo' %>
