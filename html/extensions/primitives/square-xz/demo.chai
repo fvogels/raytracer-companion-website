@@ -14,7 +14,7 @@ def scene_at(now)
   var black = Materials.uniform( [ "ambient": Colors.white() * 0.1,
                                    "diffuse": Colors.black() * 0.8 ] )
 
-  var plane_material = Materials.checkered( white, black )
+  var plane_material = Materials.checkered2d( white, black )
 
   var angle = Animations.ease( Animations.animate( degrees(0), degrees(360 * 2), seconds(5) ), Easing.quadratic_inout() )
   var root = union( [ decorate(square_material, rotate_around_y(angle[now], rotate_around_z(angle[now], xz_square()))),
