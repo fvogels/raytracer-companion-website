@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Line Pattern</title>
+    <title>3DCG: Vertical Lines Pattern</title>
     <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
@@ -23,14 +23,25 @@
 
   <body>
     <header>
-      Line Pattern
+      Vertical Lines Pattern
     </header>
     <div id="contents">
+      <%= overview() %>
       <section>
         <h1>Preview</h1>
         <%= raytrace 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            The basic ray tracer already has support for horizontal lines.
+            Use this to implement vertical lines. Do not forget to add bindings for the scripting language.
+          </p>
+        </aside>
+      </section>
     </div>
   </body>
 
