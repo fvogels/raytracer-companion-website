@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Grid Pattern</title>
+    <title>3DCG: Grid2D Pattern</title>
     <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      Grid Pattern
+      Grid2D Pattern
     </header>
     <div id="contents">
       <section>
