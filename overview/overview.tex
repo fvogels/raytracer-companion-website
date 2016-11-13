@@ -30,7 +30,7 @@
                     difficulty4/.style={top color=orange!50,bottom color=red!50},
                     difficulty5/.style={hard},
                     difficulty/.style={difficulty#1},
-                    todo/.style={red,ultra thick}]
+                    todo/.style={red,top color=gray,bottom color=black,ultra thick}]
   \pgfdeclarelayer{background}
   \pgfdeclarelayer{foreground}
   \pgfsetlayers{background,main,foreground}
@@ -116,7 +116,7 @@
     \node[node] (materials) at ($ (cameras) + (15,0) $) {Materials};
     \draw[dependency] (materials) |- (start);
 
-    \node[extension,easy,todo] (pattern 2d materials) at ($ (materials) + (6,0) $) {\html{extensions/materials/patterns2d}{Patterns 2D}};
+    \node[node] (pattern 2d materials) at ($ (materials) + (6,0) $) {\html{extensions/materials/patterns2d}{Patterns 2D}};
     \draw[dependency] (pattern 2d materials) -- (materials);
 
     \node[extension,difficulty=5] (voronoi 2d 1) at ($ (pattern 2d materials) + (6,0) $) {\html{extensions/math/voronoi2d}{Voronoi 2D} \mathy};
@@ -137,7 +137,7 @@
     \node[extension,hard,todo] (dalmatian 3d material) at ($ (voronoi 3d 1) + (6,0) $) {\html{extensions/materials/pattern2d/dalmatian3d}{Dalmatian 3D}};
     \draw[dependency] (dalmatian 3d material) -| (voronoi 3d 1);
 
-    \node[extension,difficulty=5] (voronoi 3d 2) at ($ (materials) + (6,-10) $) {\html{extensions/math/voronoi3d}{Voronoi 3D} \mathy};
+    \node[extension,difficulty=5] (voronoi 3d 2) at ($ (voronoi 2d 2) + (0,-2) $) {\html{extensions/math/voronoi3d}{Voronoi 3D} \mathy};
     \draw[dependency] (voronoi 3d 2) -| (materials);
 
     \node[extension,medium,todo] (worley 3d material) at ($ (voronoi 3d 2) + (6,0) $) {\html{extensions/materials/worley3d}{Worley 3D}};
@@ -152,22 +152,22 @@
     \node[extension,easy,todo] (checkered pattern material) at ($ (pattern 2d materials) + (6,-6) $) {\html{extensions/materials/pattern2d/checkered}{Checkered}};
     \draw[dependency] (checkered pattern material) -| (pattern 2d materials);
 
-    \node[extension,hard,todo] (perlin 2d) at ($ (materials) + (6,-12) $) {\html{extensions/math/perlin2d}{Perlin 2D} \mathy};
+    \node[extension,hard,todo] (perlin 2d) at ($ (voronoi 3d 2) + (0,-2) $) {\html{extensions/math/perlin2d}{Perlin 2D} \mathy};
     \draw[dependency] (perlin 2d) -| (materials);
 
     \node[extension,medium,todo] (marble 2d material) at ($ (perlin 2d) + (6,0) $) {\html{extensions/materials/marble2d}{Marble 2D}};
     \draw[dependency] (marble 2d material) -- (perlin 2d);
 
-    \node[extension,hard,todo] (perlin 3d) at ($ (materials) + (6,-14) $) {\html{extensions/math/perlin3d}{Perlin 3D} \mathy};
+    \node[extension,hard,todo] (perlin 3d) at ($ (perlin 2d) + (0,-2) $) {\html{extensions/math/perlin3d}{Perlin 3D} \mathy};
     \draw[dependency] (perlin 3d) -| (materials);
 
     \node[extension,medium,todo] (marble 3d material) at ($ (perlin 3d) + (6,0) $) {\html{extensions/materials/marble3d}{Marble 3D}};
     \draw[dependency] (marble 3d material) -| (perlin 3d);
 
-    \node[extension,medium,todo] (texture materials) at ($ (materials) + (6,-16) $) {\html{extensions/materials/texture}{Textures}};
+    \node[extension,medium,todo] (texture materials) at ($ (perlin 3d) + (0,-2) $) {\html{extensions/materials/texture}{Textures}};
     \draw[dependency] (texture materials) -| (materials);
 
-    \node[extension,easy,todo] (material transformer) at ($ (materials) + (6,-18) $) {\html{extensions/materials/transformer}{Transformer}};
+    \node[extension,easy,todo] (material transformer) at ($ (texture materials) + (0,-2) $) {\html{extensions/materials/transformer}{Transformer}};
     \draw[dependency] (material transformer) -| (materials);
 
     \node[extension,easy,todo] (material scale 2d) at ($ (material transformer) + (6,0) $) {\html{extensions/materials/transformers/2d/scaling}{Scale 2D}};
