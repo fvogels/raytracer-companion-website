@@ -26,7 +26,8 @@
       Grid3D Pattern
     </header>
     <div id="contents">
-      <%= overview(mutually_exclusive_with: []) %>
+      <%= overview(mutually_exclusive_with: ['materials/pattern3d/checkered3d'],
+                   reading_material: ['materials/2d-vs-3d']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace 'demo' %>
@@ -38,7 +39,7 @@
           <h1>Task</h1>
           <p>
             The basic ray tracer already has support for horizontal lines.
-            Use this to implement a grid3d pattern. Do not forget to add bindings for the scripting language.
+            Use this to implement the grid3d pattern. Do not forget to add bindings for the scripting language.
           </p>
         </aside>
       </section>
