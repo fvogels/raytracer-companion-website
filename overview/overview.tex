@@ -134,10 +134,13 @@
     \node[extension,difficulty=2] (grid3d pattern material) at ($ (voronoi 3d 1) + (0,-2) $) {\html{extensions/materials/pattern3d/grid3d}{Grid3D}};
     \draw[dependency] (grid3d pattern material) -| (pattern 3d materials);
 
+    \node[extension,difficulty=2] (checkered3d pattern material) at ($ (grid3d pattern material) + (0,-2) $) {\html{extensions/materials/pattern3d/checkered3d}{Checkered3D}};
+    \draw[dependency] (checkered3d pattern material) -| (pattern 3d materials);
+
     \node[extension,hard,todo] (dalmatian 3d material) at ($ (voronoi 3d 1) + (6,0) $) {\html{extensions/materials/pattern3d/dalmatian3d}{Dalmatian 3D}};
     \draw[dependency] (dalmatian 3d material) -| (voronoi 3d 1);
 
-    \node[extension,difficulty=5] (voronoi 2d 2) at ($ (materials) + (6,-12) $) {\html{extensions/math/voronoi2d}{Voronoi 2D} \mathy};
+    \node[extension,difficulty=5] (voronoi 2d 2) at ($ (materials) + (6,-14) $) {\html{extensions/math/voronoi2d}{Voronoi 2D} \mathy};
     \draw[dependency] (voronoi 2d 2) -| (materials);
 
     \node[extension,medium,todo] (worley 2d material) at ($ (voronoi 2d 2) + (6,0) $) {\html{extensions/materials/worley2d}{Worley 2D}};
