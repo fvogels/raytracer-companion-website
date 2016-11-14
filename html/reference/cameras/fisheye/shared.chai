@@ -6,7 +6,7 @@ def material(color)
 
 def create_scene(camera)
 {
-  var checkered = Materials.checkered( material(Colors.white()), material(Colors.black()) )
+  var checkered = Materials.checkered2d( material(Colors.white()), material(Colors.black()) )
 
   var floor = decorate( checkered, xz_plane() )
   var s1 = decorate( material(Colors.red()), translate(Vec.cylindrical_y(5, degrees(90), 0),sphere()) )
