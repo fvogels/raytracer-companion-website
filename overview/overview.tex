@@ -155,8 +155,8 @@
     \node[extension,difficulty=2] (grid2d pattern material) at ($ (vertical lines pattern material) + (0,-2) $) {\html{extensions/materials/pattern2d/grid2d}{Grid2D}};
     \draw[dependency] (grid2d pattern material) -| (pattern 2d materials);
 
-    \node[extension,difficulty=2] (checkered pattern material) at ($ (grid2d pattern material) + (0,-2) $) {\html{extensions/materials/pattern2d/checkered}{Checkered}};
-    \draw[dependency] (checkered pattern material) -| (pattern 2d materials);
+    \node[extension,difficulty=2] (checkered 2d pattern material) at ($ (grid2d pattern material) + (0,-2) $) {\html{extensions/materials/pattern2d/checkered2d}{Checkered2D}};
+    \draw[dependency] (checkered 2d pattern material) -| (pattern 2d materials);
 
     \node[extension,hard,todo] (perlin 2d) at ($ (voronoi 3d 2) + (0,-2) $) {\html{extensions/math/perlin2d}{Perlin 2D} \mathy};
     \draw[dependency] (perlin 2d) -| (materials);
