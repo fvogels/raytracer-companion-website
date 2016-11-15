@@ -103,7 +103,7 @@
           as otherwise you will not understand what you need to implement.
         </p>
         <p>
-          There are multiple ways to introduce ambient lighting to our RayTracer. We chose to associate a ambient lighting
+          There are multiple ways to introduce ambient lighting to our RayTracer. We chose to associate an ambient lighting
           factor to materials: you can create a sphere with a lot of ambient lighting and just to it another
           sphere with no ambient lighting. This is highly unrealistic, but it's up to the creator of the scene to avoid such pitfalls.
         </p>
