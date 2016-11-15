@@ -52,6 +52,7 @@
           </li>
         </ul>
         <aside class="boxed2">
+          <h1>Task</h1>
           <p>
             Create files <code>math/functions/easing/bounce-easing-function.cpp/.h</code>.
             Use <code>linear-easing-function.h/.cpp</code> as a guide. You'll need to find the formula yourself.
