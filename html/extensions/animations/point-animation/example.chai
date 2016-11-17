@@ -1,0 +1,8 @@
+// Old way
+var x = Animations.animate(0, 4, seconds(1))
+var y = Animations.animate(5, 1, seconds(1))
+var z = Animations.animate(3, 4, seconds(1))
+var p = pos(x[now], y[now], z[now])
+
+// New way
+var p = Animations.animate( pos(0,5,3), pos(4,1,4) )
