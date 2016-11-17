@@ -1,0 +1,6 @@
+// Old way
+var x = Animations.animate(0, 360, seconds(1))
+var alpha = degrees(x[now])
+
+// New way
+var alpha = Animations.animate( degrees(0), degrees(360), seconds(1) )
