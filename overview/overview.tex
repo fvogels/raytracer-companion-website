@@ -374,40 +374,43 @@
     \node[node] (animations) at ($ (pipeline) + (12,0) $) {Animations};
     \draw[dependency] (animations) |- (start);
 
-    \node[extension,difficulty=3] (bounce animation) at ($ (animations) + (6,0) $) {\html{extensions/animations/bounce}{Bounce}};
-    \draw[dependency] (bounce animation) -- (animations);
+    \node[extension,difficulty=2] (easing library) at ($ (animations) + (6,0) $) {\html{extensions/animations/easing-library}{Easing Library}};
+    \draw[dependency] (easing library) -- (animations);
+
+    \node[extension,difficulty=3] (bounce animation) at ($ (easing library) + (6,0) $) {\html{extensions/animations/bounce}{Bounce}};
+    \draw[dependency] (bounce animation) -- (easing library);
 
     \node[extension,difficulty=3] (elastic animation) at ($ (bounce animation) + (0,-2) $) {\html{extensions/animations/elastic}{Elastic}};
-    \draw[dependency] (elastic animation) -| (animations);
+    \draw[dependency] (elastic animation) -| (easing library);
 
-    \node[extension,difficulty=2] (quaternions) at ($ (animations) + (6,-4) $) {\html{extensions/math/quaternions}{Quaternions} \mathy};
+    \node[extension,difficulty=4] (quadratic animation) at ($ (elastic animation) + (0,-2) $) {\html{extensions/animations/quadratic}{Quadratic}};
+    \draw[dependency] (quadratic animation) -| (easing library);
+
+    \node[extension,difficulty=4] (cubic animation) at ($ (quadratic animation) + (0,-2) $) {\html{extensions/animations/cubic}{Cubic}};
+    \draw[dependency] (cubic animation) -| (easing library);
+
+    \node[extension,difficulty=4] (quintic animation) at ($ (cubic animation) + (0,-2) $) {\html{extensions/animations/quintic}{Quintic}};
+    \draw[dependency] (quintic animation) -| (easing library);
+
+    \node[extension,difficulty=2] (point animation) at ($ (easing library) + (0,-10) $) {\html{extensions/animations/point-animation}{Point Animations}};
+    \draw[dependency] (point animation) -| (animations);
+
+    \node[extension,difficulty=2] (angle animation) at ($ (point animation) + (0,-2) $) {\html{extensions/animations/angle-animation}{Angle Animations}};
+    \draw[dependency] (angle animation) -| (animations);
+
+    \node[extension,difficulty=2] (quaternions) at ($ (angle animation) + (0,-2) $) {\html{extensions/math/quaternions}{Quaternions} \mathy};
     \draw[dependency] (quaternions) -| (animations);
 
     \node[extension,difficulty=2] (circular animation) at ($ (quaternions) + (6,0) $) {\html{extensions/animations/circular}{Circular}};
     \draw[dependency] (circular animation) -- (quaternions);
 
-    \node[extension,easy,todo] (lissajous animation) at ($ (animations) + (6,-6) $) {\html{extensions/animations/lissajous}{Lissajous}};
+    \node[extension,easy,todo] (lissajous animation) at ($ (quaternions) + (0,-2) $) {\html{extensions/animations/lissajous}{Lissajous}};
     \draw[dependency] (lissajous animation) -| (animations);
 
-    \node[extension,easy,todo] (cyclic animation) at ($ (animations) + (6,-8) $) {\html{extensions/animations/cyclic}{Cyclic}};
+    \node[extension,easy,todo] (cyclic animation) at ($ (lissajous animation) + (0,-2) $) {\html{extensions/animations/cyclic}{Cyclic}};
     \draw[dependency] (cyclic animation) -| (animations);
-
-    \node[extension,difficulty=4] (quadratic animation) at ($ (animations) + (6,-10) $) {\html{extensions/animations/quadratic}{Quadratic}};
-    \draw[dependency] (quadratic animation) -| (animations);
-
-    \node[extension,difficulty=4] (cubic animation) at ($ (quadratic animation) + (0,-2) $) {\html{extensions/animations/cubic}{Cubic}};
-    \draw[dependency] (cubic animation) -| (animations);
-
-    \node[extension,difficulty=4] (quintic animation) at ($ (cubic animation) + (0,-2) $) {\html{extensions/animations/quintic}{Quintic}};
-    \draw[dependency] (quintic animation) -| (animations);
-
-    \node[extension,easy,todo] (point animation) at ($ (quintic animation) + (0,-2) $) {\html{extensions/animations/point}{Points}};
-    \draw[dependency] (point animation) -| (animations);
-
-    \node[extension,easy,todo] (angle animation) at ($ (point animation) + (0,-2) $) {\html{extensions/animations/angle}{Angles}};
-    \draw[dependency] (angle animation) -| (animations);
     
-    \node[extension,easy,todo] (material slicer) at ($ (angle animation) + (0,-2) $) {\html{extensions/materials/slicer}{Slicer}};
+    \node[extension,easy,todo] (material slicer) at ($ (cyclic animation) + (0,-2) $) {\html{extensions/materials/slicer}{Slicer}};
     \draw[dependency] (material slicer) -| (animations);
   \end{pgfonlayer}
 
