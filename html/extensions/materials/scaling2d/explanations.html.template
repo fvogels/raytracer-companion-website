@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Material Rotation 2D</title>
-    <%= stylesheets('ucll', 'box') %>
-    <%= scripts('jquery', 'jquery-ui', 'underscore', 'box', 'ace/ace', 'source-editor') %>
+    <title>3DCG: Material Scaling 2D</title>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
       img.large {
         width: 60%;
@@ -22,14 +22,11 @@
   </head>
 
   <body>
-    <header>
-      Material Rotation 2D
-    </header>
+    <header>Material Scaling 2D</header>
     <div id="contents">
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
-        <%= source 'demo.chai' %>
       </section>      
     </div>
   </body>
@@ -37,7 +34,6 @@
   <script>
     function initialize()
     {
-      Box.initialize();
       SourceEditor.initialize();
     }
 
