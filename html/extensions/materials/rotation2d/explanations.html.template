@@ -26,6 +26,8 @@
       Material Rotation 2D
     </header>
     <div id="contents">
+      <%= overview(prerequisites: ['materials/transformer2d'],
+                   mutually_exclusive_with: ['materials/scaling2d', 'materials/translation2d']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
