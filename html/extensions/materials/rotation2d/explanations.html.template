@@ -32,7 +32,19 @@
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Use <code>MaterialTransformer2D</code> to implement 2D material rotation.
+            You may have to define extra classes in <code>math</code>.
+            Hint: you'll need <code>Matrix3x3</code> in order to represent 2D transformations.
+            Make sure to take a look around, some useful functionality might already be implemented.
+          </p>
+        </aside>
+      </section>
     </div>
   </body>
 
