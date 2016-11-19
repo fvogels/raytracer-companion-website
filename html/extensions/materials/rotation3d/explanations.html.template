@@ -25,6 +25,7 @@
     <header>Material Rotation 3D</header>
     <div id="contents">
       <%= overview(prerequisites: ['materials/transformer3d'],
+                   reading_material: ['math/transformations/3d/rotation'],          
                    mutually_exclusive_with: ['materials/scaling3d', 'materials/translation3d']) %>
       <section>
         <h1>Preview</h1>
