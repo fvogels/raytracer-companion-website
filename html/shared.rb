@@ -171,14 +171,18 @@ class SharedContext
     source_editor(contents, **opts)
   end
 
-  def raytrace_movie(script_name, html_class: 'video', width: 500, height: 500)
+  def raytrace_movie(script_name, html_class: 'video', width: 500, height: 500, styles: {})
     script_path = Pathname.new("#{script_name}.chai").expand_path
     output_path = Pathname.new("#{script_name}.mp4").expand_path
 
     RayTracer3.render_mp4(script_path, output_path)
 
+    styles_string = styles.map do |k, v|
+      "#{k}: #{v};"
+    end.join('')
+
     <<-END
-      <video width="#{width}" height="#{height}" loop autoplay>
+      <video width="#{width}" height="#{height}" style="#{styles_string}" loop autoplay>
         <source src="#{script_name}.mp4" type="video/mp4">
         Your browser does not seem to be able to handle video tags.
       </video>
