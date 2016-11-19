@@ -191,13 +191,13 @@
     \node[extension,difficulty=3] (material transformer 3d) at ($ (material transformer 2d) + (0,-6) $) {\html{extensions/materials/transformer}{Transformer3D}};
     \draw[dependency] (material transformer 3d) -| (materials);
 
-    \node[extension,easy,todo] (material scale 3d) at ($ (material transformer 3d) + (6,0) $) {\html{extensions/materials/scaling3d}{Scale 3D}};
+    \node[extension,difficulty=3] (material scale 3d) at ($ (material transformer 3d) + (6,0) $) {\html{extensions/materials/scaling3d}{Scale 3D}};
     \draw[dependency] (material scale 3d) -| (material transformer 3d);
 
-    \node[extension,easy,todo] (material translate 3d) at ($ (material scale 3d) + (0,-2) $) {\html{extensions/materials/translation3d}{Translate 3D}};
+    \node[extension,difficulty=3] (material translate 3d) at ($ (material scale 3d) + (0,-2) $) {\html{extensions/materials/translation3d}{Translate 3D}};
     \draw[dependency] (material translate 3d) -| (material transformer 3d);
 
-    \node[extension,easy,todo] (material rotate 3d) at ($ (material translate 3d) + (0,-2) $) {\html{extensions/materials/rotation3d}{Rotate 3D}};
+    \node[extension,difficulty=3] (material rotate 3d) at ($ (material translate 3d) + (0,-2) $) {\html{extensions/materials/rotation3d}{Rotate 3D}};
     \draw[dependency] (material rotate 3d) -| (material transformer 3d);
 
     \node[node] (primitives) at ($ (materials) + (28,0) $) {Primitives};
@@ -236,28 +236,27 @@
     \node[extension,easy] (square xy) at ($ (cone along z) + (0,-2) $) {\html{extensions/primitives/square-xy}{Square XY}};
     \draw[dependency] (square xy) -| (primitives);
 
-    \node[extension,easy] (optimized square xy) at ($ (square xy) + (6,0) $) {\html{extensions/primitives/square-xy-optimized}{Optimized Square XY}};
-    \draw[dependency] (optimized square xy) -| (square xy);
+    \node[extension,easy] (optimized square xy) at ($ (square xy) + (0,-2) $) {\html{extensions/primitives/square-xy-optimized}{Optimized Square XY}};
+    \draw[dependency] (optimized square xy) -- (square xy);
 
-    \node[extension,easy] (square xz) at ($ (square xy) + (0,-2) $) {\html{extensions/primitives/square-xz}{Square XZ}};
+    \node[extension,easy] (square xz) at ($ (optimized square xy) + (0,-2) $) {\html{extensions/primitives/square-xz}{Square XZ}};
     \draw[dependency] (square xz) -| (primitives);
 
-    \node[extension,easy] (optimized square xz) at ($ (square xz) + (6,0) $) {\html{extensions/primitives/square-xz-optimized}{Optimized Square XZ}};
-    \draw[dependency] (optimized square xz) -| (square xz);
+    \node[extension,easy] (optimized square xz) at ($ (square xz) + (0,-2) $) {\html{extensions/primitives/square-xz-optimized}{Optimized Square XZ}};
+    \draw[dependency] (optimized square xz) -- (square xz);
 
-    \node[extension,easy] (square yz) at ($ (square xz) + (0,-2) $) {\html{extensions/primitives/square-yz}{Square YZ}};
+    \node[extension,easy] (square yz) at ($ (optimized square xz) + (0,-2) $) {\html{extensions/primitives/square-yz}{Square YZ}};
     \draw[dependency] (square yz) -| (primitives);
 
-    \node[extension,easy] (optimized square yz) at ($ (square yz) + (6,0) $) {\html{extensions/primitives/square-yz-optimized}{Optimized Square YZ}};
-    \draw[dependency] (optimized square yz) -| (square yz);
+    \node[extension,easy] (optimized square yz) at ($ (square yz) + (0,-2) $) {\html{extensions/primitives/square-yz-optimized}{Optimized Square YZ}};
+    \draw[dependency] (optimized square yz) -- (square yz);
 
-    \node[extension,easy,todo] (cube) at ($ (square yz) + (0,-2) $) {\html{extensions/primitives/cube}{Cube}};
-    \draw[dependency] (cube) -| (primitives);
+    \node[extension,easy,difficulty=2] (cube) at ($ (square xz) + (6,0) $) {\html{extensions/primitives/cube}{Cube}};
+    \draw[dependency] (cube) |- (square xy);
+    \draw[dependency] (cube) -- (square xz);
+    \draw[dependency] (cube) |- (square yz);
 
-    \node[extension,easy,todo] (optimized cube) at ($ (cube) + (6,0) $) {\html{extensions/primitives/cube-optimized}{Optimized Cube}};
-    \draw[dependency] (optimized cube) -| (cube);
-
-    \node[extension,difficulty=2] (cylinder along x) at ($ (cube) + (0,-2) $) {\html{extensions/primitives/cylinder-along-x}{Cylinder Along X}};
+    \node[extension,difficulty=2] (cylinder along x) at ($ (optimized square yz) + (0,-2) $) {\html{extensions/primitives/cylinder-along-x}{Cylinder Along X}};
     \draw[dependency] (cylinder along x) -| (primitives);
 
     \node[extension,easy] (optimized cylinder along x) at ($ (cylinder along x) + (6,0) $) {\html{extensions/primitives/cylinder-along-x-optimized}{Optimized Cylinder X}};
@@ -284,8 +283,8 @@
     \node[extension,difficulty=2] (triangle) at ($ (disk) + (0,-2) $) {\html{extensions/primitives/triangle}{Triangle}};
     \draw[dependency] (triangle) -| (primitives);
 
-    \node[extension,difficulty=1] (triangle optimized) at ($ (triangle) + (6,0) $) {\html{extensions/primitives/triangle-optimized}{Optimized Triangle}};
-    \draw[dependency] (triangle optimized) -| (triangle);
+    \node[extension,difficulty=1] (triangle optimized) at ($ (triangle) + (0,-2) $) {\html{extensions/primitives/triangle-optimized}{Optimized Triangle}};
+    \draw[dependency] (triangle optimized) -- (triangle);
 
     % \node[extension,easy,todo] (smooth triangle) at ($ (triangle) + (6,0) $) {\html{extensions/primitives/smooth-triangle}{Smooth Triangle}};
     % \draw[dependency] (smooth triangle) -| (triangle);
@@ -296,7 +295,20 @@
     % \node[extension,easy,todo] (perlin terrain) at ($ (perlin 2d 2) + (6,0) $) {\html{extensions/primitives/terrains/perlin}{Perlin Terrain}};
     % \draw[dependency] (perlin terrain) -- (perlin 2d 2);
 
-    \node[extension,easy,todo] (cropper) at ($ (triangle) + (0,-2) $) {\html{extensions/primitives/cropper}{Cropper}};
+    \node[extension,difficulty=2] (bounding box) at ($ (triangle optimized) + (0,-2) $) {\html{extensions/primitives/bounding-box-accelerator}{Bounding Box}};
+    \draw[dependency] (bounding box) -| (primitives);
+
+    \node[extension,difficulty=5] (mesh) at ($ (triangle optimized) + (6,0) $) {\html{extensions/primitives/mesh}{Mesh}};
+    \draw[dependency] ($ (mesh.north west) ! 0.5 ! (mesh.north) $) |- (triangle);
+    \draw[dependency] ($ (mesh.south west) ! 0.5 ! (mesh.south) $) |- (bounding box);
+
+    \node[extension,difficulty=4] (reading mesh format) at ($ (mesh) + (6,2) $) {\html{extensions/primitives/mesh}{Reading Mesh Format}};
+    \draw[dependency] (reading mesh format) -| ($ (mesh.north east) ! 0.5 ! (mesh.north) $);
+
+    \node[extension,difficulty=5] (bbh algorithm) at ($ (mesh) + (6,-2) $) {\html{extensions/primitives/mesh}{BBH Algorithm}};
+    \draw[dependency] (bbh algorithm) -| ($ (mesh.south east) ! 0.5 ! (mesh.south) $);
+
+    \node[extension,easy,todo] (cropper) at ($ (bounding box) + (0,-2) $) {\html{extensions/primitives/cropper}{Cropper}};
     \draw[dependency] (cropper) -| (primitives);
 
     \node[extension,easy,todo] (optimized cropper) at ($ (cropper) + (6,0) $) {\html{extensions/primitives/cropper-optimized}{Optimized Cropper}};
@@ -317,13 +329,7 @@
     \node[extension,easy,todo] (optimized difference) at ($ (difference) + (6,0) $) {\html{extensions/primitives/difference-optimized}{Optimized Difference}};
     \draw[dependency] (optimized difference) -| (difference);
 
-    \node[extension,difficulty=2] (bounding box) at ($ (difference) + (0,-2) $) {\html{extensions/primitives/bounding-box-accelerator}{Bounding Box}};
-    \draw[dependency] (bounding box) -| (primitives);
-
-    \node[extension,hard,todo] (mesh) at ($ (bounding box) + (6,0) $) {\html{extensions/primitives/mesh}{Mesh}};
-    \draw[dependency] (mesh) -- (bounding box);
-
-    \node[extension,easy] (scaling) at ($ (bounding box) + (0,-2) $) {\html{extensions/primitives/scaling}{Scaling}};
+    \node[extension,easy] (scaling) at ($ (difference) + (0,-2) $) {\html{extensions/primitives/scaling}{Scaling}};
     \draw[dependency] (scaling) -| (primitives);
 
     \node[extension,easy] (rotation around x) at ($ (scaling) + (0,-2) $) {\html{extensions/primitives/rotation-around-x}{X-Rotation}};
@@ -364,7 +370,7 @@
 
     \node[extension,easy,todo] (bmp) at ($ (pipeline) + (6,-2) $) {\html{extensions/pipeline/bmp}{BMP}};
     \draw[dependency] (bmp) -| (pipeline);
-    
+
     \node[extension,difficulty=3] (ppm) at ($ (pipeline) + (6,-4) $) {\html{extensions/pipeline/ppm}{PPM}};
     \draw[dependency] (ppm) -| (pipeline);
 
@@ -406,7 +412,7 @@
 
     \node[extension,easy,todo] (cyclic animation) at ($ (lissajous animation) + (0,-2) $) {\html{extensions/animations/cyclic}{Cyclic}};
     \draw[dependency] (cyclic animation) -| (animations);
-    
+
     \node[extension,easy,todo] (material slicer) at ($ (cyclic animation) + (0,-2) $) {\html{extensions/materials/slicer}{Slicer}};
     \draw[dependency] (material slicer) -| (animations);
   \end{pgfonlayer}
