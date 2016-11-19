@@ -26,7 +26,7 @@
       MaterialTransformer2D
     </header>
     <div id="contents">
-      <%= overview(reading_material: ['materials/2d-vs-3d']) %>
+      <%= overview(reading_material: ['materials/2d-vs-3d', 'math/transformations/2d/rotation', 'math/transformations/2d/scaling', 'math/transformations/2d/translation']) %>
       <section>
         <h1>Implementation</h1>
         <p>
