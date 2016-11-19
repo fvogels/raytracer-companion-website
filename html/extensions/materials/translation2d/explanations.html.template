@@ -26,6 +26,7 @@
       Material Translation 2D
     </header>
     <%= overview(prerequisites: ['materials/transformer2d'],
+                 reading_material: ['math/transformations/2d/translation'],
                  mutually_exclusive_with: ['materials/scaling2d', 'materials/rotation2d']) %>
     <div id="contents">
       <section>
