@@ -26,11 +26,135 @@
       Mesh
     </header>
     <div id="contents">
+      <%= overview(prerequisites: ['primitives/triangle', 'primitives/bounding-box-accelerator']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>General Approach</h1>
+        <p>
+          A mesh is a large collection of triangles forming a complex shape. Any shape can be built out of triangles,
+          as long as you have enough of them. For example, the above preview is built out of 10 million triangles.
+        </p>
+        <p>
+          Implementing meshes is a multi-step process:
+        </p>
+        <ul>
+          <li>
+            You need to write code that can read meshes from file. We assure you, you really do not want
+            to define millions of triangles in the scripting language.
+          </li>
+          <li>
+            You need to create a bounding box hierarchy for each mesh.
+          </li>
+          <li>
+            You need to find a way of storing these bounding box hierarchies to file so as to avoid having to regenerate them
+            repeatedly, as this is a time consuming process.
+          </li>
+          <li>
+            You need to write extend the ray tracer so that it is able to read bounding box hierarchies from file.
+          </li>
+        </ul>
+        <p>
+          Each of these steps is discussed more in detail below.
+        </p>
+        <section>
+          <h2>Step 1: Reading a Mesh</h2>
+          <p>
+            First, you will want to find a mesh online that you like. Here are a couple of sites which offer free models:
+          </p>
+          <ul>
+            <li><a href="https://graphics.stanford.edu/data/3Dscanrep/">The Stanford 3D Scanning Repository</a></li>
+            <li><a href="http://archive3d.net/">Archive3D</a></li>
+          </ul>
+          <p>
+            Another possibility is to make a mesh yourself using <a href="https://en.wikipedia.org/wiki/List_of_3D_modeling_software">3D modeling software</a>.
+          </p>
+          <p>
+            Once you found your mesh, you need to understand its file format. For example,
+            the Stanford models are written in the <a href="https://en.wikipedia.org/wiki/PLY_(file_format)">PLY file format</a>.
+            Other formats you might encounter are <a href="https://en.wikipedia.org/wiki/Wavefront_.obj_file">OBJ</a>
+            and <a href="https://en.wikipedia.org/wiki/STL_(file_format)">STL</a>.
+          </p>
+        </section>
+        <section>
+          <h2>Step 2: Building a Bounding Box Hierarchy</h2>
+          <p>
+            While it is certainly possible to dump all these triangles into a <code>Union</code> primitive,
+            rendering will be mind-numbingly slow. Using a bounding box hierarchy can dramatically
+            speed up this process.
+          </p>
+          <p>
+            There are many ways to build a bounding box hierarchy. For example:
+          </p>
+          <ul>
+            <li>
+              Bottom up: you take two neighboring triangles and box them together, until you have no more triangles left.
+              Next, you group boxes together to form larger boxes. You keep doing this until only one box remains.
+            </li>
+            <li>
+              Top down: you create a box that contains all triangle. Next, you split this box in two, four, eight, sixteen, &hellip;
+              After a number of subdivisions, you find out in which box each triangle belongs.
+            </li>
+          </ul>
+          <p>
+            Each approach has its own strengths and weaknesses. There are two aspects that matter:
+          </p>
+          <ul>
+            <li>
+              How fast does the algorithm work that produces the bounding box hierarchy?
+            </li>
+            <li>
+              Once the bounding box hierarchy is built, how fast is the actual rendering of the mesh?
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Step 3: Devising Your Own Mesh Format</h2>
+          <p>
+            Building the bounding box hierarchy that takes time and should only happen once for each mesh.Once it's built,
+            you can reuse it for many renderings. For this reason, you will want to
+            write your bounding box hierarchy to file so as to be able to load it in your ray tracer.
+            This way, it doesn't matter as much how efficient your hierarchy building algorithm is and
+            you can focus on the actual rendering times.
+          </p>
+          <p>
+            For example, the Stanford's Lucy mesh counts 116 million rectangles. Building
+            the bounding box hierarchy took more than an hour and consumed 20GB of RAM.
+            Having to repeat this process for every rendering would be preposterously inefficient.
+            Instead, the bounding box hierarchy was saved to file. This file was
+            then read in by the ray tracer, which could then render Lucy in a matter of seconds.
+          </p>
+        </section>
+        <section>
+          <h2>Step 4: Reading Your Own Mesh Format</h2>
+          <p>
+            Lastly, your ray tracer needs to be able to read files written in your own format
+            and create a hierarchy consisting of <%= link 'extensions/primitives/bounding-box-accelerator', 'bounding box accelerator' %>,
+            <%= link 'extensions/primitives/triangle', 'triangle' %> and unions.
+          </p>
+        </section>
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Implement meshes. Reading the original mesh format (e.g. PLY, OBJ, STL), building a bounding box hierarchy
+            and writing it to your own file format can be implemented in programming language of your own choice.
+            The ray tracer itself only needs extra code to read it back in.
+          </p>
+          <p>
+            Each mesh format you support (e.g. PLY, STL, OBJ) counts as a separate extensions.
+          </p>
+          <p>
+            Each bounding box hierarchy building hierarchy you implement counts as a seperate extension.
+            In case you implement more than one, you need to compare the bbh-building and rendering times using several meshes.
+          </p>
+        </aside>
+      </section>
     </div>
   </body>
 
