@@ -24,10 +24,24 @@
   <body>
     <header>Material Translation 3D</header>
     <div id="contents">
+      <%= overview(prerequisites: ['materials/transformer3d'],
+                   mutually_exclusive_with: ['materials/scaling3d', 'materials/rotation3d']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
       </section>      
+      <section>
+        <h1>Implementation</h1>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Use <code>MaterialTransformer3D</code> to implement 3D material translation.
+            You may have to define extra classes in <code>math</code>.
+            Hint: you'll need <code>Matrix4x4</code> in order to represent 3D transformations.
+            Make sure to take a look around, some useful functionality might already be implemented.
+          </p>
+        </aside>
+      </section>
     </div>
   </body>
 
