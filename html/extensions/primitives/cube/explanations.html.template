@@ -26,11 +26,21 @@
       Cube
     </header>
     <div id="contents">
+      <%= overview(prerequisites: ['primitives/square-xy', 'primitives/square-xz', 'primitives/square-yz'] ) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
-      </section>      
+      </section>
+      <section>
+        <h1>Implementation</h1>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Create a cube primitive. You may want to rely on other extensions (see overview).
+          </p>
+        </aside>
+      </section>
     </div>
   </body>
 
