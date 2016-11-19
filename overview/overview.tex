@@ -176,32 +176,29 @@
     \node[extension,medium,todo] (texture materials) at ($ (perlin 3d) + (0,-2) $) {\html{extensions/materials/texture}{Textures}};
     \draw[dependency] (texture materials) -| (materials);
 
-    \node[extension,easy,todo] (material transformer) at ($ (texture materials) + (0,-2) $) {\html{extensions/materials/transformer}{Transformer}};
-    \draw[dependency] (material transformer) -| (materials);
+    \node[extension,difficulty=3] (material transformer 2d) at ($ (texture materials) + (0,-2) $) {\html{extensions/materials/transformer2d}{Transformer2D}};
+    \draw[dependency] (material transformer 2d) -| (materials);
 
-    \node[extension,easy,todo] (material scale 2d) at ($ (material transformer) + (6,0) $) {\html{extensions/materials/transformers/2d/scaling}{Scale 2D}};
-    \draw[dependency] (material scale 2d) -- (material transformer);
+    \node[extension,difficulty=3] (material scale 2d) at ($ (material transformer 2d) + (6,0) $) {\html{extensions/materials/scaling2d}{Scale 2D}};
+    \draw[dependency] (material scale 2d) -- (material transformer 2d);
 
-    \node[extension,easy,todo] (material scale 3d) at ($ (material transformer) + (6,-2) $) {\html{extensions/materials/transformers/3d/scaling}{Scale 3D}};
-    \draw[dependency] (material scale 3d) -| (material transformer);
+    \node[extension,difficulty=3] (material translate 2d) at ($ (material scale 2d) + (0,-2) $) {\html{extensions/materials/translation2d}{Translate 2D}};
+    \draw[dependency] (material translate 2d) -| (material transformer 2d);
 
-    \node[extension,easy,todo] (material translate 2d) at ($ (material transformer) + (6,-4) $) {\html{extensions/materials/transformers/2d/translation}{Translate 2D}};
-    \draw[dependency] (material translate 2d) -| (material transformer);
+    \node[extension,difficulty=3] (material rotate 2d) at ($ (material translate 2d) + (0,-2) $) {\html{extensions/materials/rotation2d}{Rotate 2D}};
+    \draw[dependency] (material rotate 2d) -| (material transformer 2d);
 
-    \node[extension,easy,todo] (material translate 3d) at ($ (material transformer) + (6,-6) $) {\html{extensions/materials/transformers/3d/translation}{Translate 3D}};
-    \draw[dependency] (material translate 3d) -| (material transformer);
+    \node[extension,difficulty=3] (material transformer 3d) at ($ (material transformer 2d) + (0,-6) $) {\html{extensions/materials/transformer}{Transformer3D}};
+    \draw[dependency] (material transformer 3d) -| (materials);
 
-    \node[extension,easy,todo] (material rotate 2d) at ($ (material transformer) + (6,-8) $) {\html{extensions/materials/transformers/2d/rotation}{Rotate 2D}};
-    \draw[dependency] (material rotate 2d) -| (material transformer);
+    \node[extension,easy,todo] (material scale 3d) at ($ (material transformer 3d) + (6,0) $) {\html{extensions/materials/scaling3d}{Scale 3D}};
+    \draw[dependency] (material scale 3d) -| (material transformer 3d);
 
-    \node[extension,easy,todo] (material rotate 3d x) at ($ (material transformer) + (6,-10) $) {\html{extensions/materials/transformers/3d/rotation-x}{RotateX 3D}};
-    \draw[dependency] (material rotate 3d x) -| (material transformer);
+    \node[extension,easy,todo] (material translate 3d) at ($ (material scale 3d) + (0,-2) $) {\html{extensions/materials/translation3d}{Translate 3D}};
+    \draw[dependency] (material translate 3d) -| (material transformer 3d);
 
-    \node[extension,easy,todo] (material rotate 3d y) at ($ (material transformer) + (6,-12) $) {\html{extensions/materials/transformers/3d/rotation-y}{RotateY 3D}};
-    \draw[dependency] (material rotate 3d y) -| (material transformer);
-
-    \node[extension,easy,todo] (material rotate 3d z) at ($ (material transformer) + (6,-14) $) {\html{extensions/materials/transformers/3d/rotation-z}{RotateZ 3D}};
-    \draw[dependency] (material rotate 3d z) -| (material transformer);
+    \node[extension,easy,todo] (material rotate 3d) at ($ (material translate 3d) + (0,-2) $) {\html{extensions/materials/rotation3d}{Rotate 3D}};
+    \draw[dependency] (material rotate 3d) -| (material transformer 3d);
 
     \node[node] (primitives) at ($ (materials) + (28,0) $) {Primitives};
     \draw[dependency] (primitives) |- (start);
@@ -404,7 +401,7 @@
     \node[extension,difficulty=2] (circular animation) at ($ (quaternions) + (6,0) $) {\html{extensions/animations/circular}{Circular}};
     \draw[dependency] (circular animation) -- (quaternions);
 
-    \node[extension,easy,todo] (lissajous animation) at ($ (quaternions) + (0,-2) $) {\html{extensions/animations/lissajous}{Lissajous}};
+    \node[extension,difficulty=4] (lissajous animation) at ($ (quaternions) + (0,-2) $) {\html{extensions/animations/lissajous}{Lissajous}};
     \draw[dependency] (lissajous animation) -| (animations);
 
     \node[extension,easy,todo] (cyclic animation) at ($ (lissajous animation) + (0,-2) $) {\html{extensions/animations/cyclic}{Cyclic}};
