@@ -27,6 +27,7 @@
     </header>
     <div id="contents">
       <%= overview(prerequisites: ['materials/transformer2d'],
+                   reading_material: ['math/transformations/2d/rotation'],
                    mutually_exclusive_with: ['materials/scaling2d', 'materials/translation2d']) %>
       <section>
         <h1>Preview</h1>
