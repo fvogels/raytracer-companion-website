@@ -25,6 +25,7 @@
     <header>Material Scaling 3D</header>
     <div id="contents">
       <%= overview(prerequisites: ['materials/transformer3d'],
+                   reading_material: ['math/transformations/3d/scaling'],
                    mutually_exclusive_with: ['materials/translation3d', 'materials/rotation3d']) %>
       <section>
         <h1>Preview</h1>
