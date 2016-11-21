@@ -39,10 +39,15 @@
           </li>
         </ul>
         <p>
-          The spot light sends lights to some location $P$ if the angle between $LP$ and $\vec v$ is less than $\theta$.
-          In mathematical form:
+          The spot light sends lights to some location $P$ if the angle between $LP$ and $\vec v$ is less than $\frac\theta2$.
+          We know the dot product $\vec u \cdot \vec v$ gives us the cosine of the angle between the two vectors $\vec u$ and $\vec v$.
+          Given that the cosine decreases with increasing angle, we get
           \[
-            \frac{P-L}{|P-L|} \cdot \vec v \leq \cos \theta
+            \alpha &lt; \beta \Leftrightarrow \cos\alpha &gt; \cos\beta \qquad \textrm{for } 0 \leq \alpha, \beta \leq 90^\circ
+          \]          
+          Applied to our spot lights, this results in
+          \[
+            \frac{P-L}{|P-L|} \cdot \vec v \geq \cos \frac\theta2
           \]
         </p>
       </section>
