@@ -87,6 +87,17 @@
           it only exists in memory, this is somewhat mitigated.
         </p>
       </section>
+      <section>
+        <h1>FFMPEG</h1>
+        <p>
+          Once you have got the PPM extension working, you can use it to create movies.
+          You will need some additional software for this, namely <a href="https://www.imagemagick.org/script/index.php">ImageMagick</a>.
+        </p>
+        <p>
+          Use the following console command to produce a movie named <code>output.mp4</code> from a script named <code>input.chai</code>:
+        </p>
+        <%= source 'ffmpeg.txt' %>
+      </section>
     </div>
   </body>
 

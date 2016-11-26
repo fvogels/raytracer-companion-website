@@ -1,0 +1,1 @@
+raytracer.exe --quiet -sinput.chai | convert ppm:- png:- | ffmpeg -y -framerate 30 -vcodec png -i - -c:v libx264 -r 30 -pix_fmt yuv420p output.mp4
