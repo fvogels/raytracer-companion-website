@@ -95,10 +95,10 @@
     \node[extension,medium,todo] (orthographic camera) at ($ (cameras) + (-30:4) $) {\html{extensions/cameras/orthographic}{Orthographic}};
     \draw[dependency] (orthographic camera) -- (cameras);
 
-    \node[extension,medium] (fisheye camera) at ($ (cameras) + (-90:4) $) {\html{extensions/cameras/fisheye}{Fisheye}};
+    \node[extension,difficulty=4] (fisheye camera) at ($ (cameras) + (-90:4) $) {\html{extensions/cameras/fisheye}{Fisheye}};
     \draw[dependency] (fisheye camera) -- (cameras);
 
-    \node[extension,difficulty=2] (depth of field camera) at ($ (cameras) + (-150:4) $) {\html{extensions/cameras/depth-of-field}{Depth of Field}};
+    \node[extension,difficulty=3] (depth of field camera) at ($ (cameras) + (-150:4) $) {\html{extensions/cameras/depth-of-field}{Depth of Field}};
     \draw[dependency] (depth of field camera) -- (cameras);
 
     \node[node] (lights) at ($ (cameras) + (8,-5) $) {Lights};
@@ -188,7 +188,7 @@
     \node[extension,difficulty=3] (material rotate 2d) at ($ (material translate 2d) + (0,-2) $) {\html{extensions/materials/rotation2d}{Rotate 2D}};
     \draw[dependency] (material rotate 2d) -| (material transformer 2d);
 
-    \node[extension,difficulty=3] (material transformer 3d) at ($ (material transformer 2d) + (0,-6) $) {\html{extensions/materials/transformer}{Transformer3D}};
+    \node[extension,difficulty=3] (material transformer 3d) at ($ (material transformer 2d) + (0,-6) $) {\html{extensions/materials/transformer3d}{Transformer3D}};
     \draw[dependency] (material transformer 3d) -| (materials);
 
     \node[extension,difficulty=3] (material scale 3d) at ($ (material transformer 3d) + (6,0) $) {\html{extensions/materials/scaling3d}{Scale 3D}};
