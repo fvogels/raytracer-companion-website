@@ -69,7 +69,7 @@
             <ul>
               <li>
                 Define a new empty <code>struct</code> <code>EasingLibrary</code>. Put it inside the anonymous namespace
-                that already existsi within the file. You can take a look at <code>SamplerLibrary</code> in <code>scripting/samplers-module.cpp</code>
+                that already exists within the file. You can take a look at <code>SamplerLibrary</code> in <code>scripting/samplers-module.cpp</code>
                 or <code>RaytracerLibrary</code> in <code>scripting/raytracing-module.cpp</code> for guidance.
               </li>
               <li>
