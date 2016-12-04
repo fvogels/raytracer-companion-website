@@ -322,7 +322,7 @@
           we could not have translated the scaling.
         </p>
         <p>
-          Remember though that these classes belong the the <code>primitives</code> module, so the classes are private to that module.
+          Remember though that these classes belong to the <code>primitives</code> module, so the classes are private to that module.
           The only functionality the module exposes is the ability to create objects of these classes:
         </p>
         <%= source 'primitives-api.cpp' %>
