@@ -139,7 +139,7 @@
               </li>
               <li>
                 The <code>ease_animation</code> function expects two parameters: an animation of type <code>Animation&lt;T&gt;</code>,
-                and an easing function of type <code>math::functions::EeasingFunction</code>.
+                and an easing function of type <code>math::functions::EasingFunction</code>.
               </li>
               <li>
                 The <code>ease_animation</code> function returns an <code>Animation&lt;T&gt;</code>.
