@@ -159,7 +159,7 @@
                 For each type <code>T</code> you defined animations for, use the <code>BIND_AS</code> macro to
                 expose <code>ease_animation&lt;T&gt;</code> as <code>ease</code> (e.g. <code>BIND_AS(ease_animation&lt;double&gt;, ease)</code>).
                 You can reuse the same name <code>ease</code> for each <code>T</code>: the scripting language supports overloading and
-                will pick automatically pick the right binding for you.
+                will automatically pick the right binding for you.
               </li>
             </ul>
           </aside>
