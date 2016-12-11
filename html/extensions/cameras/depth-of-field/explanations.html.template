@@ -100,8 +100,8 @@
           <h1>Task</h1>
           <ul>
             <li>
-              Create new files <code>camera/depth-of-field-perspective-camera.cpp</code> and
-              <code>camera/depth-of-field-perspective-camera.h</code>.
+              Create new files <code>cameras/depth-of-field-perspective-camera.cpp</code> and
+              <code>cameras/depth-of-field-perspective-camera.h</code>.
             </li>
             <li>
               Define the class <code>DepthOfFieldPerspectiveCamera</code> in an anonymous namespace
