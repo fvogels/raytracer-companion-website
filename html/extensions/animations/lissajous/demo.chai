@@ -24,7 +24,6 @@ def scene_at(now)
                                      "z_amplitude": 0,
                                      "x_frequency": 2,
                                      "y_frequency": 3,
-                                     "x_phase": degrees(90),
                                      "x_phase": degrees(180),
                                      "duration": seconds(5) ] )
 
