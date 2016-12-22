@@ -104,7 +104,7 @@
               \]
               Expanding and rearranging yields
               \[
-                \vec\Delta' \cdot \vec\Delta' \cdot t^2 + (O' - (0,0)) \cdot \vec\Delta' \cdot t + (O' - (0,0)) \cdot (O' - (0,0)) - R^2 = 0
+                \vec\Delta' \cdot \vec\Delta' \cdot t^2 + 2 \cdot (O' - (0,0)) \cdot \vec\Delta' \cdot t + (O' - (0,0)) \cdot (O' - (0,0)) - R^2 = 0
               \]
             </p>
             <p>
@@ -112,7 +112,7 @@
               \[
                 \begin{array}{rcl}
                   a & = & \vec\Delta' \cdot \vec\Delta' \\
-                  b & = & (O' - (0,0)) \cdot \vec\Delta' \\
+                  b & = & 2 \cdot (O' - (0,0)) \cdot \vec\Delta' \\
                   c & = & (O' - (0,0)) \cdot (O' - (0,0)) - R^2
                 \end{array}
               \]
@@ -174,7 +174,7 @@
                 Compute $a = \vec\Delta' \cdot \vec\Delta'$.
               </li>
               <li>
-                Compute $b = (O' - (0,0)) \cdot \vec\Delta'$.
+                Compute $b = 2 \cdot (O' - (0,0)) \cdot \vec\Delta'$.
               </li>
               <li>
                 Compute $c = (O' - (0,0)) \cdot (O' - (0,0)) - R^2$.
