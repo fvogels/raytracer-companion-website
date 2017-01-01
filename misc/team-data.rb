@@ -51,7 +51,7 @@ end
 # extension 'spot light'
 # extension 'area light'
 # extension 'voronoi 2d'
-# extension 'voronoi3d'
+# extension 'voronoi 3d'
 # extension 'material dalmatian 2d'
 # extension 'material vertical lines'
 # extension 'material grid2d'

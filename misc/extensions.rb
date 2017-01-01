@@ -165,7 +165,7 @@ extension 'directional light', 2
 extension 'spot light', 3
 extension 'area light', 2
 extension 'voronoi 2d', 5
-extension 'voronoi3d', 5
+extension 'voronoi 3d', 5
 extension 'material dalmatian 2d', 5
 extension 'material vertical lines', 2
 extension 'material grid2d', 2
