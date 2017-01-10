@@ -131,7 +131,7 @@ def print_statistics
     end
 
     if n2 >= 4
-      n2 += n2 - 4
+      n1 += n2 - 4
     else
       puts "*** Insufficient green-orange extensions: #{n2} out of 4"
     end
