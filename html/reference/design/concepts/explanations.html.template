@@ -194,7 +194,7 @@
             Different types of renderers have different components, so for now we will
             pretend only the standard renderer exists.
             Go find the declaration for the factory function in the code.
-            It is located in de renderers module, in the file <code>standard-renderer.h</code>.
+            It is located in the renderers module, in the file <code>standard-renderer.h</code>.
             As you see, it requires the following inputs:
           </p>
           <dl>
