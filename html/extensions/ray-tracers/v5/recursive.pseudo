@@ -14,6 +14,6 @@ trace(scene, ray)
 compute_reflection(...)
   if material is reflective
     ray' = compute reflection of ray
-    return reflectivity * trace(scene, ray')
+    return trace(scene, ray')
   else
     return black
