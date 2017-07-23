@@ -50,7 +50,7 @@
         <ul>
           <li>
             <code>Duration</code> models duration. This class is comparable to time spans. For example, "5 seconds" is
-            a possible valus for <code>Duration</code>.
+            a possible values for <code>Duration</code>.
           </li>
           <li>
             <code>TimeStamp</code> represents a moment in time. You can compare this to a date or time of day.
