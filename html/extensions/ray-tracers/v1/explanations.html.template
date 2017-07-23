@@ -178,7 +178,7 @@
           such as <code>Samplers.single()</code> or <code>Samplers.nrooks(3)</code>.
         </p>
         <p>
-          In order to have these factories grouped in a package, we need to create C++ object
+          In order to have these factories grouped in a package, we need to create a C++ object
           that contains all these factories. If you go take a look in <code>scripting/raytracing-module</code>, you'll
           see that there is a struct called <code>RaytracerLibrary</code> which contains a member function <code>v0()</code>.
           This member function has the sole responsibility of creating a <code>v0</code> ray tracer object.
