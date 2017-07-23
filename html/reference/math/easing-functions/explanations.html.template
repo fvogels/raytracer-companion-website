@@ -82,13 +82,13 @@
             <li>
               Quad-inout both starts and finishes with zero speed. You need to cheat here a little bit by working
               with piecewise functions: the easing function will consist of two parts, let's call them $f_1$ and $f_2$, which satisfy
-              the follow constraints:
+              the following constraints:
               \[
                 \begin{array}{rcl}
                   f(t) & = & \left\{
                                \begin{array}{lr}
                                  f_1(t) & 0 \leq t &lt; \frac12 \\
-                                 f_2(t) & \frac12 \leq t \leq \frac1 \\
+                                 f_2(t) & \frac12 \leq t \leq 1 \\
                                \end{array}
                              \right. \\ \\
                   f_1(t) & = & a_1 \cdot t^2 + b_1 \cdot t + c_1 \\
@@ -145,7 +145,7 @@
                   f(t) & = & \left\{
                                \begin{array}{lr}
                                  f_1(t) & 0 \leq t &lt; \frac12 \\
-                                 f_2(t) & \frac12 \leq t \leq \frac1 \\
+                                 f_2(t) & \frac12 \leq t \leq 1 \\
                                \end{array}
                              \right. \\ \\
                   f_1(t) & = & a_1 \cdot t^3 + b_1 \cdot t^2 + c_1 \cdot t + d_1 \\
@@ -202,7 +202,7 @@
                   f(t) & = & \left\{
                                \begin{array}{lr}
                                  f_1(t) & 0 \leq t &lt; \frac12 \\
-                                 f_2(t) & \frac12 \leq t \leq \frac1 \\
+                                 f_2(t) & \frac12 \leq t \leq 1 \\
                                \end{array}
                              \right. \\ \\
                   f_1(t) & = & a_1 \cdot t^5 + b_1 \cdot t^4 + c_1 \cdot t^3 + d_1 \cdot t^2 + e_1 \cdot t + g_1 \\
