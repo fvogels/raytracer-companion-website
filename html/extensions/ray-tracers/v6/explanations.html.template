@@ -64,7 +64,7 @@
         </p>
         <%= source 'refraction.pseudo' %>
         <p>
-          Note that, as with <%= link 'extensions/ray-tracers-v5', 'reflection' %>,
+          Note that, as with <%= link 'extensions/ray-tracers/v5', 'reflection' %>,
           only part of the photons gets refracted. How much is specified by
           the material's transparency: a value of 0 means none of the photons
           get refracted (i.e. the material is not transparent), a value of 1
@@ -84,7 +84,7 @@
             <li>
               <code>RayTracerV5::trace</code> calls <code>compute_ambient</code>, <code>process_lights</code> and
               <code>compute_reflection</code> and adds their results. <code>RayTracerV6::trace</code> is identical,
-              but should also call the new member function<code>compute_refraction</code>.
+              but should also call the new member function <code>compute_refraction</code>.
             </li>
             <li>
               <code>compute_refraction</code> computes two refractions of the light ray: once
