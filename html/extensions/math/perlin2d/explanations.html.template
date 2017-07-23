@@ -26,9 +26,15 @@
       Perlin 2D
     </header>
     <div id="contents">
+      <%= overview(reading_material: ['math/perlin']) %>
       <section>
-        <h1>Preview</h1>
-
+        <h1>Implementation</h1>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Implement
+          </p>
+        </aside>
       </section>      
     </div>
   </body>
