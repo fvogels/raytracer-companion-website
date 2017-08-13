@@ -198,6 +198,16 @@ class SharedContext
 
     %{<a href="#{absolute_path.relative_path_from current_path}/explanations.html">#{text}</a>}
   end
+
+  def raw_link(relative_path_to_root, text)
+    absolute_path = Environment.git_root + relative_path_to_root
+    current_path = Pathname.pwd
+    template_path = absolute_path
+
+    abort "Link to #{template_path} is invalid" unless template_path.file?
+
+    %{<a href="#{absolute_path.relative_path_from current_path}">#{text}</a>}
+  end
 end
 
 
