@@ -331,7 +331,7 @@
               </tr>
               <tr>
                 <td>Technique</td>
-                <td>Ray casting + sprites</td>
+                <td>Static backgrounds + ellipsoids</td>
               </tr>
             </tbody>
           </table>
