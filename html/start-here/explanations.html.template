@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Start Here</title>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      video {
+        margin: 10px auto;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      Main Entry Point
+    </header>
+    <div id="contents">
+      <section>
+        <ul>
+          <li>
+            <%= link 'history-of-3d', 'History of 3D Graphics' %>
+          </li>
+          <li>
+            <%= link 'ray-tracing', 'Basics of Ray Tracing' %>
+          </li>
+          <li>
+            <%= link 'reference/math/points-and-vectors', 'Points and Vectors' %>
+          </li>
+          <li>
+            <%= link 'reference/math/dot-product', 'Dot Product' %>
+          </li>
+          <li>
+            <%= link 'reference/math/cross-product', 'Cross Product' %>
+          </li>
+          <li>
+            <%= link 'reference/math/ray', 'Rays' %>
+          </li>
+          <li>
+            <%= link 'reference/math/ray', 'Rays' %>
+          </li>
+          <li>
+            <%= raw_link 'overview/overview.pdf', 'Extensions' %>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>
