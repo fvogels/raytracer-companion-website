@@ -27,6 +27,9 @@
     </header>
     <div id="contents">
       <section>
+        <h1>
+          Reading Material (To Start With)
+        </h1>
         <ul>
           <li>
             <%= link 'history-of-3d', 'History of 3D Graphics' %>
@@ -49,10 +52,11 @@
           <li>
             <%= link 'reference/math/ray', 'Rays' %>
           </li>
-          <li>
-            <%= raw_link 'overview/overview.pdf', 'Extensions' %>
-          </li>
         </ul>
+      </section>
+      <section>
+        <h1>Get Started</h1>
+        <%= raw_link 'overview/overview.pdf', 'Extensions' %>
       </section>
     </div>
   </body>
