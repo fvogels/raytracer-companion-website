@@ -1,0 +1,27 @@
+aside.boxed2
+{
+    width: 80%;
+    margin: 20px auto;
+    padding: 0px;
+    border-left: black 2em solid;
+    position: relative;
+    min-height: 5em;
+    background: #CCF;
+    padding: 2px 10px;
+    box-shadow: 10px 10px 5px #888;
+}
+
+aside.boxed2 h1
+{
+    display: block;
+    margin: 0px;
+    font-size: smaller;
+    transform: rotate(-90deg) translateY(-3em);
+    transform-origin: right top;
+    position: absolute;
+    right: 100%;
+    top: 0px;
+    background: none;
+    color: white;
+    line-height: 2em;
+}
