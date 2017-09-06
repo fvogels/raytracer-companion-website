@@ -35,44 +35,9 @@
     </header>
     <div id="contents">
       <section>
-        <h1>Requirements</h1>
+        <h1>Release Notes</h1>
         <p>
-          Each team member minimally needs to implement the following:
-        </p>
-        <ul>
-          <li>
-            5 green extensions. Basic sample, basic scripting and ray tracer v1 all count as green extensions. These three
-            extensions can also be shared among team members, i.e. all team members are allowed to implement each of these three extensions.
-          </li>
-          <li>
-            4 green/orange extensions.
-          </li>
-          <li>
-            3 orange extensions.
-          </li>
-          <li>
-            2 orange/red extensions.
-          </li>
-        </ul>
-        <p>
-          Note that if a single person implements mutually exclusive extensions, only one of these counts! For example,
-          if someone implements Square XY, he/she is allowed to implement Square XZ and Square YZ, but <em>it still counts as a single extension</em>.
-          This is due to the fact that these extensions are so similar that once you implemented one, the others require only an additional minute or two.
-          The mutually exclusive extensions often come in three, to give each team member the chance to implement a variant.
-        </p>
-        <p>
-          You can 'downgrade' extensions. For example, you can choose to let a yellow extension count as a green one.
-          Another example: implementing 5 + 4 + 3 + 2 red ones also suffices.
-        </p>
-        <p>
-          You cannot 'merge' extensions. Two green ones do not make an orange one.
-        </p>
-        <p>
-          Implementing the minimal amount of extensions only gives you the minimal passing grade.
-          It is highly recommended that you create one or two extra extensions as a safety buffer, in case you did not implement an extension correctly.
-        </p>
-        <p>
-          14 extensions for a course you're supposed to spent 75-90 hours on means you get 5.5-6.5 hours per extension on average.
+          Updates to the base ray tracer or 3D Studio will be posted here.
         </p>
       </section>
       <section>
