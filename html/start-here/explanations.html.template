@@ -49,9 +49,6 @@
           <li>
             <%= link 'reference/math/ray', 'Rays' %>
           </li>
-          <li>
-            <%= link 'reference/math/ray', 'Rays' %>
-          </li>
         </ul>
       </section>
       <section>
