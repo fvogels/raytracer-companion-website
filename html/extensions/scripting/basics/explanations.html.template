@@ -39,7 +39,7 @@
           which is where the <code>main</code> function resides.
           By default, the ray tracer will render the <code>basic_sample</code> and write it away to file.
           Instead, you want it to process the command line arguments, so that when on the console, launching
-          the ray tracer using raytracer <code>-s<span style="font-style: italic;">script</span></code>
+          the ray tracer using raytracer <code>-s <span style="font-style: italic;">script</span></code>
           lets it read in <span style="font-style: italic;">script</span> and execute all its instructions.
         </p>
         <aside class="boxed2">
@@ -49,8 +49,8 @@
           </p>
           <ul>
             <li>
-              Modify <code>app.cpp</code> such that <code>main</code> calls <code>process_command_line_argument</code>
-              instead of running <code>basic_sample</code>. Recompile in release build.
+              Open <code>app.cpp</code> and locate the <code>main</code> function. Remove the call to <code>demos::basic_sample</code>,
+              as we will make use of command line arguments to tell the ray tracer what to do. Recompile in release build.
             </li>
             <li>
               Locate the produced executable. It should be under <code>raytracer/x64/Release</code>.
@@ -65,10 +65,13 @@
               Open a terminal in the executable's directory.
             </li>
             <li>
-              Execute <code>raytracer -stest.chai</code> and wait for the ray tracer to finish.
+              Execute <code>raytracer -s test.chai</code>. The <code>-s</code> option tells
+              the ray tracer to process the given script file. If you want, you can also add
+              <code>--beep</code> so that it emits a sound when it's done working.
+              Now wait for the ray tracer to finish rendering.
             </li>
             <li>
-              Open the WIF file.
+              Open the WIF file using the provided WIF viewer.
             </li>
           </ul>
         </aside>
