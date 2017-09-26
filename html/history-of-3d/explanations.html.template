@@ -295,8 +295,8 @@
           <p>
             The same was true for puzzles in the game. At some point the player had to solve a puzzle involving chess pieces.
             These were rendered in 3D, but again everything was prerendered. If you moved a piece from position A to position B,
-            there was a short movie clip that showed specifically that move. A different movie existed if you moved for A to C, and yet
-            another for then you moved from B to C. It is clear that the game had to contain <em>many</em> such short movie clips,
+            there was a short movie clip that showed specifically that move. A different movie existed if you moved from A to C, and yet
+            another for when you moved from B to C. It is clear that the game had to contain <em>many</em> such short movie clips,
             thus requiring a gigantic amount of storage, especially for that time.
           </p>
           <p>
@@ -419,7 +419,7 @@
         </section>
 
         <section>
-          <h2><a href="https://en.wikipedia.org/wiki/Unreal">Unreal (1998)</a></h2>
+          <h2><a href="hSttps://en.wikipedia.org/wiki/Unreal">Unreal (1998)</a></h2>
           <%= youtube 'Op-tys_98Ek' %>
           <table class="game">
             <tbody>
@@ -500,7 +500,7 @@
           </p>
           <p>
             20 years, 3D was faked with 2D. Today it is the other way around: even 2D games
-            make use of 3D elements internally. Even <a href="https://en.wikipedia.org/wiki/Desktop_Window_Manager">OSses are using the GPU to render the desktop</a>.
+            make use of 3D elements internally. Even <a href="https://en.wikipedia.org/wiki/Desktop_Window_Manager">OSs are using the GPU to render the desktop</a>.
           </p>
         </section>
       </section>
