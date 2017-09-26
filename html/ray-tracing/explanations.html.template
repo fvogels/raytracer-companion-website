@@ -101,7 +101,7 @@
         <h1>Ray Tracing</h1>
         <p>
           As discussed <%= link 'history-of-3d', 'previously' %>,
-          there are many ways to tackle on 3d computer graphics. In this course, we do not have time to explore all these approaches in detail.
+          there are many ways to tackle 3D computer graphics. In this course, we do not have time to explore all these approaches in detail.
           Instead, we will focus on one single technique, namely ray tracing, as used by The 7th Guest.
         </p>
         <p>
