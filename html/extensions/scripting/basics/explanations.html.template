@@ -50,28 +50,19 @@
           <ul>
             <li>
               Open <code>app.cpp</code> and locate the <code>main</code> function. Remove the call to <code>demos::basic_sample</code>,
-              as we will make use of command line arguments to tell the ray tracer what to do. Recompile in release build.
+              as we will make use of 3D Studio, which relies on command line arguments to communicate with the ray tracer.
+              Recompile in release build.
             </li>
             <li>
-              Locate the produced executable. It should be under <code>raytracer/x64/Release</code>.
+              Configure 3D Studio so that it knows where to find <code>raytracer.exe</code>. It should be located under <code>raytracer/x64/Release</code>.
             </li>
             <li>
-              Create a file <code>test.chai</code> in the executable's directory.
-              Give it the following contents:
+              Create a new script in 3D Studio. Give it the following contents:
               <%= source 'test.chai' %>
               Examine the script carefully. You should be able to understand what each line means.
             </li>
             <li>
-              Open a terminal in the executable's directory.
-            </li>
-            <li>
-              Execute <code>raytracer -s test.chai</code>. The <code>-s</code> option tells
-              the ray tracer to process the given script file. If you want, you can also add
-              <code>--beep</code> so that it emits a sound when it's done working.
-              Now wait for the ray tracer to finish rendering.
-            </li>
-            <li>
-              Open the WIF file using the provided WIF viewer.
+              Render the script (F5).
             </li>
           </ul>
         </aside>
@@ -85,7 +76,7 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Write a script that produces the following animation:
+            Adapt the script so that it produces the following animation:
           </p>
           <%= raytrace_movie 'exercise' %>
           <p>
