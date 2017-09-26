@@ -7,7 +7,8 @@ require 'LaTeX2'
 require 'Image2'
 require 'RayTracer3'
 require 'Contracts'
-require '../shared.rb'
+repo_require 'html/shared.rb'
+
 
 
 class Context < SharedContext
