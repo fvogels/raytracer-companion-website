@@ -239,7 +239,7 @@
           </table>
           <p>
             Doom required a <a href="https://en.wikipedia.org/wiki/Intel_80386">80386</a> with 4MB of memory.
-            The game world was internally represented by 2D polygons, meaning this game was still not truly 3D. Each 2D-polygon was allowed to
+            The game world was internally represented by 2D polygons, meaning this game was still not truly 3D. Each 2D polygon was allowed to
             have its own floor and ceiling height. For example, using many small such polygons allowed you to model stairs.
           </p>
           <%= tex_image('doom-world', style:"width: 40%;") %>
