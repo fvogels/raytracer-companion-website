@@ -3,8 +3,76 @@ require 'Html2'
 
 class SharedContext
   include Contracts::TypeChecking
-  include Html2::Generation
 
+  def source_editor(source, div_class: "source-editor", div_id: nil, styles: {}, auto_height: false)
+    typecheck do
+      assert(source: string, div_class: string)
+    end
+
+    if auto_height
+    then
+      height = [source.lines.count + 2, 20].min
+      styles['height'] = "#{height}em"
+    end
+
+    styles_string = styles.map do |key, value|
+      "#{key}:#{value};"
+    end.join('')
+
+    style_attribute = %{style="#{styles_string}"}
+
+    source = ::Html::escape(Code.remove_redundant_indentation(source)).strip
+
+    %{<div class="#{div_class}" #{style_attribute}>#{source}</div>}
+  end
+
+  # Adds single script declaration
+  def script(file)
+    typecheck do
+      assert(file: string)
+    end
+
+    case file
+    when 'jquery'
+      url = 'https://code.jquery.com/jquery-3.2.1.min.js'
+    when 'jquery-ui'
+      url = 'https://code.jquery.com/ui/1.12.0/jquery-ui.min.js'
+    when 'ace/ace'
+      url = 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ace.js'
+    when 'underscore'
+      url = 'https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'
+    else
+      unless file.end_with? '.js'
+        file = file + '.js'
+      end
+
+      url = "/shared/#{file}"
+    end
+
+    %{<script src="#{url}" type="text/javascript" charset="utf-8"></script>}
+  end
+
+  # Adds multiple script declarations
+  def scripts(*files)
+    typecheck do
+      assert(files: array(string))
+    end
+
+    files.map do |file|
+      script file
+    end.join("\n")
+  end
+
+  def stylesheet(basename)
+    %{<link rel="stylesheet" href="/shared/#{basename}.css">}
+  end
+
+  def stylesheets(*css_files)
+    css_files.map do |css_file|
+      stylesheet css_file
+    end.join("\n")
+  end
+  
   def overview(prerequisites: [], reading_material: [], mutually_exclusive_with: [])
     prerequisites_html = prerequisites.map do |id|
       base_path = Environment.git_root + 'html/extensions' + id
@@ -194,17 +262,19 @@ class SharedContext
     current_path = Pathname.pwd
     template_path = absolute_path + 'explanations.html.template'
 
-    abort "Link to #{relative_path_to_root} is invalid" unless template_path.file?
+    abort "Link to #{relative_path_to_root} is invalid: could not find #{template_path.to_s}" unless template_path.file?
 
     %{<a href="#{absolute_path.relative_path_from current_path}/explanations.html">#{text}</a>}
   end
 
-  def raw_link(relative_path_to_root, text)
+  def raw_link(relative_path_to_root, text, check: true)
     absolute_path = Environment.git_root + relative_path_to_root
     current_path = Pathname.pwd
     template_path = absolute_path
 
-    abort "Link to #{template_path} is invalid" unless template_path.file?
+    if check
+      abort "Link to #{template_path} is invalid" unless template_path.file?
+    end
 
     %{<a href="#{absolute_path.relative_path_from current_path}">#{text}</a>}
   end
@@ -233,7 +303,6 @@ def shared_metaobject(context = SharedContext.new)
   uploadable( *Dir['*.html'] )
   uploadable( *Dir['*.png'] )
   uploadable( *Dir['*.mp4'] )
-  uploadable( *Dir['3dcg.css'] )
 
   quick_all(:html)
 end
