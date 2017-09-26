@@ -12,7 +12,7 @@ meta_object do
   extend Upload2::Actions
   extend Shortcuts::Actions
 
-  inherit_remote_directory 'overview'
+  inherit_remote_directory
 
   quick_all_tex
   quick_all(:pdf)
