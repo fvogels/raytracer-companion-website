@@ -57,7 +57,7 @@
         <p>
           To differentiate between points and vectors, we'll also use different naming conventions.
           Point names will consist of a single capital letter ($P$, $Q$, $P_1$, &hellip;),
-          whereas vector shall be denoted using lowercase letters hatted with a fashionable arrow ($\vec u$, $\vec v$, &hellip;).
+          whereas vectors shall be denoted using lowercase letters hatted with a fashionable arrow ($\vec u$, $\vec v$, &hellip;).
         <section>
           <h2>Analogy</h2>
           <p>
@@ -78,7 +78,7 @@
             absurd to interpret 10/0/0 as a date.
           </p>
           <p>
-            The same goes with points and vectors. A point corresponds to a date, whereas vectors
+            The same goes for points and vectors. A point corresponds to a date, whereas vectors
             correspond to durations. Given two points (4, 1, 9) and (4, 7, 6), the difference
             between them is the <em>vector</em> (0, 6, -3).
           </p>
@@ -108,7 +108,7 @@
         <section>
           <h2>Visualization</h2>
           <p>
-            Visually, a point is represented by a dot and a vector is by an arrow.
+            Visually, a point is represented by a dot and a vector by an arrow.
           </p>
           <%= tex_image('visualization', html_class: 'centered') %>
           <p>
