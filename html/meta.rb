@@ -9,10 +9,7 @@ meta_object do
   extend Shortcuts::Actions
   
 
-  inherit_remote_directory 'html'
+  inherit_remote_directory
 
   quick_recursive_all
-
-  register_transfer( Pathname.new('3dcg.css').expand_path,
-                     Pathname.new('/var/www/courses/shared/3dcg.css') )
 end
