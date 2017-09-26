@@ -61,7 +61,7 @@
         <section>
           <h2><code>process_light_ray</code></h2>
           <p>
-            Remember <code>process_light_ray</code> from <%= link 'html/extensions/ray-tracers/v2', 'v2' %>:
+            Remember <code>process_light_ray</code> from <%= link 'extensions/ray-tracers/v2', 'v2' %>:
             it is called once for every light ray emitted by each light source in the scene.
             In the case of v2, it merely called <code>compute_diffuse</code> and returned that function's result,
             making its existence seem pointless.
