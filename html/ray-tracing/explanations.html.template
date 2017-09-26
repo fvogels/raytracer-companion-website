@@ -127,7 +127,7 @@
           <p>
             Photons are what lie at the very heart of our sense of vision. Without photons, we would not be able to see anything.
             For the sake of simplicity, we'll just pretend that photons are tiny spheres of light.
-            These photons always travel in straight lines at the speed of light. A photon has something akin to a "heartbeat", this is called its frequency.
+            These photons always travel in straight lines at the speed of light. A photon has something akin to a "heartbeat"; this is called its frequency.
             Often people talk about the "wavelength" of a photon, which is another way of expressing the heartbeat of the photon:
             the wavelength is the distance the photon traverses between two heartbeats.
           </p>
@@ -138,7 +138,7 @@
           </p>
           <p>
             So, where do photons come into play in all of this? Simple:
-            our eyes are state of the <span style="text-decoration: line-through;">art</span> evolution photon-detectors.
+            our eyes are state of the <span style="text-decoration: line-through;">art</span> evolution photon detectors.
             Whenever a photon enters our eye through the pupil and reaches the retina, our brain is notified of this event with a nerve impulse
             which it translates into "seeing".
           </p>
@@ -255,7 +255,7 @@
             it to happen the same way as when a snooker ball hits the border of the table, i.e. that the incoming angle
             and the outgoing angle are the same. This is hardly ever the case with photons. Photons are very small,
             and objects are quite bumpy at the microscopic level. From our standpoint, it will look as if photons
-            bounce back off of object in random directions. This is called <em>diffuse reflection</em>.
+            bounce off of object in random directions. This is called <em>diffuse reflection</em>.
           </p>
           <p>
             Mirrors are an exception to this: these have very smooth surfaces, and when a photon bumps into one,
@@ -279,7 +279,7 @@
             </tbody>
           </table>
           <p>
-            Some photons are lucky enough to have their journey end up in our eyes. An eye has a relatively complex <a href="https://en.wikipedia.org/wiki/Eye">internal structure</a>
+            Some photons are lucky enough to have their journey end up in our eyes. An eye has a relatively complex <a href="https://en.wikipedia.org/wiki/Eye">internal structure</a>,
             but we will limit ourselves to the bare minimum. The eye can be seen as a sphere with an opening in front (the pupil) through which photons enter.
             They then travel through the inside of the eye and crash into the back side where the retina is located.
           </p>
@@ -291,7 +291,7 @@
           </p>
           <p>
             So, in summary, when we see an object, it is because a light source generated a photon, which then bounced around the world a number of times,
-            surviving each of these reflection (i.e. not being absorbed) and finally ended up on our retina.
+            and finally ended up on our retina.
           </p>
           <img src="photon-life.svg" class="centered" />
         </section>
@@ -299,7 +299,7 @@
         <section>
           <h2>The Eye</h2>
           <p>
-            There is one slight problem with the above explanations: it does not explain how a clear image can appear on the retina.
+            There is one slight problem with the above explanations: they does not explain how a clear image can appear on the retina.
             Consider the figure above showing the life of a photon: the light source is shown to produce one photon, which
             is reflected into the eye. But in reality, the light source produces many photons, and these are reflected in all directions.
           </p>
@@ -313,7 +313,7 @@
           <p>
             The main issue is that when a photon hits the retina, the brain has no clue about which direction the photon came from.
             Take a look at the figure above and put yourself in the brain's shoes: you are told that a red photon has reached the retina at location L.
-            The red lines show possible paths the photon took to reach that location.
+            The red lines show possible paths the photon could have taken to reach that location.
             If you are to successfully reconstruct an image, you need to know exactly which direction a photon came from.
           </p>
           <p>
@@ -333,7 +333,7 @@
           </ul>
           <img src="pinhole.svg" class="centered" />
           <p>
-            You probably heard before that the image you see is actually upside down and the brain learns to
+            You have probably heard before that the image you see is actually upside down and the brain learns to
             turn it upside down. The above figure corroborates this: the green ray comes from below yet
             it hits the retina in a higher location than the red ray, which comes from above.
           </p>
@@ -352,7 +352,7 @@
             Unfortunately, this is not the case. The lens can only make those photons "arrive correctly"
             that originate from objects from a certain distance. For example, you would
             be able to see objects that are exactly 5m away from you sharply, but objects
-            closer or farther away would become blurry. The more an object is located
+            closer or farther away would become blurry. The farther an object is located
             from the "ideal distance" of 5m, the blurrier it gets. This ideal distance is called
             the <em>focal length</em> of the lens.
           </p>
@@ -396,7 +396,7 @@
         <section>
           <h2>Turning Things Around</h2>
           <p>
-            Now that you have an idea of how sight works, we can now discuss
+            Now that you have an idea of how sight works, we can discuss
             how to fake it in software.
           </p>
           <p>
@@ -423,28 +423,28 @@
             painting using tiny little dots on the canvas.
           </p>
           <p>
-            You carefully choose a location from which to paint. You prepare an easle and canvas on that spot.
+            You carefully choose a location from which to paint. You prepare an easel and canvas on that spot.
             You pick up your brush and your paint and want to start painting, when you suddenly realize
             you've never painted anything before.
           </p>
           <p>
             You decide to take a scientific approach. The painting will be a success if you manage
             to assign the correct color to every pointillistic dot. In order to do so,
-            you fetch your tripod on which you attach a laser pointer, and you put it right in front of your easle.
+            you fetch your tripod on which you attach a laser pointer, and you put it right in front of your easel.
             Next, you turn on the laser pointer and swivel it so that a little red laser dot appears on the upper left corner
             of your canvas.
           </p>
           <p>
             Then, you remove the canvas. The laser beam is able to travel farther and will hit the landscape
             somewhere at some location. You travel to that location in search of the red laser dot.
-            It turns out it landed on the trunk of a tree, which is brown. You go back to your easle
+            It turns out it landed on the trunk of a tree, which is brown. You go back to your easel
             and put the canvas back. The laser again points at the upper left corner of the canvas.
             You now paint a little brown dot at exactly that point.
           </p>
           <p>
             Next, you swivel the laser point a minute amount to the right so that the laser dot lands
             just next to the brown paint dot. You again remove the canvas and go find where the laser hits
-            the landscape. Turns out it's again the same tree. You go back, put the canvas back on the easle,
+            the landscape. Turns out it's the same tree again. You go back, put the canvas back on the easel,
             and draw a second brown dot. You continue this way until your entire canvas is filled with little dots.
           </p>
           <p>
@@ -475,8 +475,8 @@
                 <td>
                   Next, ambient lighting is added. You achieve this by
                   traveling down to where the laser hits the landscape,
-                  then point a bright flashlight at it to better see which color
-                  the landscape has at that point, and use that to determine
+                  then pointing a bright flashlight at it to better see which color
+                  the landscape has at that point, and using that to determine
                   the color of your pointillistic dot.
                   The problem with this approach is that you "destroy" all lighting information:
                   you don't take into account <em>how much</em> light arrived at that point.
