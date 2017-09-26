@@ -48,7 +48,7 @@
       <section>
         <h1>Cross Product</h1>
         <p>
-          Contrary to the <%= link 'reference/math/dot-product', 'dot product' %>
+          Contrary to the <%= link 'reference/math/dot-product', 'dot product' %> which
           resulted in a scalar, the cross product yields a <em>vector</em>, which can be found using the following formula:
         </p>
         \[
@@ -59,7 +59,7 @@
         </p>
         <ul>
           <li>
-            $\vec u \times \vec v$ is perpendicular on both $\vec u$ and $\vec v$.
+            $\vec u \times \vec v$ is perpendicular to both $\vec u$ and $\vec v$.
           </li>
           <li>
             The length of the resulting vector equals the product of the lengths of the operands times the sine of the angle they form.
@@ -73,12 +73,12 @@
         </ul>
         <%= tex_image('cross-product', html_class: 'centered') %>
         <p>
-          In this course, we will mostly rely on the first property: being able to find a vector that is perpendicular on two others
+          In this course, we will mostly rely on the first property: being able to find a vector that is perpendicular to two others
           will regularly come in handy.
         </p>
         <p>
-          There is one catch, though. Given two (nonparallel) vectors, there are always <em>two</em> vectors perpendicular on both.
-          If some vector $\vec p$ is perpendicular on both $\vec u$ and $\vec v$, then so is $-\vec{p}$.
+          There is one catch, though. Given two (nonparallel) vectors, there are always <em>two</em> vectors perpendicular to both.
+          If some vector $\vec p$ is perpendicular to both $\vec u$ and $\vec v$, then so is $-\vec{p}$.
         </p>
         <%= tex_image('perpendicular-vectors', html_class: 'centered') %>
         <p>
