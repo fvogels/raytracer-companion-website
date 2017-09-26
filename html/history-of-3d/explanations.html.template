@@ -248,7 +248,7 @@
             it was possible both to walk on and under. You could not have a building with several floors on top of each other.
             (Actually, that's a bit of a lie: floors that were supposedly one above the other were internally modelled
             as areas placed adjacent to each other. An elevator that pretended moving you up and down would actually teleport you
-            horizontally.) Like Wolfenstein 3D, this approach is mostly limited to render indoor gaming worlds.
+            horizontally.) Like Wolfenstein 3D, this approach is mostly limited to rendering indoor gaming worlds.
           </p>
           <p>
             Enemies were represented using sprites.
