@@ -247,7 +247,7 @@
             The world was still "flat" in a way: these 2D polygons could not overlap, so you could not have a bridge for which
             it was possible both to walk on and under. You could not have a building with several floors on top of each other.
             (Actually, that's a bit of a lie: floors that were supposedly one above the other were internally modelled
-            as areas placed adjacent next to each other. An elevator that pretended moving you up and down would actually teleport you
+            as areas placed adjacent to each other. An elevator that pretended moving you up and down would actually teleport you
             horizontally.) Like Wolfenstein 3D, this approach is mostly limited to render indoor gaming worlds.
           </p>
           <p>
