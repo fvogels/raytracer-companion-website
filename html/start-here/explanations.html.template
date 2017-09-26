@@ -53,7 +53,7 @@
       </section>
       <section>
         <h1>Get Started</h1>
-        <%= raw_link 'overview/overview.pdf', 'Extensions' %>
+        <%= raw_link('overview.pdf', 'Extensions', check:false) %>
       </section>
     </div>
   </body>
