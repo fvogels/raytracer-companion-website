@@ -65,6 +65,118 @@
           be taken into account during our search for hits. If we were to create a deeper hierarchy, even more triangles
           can be ignored, further speeding up the process.
         </p>
+
+        <section>
+          <h2>A Top Down Approach</h2>
+          <p>
+            There are many ways to build a bounding box hierarchy. We present you with a few general ideas, leaving the details up to you.
+          </p>
+          <p>
+            A first approach to build a hierarchy goes as follows:
+          </p>
+          <ol>
+            <li>
+              You start with the set of triangles.
+            </li>
+            <li>
+              Build the smallest bounding box containing all of these triangles. This box is the top of your hierarchy.
+            </li>
+            <li>
+              Split the box in 2 equal parts. Let's call the two smaller boxes the "left" and "right" box.
+            </li>
+            <li>
+              Find out in which of these two boxes each triangle fits. There will be triangles that don't fit in either.
+              You can put these in the left box and enlarge it so that it fully envelops these rebel triangles.
+            </li>
+            <li>
+              Now you have two boxes each containing triangles. Repeat the above steps as often as you want.
+            </li>
+          </ol>
+          <p>
+            There are multiple possible variations:
+          </p>
+          <ul>
+            <li>
+              How to split a box in two:
+              <ul>
+                <li>
+                  You can split it up along its largest dimension. E.g. a box with dimensions 8 &times; 6 &times; 10
+                  is first divided into two boxes of size 8 &times; 6 &times; 5. These two boxes would
+                  be further divided into two boxes sized 4 &times; 6 &times; 5, and those in turn
+                  will be divided into 2 &times; 3 &times; 5 boxes, etc.
+                </li>
+                <li>
+                  You can choose to alternate between splitting alone the X-axis, Y-axis and Z-axis, regardless
+                  of the box's actual size.
+                </li>
+                <li>
+                  Instead of cutting a box in two perfect halves, you can split it up so that the left and
+                  right size contain an equal number of triangles.
+                </li>
+              </ul>
+            </li>
+            <li>
+              Dealing with "leftover" triangles:
+              <ul>
+                <li>
+                  As mentioned above, you can choose to put them all in the left box, and then enlarge the left box so that it
+                  contains these extra triangles.
+                </li>
+                <li>
+                  You could also put the leftover triangles in the right box. Quite the twist.
+                </li>
+                <li>
+                  You can put them in a separate box, yielding a ternary tree instead of a binary one, i.e.
+                  each box contains three subboxes instead of 2.
+                </li>
+              </ul>
+            </li>
+            <li>
+              When to stop dividing boxes in two:
+              <ul>
+                <li>
+                  You could stop after $N$ iterations.
+                </li>
+                <li>
+                  You can continue splitting up until there are less than $N$ triangles per box.
+                </li>
+                <li>
+                  You can stop when a box's volume becomes less than $N$.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>A Bottom Up Approach</h2>
+          <p>
+            The previous approach started with a big box and starting splitting it into smaller boxes.
+            A different take would be to start with the triangles, group them in small boxes,
+            group these boxes in boxes, etc. until you end up with one single box.
+          </p>
+          <p>
+            Again, there are many variations possible:
+          </p>
+          <ul>
+            <li>
+              Which triangles will you group together in boxes?
+              <ul>
+                <li>
+                  You could look for that pair of triangle
+                  that leads to the smallest box.
+                </li>
+                <li>
+                  You could just sort them along the X-, Y- or Z-axis and group consecutive triangles.
+                  You could stick to one axis, or alternate. You could sort based on the leftmost vertex
+                  or the triangle's center.
+                </li>
+              </ul>
+            </li>
+            <li>
+              How many triangles will you put in each box?
+            </li>
+          </ul>
+        </section>
       </section>
     </div>
   </body>
