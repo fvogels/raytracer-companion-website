@@ -41,6 +41,27 @@
         </p>
       </section>
       <section>
+        <h1>Cake Points!</h1>
+        <p>
+          Gain <a href="https://ucll-my.sharepoint.com/personal/u0057764_ucll_be/_layouts/15/guestaccess.aspx?docid=044c588da96e04e0e9c26700cee7672f8&authkey=AUqIvNYX736E930GpCvixwY">Cake Points</a> by finding mistakes in the html pages. Rules:
+        </p>
+        <ul>
+          <li>
+            Mistakes have to be reported by mail.
+          </li>
+          <li>
+            Only the first one to find a mistake gets the point.
+          </li>
+          <li>
+            Typos, errors in formulae, broken links, &hellip; are considered mistakes.
+          </li>
+          <li>
+            Black nodes in the overview are missing. This is normal and is not a mistake.
+          </li>
+        </ul>          
+      </section>
+
+      <section>
         <h1>Coding Guidelines</h1>
         <article>
           <h1>Sanity Checks (06/10/2016)</h1>
@@ -132,27 +153,6 @@
               you will, depending on your cpu, be able to get gains ranging for 2 to 8&times; faster.
             </li>
           </ul>
-        </article>
-
-        <article>
-          <h1>Cake Points! (04/10/2016)</h1>
-          <p>
-            Gain <a href="https://ucll-my.sharepoint.com/personal/u0057764_ucll_be/_layouts/15/guestaccess.aspx?guestaccesstoken=%2fGP0eRg%2bZU0DSb2MQ%2bQGUjLGcXjjAmD6Ca6x1IsEIPM%3d&docid=02ea125869aab4222a5358866e84741c9&rev=1">Cake Points</a> by finding mistakes in the html pages. Rules:
-          </p>
-          <ul>
-            <li>
-              Mistakes have to be reported by mail.
-            </li>
-            <li>
-              Only the first one to find a mistake gets the point.
-            </li>
-            <li>
-              Typos, errors in formulae, broken links, &hellip; are considered mistakes.
-            </li>
-            <li>
-              Red links in the overview are missing. This is normal and is not a mistake.
-            </li>
-          </ul>          
         </article>
       </section>
     </div>
