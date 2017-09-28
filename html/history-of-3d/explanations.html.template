@@ -126,7 +126,7 @@
           <%= tex_image('wolfenstein-world', style:"width: 40%;") %>
           <p>
             Enemies were represented using sprites, i.e. flat bitmaps that were drawn where the enemy was. The closer the enemy was,
-            the more stretched out the bitmap had to be, leading to serious pixellation when you got up close to an enemy.
+            the more stretched out the bitmap had to be, leading to serious pixelation when you got up close to an enemy.
           </p>
         </section>
         
@@ -170,7 +170,7 @@
         </section>
 
         <section>
-          <h2><a href="https://en.wikipedia.org/wiki/Comanche_(series)">Comanche</a></h2>
+          <h2><a href="https://en.wikipedia.org/wiki/Comanche_(video_game_series)">Comanche</a></h2>
           <%= youtube 'snWmPWfeS6Y' %>
           <table class="game">
             <tbody>
@@ -419,7 +419,7 @@
         </section>
 
         <section>
-          <h2><a href="hSttps://en.wikipedia.org/wiki/Unreal">Unreal (1998)</a></h2>
+          <h2><a href="https://en.wikipedia.org/wiki/Unreal_(1998_video_game)">Unreal (1998)</a></h2>
           <%= youtube 'Op-tys_98Ek' %>
           <table class="game">
             <tbody>
