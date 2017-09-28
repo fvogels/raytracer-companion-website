@@ -91,7 +91,7 @@
           </p>
           <p>
             Since we use RGB values between 0 and 1, the "filtering"
-            of photons can be easily achieved using on multiplication:
+            of photons can be easily achieved using multiplication:
             \[
               (r_1, g_1, b_1) \cdot (r_2, g_2, b_2) = (r_1 \cdot r_2, g_1 \cdot g_2, b_1 \cdot b_2)
             \]
