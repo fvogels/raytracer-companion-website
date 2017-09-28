@@ -189,7 +189,7 @@
             <li>
               Add <%= link 'extensions/performance/parallel-task-scheduler', 'multithreading' %>. Since ray tracing
               is <a href="https://en.wikipedia.org/wiki/Embarrassingly_parallel">embarrassingly parallel</a>,
-              you will, depending on your cpu, be able to get gains ranging for 2 to 8&times; faster.
+              you will, depending on your cpu, be able to get gains ranging from 2 to 8&times; faster.
             </li>
           </ul>
         </article>
