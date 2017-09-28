@@ -110,7 +110,7 @@
         </p>
         <p>
           There is a major downside however: ray tracing is <em>slow</em>. Take for example <a href="https://renderman.pixar.com/view/renderman">RenderMan</a>,
-          software that is used in <a href="https://renderman.pixar.com/view/movies-and-awards">many movies</a> such as Finding Dory, Ex Machina, Mad Max: Fury Road,
+          software that is used in many movies such as Finding Dory, Ex Machina, Mad Max: Fury Road,
           Interstellar, Star Wars VII, etc. Using a render farm, it can take many hours to produce even a single frame.
         </p>
         <p>
