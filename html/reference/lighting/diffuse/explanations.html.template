@@ -59,7 +59,7 @@
         </p>
         <p>
           During ray tracing, we need to think backwards. We cast a ray originating in the eye $E$. Say the ray hits the scene at some position $P$.
-          In order to determine the color of that hit, we need to determine to things:
+          In order to determine the color of that hit, we need to determine two things:
         </p>
         <ul>
           <li>
