@@ -39,6 +39,20 @@
         <p>
           Updates to the base ray tracer or 3D Studio will be posted here.
         </p>
+        <article>
+          <h1>Ray Tracer</h1>
+          <p>
+            No changes yet.
+          </p>
+        </article>
+        <article>
+          <h1>3D Studio</h1>
+          <ul>
+            <li>
+              26/9/2017: toolbar open button can be used to open both chai and wif files.
+            </li>
+          </ul>
+        </article>
       </section>
       <section>
         <h1>Cake Points!</h1>
@@ -93,6 +107,7 @@
           </p>
         </article>
       </section>
+      
       <section>
         <h1>Troubleshooting</h1>
         <article>
@@ -156,46 +171,6 @@
               Take in the changes made in the other branch: <code>git merge <span style="font-style: italic;">branchname</span></code>, e.g. <code>git merge helpimstuck</code>.
             </li>
           </ul>
-        </article>
-
-        </ul>
-        <article>
-          <h1>Release builds crash at runtime (04/10/2016)</h1>
-          <p>
-            By default, the compiler is allowed to use advanced instruction sets in order to increase performace.
-            Unfortunately, not every CPU supports these, leading to a crash when it encounters such an instruction.
-          </p>
-          <p>
-            To fix this problem, follow these steps:
-          </p>
-          <ul>
-            <li>
-              In the solution explorer, right click on the project (<em>not on the solution</em>). Pick properties.
-            </li>
-            <li>
-              In the left pane, go to Configuration Properties - C/C++. In the right part,
-              look for "Enable Enhanced Instruction Set". Put this on Not Set.
-            </li>
-          </ul>
-        </article>
-        
-        <article>
-          <h1>Long Release Build Times (04/10/2016)</h1>
-          <p>
-            Release builds are quite slow due to global optimization: the linker looks at the whole program
-            and looks for all kinds of ways to optimize your program. This happens even if you make a small
-            change in a single file.
-          </p>
-          <p>
-            Turning global optimization off will decrease build times dramatically. However, the produced
-            executable will not run as fast. Measurements on my PC show that the change in performance
-            is not large: rendering a complex scene went from 2.45 minutes to 2.56 minutes, which is a difference of 6-7 seconds, which
-            is only 4%.
-          </p>
-          <p>
-            Two new builds have been introduced: "Release - Fast Compile" and "Release - No Scripting - Fast Compile".
-            Feel free to use these builds instead of "Release" and "Release - No Scripting".
-          </p>
         </article>
 
         <article>
