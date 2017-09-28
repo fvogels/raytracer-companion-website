@@ -96,6 +96,70 @@
       <section>
         <h1>Troubleshooting</h1>
         <article>
+          <h1>Asking for Help (28/09/2017)</h1>
+          <p>
+          In case you're having trouble and are about to send me an email: please do <strong>not</strong> send code. I forbid it. This is useless because
+          </p>
+          <ul>
+            <li>
+              It is often the case that the error is not where you think it is.
+            </li>
+            <li>
+              I do not correct code by intensely staring at it. I need to debug it, to modify it, to poke and prod it.
+            </li>
+          </ul>
+          <p>
+            Instead, you need to push your code to Bitbucket, explain the error by mail and give me the repo url (so that I don't have to look it up each time on the team sheet.)
+            In so doing, I have full access to your code, allowing me to test it, correct it, and push my modifications. This is much simpler than having to answer with a long list of vague "change this here and that there"s.
+          <p>
+          <p>
+            If you're reluctant to push buggy code to your repo, you are absolutely correct. It is much better to create a separate branch. You do this as follows:
+          </p>
+          <ul>
+            <li>
+              Initial situation: you are on the master branch and have made some changes to your code, but they don't work. These changes have not been "git add"-ed yet, which is good.
+            </li>
+            <li>
+              Create a new branch: <code>git branch <span style="font-style: italic;">branchname</span></code>. E.g. <code>git branch helpimstuck</code>.
+            </li>
+            <li>
+              Switch to this new branch using <code>git checkout <span style="font-style: italic;">branchname</span></code>, e.g. <code>git checkout helpimstuck</code>.
+            </li>
+            <li>
+              Add your changes: <code>git add <span style="font-style: italic;">files</span></code>.
+            </li>
+            <li>
+              Commit your changes: <code>git commit -m <span style="font-style: italic;">message</span></code>.
+            </li>
+            <li>
+              Push your changes: <code>git push -u origin <span style="font-style: italic;">branchname</span></code>, e.g. <code>git push -u origin helpimstuck</code>. The <code>-u</code> is only needed for your first push.
+              It tells git to remember that your new local branch must be linked with the remote branch on Bitbucket. Subsequent pushes on this branch can be done with a simple <code>git push</code>.
+            </li>
+          </ul>
+          <p>
+            If I make changes, this is how to retrieve them:
+          </p>
+          <ul>
+            <li>
+              While on the correct branch (the one you created above), pull in my modifications: <code>git pull</code>.
+            </li>
+            <li>
+              You should take a look at the changes I made: <code>git diff HEAD~1 HEAD</code>.
+            </li>
+            <li>
+              You should definitely check that everything works, i.e. build and run.
+            </li>
+            <li>
+              Switch to the master branch: <code>git checkout master</code>.
+            </li>
+            <li>
+              Take in the changes made in the other branch: <code>git merge <span style="font-style: italic;">branchname</span></code>, e.g. <code>git merge helpimstuck</code>.
+            </li>
+          </ul>
+        </article>
+
+        </ul>
+        <article>
           <h1>Release builds crash at runtime (04/10/2016)</h1>
           <p>
             By default, the compiler is allowed to use advanced instruction sets in order to increase performace.
@@ -114,7 +178,7 @@
             </li>
           </ul>
         </article>
-
+        
         <article>
           <h1>Long Release Build Times (04/10/2016)</h1>
           <p>
