@@ -49,6 +49,15 @@
           <h1>3D Studio</h1>
           <ul>
             <li>
+              29/9/2017: you can now choose the animation speed.
+            </li>
+            <li>
+              29/9/2017: you can use the arrow keys to move from frame to frame.
+            </li>
+            <li>
+              29/9/2017: you can copy a frame directly to the clipboard using ctrl-v.
+            </li>
+            <li>
               26/9/2017: toolbar open button can be used to open both chai and wif files.
             </li>
           </ul>
