@@ -37,13 +37,13 @@
       <section>
         <h1>Introducing ray tracer v1</h1>
         <p>
-          Go take a look at the code for original ray tracer in <code>raytracers/ray-tracer-v0</code>.
+          Go take a look at the code for the original ray tracer in <code>raytracers/ray-tracer-v0</code>.
           The <code>trace</code> member function must (among other things), given a ray and a scene, determine which object in the scene is hit by the ray first
           and find out what color this object has.
         </p>
         <p>
           Ray tracer v0 is a rather lazy implementation: if there's a hit, it simply returns white instead
-          of actually trying to find out which color the object has. Ray tracer v1 will improve upon.
+          of actually trying to find out which color the object has. Ray tracer v1 will improve upon it.
         </p>
         <aside class="boxed2">
           <h1>Task</h1>
