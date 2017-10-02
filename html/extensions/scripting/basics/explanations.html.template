@@ -67,7 +67,7 @@
           </ul>
         </aside>
         <p>
-          If all goes well, you should the following animation:
+          If all goes well, you should see the following animation:
         </p>
         <%= raytrace_movie 'test-ppm' %>
         <p>
