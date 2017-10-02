@@ -172,7 +172,7 @@
           create a v1 ray tracer.
         </p>
         <p>
-          <code>v0</code> and <code>v1</code> are in essence ray tracer factories. We grouped all ray traces factories
+          <code>v0</code> and <code>v1</code> are in essence ray tracer factories. We grouped all ray tracer factories
           into some kind of package named <code>Raytracers</code>. The same thing applies for other kinds of factories,
           for example, all samplers can be created using <code>Samplers.<span style="font-style: italic;">name</span>()</code>,
           such as <code>Samplers.single()</code> or <code>Samplers.nrooks(3)</code>.
