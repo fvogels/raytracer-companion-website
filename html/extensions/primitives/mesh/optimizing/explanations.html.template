@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Mesh</title>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      video {
+        margin: 10px auto;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      Mesh
+    </header>
+    <div id="contents">
+      <%= overview(prerequisites: ['primitives/mesh/reading'], reading_material: ['primitives/mesh']) %>
+      <section>
+        <h1>Implementation</h1>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            In <%= link 'extensions/primitives/mesh/reading', 'a previous extension' %>, you have written
+            a reader for a particular mesh format. For this extension, you will need to
+          </p>
+          <ul>
+            <li>
+              Implement an <%= link 'reference/primitives/mesh/optimization/', 'optimization algorithm' %>
+              of your choice, (preferably) written in the same programming language as the reader is written in.
+            </li>
+            <li>
+              Develop your own file format to allow you to store the results of your optimisation to disk.
+              It should be easily readable from C++, as you'll need to <%= link 'extensions/primitives/mesh/rendering', 'read it back in' %> in the ray tracer.
+            </li>
+          </ul>
+        </aside>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
