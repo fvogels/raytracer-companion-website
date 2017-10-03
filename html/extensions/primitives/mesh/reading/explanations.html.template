@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Mesh</title>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      video {
+        margin: 10px auto;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      Mesh
+    </header>
+    <div id="contents">
+      <%= overview(prerequisites: ['primitives/triangle', 'primitives/bounding-box-accelerator'], reading_material: ['primitives/mesh']) %>
+      <section>
+        <h1>Implementation</h1>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Find some source of meshes. You can either download them ready-made from such sources as
+          </p>
+          <ul>
+            <li><a href="https://graphics.stanford.edu/data/3Dscanrep/">The Stanford 3D Scanning Repository</a></li>
+            <li><a href="http://archive3d.net/">Archive3D</a></li>
+          </ul>
+          <p>
+            or create them yourself using <a href="https://en.wikipedia.org/wiki/List_of_3D_modeling_software">3D modeling software</a>.
+            Note however that this is not a mesh modeling course, so making your own mesh does not get you any extra credit.
+            The mesh should count at least 250k triangles.
+          </p>
+          <p>
+            Look up information about the format in which the mesh has been stored. Implement a reader for this format.
+            This reader can be written in any programming language you like, as it will only be used for preprocessing
+            the mesh (in the <%= link 'extensions/primitives/mesh/optimizing', 'optimizing' %> step) and won't be needed
+            in the actual ray tracer.
+          </p>
+        </aside>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
