@@ -26,7 +26,7 @@
       Quintic Easing Function
     </header>
     <div id="contents">
-      <%= overview(mutually_exclusive_with: ['animations/quadratic', 'animations/cubic'], reading_material: ['math/animations', 'design/animations/basics', 'math/easing-functions']) %>
+      <%= overview(prerequisites: ['animations/easing-library'], mutually_exclusive_with: ['animations/quadratic', 'animations/cubic'], reading_material: ['math/animations', 'design/animations/basics', 'math/easing-functions']) %>
       <section>
         <h1>Preview</h1>
         <%= raytrace_movie 'demo' %>
