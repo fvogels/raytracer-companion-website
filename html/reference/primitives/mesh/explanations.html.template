@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3DCG: Mesh</title>
+    <%= stylesheets('3dcg', 'box2') %>
+    <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
+    <style>
+      img.large {
+        width: 60%;
+      }
+
+      video {
+        margin: 10px auto;
+      }
+    </style>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+  </head>
+
+  <body>
+    <header>
+      Mesh
+    </header>
+    <div id="contents">
+      <section>
+        <h1>Rendering Complex Shapes</h1>
+        <p>
+          A mesh is a large collection of triangles forming a complex shape. Any shape can be built out of triangles,
+          as long as you have enough of them. For example, the above preview is built out of 10 million triangles.
+        </p>
+        <%= raytrace_movie 'demo' %>
+        <p>
+          The problem with having meshes consisting of millions of triangles is obvious: rendering times would go through the roof.
+          We need to find a way to speed it up quite a bit if we want to be able to admire the results within our lifetime.
+        </p>
+        <p>
+          Implementing meshes is a multi-step process. We discuss them in more detail below.
+        </p>
+        <ul>
+          <li>
+            First, you will need to find actual meshes. You could create them yourself using some 3D modelling program such as
+            <a href="https://www.blender.org/">Blender</a>, but it may be simpler to find some preexisting meshes online.
+          </li>
+          <li>
+            There is a multitude of different graphics formats: png, jpg, bmp, &hellip; Similary, there are many ways
+            to store meshes. Once you have found a mesh, you will need to find out the details of the data
+            format it is stored in.
+          </li>
+          <li>
+            Once you are able to read in the mesh's triangles from file, you will need to organize them in a particular data structure
+            so as to speed up rendering.
+            This organizing may take quite some time: depending on the amount of triangles and the algoritmic details of your approach,
+            it may take a couple of hours. You really do not want this to happen every time you render a scene.
+            Therefore, you will perform the necessary computations once and write the results to disk.
+          </li>
+          <li>
+            The ray tracer will need to read the "optimized triangle data" from disk and use it to render the mesh efficiently.
+          </li>
+        </ul>
+        <p>
+          Each of these steps is discussed more in detail below.
+        </p>
+        <section>
+          <h2>Step 1: Finding a Mesh</h2>
+          <p>
+            First, you will want to find a mesh online that you like. Here are a couple of sites which offer free models:
+          </p>
+          <ul>
+            <li><a href="https://graphics.stanford.edu/data/3Dscanrep/">The Stanford 3D Scanning Repository</a></li>
+            <li><a href="http://archive3d.net/">Archive3D</a></li>
+          </ul>
+          <p>
+            Another possibility is to make a mesh yourself using <a href="https://en.wikipedia.org/wiki/List_of_3D_modeling_software">3D modeling software</a>.
+          </p>
+        </section>
+        <section>
+          <h2>Step 2: Reading a Mesh</h2>
+          <p>
+            Once you found your mesh, you need to understand its file format. For example,
+            the Stanford models are written in the <a href="https://en.wikipedia.org/wiki/PLY_(file_format)">PLY file format</a>.
+            Other formats you might encounter are <a href="https://en.wikipedia.org/wiki/Wavefront_.obj_file">OBJ</a>
+            and <a href="https://en.wikipedia.org/wiki/STL_(file_format)">STL</a>.
+          </p>
+        </section>
+        <section>
+          <h2>Step 3: Optimizing the Mesh</h2>
+          <p>
+            While it is certainly possible to dump all these triangles into a <code>Union</code> primitive,
+            rendering will be mind-numbingly slow. Using a specialized data structure can dramatically
+            speed up this process.
+          </p>
+          <p>
+            You are free to implement any kind of optimization you wish. We discuss possible
+            approaches on a <%= link 'reference/primitives/mesh/optimization', 'separate page' %>.
+          </p>
+        </section>
+        <section>
+          <h2>Step 4: Devising Your Own Mesh Format</h2>
+          <p>
+            Optimizing the mesh can take quite some time and should only happen once for each mesh. Once it's done,
+            you should write the results to file so you can reuse it for many renderings.
+          </p>
+          <p>
+            For example, Stanford's Lucy mesh counts 116 million rectangles. Optimizing it took more than an hour
+            and consumed 20GB of RAM. Having to repeat this process each time we want to use Lucy in our scene would be preposterously inefficient.
+            Instead, the optimized mesh was saved to file. This file was
+            then read in by the ray tracer, which could then render Lucy in a matter of seconds.
+          </p>
+        </section>
+        <section>
+          <h2>Step 5: Reading Your Own Mesh Format</h2>
+          <p>
+            Lastly, your ray tracer needs to be able to read files written in your own format
+            and create a hierarchy consisting of <%= link 'extensions/primitives/bounding-box-accelerator', 'bounding box accelerator' %>,
+            <%= link 'extensions/primitives/triangle', 'triangle' %> and unions.
+          </p>
+        </section>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    function initialize()
+    {
+      SourceEditor.initialize();
+    }
+
+    $( initialize );   
+  </script>
+</html>
