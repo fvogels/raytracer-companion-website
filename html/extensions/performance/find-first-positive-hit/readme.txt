@@ -1,1 +1,1 @@
-Implement find_first_positive_hit and measure performace gain
+Implement find_first_positive_hit and measure performance gain
