@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Mesh</title>
+    <title>3DCG: Optimizing the Mesh</title>
     <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      Mesh
+      Optimizing the Mesh
     </header>
     <div id="contents">
       <%= overview(prerequisites: ['primitives/mesh/reading'], reading_material: ['primitives/mesh']) %>
