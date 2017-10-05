@@ -49,6 +49,9 @@
           <h1>3D Studio</h1>
           <ul>
             <li>
+              5/10/2017: autosave option (see <code>Configuration</code> class)
+            </li>
+            <li>
               29/9/2017: you can now choose the animation speed.
             </li>
             <li>
