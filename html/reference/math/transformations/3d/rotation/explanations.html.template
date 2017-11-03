@@ -94,7 +94,7 @@
         </section>
 
         <section>
-          <h2>Rotation Around the Y-Axis</h2>
+          <h2>Rotation Around the Z-Axis</h2>
           <p>
             Rotating a point with <%= link 'reference/math/homogeneous-coordinates', 'homogeneous coordinates' %> $(x, y, z, w)$ around the Z-axis by an angle $\alpha$:
             \[
