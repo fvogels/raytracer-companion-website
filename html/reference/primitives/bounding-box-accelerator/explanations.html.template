@@ -57,7 +57,7 @@
           If it does, there's a bug.
         </p>
         <p>
-          The <code>BoundingBoxAccelerator</code>'s only purpose in life is to <span style="line-through">pass the butter</span>
+          The <code>BoundingBoxAccelerator</code>'s only purpose in life is to <span style="text-decoration: line-through">pass the butter</span>
           speed up rendering. Say you have a scene containing a complex object built out of
           thousands or millions of triangles (i.e. a <em>mesh</em>):
         </p>
