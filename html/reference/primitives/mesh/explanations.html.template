@@ -30,7 +30,7 @@
         <h1>Rendering Complex Shapes</h1>
         <p>
           A mesh is a large collection of triangles forming a complex shape. Any shape can be built out of triangles,
-          as long as you have enough of them. For example, the above preview is built out of 10 million triangles.
+          as long as you have enough of them. For example, the preview below is built out of 10 million triangles.
         </p>
         <%= raytrace_movie 'demo' %>
         <p>
