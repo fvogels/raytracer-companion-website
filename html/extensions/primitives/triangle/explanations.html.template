@@ -38,7 +38,7 @@
           <h1>Task</h1>
           <ul>
             <li>
-              Create new files <code>primitives/triangle-primitive.h</code> and <code>primitives/triangle-primitives.cpp</code>.
+              Create new files <code>primitives/triangle-primitive.h</code> and <code>primitives/triangle-primitive.cpp</code>.
             </li>
             <li>
               Define a factory function <code>triangle</code>. It takes three <code>Point3D</code> objects representing
