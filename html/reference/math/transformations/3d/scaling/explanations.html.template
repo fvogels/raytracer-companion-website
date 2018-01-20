@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: 2D Translation</title>
+    <title>3DCG: 3D Scaling</title>
     <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'underscore') %>
     <style>
