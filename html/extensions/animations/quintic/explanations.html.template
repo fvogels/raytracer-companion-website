@@ -41,8 +41,7 @@
             Use <code>linear-easing-function.h/.cpp</code> as a guide. You'll need to find the formulae yourself. 
           </p>
           <p>
-            Don't forget to add a binding for the scripting language. Update <code>scripting/math-module</code> by adding an extra <code>IMPORT</code>s to
-            the <code>EasingLibrary</code> and extra <code>BIND</code>s to <code>add_easing</code>.
+            Don't forget to add a binding for the scripting language. In <code>scripting/math-module</code>, update the <code>EasingLibrary</code> structure and add an extra <code>BIND</code> to <code>add_easing</code>.
           </p>
         </aside>
       </section>
