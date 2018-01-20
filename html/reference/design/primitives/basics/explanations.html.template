@@ -120,7 +120,7 @@
           </p>
           <p>
             The basic building blocks are geometric shapes. Games, for example, use only one such shape as building, namely the triangle.
-            Technically, this is enough to build even the <%= link('extensions/primitives/mesh', 'most complex of shapes') %>: you just have to make the triangles very tiny
+            Technically, this is enough to build even the <%= link('reference/primitives/mesh', 'most complex of shapes') %>: you just have to make the triangles very tiny
             and have enough of them. While it may seem simpler to only have to implement one shape, you have to remember
             that you'll still have to find a way to produce all the right triangles, so you're just shifting the complexity elsewhere.
           </p>
