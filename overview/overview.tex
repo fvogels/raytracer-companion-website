@@ -86,7 +86,7 @@
     \node[extension,anchor=north,difficulty=3] (nrooks sampler) at ($ (half jittered sampler.south) + (0,-1) $) {\html{extensions/samplers/nrooks}{n-Rooks}};
     \draw[dependency] (nrooks sampler) -- (half jittered sampler);
 
-    \node[extension,anchor=north,difficulty=4] (multijittered sampler) at ($ (nrooks sampler.south) + (0,-1) $) {\html{extensions/samplers/multijittered}{Multi-Jittered}};
+    \node[extension,anchor=north,difficulty=3] (multijittered sampler) at ($ (nrooks sampler.south) + (0,-1) $) {\html{extensions/samplers/multijittered}{Multi-Jittered}};
     \draw[dependency] (multijittered sampler) -- (nrooks sampler);
 
     \node[node] (cameras) at ($ (samplers) + (10,0) $) {Cameras};
@@ -359,7 +359,7 @@
     \node[node] (performance) at ($ (renderers) + (24,0) $) {Performance};
     \draw[dependency] (performance) |- (start);
 
-    \node[extension,difficulty=4] (parallel task scheduler) at ($ (performance) + (6,0) $) {\html{extensions/performance/parallel-task-scheduler}{Parallel Scheduler}};
+    \node[extension,difficulty=3] (parallel task scheduler) at ($ (performance) + (6,0) $) {\html{extensions/performance/parallel-task-scheduler}{Parallel Scheduler}};
     \draw[dependency] (parallel task scheduler) -- (performance);
 
     \node[node] (pipeline) at ($ (performance) + (12,0) $) {Pipeline};
@@ -386,13 +386,13 @@
     \node[extension,difficulty=3] (elastic animation) at ($ (bounce animation) + (0,-2) $) {\html{extensions/animations/elastic}{Elastic}};
     \draw[dependency] (elastic animation) -| (easing library);
 
-    \node[extension,difficulty=4] (quadratic animation) at ($ (elastic animation) + (0,-2) $) {\html{extensions/animations/quadratic}{Quadratic}};
+    \node[extension,difficulty=3] (quadratic animation) at ($ (elastic animation) + (0,-2) $) {\html{extensions/animations/quadratic}{Quadratic}};
     \draw[dependency] (quadratic animation) -| (easing library);
 
-    \node[extension,difficulty=4] (cubic animation) at ($ (quadratic animation) + (0,-2) $) {\html{extensions/animations/cubic}{Cubic}};
+    \node[extension,difficulty=3] (cubic animation) at ($ (quadratic animation) + (0,-2) $) {\html{extensions/animations/cubic}{Cubic}};
     \draw[dependency] (cubic animation) -| (easing library);
 
-    \node[extension,difficulty=4] (quintic animation) at ($ (cubic animation) + (0,-2) $) {\html{extensions/animations/quintic}{Quintic}};
+    \node[extension,difficulty=3] (quintic animation) at ($ (cubic animation) + (0,-2) $) {\html{extensions/animations/quintic}{Quintic}};
     \draw[dependency] (quintic animation) -| (easing library);
 
     \node[extension,difficulty=2] (point animation) at ($ (easing library) + (0,-10) $) {\html{extensions/animations/point-animation}{Point Animations}};
@@ -407,7 +407,7 @@
     \node[extension,difficulty=2] (circular animation) at ($ (quaternions) + (6,0) $) {\html{extensions/animations/circular}{Circular}};
     \draw[dependency] (circular animation) -- (quaternions);
 
-    \node[extension,difficulty=4] (lissajous animation) at ($ (quaternions) + (0,-2) $) {\html{extensions/animations/lissajous}{Lissajous}};
+    \node[extension,difficulty=3] (lissajous animation) at ($ (quaternions) + (0,-2) $) {\html{extensions/animations/lissajous}{Lissajous}};
     \draw[dependency] (lissajous animation) -| (animations);
 
     \node[extension,easy,todo] (cyclic animation) at ($ (lissajous animation) + (0,-2) $) {\html{extensions/animations/cyclic}{Cyclic}};
