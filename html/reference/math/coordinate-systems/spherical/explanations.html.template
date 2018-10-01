@@ -74,11 +74,11 @@
         <div class="boxed" data-category="example">
           <p>
             Say you are located at the origin (0,0,0).
-            To the left of you is a 5km height mountain. It is 100km away.
+            To the left of you is a 5km height mountain. It is 10km away.
           </p>
           <ul>
             <li>
-              The Cartesian coordinates of the top are (-100, 5, 0).
+              The Cartesian coordinates of the top are (-10, 5, 0).
             </li>
             <li>
               The spherical coordinates are
@@ -87,10 +87,10 @@
                   Azimuth angle: 90&deg; because the mountain top is to your left.
                 </li>
                 <li>
-                  Elevation angle: 16&deg; because the top is higher.
+                  Elevation angle: 27&deg; because you have to look up to see the top.
                 </li>
                 <li>
-                  Radius: 100.125 which is the distance between you and the mountain top.
+                  Radius: 11.18 which is the distance between you and the mountain top.
                 </li>
               </ul>
             </li>
