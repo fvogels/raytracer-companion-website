@@ -200,7 +200,7 @@
             \]
           </li>
           <li>
-            Compute the hit position $P$:
+            Compute the hit position $H$:
             \[
               H = O + \vec \Delta \cdot t
             \]
