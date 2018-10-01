@@ -38,7 +38,7 @@
         </table>
         <p>
           Perlin noise is in essence a random number generator that guarantees a certain smoothness.
-          Concretely, what we what is some function <code>double random(double x)</code> that satisfies the following conditions:
+          Concretely, what we want is some function <code>double random(double x)</code> that satisfies the following conditions:
         </p>
         <ul>
           <li>
