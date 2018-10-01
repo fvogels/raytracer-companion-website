@@ -159,7 +159,7 @@
               of the canvas. This is perfectly true, but splitting it up in two separate parameters simplifies usage: often you want
               which object you want to look at, at putting your <code>look_at</code> at the same position as this object
               will automatically make the camera point in the right direction. Just like when you want to paint a river, while you are indeed <em>looking</em> at
-              the river, you do not put your canvas in the river. Instead, you put the just close to your eye, in the direction of the river. The same
+              the river, you do not put your canvas in the river. Instead, you put the canvas close to your eye, in the direction of the river. The same
               idea applies here: <code>look_at</code> specifies direction, <code>distance</code> specifies where to put the canvas along that direction.
             </li>
           </ul>
