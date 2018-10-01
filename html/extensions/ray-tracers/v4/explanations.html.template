@@ -94,7 +94,7 @@
               If there's a hit where $0 \leq t &lt; 1$, return black.
             </li>
             <li>
-              Call <code>RayTracerV3::process_light_rays</code> and return its result.
+              Call <code>RayTracerV3::process_light_ray</code> and return its result.
             </li>
           </ul>
         </aside>
