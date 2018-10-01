@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>3DCG: Intersection</title>
+    <title>3DCG: Difference</title>
     <%= stylesheets('3dcg', 'box2') %>
     <%= scripts('jquery', 'jquery-ui', 'underscore', 'ace/ace', 'source-editor') %>
     <style>
@@ -23,7 +23,7 @@
 
   <body>
     <header>
-      Intersection
+      Difference
     </header>
     <div id="contents">
       <section>
