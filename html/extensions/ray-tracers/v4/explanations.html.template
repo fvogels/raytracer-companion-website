@@ -36,7 +36,7 @@
         <h1>Implementation</h1>
         <p>
           Previous versions of the ray tracer added new lighting models (ambient, diffuse, specular highlights), but none
-          took into account shadows. Now, to be fair, <%= link 'reference/lighting/ambient', 'ambient lighting' %>
+          took shadows into account. Now, to be fair, <%= link 'reference/lighting/ambient', 'ambient lighting' %>
           is not supposed to take into consideration shadows, as that would defeat the entire point.
           But there is no such excuse for diffuse lighting and specular highlights.
         </p>
