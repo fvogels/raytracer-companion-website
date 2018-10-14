@@ -51,7 +51,7 @@
           \]
         </p>
         <p>
-          Ray tracer v3 will built upon v2. In code, this is reflected by the fact
+          Ray tracer v3 will build upon v2. In code, this is reflected by the fact
           that <code>RayTracerV3</code> should be a subclass of <code>RayTracerV2</code>.
         </p>
         <%= tex_image 'uml' %>
