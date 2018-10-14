@@ -157,7 +157,7 @@
             </tbody>
           </table>
           <p>
-            Say we stand at $P_1$ and look at $P_2$. We then turn slowly to $P_3$. If while turning we also $H$,
+            Say we stand at $P_1$ and look at $P_2$. We then turn slowly to $P_3$. If while turning from $P_2$ to $P_3$ we encounter $H$,
             it means $H$ is on the right side of $P_1P_2$. To define the "correct turning direction", we
             first compute $P_1P_2 \times P_1P_3 = (P_2 - P_1) \times (P_3 - P_1)$.
             Next we compute $P_1P_2 \times P_1H = (P_2 - P_1) \times (H-P_1)$. If both directions turn the same
