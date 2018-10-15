@@ -298,15 +298,15 @@
     \node[extension,difficulty=2] (bounding box) at ($ (triangle optimized) + (0,-2) $) {\html{extensions/primitives/bounding-box-accelerator}{Bounding Box}};
     \draw[dependency] (bounding box) -| (primitives);
 
-    \node[extension,difficulty=5] (reading mesh) at ($ (triangle optimized) + (6,0) $) {\html{extensions/primitives/mesh/reading}{Reading Mesh}};
-    \draw[dependency] ($ (reading mesh.north west) ! 0.5 ! (reading mesh.north) $) |- (triangle);
-    \draw[dependency] ($ (reading mesh.south west) ! 0.5 ! (reading mesh.south) $) |- (bounding box);
+    \node[extension,difficulty=5] (reading mesh) at ($ (triangle optimized) + (6,0) $) {\html{extensions/primitives/mesh}{Mesh}};
+    \draw[dependency] ($ (reading mesh.north) $) |- (triangle);
+    \draw[dependency] ($ (reading mesh.south) $) |- (bounding box);
 
-    \node[extension,difficulty=5] (optimizing mesh) at ($ (reading mesh) + (6,0) $) {\html{extensions/primitives/mesh/optimizing}{Optimizing Mesh}};
-    \draw[dependency] (optimizing mesh) -- (reading mesh);
+    % \node[extension,difficulty=5] (optimizing mesh) at ($ (reading mesh) + (6,0) $) {\html{extensions/primitives/mesh/optimizing}{Optimizing Mesh}};
+    % \draw[dependency] (optimizing mesh) -- (reading mesh);
 
-    \node[extension,difficulty=5] (rendering mesh) at ($ (optimizing mesh) + (6,0) $) {\html{extensions/primitives/mesh/rendering}{Rendering Mesh}};
-    \draw[dependency] (rendering mesh) -- (optimizing mesh);
+    % \node[extension,difficulty=5] (rendering mesh) at ($ (optimizing mesh) + (6,0) $) {\html{extensions/primitives/mesh/rendering}{Rendering Mesh}};
+    % \draw[dependency] (rendering mesh) -- (optimizing mesh);
 
     \node[extension,easy,todo] (cropper) at ($ (bounding box) + (0,-2) $) {\html{extensions/primitives/cropper}{Cropper}};
     \draw[dependency] (cropper) -| (primitives);
