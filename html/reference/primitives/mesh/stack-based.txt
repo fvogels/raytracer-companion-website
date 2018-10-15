@@ -1,0 +1,15 @@
+triangle i1 j1 k1       # Vertex-indices of T1
+triangle i2 j2 k2       # Vertex-indices of T2
+box                     # Groups last two triangles together
+triangle i3 j3 k3
+triangle i4 j4 k4
+box
+box                     # Groups last two boxes together
+triangle i5 j5 k5
+triangle i6 j6 k6
+box
+triangle i7 j7 k7
+triangle i8 j8 k8
+box
+box
+box

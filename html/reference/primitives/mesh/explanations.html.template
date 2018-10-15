@@ -156,6 +156,49 @@
           Since the first part (building the hierarchy) needs only occur once, the rendering
           times are by far the most important aspect.
         </p>
+        <p>
+          Storing the bounding box hierarchy in a file can again be done in many ways.
+          First, you'll have to choose between text or binary format. Using text format
+          is a bit easier, but much slower.
+        </p>
+        <p>
+          Next, you have to encode the vertices, triangles and bounding boxes.
+          Let's focus solely on the latter two. Say you have the following hierarchy:
+        </p>
+        <svg width="600" height="200" style="margin: 1em auto; display: block">
+          <%=
+             (0..7).map do |i|
+               <<-END
+                   <g transform="translate(#{i*70+50} 100)">
+                     <polygon style="fill: black" points="0,-15 8,0 -8,0" />
+                     <text x="0" y="15" text-anchor="middle">T#{i}</sub></text>
+                   </g>
+               END
+             end.join("\n")
+          %>
+          <rect x="40" y="80" width="90" height="40" style="stroke:black;fill:red; opacity: 0.2;" />
+          <rect x="180" y="80" width="90" height="40" style="stroke:black;fill:red; opacity: 0.2;" />
+          <rect x="320" y="80" width="90" height="40" style="stroke:black;fill:red; opacity: 0.2;" />
+          <rect x="460" y="80" width="90" height="40" style="stroke:black;fill:red; opacity: 0.2;" />
+          
+          <rect x="30" y="70" width="250" height="60" style="stroke:black;fill:red; opacity: 0.2;" />
+          <rect x="310" y="70" width="250" height="60" style="stroke:black;fill:red; opacity: 0.2;" />
+
+          <rect x="20" y="60" width="550" height="80" style="stroke:black;fill:red; opacity: 0.2;" />
+        </svg>
+        <p>
+          One way would be to work with a stack based format: you start off with an empty stack.
+          Whenever a triangle is added, it is added to this stack. Whenever a box is defined,
+          the last two items on the stack are popped of, put in a box, which in turn
+          is again pushed on the stack. For the diagram shown above, this results in:
+        </p>
+        <%= source_editor IO.read('stack-based.txt') %>
+        <p>
+          Another possibility is to work with indices, similarly to how triangles and vertices work:
+          triangles and boxes are numbered, and a box refers to what it contains using indices.
+          This yields
+        </p>
+        <%= source_editor IO.read('index-based.txt') %>
       </section>
       <section>
         <h2>Step Three: Rendering the Mesh</h2>

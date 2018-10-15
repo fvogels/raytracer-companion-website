@@ -1,0 +1,15 @@
+triangle i1 j1 k1       # Index 0
+triangle i2 j2 k2       # Index 1
+box 0 1                 # Index 2
+triangle i3 j3 k3       #       3
+triangle i4 j4 k4       #       4
+box 3 4                 #       5
+box 2          5        #       6
+triangle i5 j5 k5       #       7
+triangle i6 j6 k6       #       8
+box 7 8                 #       9
+triangle i7 j7 k7       #       10
+triangle i8 j8 k8       #       11
+box 10 11               #       12
+box 9 12                #       13
+box 6 13                #       14
