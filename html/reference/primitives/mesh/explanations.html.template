@@ -34,91 +34,136 @@
         </p>
         <%= raytrace_movie 'demo' %>
         <p>
-          The problem with having meshes consisting of millions of triangles is obvious: rendering times would go through the roof.
+          The problem with having meshes consisting of millions of triangles is obvious: rendering times go through the roof.
           We need to find a way to speed it up quite a bit if we want to be able to admire the results within our lifetime.
         </p>
         <p>
-          Implementing meshes is a multi-step process. We discuss them in more detail below.
+          There are many ways to speed things up. You are free to implement any approach you wish, but
+          in these pages, we will discuss one particular technique, namely bounding boxes.
+        </p>
+        <p>
+          The idea behind bounding boxes is simple. Say you have a mesh consisting of a million triangles,
+          then for every ray shot out of the eye, you normally would compute its intersection with each
+          of the million triangles, which amounts to a lot of work. We want to cut that number down.
+          We can achieve that by enclosing all those triangles into a tight-fitting box. Then,
+          for each ray, we would first check if the ray intersects with the box. If it doesn't,
+          the ray will not intersect any triangles inside the box. We just saved ourselves a million hit-checks.
+          Of course, if the ray does intersect the box, we're back to square one and have
+          to deal with all million triangles.
+        </p>
+        <p>
+          We could, however, add more boxes. Say we divide the large all-encompassing box into two additional
+          smaller boxes: the upper half and the lower half. Each box would contain approximately half a million triangles.
+          Then, if the ray intersects the large box, we check which of the two smaller boxes it intersects.
+          If we're lucky, the ray misses one of the smaller boxes and we avoided half a million hit-checks.
+        </p>
+        <p>
+          We can continue this process recursively: we split each box into smaller boxes, thereby
+          creating a bounding box hierarchy. We continue to do so until each single box contains
+          only a small number of triangles. When tracing a ray, we only need to consider
+          the contents of boxes it actually intersects. This way, instead of having to process
+          a million triangles, we can get away with, say, a hundred.
+        </p>
+        <p>
+          The building of this bounding box hierarchy takes time. Fortunately, this needs to be done only once for each mesh:
+          once done, we can write the hierarchy to file and read it whenever the mesh pops up in a scene.
+          This means, however, that we need to build a tool separate from the ray tracer, one that
+          reads in all triangles, builds the bounding box hierarchy and stores it to file.
+          The ray tracer itself will have to be extended with a module that is able to read this file
+          back in and use it to rebuild the mesh.
+        </p>
+      </section>
+      <section>
+        <h2>Step One: Finding Meshes</h2>
+        <p>
+          First, you need to find a mesh to render. You can build one yourself using
+          a 3D modelling tool such as <a href="https://www.blender.org/">Blender</a>, or
+          you could just look for a premade one online. We've provided you with a few
+          meshes <%= raw_link('meshes', 'here', check: false) %>.
+        </p>
+        <p>
+          Just like there are many different graphics formats (png, jpeg, bmp, &hellip;),
+          there exists a diversity of mesh formats such as ply, obj, etc.
+          If you want to make use of one of these formats, it is your responsibility
+          to find out how to read them.
+        </p>
+        <p>
+          Since reading in a mesh file is not our focus, the <%= raw_link('meshes', 'meshes we provide', check: false) %>
+          are stored in a very simple file format. In order to understand it, you must know what it's meant to contain:
+          triangles. The most straightforward format would be to store one triangle per line: <code>x1 y1 z1 x2 y2 z2 x3 y3 z3</code>.
+          However, since some meshes are composed of millions of triangles, mesh files would quickly grow very large, literally GBs in size.
+        </p>
+        <p>
+          There is a rather easy way to reduce a mesh's storage requirements: a vertex is generally shared by multiple triangles.
+        </p>
+        <svg width="400" height="400" style="background: white; margin: 1em auto; display: block">
+          <%=
+             ps = [ '100,80', '210,20', '380,250', '50,350' ]
+
+             (0...ps.size).map do |i|
+                 %Q{<polygon points="#{ps[i]} 200,200 #{ps[(i+1)%ps.size]}" style="stroke:black; stroke-width: 2; fill:white" />}
+             end.join("\n")
+          %>
+        </svg>
+        <p>
+          In the picture above, the centered vertex is shared by four triangles, while all others
+          are shared by two. To benefit from this sharing, triangles are stored as follows:
         </p>
         <ul>
           <li>
-            First, you will need to find actual meshes. You could create them yourself using some 3D modelling program such as
-            <a href="https://www.blender.org/">Blender</a>, but it may be simpler to find some preexisting meshes online.
+            The first line contains an integer V representing the number of vertices.
           </li>
           <li>
-            There is a multitude of different graphics formats: png, jpg, bmp, &hellip; Similary, there are many ways
-            to store meshes. Once you have found a mesh, you will need to find out the details of the data
-            format it is stored in.
+            The next V lines contain three floating point numbers. These represent the XYZ coordinates of V vertices.
           </li>
           <li>
-            Once you are able to read in the mesh's triangles from file, you will need to organize them in a particular data structure
-            so as to speed up rendering.
-            This organizing may take quite some time: depending on the amount of triangles and the algoritmic details of your approach,
-            it may take a couple of hours. You really do not want this to happen every time you render a scene.
-            Therefore, you will perform the necessary computations once and write the results to disk.
+            The next line contains a single integer T. This represents the number of triangles.
           </li>
           <li>
-            The ray tracer will need to read the "optimized triangle data" from disk and use it to render the mesh efficiently.
+            Lastly, T lines containing three integers i, j and k follow. Each line represents a triangle whose vertices are
+            denoted by their indices.
+        </ul>
+        <p>
+          For example, the following file encodes a mesh consisting of a single triangle:
+        </p>
+        <%= source_editor IO.read('mesh-example.txt') %>
+      </section>
+      <section>
+        <h2>Step Two: Creating the Bounding Box Hierarchy</h2>
+        <p>
+          This step involves creating a separate tool that
+        </p>
+        <ul>
+          <li>reads in the mesh found in step one,</li>
+          <li>builds the bounding box hierarchy, and</li>
+          <li>stores the result in a file.</li>
+        </ul>
+        <p>
+          There are <%= link 'reference/primitives/mesh/optimization', 'many ways' %> to build a hierarchy:
+          you can work top down (starting with a large box and dividing it into smaller boxes) or bottom
+          up (starting with small boxes and combining them into large boxes). There is no single right way
+          to build the hierarchy. To compare algoritmhs, we can measure
+        </p>
+        <ul>
+          <li>
+            The time it takes to build a hierarchy.
+          </li>
+          <li>
+            The time it takes to render the mesh.
           </li>
         </ul>
         <p>
-          Each of these steps is discussed more in detail below.
+          Since the first part (building the hierarchy) needs only occur once, the rendering
+          times are by far the most important aspect.
         </p>
-        <section>
-          <h2>Step 1: Finding a Mesh</h2>
-          <p>
-            First, you will want to find a mesh online that you like. Here are a couple of sites which offer free models:
-          </p>
-          <ul>
-            <li><a href="https://graphics.stanford.edu/data/3Dscanrep/">The Stanford 3D Scanning Repository</a></li>
-            <li><a href="http://archive3d.net/">Archive3D</a></li>
-          </ul>
-          <p>
-            Another possibility is to make a mesh yourself using <a href="https://en.wikipedia.org/wiki/List_of_3D_modeling_software">3D modeling software</a>.
-          </p>
-        </section>
-        <section>
-          <h2>Step 2: Reading a Mesh</h2>
-          <p>
-            Once you found your mesh, you need to understand its file format. For example,
-            the Stanford models are written in the <a href="https://en.wikipedia.org/wiki/PLY_(file_format)">PLY file format</a>.
-            Other formats you might encounter are <a href="https://en.wikipedia.org/wiki/Wavefront_.obj_file">OBJ</a>
-            and <a href="https://en.wikipedia.org/wiki/STL_(file_format)">STL</a>.
-          </p>
-        </section>
-        <section>
-          <h2>Step 3: Optimizing the Mesh</h2>
-          <p>
-            While it is certainly possible to dump all these triangles into a <code>Union</code> primitive,
-            rendering will be mind-numbingly slow. Using a specialized data structure can dramatically
-            speed up this process.
-          </p>
-          <p>
-            You are free to implement any kind of optimization you wish. We discuss possible
-            approaches on a <%= link 'reference/primitives/mesh/optimization', 'separate page' %>.
-          </p>
-        </section>
-        <section>
-          <h2>Step 4: Devising Your Own Mesh Format</h2>
-          <p>
-            Optimizing the mesh can take quite some time and should only happen once for each mesh. Once it's done,
-            you should write the results to file so you can reuse it for many renderings.
-          </p>
-          <p>
-            For example, Stanford's Lucy mesh counts 116 million rectangles. Optimizing it took more than an hour
-            and consumed 20GB of RAM. Having to repeat this process each time we want to use Lucy in our scene would be preposterously inefficient.
-            Instead, the optimized mesh was saved to file. This file was
-            then read in by the ray tracer, which could then render Lucy in a matter of seconds.
-          </p>
-        </section>
-        <section>
-          <h2>Step 5: Reading Your Own Mesh Format</h2>
-          <p>
-            Lastly, your ray tracer needs to be able to read files written in your own format
-            and create a hierarchy consisting of <%= link 'extensions/primitives/bounding-box-accelerator', 'bounding box accelerator' %>,
-            <%= link 'extensions/primitives/triangle', 'triangle' %> and unions.
-          </p>
-        </section>
+      </section>
+      <section>
+        <h2>Step Three: Rendering the Mesh</h2>
+        <p>
+          The last step consists of extending the ray tracer with an extra type of primitive, i.e., the mesh.
+          This involves reading the file produced in step 2 and using it to create triangles
+          and bounding box accelerators based on its contents.
+        </p>
       </section>
     </div>
   </body>
