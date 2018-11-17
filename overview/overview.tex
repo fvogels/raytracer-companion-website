@@ -374,6 +374,9 @@
     \node[extension,difficulty=3] (ppm) at ($ (pipeline) + (6,-4) $) {\html{extensions/pipeline/ppm}{PPM}};
     \draw[dependency] (ppm) -| (pipeline);
 
+    \node[extension,easy,difficulty=2] (studio) at ($ (pipeline) + (6,-6) $) {\html{extensions/pipeline/studio}{Studio}};
+    \draw[dependency] (studio) -| (pipeline);
+
     \node[node] (animations) at ($ (pipeline) + (12,0) $) {Animations};
     \draw[dependency] (animations) |- (start);
 
