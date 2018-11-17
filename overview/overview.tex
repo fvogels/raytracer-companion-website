@@ -365,7 +365,7 @@
     \node[node] (pipeline) at ($ (performance) + (12,0) $) {Pipeline};
     \draw[dependency] (pipeline) |- (start);
 
-    \node[extension,easy,todo] (motion blur) at ($ (pipeline) + (6,0) $) {\html{extensions/pipeline/motion-blur}{Motion Blur}};
+    \node[extension,easy,difficulty=4] (motion blur) at ($ (pipeline) + (6,0) $) {\html{extensions/pipeline/motion-blur}{Motion Blur}};
     \draw[dependency] (motion blur) -- (pipeline);
 
     \node[extension,easy,todo] (bmp) at ($ (pipeline) + (6,-2) $) {\html{extensions/pipeline/bmp}{BMP}};
