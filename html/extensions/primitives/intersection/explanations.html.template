@@ -31,6 +31,17 @@
         <%= raytrace_movie 'demo' %>
         <%= source 'demo.chai' %>
       </section>      
+      <section>
+        <h1>Implementation</h1>
+        <aside class="boxed2">
+          <h1>Task</h1>
+          <p>
+            Study the code in <code>union-primitive.cpp</code> until you understand how it works.
+            Use this as a starting point to implement intersection. Only a few changes need to be made to
+            union's code to turn it into intersection.
+          </p>
+        </aside>
+      </section>
     </div>
   </body>
 
