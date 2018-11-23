@@ -160,6 +160,7 @@
               \end{array}
             \]
             You have to check whether $1-|\vec{o}_\mathrm{x}|^2 &lt; 0$. If this is the case, total internal reflection occurs.
+            Note that $|\vec{v}|$ denotes the length (also called norm) of the vector $\vec{v}$.
           </p>
         </section>
       </section>
