@@ -213,8 +213,7 @@ extension 'cylinder along z optimized', 1
 extension 'triangle', 2
 extension 'triangle optimized', 1
 extension 'bounding box', 2
-extension 'mesh', 5
-extension 'mesh reader', 4
+extension 'mesh', 5, shareable: true
 extension 'bbh algorithm', 5
 extension 'cropper', 3
 extension 'cropper optimized', 2
