@@ -20,7 +20,7 @@ def scene_at(now)
   var lower_plane = decorate( material(Colors.blue()), translate(vec(0,-1,0), xz_plane()) )
   var back_plane = decorate( material(Colors.green()), translate(vec(0,0,-1), xy_plane()) )
 
-  var box = crop_box( mesh( [ left_plane, upper_plane, right_plane, lower_plane, back_plane ] ),
+  var box = crop_box( union( [ left_plane, upper_plane, right_plane, lower_plane, back_plane ] ),
                       interval(-1.001, 1.001),
                       interval(-1.001, 1.001),
                       interval(-1.001, 1.001) )
