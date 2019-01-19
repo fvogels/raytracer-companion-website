@@ -38,7 +38,7 @@ def scene_at(now)
   var wall_material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
                                            "diffuse": Colors.white() * 0.5,
                                            "reflectivity": 0.1 ] )
-                                                
+
   var back_wall = translate(vec(0,0,-5), decorate(wall_material, xy_plane()))
 
   var floor = translate(vec(0,-5,0), decorate(wall_material, xz_plane()))
@@ -66,4 +66,6 @@ var renderer = Renderers.standard( [ "width": 500,
 pipeline( scene_animation(scene_at, seconds(5)),
           [ Pipeline.animation(30),
             Pipeline.renderer(renderer),
-            Pipeline.ppm() ] )
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )
