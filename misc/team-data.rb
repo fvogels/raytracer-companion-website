@@ -1,28 +1,27 @@
 team_member 'Nick' do
-  extension 'basic sample'
-  extension 'basic scripting'
-  extension 'ray tracer v1'
+  extension BasicSample
+  extension BasicScripting
 
-  extension 'ray tracer v2'
-  extension 'ray tracer v3'
-  extension 'primitive rotation x'
+  extension RayTracerV1
+  extension RayTracerV2
+  extension RayTracerV3
+
+  extension PrimitiveRotationX
 end
 
 team_member 'Kurt' do
-  extension 'basic sample'
-  extension 'basic scripting'
-  extension 'ray tracer v1'
-  
-  extension 'ray tracer v4'
-  extension 'ray tracer v5'
+  extension BasicSample
+  extension BasicScripting
+
+  extension RayTracerV4
+  extension RayTracerV5
 end
 
 team_member 'Dale' do
-  extension 'basic sample'
-  extension 'basic scripting'
-  
-  extension 'ray tracer v1'
-  extension 'ray tracer v6'
+  extension BasicSample
+  extension BasicScripting
+
+  extension RayTracerV6
 end
 
 
@@ -30,106 +29,104 @@ end
 # Possible extensions
 # You can copy paste lines below
 
-# extension 'basic sample'
-# extension 'basic scripting'
-# extension 'ray tracer v1'
-# extension 'ray tracer v2'
-# extension 'ray tracer v3'
-# extension 'ray tracer v4'
-# extension 'ray tracer v5'
-# extension 'ray tracer v6'
-# extension 'random sampler'
-# extension 'stratified sampler'
-# extension 'jittered sampler'
-# extension 'half jittered sampler'
-# extension 'nrooks sampler'
-# extension 'multijittered sampler'
-# extension 'depth of field camera'
-# extension 'fisheye camera'
-# extension 'orthographic camera'
-# extension 'directional light'
-# extension 'spot light'
-# extension 'area light'
-# extension 'voronoi 2d'
-# extension 'voronoi 3d'
-# extension 'material dalmatian 2d'
-# extension 'material vertical lines'
-# extension 'material grid2d'
-# extension 'material checkered 2d'
-# extension 'material dalmatian 3d'
-# extension 'material grid3d'
-# extension 'material checkered 3d'
-# extension 'material worley 2d'
-# extension 'material worley 3d'
-# extension 'material perlin 2d'
-# extension 'material perlin 3d'
-# extension 'material marble 2d'
-# extension 'material marble 3d'
-# extension 'material transformer 2d'
-# extension 'material transformer 3d'
-# extension 'material scale 2d'
-# extension 'material scale 3d'
-# extension 'material translate 2d'
-# extension 'material translate 3d'
-# extension 'material rotate 2d'
-# extension 'material rotate 3d'
-# extension 'plane xz'
-# extension 'plane yz'
-# extension 'plane xz optimized'
-# extension 'plane yz optimized'
-# extension 'cone along x'
-# extension 'cone along y'
-# extension 'cone along z'
-# extension 'cone along x optimized'
-# extension 'cone along y optimized'
-# extension 'cone along z optimized'
-# extension 'square xy'
-# extension 'square xz'
-# extension 'square yz'
-# extension 'square xy optimized'
-# extension 'square xz optimized'
-# extension 'square yz optimized'
-# extension 'cube'
-# extension 'cylinder along x'
-# extension 'cylinder along y'
-# extension 'cylinder along z'
-# extension 'cylinder along x optimized'
-# extension 'cylinder along y optimized'
-# extension 'cylinder along z optimized'
-# extension 'triangle'
-# extension 'triangle optimized'
-# extension 'bounding box'
-# extension 'mesh'
-# extension 'mesh reader'
-# extension 'bbh algorithm'
-# extension 'cropper'
-# extension 'cropper optimized'
-# extension 'bumpifier'
-# extension 'intersection'
-# extension 'intersection optimized'
-# extension 'difference'
-# extension 'difference optimized'
-# extension 'primitive scaling'
-# extension 'primitive rotation x'
-# extension 'primitive rotation y'
-# extension 'primitive rotation z'
-# extension 'group'
-# extension 'edge'
-# extension 'cartoon'
-# extension 'parallel scheduler'
-# extension 'motion blur'
-# extension 'bmp'
-# extension 'ppm'
-# extension 'easing library'
-# extension 'bounce'
-# extension 'elastic'
-# extension 'quadratic'
-# extension 'cubic'
-# extension 'quintic'
-# extension 'point animation'
-# extension 'angle animation'
-# extension 'quaternions'
-# extension 'circular animation'
-# extension 'lissajous'
-# extension 'cyclic'
-# extension 'slicer'
+# extension BasicSample
+# extension BasicScripting
+# extension RayTracerV1
+# extension RayTracerV2
+# extension RayTracerV3
+# extension RayTracerV4
+# extension RayTracerV5
+# extension RayTracerV6
+# extension RandomSampler
+# extension StratifiedSampler
+# extension JitteredSampler
+# extension HalfJitteredSampler
+# extension NRooksSampler
+# extension MultijitteredSampler
+# extension DepthOfFieldCamera
+# extension FisheyeCamera
+# extension OrthographicCamera
+# extension DirectionalLight
+# extension SpotLight
+# extension AreaLight
+# extension Voronoi2D
+# extension Voronoi3D
+# extension MaterialDalmatian2D
+# extension MaterialVerticalLines
+# extension MaterialGrid2d
+# extension MaterialCheckered2D
+# extension MaterialDalmatian3D
+# extension MaterialGrid3d
+# extension MaterialCheckered3D
+# extension MaterialWorley2D
+# extension MaterialWorley3D
+# extension MaterialPerlin2D
+# extension MaterialPerlin3D
+# extension MaterialMarble2D
+# extension MaterialMarble3D
+# extension MaterialTransformer2D
+# extension MaterialTransformer3D
+# extension MaterialScale2D
+# extension MaterialScale3D
+# extension MaterialTranslate2D
+# extension MaterialTranslate3D
+# extension MaterialRotate2D
+# extension MaterialRotate3D
+# extension PlaneXZ
+# extension PlaneYZ
+# extension PlaneXZOptimized
+# extension PlaneYZOptimized
+# extension ConeAlongX
+# extension ConeAlongY
+# extension ConeAlongZ
+# extension ConeAlongXOptimized
+# extension ConeAlongYOptimized
+# extension ConeAlongZOptimized
+# extension SquareXY
+# extension SquareXZ
+# extension SquareYZ
+# extension SquareXYOptimized
+# extension SquareXZOptimized
+# extension SquareYZOptimized
+# extension Cube
+# extension CylinderAlongX
+# extension CylinderAlongY
+# extension CylinderAlongZ
+# extension CylinderAlongXOptimized
+# extension CylinderAlongYOptimized
+# extension CylinderAlongZOptimized
+# extension Triangle
+# extension TriangleOptimized
+# extension BoundingBox
+# extension Cropper
+# extension CropperOptimized
+# extension Bumpifier
+# extension Intersection
+# extension IntersectionOptimized
+# extension Difference
+# extension DifferenceOptimized
+# extension PrimitiveScaling
+# extension PrimitiveRotationX
+# extension PrimitiveRotationY
+# extension PrimitiveRotationZ
+# extension Group
+# extension Edge
+# extension Cartoon
+# extension ParallelScheduler
+# extension MotionBlur
+# extension Bmp
+# extension Ppm
+# extension EasingLibrary
+# extension Bounce
+# extension Elastic
+# extension Quadratic
+# extension Cubic
+# extension Quintic
+# extension PointAnimation
+# extension AngleAnimation
+# extension Quaternions
+# extension CircularAnimation
+# extension Lissajous
+# extension Cyclic
+# extension Slicer
+# extension Mesh
