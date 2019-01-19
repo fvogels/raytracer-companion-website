@@ -317,13 +317,13 @@
     \node[extension,easy,todo] (bumpifier) at ($ (cropper) + (0,-2) $) {\html{extensions/primitives/bumpifier}{Bumpifier}};
     \draw[dependency] (bumpifier) -| (primitives);
 
-    \node[extension,easy,todo] (intersection) at ($ (bumpifier) + (0,-2) $) {\html{extensions/primitives/intersection}{Intersection}};
+    \node[extension,easy,difficulty=4] (intersection) at ($ (bumpifier) + (0,-2) $) {\html{extensions/primitives/intersection}{Intersection}};
     \draw[dependency] (intersection) -| (primitives);
 
     \node[extension,easy,todo] (optimized intersection) at ($ (intersection) + (6,0) $) {\html{extensions/primitives/intersection-optimized}{Optimized Intersection}};
     \draw[dependency] (optimized intersection) -| (intersection);
 
-    \node[extension,easy,todo] (difference) at ($ (intersection) + (0,-2) $) {\html{extensions/primitives/difference}{Difference}};
+    \node[extension,easy,difficulty=4] (difference) at ($ (intersection) + (0,-2) $) {\html{extensions/primitives/difference}{Difference}};
     \draw[dependency] (difference) -| (primitives);
 
     \node[extension,easy,todo] (optimized difference) at ($ (difference) + (6,0) $) {\html{extensions/primitives/difference-optimized}{Optimized Difference}};
