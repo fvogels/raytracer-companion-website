@@ -19,9 +19,9 @@ def scene_at(now)
                                    "transparency": 0,
                                    "refractive_index": 1.5 ] )
 
-  var cropped_cylinder = scale( 0.75, 2, 0.75, mesh( [ crop_along_y(cylinder_along_y(), interval(-1, 1)),
-                                                       translate(vec(0,1,0), disk()),
-                                                       translate(vec(0,-1,0), disk()) ] ) )
+  var cropped_cylinder = scale( 0.75, 2, 0.75, sunion( [ crop_along_y(cylinder_along_y(), interval(-1, 1)),
+                                                         translate(vec(0,1,0), disk()),
+                                                         translate(vec(0,-1,0), disk()) ] ) )
   var tri_cylinder = decorate( colored_material(Colors.red()), union( [ cropped_cylinder,
                                                                         rotate_around_x(degrees(90), cropped_cylinder),
                                                                         rotate_around_z(degrees(90), cropped_cylinder) ] ))
