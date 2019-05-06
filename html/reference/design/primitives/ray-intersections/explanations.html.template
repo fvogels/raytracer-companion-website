@@ -49,7 +49,7 @@
         <h1>Functions</h1>
         <p>
           A <code>Primitive</code>'s core functionality consists of computing
-          where a given ray intersects with it. Two functions exists that provide this functionality:
+          where a given ray intersects with it. Two functions exist that provide this functionality:
         </p>
         <ul>
           <li><code>find_all_hits</code></li>
@@ -193,6 +193,6 @@
       SourceEditor.initialize();
     }
 
-    $( initialize );   
+    $( initialize );
   </script>
 </html>
