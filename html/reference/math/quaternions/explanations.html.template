@@ -71,7 +71,7 @@
               k &amp; j &amp; -i &amp; -1 \\
             \end{array}
           \]
-          Note that multiplication is <em>not</em> multiplicative: $i \cdot j = k$ whereas $j \cdot i = -k$.
+          Note that multiplication is <em>not</em> commutative: $i \cdot j = k$ whereas $j \cdot i = -k$.
         </p>
       </section>
       <section>
@@ -130,7 +130,7 @@
         </p>
         <p>
           If you want to rotate point $P(x, y, z)$ an angle $\theta$ around the axis whose direction is represented by the <em>unit vector</em> $\vec v(r_\mathrm{x}, r_\mathrm{y}, r_\mathrm{z})$, follow
-          these steps:          
+          these steps:
         </p>
         <ol>
           <li>
@@ -158,6 +158,6 @@
     {
     }
 
-    $( initialize );    
+    $( initialize );
   </script>
 </html>
