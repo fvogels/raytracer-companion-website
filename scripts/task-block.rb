@@ -9,7 +9,6 @@ class TaskBlock < Asciidoctor::Extensions::BlockProcessor
 
   def process(parent, reader, attrs)
     attrs = {**attrs, "name" => 'task', "caption" => 'test'}
-    p attrs
     create_block(parent, :admonition, reader.readlines, attrs, content_model: :compound)
   end
 end
