@@ -23,6 +23,7 @@ def render_movie(chai_path, movie_path)
   puts `#{RAYTRACER} --quiet -s #{chai_path.to_s} | #{WIF} convert #{movie_path}`
 end
 
+
 def compile_asciidoc(source, destination)
   puts "#{source} -> #{destination}"
 
@@ -30,31 +31,47 @@ def compile_asciidoc(source, destination)
   Asciidoctor.convert_file(source.to_s, safe: :safe, backend: 'html', to_file: destination.to_s)
 end
 
+
+def latex_to_png(source, destination)
+  destination.dirname.mkpath
+  temp_root = Pathname.new 'temp'
+  temp_root.mkpath
+  pdf_path = temp_root.join(source.basename).sub_ext '.pdf'
+
+  puts "Converting #{source.to_s} -> #{destination}"
+
+  puts `pdflatex -output-directory #{temp_root.to_s} #{source.to_s}`
+  puts `pdflatex -output-directory #{temp_root.to_s} #{source.to_s}`
+  puts `magick -quality 90 -density 150 #{pdf_path} -trim #{destination}`
+end
+
+
 def dist_path(path)
   docs_root = Pathname.new('docs').expand_path
   dist_root = Pathname.new('dist').expand_path
   dist_root.join(path.relative_path_from(docs_root)).expand_path
 end
 
-Rake::FileList.new('docs/**/*.asciidoc').map do |path|
-  absolute_asciidoc_path = Pathname.new(path).expand_path
-  absolute_html_path = dist_path(absolute_asciidoc_path).sub_ext('.html')
 
-  file absolute_html_path.to_s => absolute_asciidoc_path.to_s do |task|
-    compile_asciidoc(absolute_asciidoc_path, absolute_html_path)
+Rake::FileList.new('docs/**/*.asciidoc').map do |path|
+  absolute_source_path = Pathname.new(path).expand_path
+  absolute_target_path = dist_path(absolute_source_path).sub_ext('.html')
+
+  file absolute_target_path.to_s => absolute_source_path.to_s do |task|
+    compile_asciidoc(absolute_source_path, absolute_target_path)
   end
 
-  absolute_html_path
+  absolute_target_path
 end.then do |paths|
   task :html => paths.map(&:to_s)
 end
 
 Rake::FileList.new('docs/**/*.chai').map do |path|
-  absolute_chai_path = Pathname.new(path).expand_path
-  absolute_target_path = dist_path(absolute_chai_path).sub_ext('.mp4')
+  absolute_source_path = Pathname.new(path).expand_path
+  absolute_target_path = dist_path(absolute_source_path).sub_ext('.mp4')
 
-  file absolute_target_path.to_s => absolute_chai_path.to_s do |task|
-    render_movie(absolute_chai_path, absolute_target_path)
+  file absolute_target_path.to_s => absolute_source_path.to_s do |task|
+    render_movie(absolute_source_path, absolute_target_path)
   end
 
   absolute_target_path
@@ -62,8 +79,22 @@ end.then do |paths|
   task :chai => paths.map(&:to_s)
 end
 
+Rake::FileList.new('docs/**/*.tex').map do |path|
+  absolute_source_path = Pathname.new(path).expand_path
+  absolute_target_path = dist_path(absolute_source_path).sub_ext('.png')
+
+  file absolute_target_path.to_s => absolute_source_path.to_s do |task|
+    latex_to_png(absolute_source_path, absolute_target_path)
+  end
+
+  absolute_target_path
+end.then do |paths|
+  task :tex => paths.map(&:to_s)
+end
+
 task :clean do
   FileUtils.rm_rf 'dist'
+  FileUtils.rm_rf 'temp'
 end
 
 task :default => [ :html, :chai ]
