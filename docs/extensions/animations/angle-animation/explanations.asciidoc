@@ -10,8 +10,6 @@
 
 = Angle Animation
 
-// <%= overview(mutually_exclusive_with: ['animations/point-animation']) %>
-
 [overview]
 ----
 excludes animations/point-animation
