@@ -2,10 +2,8 @@ require 'asciidoctor'
 require 'asciidoctor/extensions'
 require 'fileutils'
 require 'pathname'
-require 'find'
 require_relative './scripts/overview-block'
 require_relative './scripts/task-block'
-
 
 
 Asciidoctor::Extensions.register do
@@ -15,39 +13,48 @@ Asciidoctor::Extensions.register do
 end
 
 
-def find_asciidoc_files
-  Find.find('.').filter do |entry|
-    entry.end_with? '.asciidoc'
-  end.map do |filename|
-    Pathname.new(filename).expand_path
-  end
+def raytrace(absolute_chai_path)
+  puts "Rendering #{absolute_chai_path}"
+  # wif extract --format png -i STDIN -o STDOUT
 end
 
-def compile_asciidoc
-  puts "Compiling asciidocs..."
 
-  root_docs_path = Pathname.pwd.join('docs')
-  root_dist_path = Pathname.pwd.join('dist')
 
-  find_asciidoc_files.each do |asciidoc_absolute_input_path|
-    asciidoc_relative_input_path = asciidoc_absolute_input_path.relative_path_from root_docs_path
-    asciidoc_absolute_output_path = (root_dist_path.join asciidoc_relative_input_path).sub_ext('.html')
 
-    puts "#{asciidoc_absolute_input_path} -> #{asciidoc_absolute_output_path}"
 
-    asciidoc_absolute_output_path.dirname.mkpath
-    Asciidoctor.convert_file(asciidoc_absolute_input_path.to_s, safe: :safe, backend: 'html', to_file: asciidoc_absolute_output_path.to_s)
-  end
+def compile_asciidoc(source, destination)
+  puts "#{source} -> #{destination}"
+
+  destination.dirname.mkpath
+  Asciidoctor.convert_file(source.to_s, safe: :safe, backend: 'html', to_file: destination.to_s)
 end
 
+def dist_path(path)
+  docs_root = Pathname.new('docs').expand_path
+  dist_root = Pathname.new('dist').expand_path
+  dist_root.join(path.relative_path_from(docs_root)).expand_path
+end
+
+Rake::FileList.new('**/*.asciidoc').map do |path|
+  absolute_asciidoc_path = Pathname.new(path).expand_path
+  absolute_html_path = dist_path(absolute_asciidoc_path).sub_ext('.html')
+
+  file absolute_html_path.to_s => absolute_asciidoc_path.to_s do |task|
+    compile_asciidoc(absolute_asciidoc_path, absolute_html_path)
+  end
+
+  absolute_html_path
+end.then do |paths|
+  task :html => paths.map(&:to_s)
+end
 
 
 task :clean do
   FileUtils.rm_rf 'dist'
 end
 
-task :build do
-  compile_asciidoc
+task :default do
+  # compile_asciidoc
 end
 
 
