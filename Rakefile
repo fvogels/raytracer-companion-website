@@ -6,6 +6,10 @@ require_relative './scripts/overview-block'
 require_relative './scripts/task-block'
 
 
+RAYTRACER = 'G:\repos\ucll\3dcg\raytracer\raytracer\x64\Release\raytracer.exe'
+WIF = 'C:\Python37\Scripts\wif'
+
+
 Asciidoctor::Extensions.register do
   block OverviewBlock
   block TaskBlock
@@ -13,14 +17,11 @@ Asciidoctor::Extensions.register do
 end
 
 
-def raytrace(absolute_chai_path)
-  puts "Rendering #{absolute_chai_path}"
-  # wif extract --format png -i STDIN -o STDOUT
+def render_movie(chai_path, movie_path)
+  puts "Rendering #{chai_path} -> #{movie_path}"
+  movie_path.dirname.mkpath
+  puts `#{RAYTRACER} --quiet -s #{chai_path.to_s} | #{WIF} convert #{movie_path}`
 end
-
-
-
-
 
 def compile_asciidoc(source, destination)
   puts "#{source} -> #{destination}"
@@ -35,7 +36,7 @@ def dist_path(path)
   dist_root.join(path.relative_path_from(docs_root)).expand_path
 end
 
-Rake::FileList.new('**/*.asciidoc').map do |path|
+Rake::FileList.new('docs/**/*.asciidoc').map do |path|
   absolute_asciidoc_path = Pathname.new(path).expand_path
   absolute_html_path = dist_path(absolute_asciidoc_path).sub_ext('.html')
 
@@ -48,6 +49,18 @@ end.then do |paths|
   task :html => paths.map(&:to_s)
 end
 
+Rake::FileList.new('docs/**/*.chai').map do |path|
+  absolute_chai_path = Pathname.new(path).expand_path
+  absolute_target_path = dist_path(absolute_chai_path).sub_ext('.mp4')
+
+  file absolute_target_path.to_s => absolute_chai_path.to_s do |task|
+    render_movie(absolute_chai_path, absolute_target_path)
+  end
+
+  absolute_target_path
+end.then do |paths|
+  task :media => paths.map(&:to_s)
+end
 
 task :clean do
   FileUtils.rm_rf 'dist'
