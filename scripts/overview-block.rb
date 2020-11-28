@@ -1,3 +1,7 @@
+require 'asciidoctor'
+require 'asciidoctor/extensions'
+
+
 class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
   use_dsl
   named :overview

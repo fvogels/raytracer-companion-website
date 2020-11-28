@@ -4,13 +4,15 @@ require 'fileutils'
 require 'pathname'
 require 'find'
 require_relative './scripts/overview-block'
+require_relative './scripts/task-block'
 
 
 
 Asciidoctor::Extensions.register do
   block OverviewBlock
+  block TaskBlock
+  docinfo_processor TaskBlockDocinfoProcessor if document.basebackend? 'html'
 end
-
 
 
 def find_asciidoc_files

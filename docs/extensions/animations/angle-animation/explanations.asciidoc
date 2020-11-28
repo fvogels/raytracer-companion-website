@@ -20,12 +20,12 @@ excludes animations/point-animation
 By default, the scripting language in your ray tracer only supports `double` animations.
 For this extension, you will add support for `Angle`animations.
 
-[source]
+[source,chai]
 ----
 include::example.chai[]
 ----
 
-[NOTE,caption={task-caption}]
+[TASK]
 ====
 Find a way to add support for `Angle` animations.
 If you find out how `double` animations work, it is truly trivial to adapt it to ``Angle``s.
