@@ -59,16 +59,14 @@ Rake::FileList.new('docs/**/*.chai').map do |path|
 
   absolute_target_path
 end.then do |paths|
-  task :media => paths.map(&:to_s)
+  task :chai => paths.map(&:to_s)
 end
 
 task :clean do
   FileUtils.rm_rf 'dist'
 end
 
-task :default do
-  # compile_asciidoc
-end
+task :default => [ :html, :chai ]
 
 
 # ONLY DO THIS WHEN EVERYTHING IS FINISHED
