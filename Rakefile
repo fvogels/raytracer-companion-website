@@ -97,7 +97,7 @@ task :clean do
   FileUtils.rm_rf 'temp'
 end
 
-task :default => [ :html, :chai ]
+task :default => [ :html, :chai, :tex ]
 
 
 # ONLY DO THIS WHEN EVERYTHING IS FINISHED
