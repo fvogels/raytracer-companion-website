@@ -21,7 +21,7 @@ class TaskBlockDocinfoProcessor < Asciidoctor::Extensions::DocinfoProcessor
       <style>
         .admonitionblock.task td.icon .title::before {
           content: "🔨";
-          color:#871452;
+          color: #871452;
         }
       </style>'
     END
