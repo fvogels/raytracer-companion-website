@@ -32,9 +32,7 @@ def compile_asciidoc(source, destination)
 
   destination.dirname.mkpath
 
-  # Dir.chdir(source.dirname.to_s) do
-    Asciidoctor.convert_file(source.to_s, safe: :safe, backend: 'html', to_file: destination.to_s)
-  # end
+  p(Asciidoctor.convert_file(source.to_s, safe: :safe, backend: 'html', to_file: destination.to_s, attributes: { 'nofooter' => true }).attributes)
 end
 
 
