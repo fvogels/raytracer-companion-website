@@ -3,16 +3,16 @@ require 'asciidoctor/extensions'
 require 'pathname'
 
 
-class DemoBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
+class PreviewBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
   use_dsl
 
-  named :demo
+  named :preview
 
   def process parent, target, attrs
     document_directory = Pathname.new parent.document.attributes['docdir']
 
     create_section(parent, 'Preview', {}).tap do |open_block|
-      open_block.role = 'demo'
+      open_block.role = 'preview'
       attrs = { **attrs, "target" => "#{target}.mp4", "align" => "center" }
 
       open_block << create_block(open_block, :video, nil, attrs).tap do |video_block|
@@ -29,20 +29,20 @@ class DemoBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
   end
 end
 
-class DemoBlockMacroDocinfoProcessor < Asciidoctor::Extensions::DocinfoProcessor
+class PreviewBlockMacroDocinfoProcessor < Asciidoctor::Extensions::DocinfoProcessor
   use_dsl
 
   def process doc
     <<~END
       <style>
-        .demo .listingblock {
+        .preview .listingblock {
           border: 1px solid black;
           box-shadow: #AAA 5px 5px;
           width: 90%;
           margin: 1em auto;
         }
 
-        .demo .listingblock pre {
+        .preview .listingblock pre {
           max-height: 15em;
           overflow: scroll;
         }

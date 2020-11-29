@@ -4,7 +4,7 @@ require 'fileutils'
 require 'pathname'
 require_relative './scripts/overview-block'
 require_relative './scripts/task-block'
-require_relative './scripts/demo-block-macro'
+require_relative './scripts/preview-block-macro'
 
 
 RAYTRACER = 'G:\repos\ucll\3dcg\raytracer\raytracer\x64\Release\raytracer.exe'
@@ -15,8 +15,8 @@ Asciidoctor::Extensions.register do
   block OverviewBlock
   block TaskBlock
   docinfo_processor TaskBlockDocinfoProcessor if document.basebackend? 'html'
-  block_macro DemoBlockMacro
-  docinfo_processor DemoBlockMacroDocinfoProcessor if document.basebackend? 'html'
+  block_macro PreviewBlockMacro
+  docinfo_processor PreviewBlockMacroDocinfoProcessor if document.basebackend? 'html'
 end
 
 
