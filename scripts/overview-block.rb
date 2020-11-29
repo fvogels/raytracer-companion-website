@@ -15,7 +15,9 @@ class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
     lines = [ "" ]
     lines << '[cols="1,2"]'
     lines << '|==='
+    lines += generate_prerequisities(overview_data[:requires])
     lines += generate_exclusive_rows(overview_data[:excludes])
+    lines += generate_reading_material(overview_data[:reading])
     lines << '|==='
 
     create_open_block(parent, [], attrs).tap do |b|
@@ -25,20 +27,28 @@ class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
 
   private
   def parse_overview(lines)
-    result = { excludes: [] }
+    result = { requires: [], excludes: [], reading: [] }
 
     lines.each_with_object(result) do |line, result|
       case line
-      when /^excludes (.*)$/
-        result[:excludes] << $1
+      when /^(requires|excludes|reading) (.*)$/
+        result[$1.to_sym] << $2
       else
         abort "Unknown overview entry: #{line}"
       end
     end
   end
 
+  def generate_prerequisities(extensions)
+    generate_rows('*Prerequisites*', extensions)
+  end
+
   def generate_exclusive_rows(extensions)
-    generate_rows('Mutually exclusive with', extensions)
+    generate_rows('*Mutually exclusive with*', extensions)
+  end
+
+  def generate_reading_material(extensions)
+    generate_rows('*Reading material*', extensions)
   end
 
   def generate_rows(header, extensions)
@@ -46,12 +56,11 @@ class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
       yielder << header
       while true
         yielder << ''
-        p '.'
       end
     end
 
     extensions.zip(headers).map do |extension, header|
-      "| *#{header}* | #{extension}"
+      "| #{header} | #{extension}"
     end
   end
 end
