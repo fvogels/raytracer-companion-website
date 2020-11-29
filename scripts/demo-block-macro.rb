@@ -11,7 +11,8 @@ class DemoBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
   def process parent, target, attrs
     document_directory = Pathname.new parent.document.attributes['docdir']
 
-    create_open_block(parent, [], {}).tap do |open_block|
+    create_section(parent, 'Preview', {}).tap do |open_block|
+      open_block.role = 'demo'
       attrs = { **attrs, "target" => "#{target}.mp4", "align" => "center" }
 
       open_block << create_block(open_block, :video, nil, attrs).tap do |video_block|
@@ -23,7 +24,6 @@ class DemoBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
       file_contents = filename.readlines.map(&:rstrip)
       open_block << create_listing_block(open_block, file_contents, {}).tap do |listing_block|
         listing_block.set_option('nowrap')
-        listing_block.role = 'demo-source'
       end
     end
   end
@@ -35,12 +35,14 @@ class DemoBlockMacroDocinfoProcessor < Asciidoctor::Extensions::DocinfoProcessor
   def process doc
     <<~END
       <style>
-        .listingblock.demo-source {
+        .demo .listingblock {
           border: 1px solid black;
           box-shadow: #AAA 5px 5px;
+          width: 90%;
+          margin: 1em auto;
         }
 
-        .listingblock.demo-source pre {
+        .demo .listingblock pre {
           max-height: 15em;
           overflow: scroll;
         }
