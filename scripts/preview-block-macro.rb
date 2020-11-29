@@ -22,8 +22,10 @@ class PreviewBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
 
       filename = document_directory.join("#{target}.chai")
       file_contents = filename.readlines.map(&:rstrip)
-      open_block << create_listing_block(open_block, file_contents, {}).tap do |listing_block|
+      open_block << create_listing_block(open_block, file_contents, { 'language' => 'chai'}).tap do |listing_block|
+        listing_block.style = 'source'
         listing_block.set_option('nowrap')
+        listing_block.commit_subs
       end
     end
   end
@@ -44,7 +46,7 @@ class PreviewBlockMacroDocinfoProcessor < Asciidoctor::Extensions::DocinfoProces
 
         .preview .listingblock pre {
           max-height: 15em;
-          overflow: scroll;
+          overflow: auto;
         }
       </style>'
     END
