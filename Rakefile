@@ -4,6 +4,7 @@ require 'fileutils'
 require 'pathname'
 require_relative './scripts/overview-block'
 require_relative './scripts/task-block'
+require_relative './scripts/demo-block-macro'
 
 
 RAYTRACER = 'G:\repos\ucll\3dcg\raytracer\raytracer\x64\Release\raytracer.exe'
@@ -14,6 +15,8 @@ Asciidoctor::Extensions.register do
   block OverviewBlock
   block TaskBlock
   docinfo_processor TaskBlockDocinfoProcessor if document.basebackend? 'html'
+  block_macro DemoBlockMacro
+  docinfo_processor DemoBlockMacroDocinfoProcessor if document.basebackend? 'html'
 end
 
 
@@ -28,7 +31,10 @@ def compile_asciidoc(source, destination)
   puts "#{source} -> #{destination}"
 
   destination.dirname.mkpath
-  Asciidoctor.convert_file(source.to_s, safe: :safe, backend: 'html', to_file: destination.to_s)
+
+  # Dir.chdir(source.dirname.to_s) do
+    Asciidoctor.convert_file(source.to_s, safe: :safe, backend: 'html', to_file: destination.to_s)
+  # end
 end
 
 
