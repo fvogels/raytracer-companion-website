@@ -1,0 +1,77 @@
+= Bounce Animation
+
+[overview]
+----
+reading math/animations
+----
+
+== Implementation
+
+When adding bindings for primitives, materials, &hellip; the code required for exporting functionality to the scripting language was mostly complete: you only needed to add a line or two in order to make your new extension work in the scripting language.
+For easing functions, things are slightly more complicated.
+
+=== Easing Library
+
+The scripting language works with "library objects": these are objects that group factory functions.
+Examples of such library objects are
+
+* `Colors`, which allow you to create colors: `Colors.white()`, `Colors.red()`, &hellip;
+* Animations
+* Ray tracers
+* Samplers
+
+It is our goal to create a new library `Easing` which will group together all easing functions.
+
+[TASK]
+====
+Create the `EasingLibrary` type.
+The easing functions are part of the math module, so open `scripting/math-module.cpp`.
+This is where you'll need to perform the following steps.
+
+* Define a new empty `struct` `EasingLibrary`.
+  Put it inside the anonymous namespace that already exists within the file.
+You can take a look at `SamplerLibrary` in `scripting/samplers-module.cpp` or `RaytracerLibrary` in `scripting/raytracing-module.cpp` for guidance.
+* Find the function `raytracer::scripting::_private_::create_math_module()`.
+  Its responsibility is to add all math-related bindings.
+  You can see it delegates this work to auxiliary functions such as `add_points_and_vectors` to add all `Point2D`, `Point3D`, `Vector2D` and `Vector3D` related functionality to the scripting language.
+* Add an extra call to `add_easing` to this function.
+* Define `add_easing` in the anonymous namespace.
+  Its signature (parameter types, return type) should match the other functions.
+* `add_easing` should start with creating a `EasingLibrary` object.
+  This object should be created on the heap, as it survives the call to `add_easing`.
+  This means making use of `shared_ptr`.
+  For guidance, go look at `create_samplers_module()` in `scripting/samplers-module.cpp`.
+* Once you created the `EasingLibrary` object, you need to expose it to the scripting language by associating the identifier `"Easing"` with this object.
+  Hint: this is done using `add_global_const`.
+  You can find examples of how to do it in the other scripting modules.
+* Define a macro `BIND` that can be used to easily add bindings to `EasingLibrary` members.
+  Hint: the macro makes use of the `add` member of Chaiscript modules.
+* The `EasingLibrary` is still empty, so you cannot add bindings yet.
+====
+
+=== Ease function
+
+Easing functions need to be applied on animations.
+Take a look to the preview scripts in the extensions for easing functions, such as bounce.
+You'll find that first, an animation from A to B is created, and then, in a second step, an easing function is applied to it using the `Animations.ease` function.
+You will need to define this very function in order to be able to make use of your easing functions.
+
+[TASK]
+====
+Define the `Animations.ease` function.
+
+* Open `scripting/animation-module.cpp`.
+* Look for the `AnimationLibrary`.
+* Define a https://en.wikipedia.org/wiki/Template_(C%2B%2B)[function template] `ease_animation`.
+  The template parameter `T` represents what kind of animation needs to be eased.
+  For example, we can ease `Animation<double>`, `Animation<Point3D>`, `Animation<Angle>`, or any other sort of animation.
+* The `ease_animation` function expects two parameters: an animation of type `Animation<T>`, and an easing function of type `math::functions::EasingFunction`.
+* The `ease_animation` function returns an `Animation<T>`.
+* The body of `ease_animation` is quite simple: it calls the already existing function `ease` with the same parameters and returns its value.
+  This `ease` function is defined in `animation/ease-animation.h`.
+* Find the function `raytracer::scripting::_private_::create_animation_module()`.
+* The scripting language itself does not support templates, so we will need to expose `ease_animation` repeatedly, once for each animatable type `T`.
+  By default, your ray tracer can only animate `double`s, but you can also add support for <</extensions/animations/point-animation#,point animations>> and <</extensions/animations/angle-animation#,angle animations>>.
+  For each type `T` you defined animations for, use the `BIND_AS` macro to expose `ease_animation<T>` as `ease` (e.g. `BIND_AS(ease_animation<double>, ease)`).
+  You can reuse the same name `ease` for each `T`: the scripting language supports overloading and will automatically pick the right binding for you.
+====
