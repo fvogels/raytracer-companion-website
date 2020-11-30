@@ -1,0 +1,34 @@
+= Elastic Animation
+
+[overview]
+----
+requires animations/easing-library
+excludes animations/bounce
+reading math/animations
+reading design/animations/basics
+----
+
+preview::preview[]
+
+== Implementation
+
+The elastic animation looks as follows:
+
+image::graph.png[align="center"]
+
+The animation can be parameterized in two ways:
+
+* Number of oscillations
++
+image::bounces.png[align="center"]
+* Energy loss
++
+image::absorption.png[align="center"]
+
+[TASK]
+====
+Create files `math/functions/easing/elastic-easing-function.cpp/.h`.
+Use `linear-easing-function.h/.cpp` as a guide. You'll need to find the formula yourself.
+
+Don't forget to add a binding for the scripting language. In `scripting/math-module`, update the `EasingLibrary` structure and add an extra `BIND` to `add_easing`.
+====
