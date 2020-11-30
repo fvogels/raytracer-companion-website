@@ -1,0 +1,24 @@
+= Cubic Easing Function
+
+[overview]
+----
+requires animations/easing-library
+excludes animations/quadratic
+excludes animations/quintic
+reading math/animations
+reading design/animations/basics
+reading math/easing-functions
+----
+
+preview::preview[]
+
+== Implementation
+
+[TASK]
+====
+Create files `math/functions/easing/cubic-function.cpp/.h` and implement
+`cubic_in`, `cubic_out` and `cubic_inout`.
+Use `linear-easing-function.h/.cpp` as a guide. You'll need to find the formulae yourself.
+
+Don't forget to add a binding for the scripting language. In `scripting/math-module`, update the `EasingLibrary` structure and add an extra `BIND` to `add_easing`.
+====
