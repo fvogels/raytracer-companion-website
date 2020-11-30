@@ -26,6 +26,12 @@ class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
   end
 
   private
+  # def create_link(parent, text, url)
+  #   create_anchor(parent, text, { type: :xref }).tap do |link|
+  #     link.target = url
+  #   end
+  # end
+
   def parse_overview(lines)
     result = { requires: [], excludes: [], reading: [] }
 
@@ -60,7 +66,7 @@ class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
     end
 
     extensions.zip(headers).map do |extension, header|
-      "| #{header} | #{extension}"
+      "| #{header} | <</#{extension}#,#{extension}>>"
     end
   end
 end
