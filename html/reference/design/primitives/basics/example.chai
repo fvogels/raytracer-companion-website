@@ -3,7 +3,7 @@ def scene_at(now)
   var eye_position = Animations.circular( [ "position": pos(0, 0, 2),
                                             "around": pos(0, 0, 0),
                                             "duration": seconds(5) ] )
-                                            
+
   var camera = Cameras.perspective( [ "eye": eye_position[now],
                                       "look_at": pos(0,0,0) ] )
 
@@ -51,4 +51,6 @@ var renderer = Renderers.standard( [ "width": 500,
 pipeline( scene_animation(scene_at, seconds(5)),
           [ Pipeline.animation(30),
             Pipeline.renderer(renderer),
-            Pipeline.ppm() ] )
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )

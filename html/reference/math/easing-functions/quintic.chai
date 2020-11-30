@@ -16,7 +16,7 @@ def scene_at(now)
   var quad_in = Animations.ease(x_anim, Easing.quintic_in());
   var quad_out = Animations.ease(x_anim, Easing.quintic_out());
   var quad_inout = Animations.ease(x_anim, Easing.quintic_inout());
-  
+
   var root = union( [ translate(vec(quad_in[now], 3, 0), decorate( material(Colors.red()), sphere())),
                       translate(vec(quad_out[now], 0, 0), decorate( material(Colors.green()), sphere())),
                       translate(vec(quad_inout[now], -3, 0), decorate( material(Colors.blue()), sphere())) ] )
@@ -37,4 +37,6 @@ var renderer    = Renderers.standard( [ "width": 500,
 pipeline( scene_animation(scene_at, seconds(5)),
           [ Pipeline.animation(30),
             Pipeline.renderer(renderer),
-            Pipeline.ppm() ] )
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )

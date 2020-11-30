@@ -1,0 +1,54 @@
+def colored_material(color) {
+  Materials.uniform( [ "ambient": color * 0.1,
+                       "diffuse": color * 0.8,
+                       "specular": Colors.white(),
+                       "specular_exponent": 10,
+                       "reflectivity": 0.2 ] )
+}
+
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(5, 5, 5),
+                                      "look_at": pos(0,0,0) ] )
+
+  var white = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                   "diffuse": Colors.white() * 0.8,
+                                   "specular": Colors.black(),
+                                   "specular_exponent": 0,
+                                   "reflectivity": 0,
+                                   "transparency": 0,
+                                   "refractive_index": 1.5 ] )
+
+  var cropped_cylinder = scale( 0.75, 2, 0.75, sunion( [ crop_along_y(cylinder_along_y(), interval(-1, 1)),
+                                                         translate(vec(0,1,0), disk()),
+                                                         translate(vec(0,-1,0), disk()) ] ) )
+  var tri_cylinder = decorate( colored_material(Colors.red()), union( [ cropped_cylinder,
+                                                                        rotate_around_x(degrees(90), cropped_cylinder),
+                                                                        rotate_around_z(degrees(90), cropped_cylinder) ] ))
+
+  var rounded_cube = intersection( scale(1.5, 1.5, 1.5, decorate(colored_material(Colors.green() * 0.5), sphere())), decorate(colored_material(Colors.yellow() * 0.5), cube()) )
+
+  var holed_cube = difference(rounded_cube, tri_cylinder)
+
+  var root = union( [ decorate(white, translate(vec(0, -4, 0), xz_plane())), holed_cube ] )
+
+  var light_pos = Animations.cyclic( Animations.ease( Animations.animate( pos(1.8, 0, 0), pos(-1.8, 0, 0), seconds(2.5) ), Easing.quadratic_inout ) )
+  var lights = [ Lights.omnidirectional( light_pos[now], Colors.white() ) ]
+
+  return create_scene(camera, root, lights)
+}
+
+
+var raytracer   = Raytracers.v6()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.multijittered(2),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )

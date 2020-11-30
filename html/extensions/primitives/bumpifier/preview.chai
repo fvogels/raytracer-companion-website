@@ -1,0 +1,30 @@
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0,1,5),
+                                      "look_at": pos(0,1,0) ] )
+
+  var material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                      "diffuse": Colors.white() * 0.8,
+                                      "specular": Colors.white(),
+                                      "specular_exponent": 100 ] )
+
+  var perlin      = Perlin3D.vector3d(4)
+  var root        = bumpify(perlin, decorate(material, xz_plane()), now)
+  var lights      = [ Lights.directional( vec(0, -0.1, 1).normalized(), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+
+var raytracer   = Raytracers.v6()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.multijittered(1),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(1)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )

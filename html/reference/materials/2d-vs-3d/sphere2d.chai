@@ -11,7 +11,7 @@ def scene_at(now)
   var material = Materials.scale(0.2, 0.2, Materials.checkered2d(black, white))
 
   var angle = Animations.animate(degrees(0), degrees(360), seconds(5))
-  
+
   var root = decorate(material, rotate_around_y(angle[now], sphere()))
 
   var lights = [ Lights.omnidirectional( pos(0,2,5), Colors.white() ) ]
@@ -29,4 +29,6 @@ var renderer = Renderers.standard( [ "width": 500,
 pipeline( scene_animation(scene_at, seconds(5)),
           [ Pipeline.animation(30),
             Pipeline.renderer(renderer),
-            Pipeline.ppm() ] )
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )

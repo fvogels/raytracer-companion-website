@@ -4,7 +4,7 @@ def scene_at(now)
                                       "look_at": pos(0,0,0) ] )
 
   var e = Animations.animate(2, 50, seconds(5))
-  
+
   var material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
                                       "diffuse": Colors.blue() * 0.8,
                                       "specular": Colors.white(),
@@ -26,4 +26,6 @@ var renderer    = Renderers.standard( [ "width": 500,
 pipeline( scene_animation(scene_at, seconds(5)),
           [ Pipeline.animation(30),
             Pipeline.renderer(renderer),
-            Pipeline.ppm() ] )
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )

@@ -14,7 +14,7 @@ def scene_at(now)
                                          pos(5,5,5),
                                          pos(5,0,5),
                                          pos(0,0,5) ], seconds(5), Easing.linear() )
-   
+
   var camera = Cameras.perspective( [ "eye": camera_pos[now],
                                       "look_at": camera_pos[now] + vec(0,0,-1) ] )
 
@@ -41,4 +41,6 @@ var renderer    = Renderers.standard( [ "width": 500,
 pipeline( scene_animation(scene_at, seconds(5)),
           [ Pipeline.animation(30),
             Pipeline.renderer(renderer),
-            Pipeline.ppm() ] )
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )
