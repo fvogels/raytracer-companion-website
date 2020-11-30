@@ -42,7 +42,7 @@
         </p>
         <ul>
           <li>
-            A <code>Rectangle3D</code> defining its area. 
+            A ``Rectangle3D`` defining its area. 
           </li>
           <li>
             A sampler, which will be used to determine which points from the area will be used as light sources.
@@ -52,9 +52,9 @@
           </li>
         </ul>
         <p>
-          The area light operates as follows: when asked for a list of <code>LightRay</code>s that
-          reach a given <code>Point3D</code> P, it asks the sampler to pick points $L_i$ from its area.
-          For each such point, it creates a <code>LightRay</code> starting in $L_i$ going through $P$.
+          The area light operates as follows: when asked for a list of ``LightRay``s that
+          reach a given ``Point3D`` P, it asks the sampler to pick points $L_i$ from its area.
+          For each such point, it creates a ``LightRay`` starting in $L_i$ going through $P$.
           Note that it is important that the ray has to be created in such a way that
           $t = 0$ coincides with $L_i$ and $t = 1$ with $P$, otherwise
           the <%= link 'extensions/ray-tracers/v4', 'shadowing algorithm' %> will not work.

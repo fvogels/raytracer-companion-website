@@ -51,8 +51,8 @@
           A <em>ray</em> consists of two components:
         </p>
         <ul>
-          <li>an origin $O$ of type <code>Point3D</code>;</li>
-          <li>a direction $\vec\Delta$ of type <code>Vector3D</code>.</li>
+          <li>an origin $O$ of type ``Point3D``;</li>
+          <li>a direction $\vec\Delta$ of type ``Vector3D``.</li>
         </ul>
         <p>
           The ray is the entirety of points that lies on the line that goes through $O$ and has orientation $\vec\Delta$.

@@ -74,71 +74,71 @@
         <section>
           <h2>trace</h2>
           <p>
-            The algorithm in <code>trace</code>'s body looks as follows: given a scene and a ray,
+            The algorithm in ``trace``'s body looks as follows: given a scene and a ray,
           </p>
           <ol>
             <li>
               Determine the first positive hit between the ray and the scene.
             </li>
             <li>
-              If there is no hit, return a <code>TraceResult::no_hit</code>.
+              If there is no hit, return a ``TraceResult::no_hit``.
             </li>
             <li>
-              Initialize a <code>Color result</code> to <code>colors::black()</code>, i.e. with start with zero photons.
+              Initialize a ``Color result`` to ``colors::black()``, i.e. with start with zero photons.
             </li>
             <li>
-              Ask the <code>hit.material</code> for the <code>MaterialProperties</code> at the hit location.
+              Ask the ``hit.material`` for the ``MaterialProperties`` at the hit location.
             </li>
             <li>
-              Compute the ambient lighting (as you did in v1) and add the color to <code>result</code>.
+              Compute the ambient lighting (as you did in v1) and add the color to ``result``.
             </li>
             <li>
-              Call <code>process_lights</code>, which will iterate over all lights. Add the return value (a color) to <code>result</code>.
+              Call ``process_lights``, which will iterate over all lights. Add the return value (a color) to ``result``.
             </li>
             <li>
-              Return a <code>TraceResult</code> containing all necessary data, with as color <code>result</code>'s final value.
+              Return a ``TraceResult`` containing all necessary data, with as color ``result``'s final value.
             </li>
           </ol>
           <aside class="boxed2">
             <h1>Task</h1>
             <p>
-              Create two new files <code>raytracers/ray-tracer-v2.cpp</code> and <code>raytracers/ray-tracer-v2.h</code>.
+              Create two new files ``raytracers/ray-tracer-v2.cpp`` and ``raytracers/ray-tracer-v2.h``.
               Add the necessary declarations in the header file (let the above UML class diagram guide you).
             </p>
             <p>
-              Add the definition for <code>trace</code> in the <code>.cpp</code> file.
+              Add the definition for ``trace`` in the ``.cpp`` file.
             </p>
           </aside>
         </section>
         <section>
-          <h2><code>process_lights</code></h2>
+          <h2>``process_lights``</h2>
           <p>
             This method's sole responsibility is to iterate over each light and return the sum of all colors.
           </p>
           <ol>
             <li>
-              Start with a fresh <code>Color result</code> set to black.
+              Start with a fresh ``Color result`` set to black.
             </li>
             <li>
-              Iterate over the scene's light sources. Call <code>process_light_source</code> for each light source
-              and add the return value to <code>result</code>.
+              Iterate over the scene's light sources. Call ``process_light_source`` for each light source
+              and add the return value to ``result``.
             </li>
             <li>
-              Return <code>result</code>.
+              Return ``result``.
             </li>
           </ol>
           <aside class="boxed2">
             <h1>Task</h1>
             <p>
-              Implement <code>process_lights</code>.
+              Implement ``process_lights``.
             </p>
           </aside>
         </section>
         <section>
-          <h2><code>process_light_source</code></h2>
+          <h2>``process_light_source``</h2>
           <p>
             This method asks the given light source to enumerate all light rays it emits in the direction of the hit position
-            and passes each to <code>process_light_ray</code>.
+            and passes each to ``process_light_ray``.
             For point lights, there is only one such ray, but area lights can produce many.
           </p>
           <table class="centered" id="lights-comparison">
@@ -156,55 +156,55 @@
             </tbody>
           </table>
           <p>
-            Note how light sources produce <code>LightRay</code> objects, not just <code>Ray</code>s. A <code>LightRay</code>
-            is a <code>Ray</code> combined with a <code>Color</code>, meaning it specifies not only where the light comes from,
+            Note how light sources produce ``LightRay`` objects, not just ``Ray``s. A ``LightRay``
+            is a ``Ray`` combined with a ``Color``, meaning it specifies not only where the light comes from,
             but also which color it is.
           </p>
           <p>
-            <code>process_light_source</code> operates as follows:
+            ``process_light_source`` operates as follows:
           </p>
           <ol>
             <li>
-              Initialize a local variable <code>result</code> of type <code>Color</code> to black.
+              Initialize a local variable ``result`` of type ``Color`` to black.
             </li>
             <li>
-              Ask the light source to enumerate all light rays that reach <code>hit.position</code>.
+              Ask the light source to enumerate all light rays that reach ``hit.position``.
             </li>
             <li>
-              Iterate over each of these light rays. Give each to <code>process_light_ray</code>.
-              Add the return values to <code>result</code>.
+              Iterate over each of these light rays. Give each to ``process_light_ray``.
+              Add the return values to ``result``.
             </li>
             <li>
-              Return <code>result</code>.
+              Return ``result``.
             </li>
           </ol>
           <aside class="boxed2">
             <h1>Task</h1>
             <p>
-              Implement <code>process_light_source</code>.
+              Implement ``process_light_source``.
             </p>
           </aside>
         </section>
         <section>
-          <h2><code>process_light_ray</code></h2>
+          <h2>``process_light_ray``</h2>
           <p>
-            In v2, <code>process_light_ray</code> is very simple:
+            In v2, ``process_light_ray`` is very simple:
           </p>
           <ol>
             <li>
-              Initialize local variable <code>result</code> to black.
+              Initialize local variable ``result`` to black.
             </li>
             <li>
-              Call <code>compute_diffuse</code> and add its return value to <code>result</code>.
+              Call ``compute_diffuse`` and add its return value to ``result``.
             </li>
             <li>
-              Return <code>result</code>.
+              Return ``result``.
             </li>
           </ol>
           <aside class="boxed2">
             <h1>Task</h1>
             <p>
-              Implement <code>process_light_ray</code>.
+              Implement ``process_light_ray``.
             </p>
           </aside>
           <p>
@@ -214,7 +214,7 @@
           </p>
         </section>
         <section>
-          <h2><code>compute_diffuse</code></h2>
+          <h2>``compute_diffuse``</h2>
           <p>
             Finally comes the time to actually compute diffuse lighting.
             The arguments provide you with all necessary data. You need:
@@ -240,16 +240,16 @@
             </p>
             <ul>
               <li>                
-                You can make use of <code>Vector3D::normalized</code> to normalize the vector, i.e.
+                You can make use of ``Vector3D::normalized`` to normalize the vector, i.e.
                 you can translate
                 \[
                   \frac{L-P}{|L-P|}
                 \]
-                to <code>(L - P).normalized()</code>.
+                to ``(L - P).normalized()``.
               </li>
               <li>
-                Make sure to use the right multiplication: $a \cdot b$ corresponds to <code>a.dot(b)</code> if
-                both $a$ and $b$ are vectors, otherwise you need to use <code>*</code>.
+                Make sure to use the right multiplication: $a \cdot b$ corresponds to ``a.dot(b)`` if
+                both $a$ and $b$ are vectors, otherwise you need to use ``*``.
               </li>
             </ul>
           </aside>
@@ -261,13 +261,13 @@
             </p>
             <ul>
               <li>
-                Create the factory method <code>raytracer::raytracers::v2()</code>.
+                Create the factory method ``raytracer::raytracers::v2()``.
               </li>
               <li>
-                Add the appropriate include to <code>raytracers/ray-tracers.h</code>.
+                Add the appropriate include to ``raytracers/ray-tracers.h``.
               </li>
               <li>
-                Update <code>scripting/raytracing-module.cpp</code>.
+                Update ``scripting/raytracing-module.cpp``.
               </li>
             </ul>
           </aside>
@@ -281,8 +281,8 @@
             </p>
             <p>
               Make sure that, while setting up the scene, you pick a low
-              value for the ambient color, such as <code>0.1 * colors::white()</code>. For example, if you were to set
-              ambient to <code>colors::white()</code>, the object
+              value for the ambient color, such as ``0.1 * colors::white()``. For example, if you were to set
+              ambient to ``colors::white()``, the object
               would already be maximally illuminated and the diffuse lighting
               would simply "drown" in the ambient lighting.
               It's as if you point a flashlight to the sun.

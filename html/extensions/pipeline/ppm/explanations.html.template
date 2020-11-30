@@ -47,9 +47,9 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Add extra files <code>imaging/ppm-format.cpp/.h</code>.
-            Define a function <code>void imaging::write_text_ppm(const Bitmap&amp; bitmap, std::ostream&amp; out)</code> which
-            writes the given <code>bitmap</code> to the given stream <code>out</code>.
+            Add extra files ``imaging/ppm-format.cpp/.h``.
+            Define a function ``void imaging::write_text_ppm(const Bitmap&amp; bitmap, std::ostream&amp; out)`` which
+            writes the given ``bitmap`` to the given stream ``out``.
           </p>
         </aside>
         <aside class="boxed2">
@@ -59,16 +59,16 @@
           </p>
           <ul>
             <li>
-              Add extra files <code>pipeline/ppm-consumer.cpp/.h</code>.
+              Add extra files ``pipeline/ppm-consumer.cpp/.h``.
             </li>
             <li>
-              Implement a new class <code>Ppm</code> in the <code>.cpp</code> file (as there is no need
-              to make it publicly accessible). Take a look at <code>wif-consumer.cpp</code> to get an idea what it should look like.
-              Contrary to <code>Wif</code>, <code>Ppm</code> should not be given a filename; instead, it will
-              output its data to <code>std::cout</code>.
+              Implement a new class ``Ppm`` in the ``.cpp`` file (as there is no need
+              to make it publicly accessible). Take a look at ``wif-consumer.cpp`` to get an idea what it should look like.
+              Contrary to ``Wif``, ``Ppm`` should not be given a filename; instead, it will
+              output its data to ``std::cout``.
             </li>
             <li>
-              Define a factory function <code>std::shared_ptr&lt;Consumer&lt;std::shared_ptr&lt;imaging::Bitmap&gt;&gt;&gt; ppm()</code>.
+              Define a factory function ``std::shared_ptr&lt;Consumer&lt;std::shared_ptr&lt;imaging::Bitmap&gt;&gt;&gt; ppm()``.
             </li>
           </ul>
           </p>

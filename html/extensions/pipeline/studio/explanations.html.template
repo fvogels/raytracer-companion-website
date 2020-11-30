@@ -52,8 +52,8 @@
           <h1>Task</h1>
           <p>
             Create a new pipeline segment so that you can replace the
-            <code>Pipeline.wif(), Pipeline.base64(), Pipeline.stdout()</code>
-            by a single segment <code>Pipeline.studio()</code>.
+            ``Pipeline.wif(), Pipeline.base64(), Pipeline.stdout()``
+            by a single segment ``Pipeline.studio()``.
           </p>
         </aside>
       </section>      

@@ -38,17 +38,17 @@
           <h1>Task</h1>
           <ul>
             <li>
-              Create new files <code>primitives/triangle-primitive.h</code> and <code>primitives/triangle-primitive.cpp</code>.
+              Create new files ``primitives/triangle-primitive.h`` and ``primitives/triangle-primitive.cpp``.
             </li>
             <li>
-              Define a factory function <code>triangle</code>. It takes three <code>Point3D</code> objects representing
+              Define a factory function ``triangle``. It takes three ``Point3D`` objects representing
               the triangle's three vertices.
             </li>
             <li>
-              Define the class <code>TriangleImplementation</code>.
+              Define the class ``TriangleImplementation``.
             </li>
             <li>
-              Implement <code>find_all_hits</code>.
+              Implement ``find_all_hits``.
             </li>
             <li>
               Add a binding for the scripting language.

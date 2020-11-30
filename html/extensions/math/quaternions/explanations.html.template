@@ -25,36 +25,36 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Implement the class <code>Quaternion</code>. Following operations will be required:
+            Implement the class ``Quaternion``. Following operations will be required:
           </p>
           <ul>
             <li>
-              A constructor <code>Quaternion(double a, double b, double c, double d)</code> creating
+              A constructor ``Quaternion(double a, double b, double c, double d)`` creating
               the quaternion $a + bi + cj + dk$.
             </li>
             <li>
-              A static factory <code>rotation(Angle theta, const Vector3D&amp; axis)</code> creating a quaternion
+              A static factory ``rotation(Angle theta, const Vector3D&amp; axis)`` creating a quaternion
               representing the rotation around the given axis by the given angle.
             </li>
             <li>
-              A member function <code>Point3D rotate(const Point3D&amp; p)</code> which rotates <code>p</code>.
+              A member function ``Point3D rotate(const Point3D&amp; p)`` which rotates ``p``.
             </li>
             <li>
-              The member function <code>conjugate</code>.
+              The member function ``conjugate``.
             </li>
             <li>
               The operators
               <ul>
-                <li><code>Quaternion + Quaternion</code></li>
-                <li><code>Quaternion - Quaternion</code></li>
-                <li><code>double * Quaternion</code></li>
-                <li><code>Quaternion * double</code></li>
-                <li><code>Quaternion * Quaternion</code></li>
-                <li><code>Quaternion / double</code></li>
-                <li><code>Quaternion += Quaternion</code></li>
-                <li><code>Quaternion -= Quaternion</code></li>
-                <li><code>Quaternion *= double</code></li>
-                <li><code>Quaternion /= double</code></li>                
+                <li>``Quaternion + Quaternion``</li>
+                <li>``Quaternion - Quaternion``</li>
+                <li>``double * Quaternion``</li>
+                <li>``Quaternion * double``</li>
+                <li>``Quaternion * Quaternion``</li>
+                <li>``Quaternion / double``</li>
+                <li>``Quaternion += Quaternion``</li>
+                <li>``Quaternion -= Quaternion``</li>
+                <li>``Quaternion *= double``</li>
+                <li>``Quaternion /= double``</li>                
               </ul>
             </li>
           </ul>

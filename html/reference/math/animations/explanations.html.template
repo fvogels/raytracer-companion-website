@@ -40,23 +40,23 @@
       <section>
         <h1>The Quintessential Animation</h1>
         <p>
-          An animation is "something" that changes in time. This something can be a simple <code>double</code>,
-          an <code>Angle</code>, a <code>Point3D</code>, &hellip;
+          An animation is "something" that changes in time. This something can be a simple ``double``,
+          an ``Angle``, a ``Point3D``, &hellip;
         </p>
         <p>
-          Let us consider the most basic of animations: the <code>double</code> animation that
-          goes from <code>0</code> to <code>1</code> in <code>1</code> second.
+          Let us consider the most basic of animations: the ``double`` animation that
+          goes from ``0`` to ``1`` in ``1`` second.
           If we are to visualize this, we would get:
         </p>
         <%= tex_image('double-animation', style:'width: 60%;') %>
         <p>
-          The animation is actually a <em>function</em> mapping time values to <code>double</code> values.
+          The animation is actually a <em>function</em> mapping time values to ``double`` values.
           Let's denote this function with $X(t)$. We can translate the properties above to mathematical formulae:
-          in the very beginning, the animated <code>double</code> should have value $0$. This is expressed by
+          in the very beginning, the animated ``double`` should have value $0$. This is expressed by
           \[
             X(0) = 0
           \]
-          Next, we know the animation takes 1 second to finish and that the <code>double</code>
+          Next, we know the animation takes 1 second to finish and that the ``double``
           should have value $1$ at that time:
           \[
             X(1) = 1
@@ -64,7 +64,7 @@
         </p>
         <p>
           Now, there are many ways in which we could want to modify this animation.
-          For example, we assumed that the <code>double</code> moves "in a straight line" from <code>0</code> to <code>1</code>.
+          For example, we assumed that the ``double`` moves "in a straight line" from ``0`` to ``1``.
           Other possibilities would be
         </p>
         <table id="easing">
@@ -83,8 +83,8 @@
           </tbody>
         </table>
         <p>
-          We may also want to change the starting and ending value of the animation, e.g. have a <code>double</code> go
-          from <code>10</code> to <code>20</code>. The duration is also an aspect we may wish to modify.
+          We may also want to change the starting and ending value of the animation, e.g. have a ``double`` go
+          from ``10`` to ``20``. The duration is also an aspect we may wish to modify.
         </p>
         <p>
           While we could bundle all parameters together into one 'superanimation', we prefer to keep things modular.
@@ -108,8 +108,8 @@
         <section>
           <h2>Changing the Range</h2>
           <p>
-            Say we don't want to animate from <code>0</code> to <code>1</code>, but from
-            <code>10</code> to <code>20</code>, or better, from $a$ to $b$. We can achieve this
+            Say we don't want to animate from ``0`` to ``1``, but from
+            ``10`` to ``20``, or better, from $a$ to $b$. We can achieve this
             easily by mapping the interval $[0, 1]$ to $[a, b]$.
           </p>
           <%= tex_image 'range-mapping' %>
@@ -222,17 +222,17 @@
       <section>
         <h1>Building Animations</h1>
         <p>
-          The <code>double</code> animation is the basic building block for all animations: all other animations can be built from it.
-          Let's introduce a convenient notation to denote <code>double</code> animations:
+          The ``double`` animation is the basic building block for all animations: all other animations can be built from it.
+          Let's introduce a convenient notation to denote ``double`` animations:
           \[
             X(t) = x \xrightarrow{\tau} y
           \]
-          represents a <code>double</code> animation from $x$ to $y$ in $\tau$ seconds. We ignore the shape of the animation for now, i.e.
+          represents a ``double`` animation from $x$ to $y$ in $\tau$ seconds. We ignore the shape of the animation for now, i.e.
           we disregard easing functions.
         </p>
         <p>
-          Say we now want to create <code>Point3D</code> animation $P(t)$: we wish a movement
-          from $(0, 0, 10)$ to $(0, 5, 0)$. The animation of a <code>Point3D</code>
+          Say we now want to create ``Point3D`` animation $P(t)$: we wish a movement
+          from $(0, 0, 10)$ to $(0, 5, 0)$. The animation of a ``Point3D``
           is the animation of its components, i.e. its x, y and z-coordinates:
           \[
             (0, 0, 10) \xrightarrow{\tau} (0,5,0) \quad=\quad (0 \xrightarrow{\tau} 0, 0 \xrightarrow{\tau} 5, 10 \xrightarrow{\tau} 0)

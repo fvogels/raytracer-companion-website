@@ -48,25 +48,25 @@
       <section>
         <h1>Functions</h1>
         <p>
-          A <code>Primitive</code>'s core functionality consists of computing
+          A ``Primitive``'s core functionality consists of computing
           where a given ray intersects with it. Two functions exist that provide this functionality:
         </p>
         <ul>
-          <li><code>find_all_hits</code></li>
-          <li><code>find_first_positive_hit</code></li>
+          <li>``find_all_hits``</li>
+          <li>``find_first_positive_hit``</li>
         </ul>
         <p>
-          <code>find_all_hits</code> covers all ray-intersection related functionality:
+          ``find_all_hits`` covers all ray-intersection related functionality:
           it returns a list of <em>all</em> intersections. However, in practice,
           we're often only interested in the "first positive hit", that is, the
-          hit with the lowest positive <code>t</code>-value, which
+          hit with the lowest positive ``t``-value, which
           corresponds to the hit that's closest to the eye and in front of it.
         </p>
         <%= tex_image 'first-positive-hit' %>
         <p>
-          <code>find_first_positive_hit</code> is specialized in finding this first positive hit
+          ``find_first_positive_hit`` is specialized in finding this first positive hit
           and therefore is a more efficient choice if one is only interested in this hit. For example, in the figure above,
-          <code>find_all_hits</code> returns both $H_1$ and $H_2$, whereas <code>find_first_positive_hit</code> would
+          ``find_all_hits`` returns both $H_1$ and $H_2$, whereas ``find_first_positive_hit`` would
           only return $H_1$.
         </p>
         <p>
@@ -74,67 +74,67 @@
         </p>
         <%= tex_image 'first-positive-hit2' %>
         <p>
-          Here, <code>find_all_hits</code> will still return both $H_1$ and $H_2$, even though they occur behind the ray's origin.
-          <code>find_first_positive_hit</code>, however, will tell you that no hit has been found, as if it returns a hit,
+          Here, ``find_all_hits`` will still return both $H_1$ and $H_2$, even though they occur behind the ray's origin.
+          ``find_first_positive_hit``, however, will tell you that no hit has been found, as if it returns a hit,
           it must take place in front of its origin.
         </p>
       </section>
       <section>
-        <h1><code>Hit</code></h1>
+        <h1>``Hit``</h1>
         <p>
-          A <code>Hit</code> objects contains all relevant information about a single ray/primitive intersection.
+          A ``Hit`` objects contains all relevant information about a single ray/primitive intersection.
           We discuss each member variable in turn.
         </p>
         <section>
-          <h2><code>t</code></h2>
+          <h2>``t``</h2>
           <p>
-            The <%= link 'reference/math/ray', '<code>t</code>-value' %> indicates where on the ray the intersection occurs.
+            The <%= link 'reference/math/ray', '``t``-value' %> indicates where on the ray the intersection occurs.
           </p>
           <%= tex_image 't-value' %>
         </section>
 
         <section>
-          <h2><code>position</code></h2>
+          <h2>``position``</h2>
           <p>
-            <code>position</code> specifies where the hit took place in 3D Cartesian coordinates. It must
-            be consistent with the <code>t</code>-value: if the hit was made by ray with origin $O$ and
-            direction $\vec\Delta$, <code>position</code> must be equal to $O + \vec\Delta \cdot {\tt t}$.
+            ``position`` specifies where the hit took place in 3D Cartesian coordinates. It must
+            be consistent with the ``t``-value: if the hit was made by ray with origin $O$ and
+            direction $\vec\Delta$, ``position`` must be equal to $O + \vec\Delta \cdot {\tt t}$.
           </p>
         </section>
         <section>
-          <h2><code>local_position</code></h2>
+          <h2>``local_position``</h2>
           <p>
-            <code>local_position</code> specifies the hit position with respect to the primitive's own coordinate system.
+            ``local_position`` specifies the hit position with respect to the primitive's own coordinate system.
           </p>
           <ul>
             <li>
-              <code>local_position</code> has two components: <code>xyz</code> and <code>uv</code>.
+              ``local_position`` has two components: ``xyz`` and ``uv``.
             </li>
             <li>
-              <code>local_position.xyz</code> expresses the hit position in a 3D Cartesian coordinate system.
+              ``local_position.xyz`` expresses the hit position in a 3D Cartesian coordinate system.
             </li>
             <li>
-              <code>local_position.uv</code> expresses the hit position in a 2D Cartesian coordinate system.
+              ``local_position.uv`` expresses the hit position in a 2D Cartesian coordinate system.
             </li>
             <li>
-              <code>local_position</code> is used by decorators. A 2D material will look at the <code>uv</code>-component,
-              whereas a 3D material will rely on the <code>xyz</code>-component.
+              ``local_position`` is used by decorators. A 2D material will look at the ``uv``-component,
+              whereas a 3D material will rely on the ``xyz``-component.
             </li>
             <li>
-              When implementing a shape primitive (e.g. a <code>Sphere</code>, <code>Cylinder</code>, <code>Cone</code>, &hellip;)
-              the <code>local_position</code> will coincide with the <code>Hit</code>'s <code>position</code> member.
+              When implementing a shape primitive (e.g. a ``Sphere``, ``Cylinder``, ``Cone``, &hellip;)
+              the ``local_position`` will coincide with the ``Hit``'s ``position`` member.
             </li>
             <li>
-              The <code>position</code> and <code>local_position</code> will diverge when the primitive is transformed:
-              transformers only update <code>position</code>, but leave <code>local_position</code> alone.
+              The ``position`` and ``local_position`` will diverge when the primitive is transformed:
+              transformers only update ``position``, but leave ``local_position`` alone.
               The reason for this is that an object's color is not dependent on its position in the scene.
             </li>
           </ul>
         </section>
         <section>
-          <h2><code>normal</code></h2>
+          <h2>``normal``</h2>
           <p>
-            The unit normal vector on the primitive at <code>position</code>.
+            The unit normal vector on the primitive at ``position``.
           </p>
           <%= tex_image 'normal' %>
           <p>
@@ -157,7 +157,7 @@
             each time.
           </p>
           <p>
-            One way to solve this problem is to let <code>Sphere</code> be smart about the direction of its normal vectors.
+            One way to solve this problem is to let ``Sphere`` be smart about the direction of its normal vectors.
             While computing hits, the primitive receives a ray whose origin represents the eye of the camera.
             When determining the normal, it can choose its direction is such a way that it points towards this eye.
           </p>
@@ -167,19 +167,19 @@
             If, however, the dot product turns out to be positive, we need to flip the normal around: $-\vec n$ becomes the new normal.
           </p>
           <p>
-            You can see this algorithm at work in <code>SphereImplementation::compute_normal_at</code>.
+            You can see this algorithm at work in ``SphereImplementation::compute_normal_at``.
           </p>
         </section>
         <section>
-          <h2><code>material</code></h2>
+          <h2>``material``</h2>
           <p>
-            <code>material</code> contains the material which the scene object is made of at that point.
+            ``material`` contains the material which the scene object is made of at that point.
           </p>
         </section>
         <section>
-          <h2><code>group_id</code></h2>
+          <h2>``group_id``</h2>
           <p>
-            <code>group_id</code> represents which group the intersected primitive is part of. This is important
+            ``group_id`` represents which group the intersected primitive is part of. This is important
             for edge detection.
           </p>
         </section>

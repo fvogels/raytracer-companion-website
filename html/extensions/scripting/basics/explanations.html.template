@@ -35,11 +35,11 @@
           to use than C++.
         </p>
         <p>
-          In order to be able to render a script, we need to make some changes to <code>app.cpp</code> first,
-          which is where the <code>main</code> function resides.
-          By default, the ray tracer will render the <code>basic_sample</code> and write it away to file.
+          In order to be able to render a script, we need to make some changes to ``app.cpp`` first,
+          which is where the ``main`` function resides.
+          By default, the ray tracer will render the ``basic_sample`` and write it away to file.
           Instead, you want it to process the command line arguments, so that when on the console, launching
-          the ray tracer using raytracer <code>-s <span style="font-style: italic;">script</span></code>
+          the ray tracer using raytracer ``-s <span style="font-style: italic;">script</span>``
           lets it read in <span style="font-style: italic;">script</span> and execute all its instructions.
         </p>
         <aside class="boxed2">
@@ -49,12 +49,12 @@
           </p>
           <ul>
             <li>
-              Open <code>app.cpp</code> and locate the <code>main</code> function. Remove the call to <code>demos::basic_sample</code>,
+              Open ``app.cpp`` and locate the ``main`` function. Remove the call to ``demos::basic_sample``,
               as we will make use of 3D Studio, which relies on command line arguments to communicate with the ray tracer.
               Recompile in release build.
             </li>
             <li>
-              Configure 3D Studio so that it knows where to find <code>raytracer.exe</code>. It should be located under <code>raytracer/x64/Release</code>.
+              Configure 3D Studio so that it knows where to find ``raytracer.exe``. It should be located under ``raytracer/x64/Release``.
             </li>
             <li>
               Create a new script in 3D Studio. Give it the following contents:
@@ -84,15 +84,15 @@
           </p>
           <ul>
             <li>
-              You obviously need two spheres. Unions are created as follows: <code>union( [ a, b, c ] )</code>
-              where <code>a</code>, <code>b</code> and <code>c</code> are the union's elements.
+              You obviously need two spheres. Unions are created as follows: ``union( [ a, b, c ] )``
+              where ``a``, ``b`` and ``c`` are the union's elements.
             </li>
             <li>
-              Translation is done using <code>translate(vec(x, y, z), primitive)</code>.
+              Translation is done using ``translate(vec(x, y, z), primitive)``.
             </li>
             <li>
-              To normalize a vector, you can invoke its <code>normalized()</code> function.
-              For example: <code>vec(1, 2, 3).normalized()</code>.
+              To normalize a vector, you can invoke its ``normalized()`` function.
+              For example: ``vec(1, 2, 3).normalized()``.
             </li>
           </ul>
           <p>

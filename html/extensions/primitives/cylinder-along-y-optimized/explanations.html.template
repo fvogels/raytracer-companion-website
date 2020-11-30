@@ -33,7 +33,7 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Implement <code>CylinderYImplementation::find_first_positive_hit</code> so that it finds the first positive hit efficiently.
+            Implement ``CylinderYImplementation::find_first_positive_hit`` so that it finds the first positive hit efficiently.
           </p>
         </aside>
       </section>

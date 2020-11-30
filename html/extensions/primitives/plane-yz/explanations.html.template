@@ -42,7 +42,7 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Compare the <%= link 'reference/primitives/plane', 'plane formulae' %> to the code in <code>primitives/plane-primitive.cpp</code>.
+            Compare the <%= link 'reference/primitives/plane', 'plane formulae' %> to the code in ``primitives/plane-primitive.cpp``.
             Find answers to the following questions:
           </p>
           <ul>
@@ -64,8 +64,8 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Make a <code>PlaneYZImplementation</code> that
-            represents a YZ-plane. Let <code>PlaneXYImplementation</code> be your guide.
+            Make a ``PlaneYZImplementation`` that
+            represents a YZ-plane. Let ``PlaneXYImplementation`` be your guide.
             The most notable differences between these planes are
           </p>
           <ul>

@@ -71,23 +71,23 @@
         <%= source_editor(IO.read 'pipeline.chai') %>
         <ul>
           <li>
-            The pipeline itself starts with <code>Pipeline.animation(fps)</code>. It expects to receive a single object representing a scene animation. This animation
-            is represented here by <code>scene_at(now)</code>, which, given a timestamp <code>now</code>, returns
-            a description of the scene at that instant. The animation pipeline segment calls this function repeatedly for different values of <code>now</code>
-            and passes the results to the next segment. Assuming a frame rate of 50, we can write this as <code>[scene_at(0), scene_at(0.02), scene_at(0.04), scene_at(0.06), ...]</code>.
+            The pipeline itself starts with ``Pipeline.animation(fps)``. It expects to receive a single object representing a scene animation. This animation
+            is represented here by ``scene_at(now)``, which, given a timestamp ``now``, returns
+            a description of the scene at that instant. The animation pipeline segment calls this function repeatedly for different values of ``now``
+            and passes the results to the next segment. Assuming a frame rate of 50, we can write this as ``[scene_at(0), scene_at(0.02), scene_at(0.04), scene_at(0.06), ...]``.
           </li>
           <li>
-            Next, each scene is fed to <code>Pipeline.renderer(renderer)</code> which turns every scene into an image. In other words, this segment's output is a
+            Next, each scene is fed to ``Pipeline.renderer(renderer)`` which turns every scene into an image. In other words, this segment's output is a
             sequence of images representing the animation.
           </li>
           <li>
-            Next, the <code>Pipeline.wif()</code> segment turns every image into the WIF file format.
+            Next, the ``Pipeline.wif()`` segment turns every image into the WIF file format.
           </li>
           <li>
-            The <code>Pipeline.base64()</code> encodes its input into base64.
+            The ``Pipeline.base64()`` encodes its input into base64.
           </li>
           <li>
-            Lastly, <code>Pipeline.stdout()</code> writes all its input to stdout, so that 3D studio can intercept it and visualize it. This is the end of the line: no further output is generated.
+            Lastly, ``Pipeline.stdout()`` writes all its input to stdout, so that 3D studio can intercept it and visualize it. This is the end of the line: no further output is generated.
           </li>
         </ul>
         <p>

@@ -41,32 +41,32 @@
           many points through which we could cast the ray.
           A sampler's job is to pick points within the pixel. The number of points and which points these are is up to the sampler.
           The only guarantee the sampler has to give is that when given a 2D rectangle, it will produce points
-          that are within this rectangle. Go take a look at <code>samplers/sampler.h</code>. The (first) <code>sample</code> method reflects
-          this purpose: it takes a rectangle and returns a list of points. You can ignore the second <code>sample</code> overload for now.
+          that are within this rectangle. Go take a look at ``samplers/sampler.h``. The (first) ``sample`` method reflects
+          this purpose: it takes a rectangle and returns a list of points. You can ignore the second ``sample`` overload for now.
         </p>
         <p>
-          The <%= link 'reference/samplers/random', 'random sampler' %> can be parameterized with an integer <code>n</code>.
-          When asked to sample a rectangle, it will return <code>n</code> random points in this rectangle.
+          The <%= link 'reference/samplers/random', 'random sampler' %> can be parameterized with an integer ``n``.
+          When asked to sample a rectangle, it will return ``n`` random points in this rectangle.
         </p>
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Create new files <code>samplers/random-sampler.h</code> and <code>samplers/random-sampler.cpp</code>.
-            Define a new sampler class (let the existing <code>single-sampler</code> guide you.)
+            Create new files ``samplers/random-sampler.h`` and ``samplers/random-sampler.cpp``.
+            Define a new sampler class (let the existing ``single-sampler`` guide you.)
           </p>
           <ul>
             <li>
-              <code>RandomSampler</code> should have a field <code>m_sample_count</code> which can be initialized using the constructor.
+              ``RandomSampler`` should have a field ``m_sample_count`` which can be initialized using the constructor.
             </li>
             <li>
-              The factory function <code>raytracer::samplers::random</code> should accept a single integer parameter <code>sample_count</code>
-              and use it to create a new <code>RandomSampler</code>.
+              The factory function ``raytracer::samplers::random`` should accept a single integer parameter ``sample_count``
+              and use it to create a new ``RandomSampler``.
             </li>
             <li>
-              For this extension, you need only override the <code>sample</code> overload that returns a list of points.
-              Implement it so that it picks <code>m_sample_count</code> random points inside the rectangle.
+              For this extension, you need only override the ``sample`` overload that returns a list of points.
+              Implement it so that it picks ``m_sample_count`` random points inside the rectangle.
               Use a <a href="http://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution">uniform distribution</a>.
-              You might want to rely on <code>Rectangle2D::from_relative</code> to easily find points inside the rectangle.
+              You might want to rely on ``Rectangle2D::from_relative`` to easily find points inside the rectangle.
             </li>
           </ul>
         </aside>

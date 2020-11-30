@@ -49,7 +49,7 @@
       <section>
         <h1>The Composite Design Pattern</h1>
         <p>
-          The <code>Primitive</code> hierarchy relies heavily on the
+          The ``Primitive`` hierarchy relies heavily on the
           <a href="https://en.wikipedia.org/wiki/Composite_pattern">Composite design pattern</a>.
           For those unfamiliar with the concept, we will first explore a different class hierarchy
           that you should already have experience with.
@@ -65,9 +65,9 @@
             <p>
               First, you get access to basic building blocks: buttons, text boxes, check boxes, labels, etc.
               Next, you get a means of putting these together into larger whole.
-              For example, using WPF terminology, a <code>StackPanel</code> allows
+              For example, using WPF terminology, a ``StackPanel`` allows
               you to put GUI controls next to each other, either horizontally or vertically.
-              A <code>Grid</code> allows you to layout controls in a grid-like fashion.
+              A ``Grid`` allows you to layout controls in a grid-like fashion.
               You can see these panels as "operations" on GUI controls, a bit like the "addition" of two controls
               yielding a new, bigger control.
             </p>
@@ -76,23 +76,23 @@
             </p>
             <ul>
               <li>
-                The <code>Border</code> control has the very limited task of,
+                The ``Border`` control has the very limited task of,
                 given a child control, to draw a border around it.
               </li>
               <li>
-                A <code>ScrollViewer</code> can be used on a large control so as to make
+                A ``ScrollViewer`` can be used on a large control so as to make
                 it possible to choose which part of it should be visible on screen.
               </li>
               <li>
-                A <code>ViewBox</code> takes a child control and scales it.
+                A ``ViewBox`` takes a child control and scales it.
               </li>
             </ul>
             <p>
               The most important aspect of the Composite design pattern is its <em>recursiveness</em>.
               In other words, if you apply an operation (be it a Panel, a ViewBox, a Border, or whatever) on a control, the result
-              is once again a control, on which you can then proceed to apply the same operations again. For example, you can have a <code>Button</code>,
-              you can apply the <code>Border</code> operation on it, and then again, and then once more, and you'll have a button with three borders.
-              This three-bordered button can then be put inside a panel, which can be put inside a <code>ViewBox</code>, etc.
+              is once again a control, on which you can then proceed to apply the same operations again. For example, you can have a ``Button``,
+              you can apply the ``Border`` operation on it, and then again, and then once more, and you'll have a button with three borders.
+              This three-bordered button can then be put inside a panel, which can be put inside a ``ViewBox``, etc.
               This recursiveness, i.e. that every operation on controls yields a new control, allows you to build
               arbitrarily large GUIs.
             </p>
@@ -102,7 +102,7 @@
             <h3>Classes and Objects</h3>
             <p>
               Classes and objects follow the same principle. Here, the basic building blocks are the primitive types:
-              <code>int</code>, <code>char</code>, <code>bool</code>, &hellip; Classes allow you to group these together
+              ``int``, ``char``, ``bool``, &hellip; Classes allow you to group these together
               into new types, and these new types can then be used in the construction of other types, and so on.
             </p>
             <p>
@@ -125,8 +125,8 @@
             that you'll still have to find a way to produce all the right triangles, so you're just shifting the complexity elsewhere.
           </p>
           <p>
-            In other words, it is easier to implement both <code>Triangle</code> and <code>Sphere</code> than to just
-            implement <code>Triangle</code> and build a <code>Sphere</code> out of it. Working with a single sphere
+            In other words, it is easier to implement both ``Triangle`` and ``Sphere`` than to just
+            implement ``Triangle`` and build a ``Sphere`` out of it. Working with a single sphere
             is also much more efficient than to have to work with thousands of tiny triangles.
           </p>
           <p>
@@ -162,7 +162,7 @@
           <p>
             So, even though spheres themselves only come in size 1, you can use scaling to make them as big or as small as you want.
             This approach has the advantage that it makes the implementation much simpler. It is certainly possible to
-            create a <code>Sphere</code> class whose constructor takes a center and radius parameter, but the mathematical formula
+            create a ``Sphere`` class whose constructor takes a center and radius parameter, but the mathematical formula
             behind it will be more complex.
           </p>
           <p>
@@ -284,16 +284,16 @@
         </p>
         <p>
           We've been talking incessentantly about primitives that it should come as no surprise
-          that there is a superclass representing this concept. So, let's start with an abstract superclass <code>Primitive</code>.
-          Methods are not important for now, so there's nothing else to say for the moment about <code>Primitive</code> itself.
+          that there is a superclass representing this concept. So, let's start with an abstract superclass ``Primitive``.
+          Methods are not important for now, so there's nothing else to say for the moment about ``Primitive`` itself.
         </p>
         <p>
-          The basic shapes such as sphere, plane, cone, and cylinder are as you would expect subclasses of <code>Primitive</code>.
+          The basic shapes such as sphere, plane, cone, and cylinder are as you would expect subclasses of ``Primitive``.
         </p>
         <%= tex_image('shape-hierarchy', html_class:'centered', style: 'width: 30%;') %>
         <p>
-          Things get more interesting with transformers. A transformer is something that takes a <code>Primitive</code>
-          and is in itself also a <code>Primitive</code>. Compare this to mathematical operators: the addition
+          Things get more interesting with transformers. A transformer is something that takes a ``Primitive``
+          and is in itself also a ``Primitive``. Compare this to mathematical operators: the addition
           takes two values, and is in itself also a value.
         </p>
         <%= tex_image('transformation-hierarchy', html_class:'centered', style: 'width: 50%;') %>
@@ -302,18 +302,18 @@
         </p>
         <ul>
           <li>
-            Each <code>Transformer</code> object keeps a link to a <code>Primitive</code>.
+            Each ``Transformer`` object keeps a link to a ``Primitive``.
           </li>
           <li>
-            Each <code>Transformer</code> object is itself a <code>Primitive</code>. Herein lies the power of the composite design pattern lies.
+            Each ``Transformer`` object is itself a ``Primitive``. Herein lies the power of the composite design pattern lies.
           </li>
           <li>
-            <code>Rotation</code> is split up into three specialized rotations: around the X-axis, around the Y-axis and around the Z-axis.
+            ``Rotation`` is split up into three specialized rotations: around the X-axis, around the Y-axis and around the Z-axis.
           </li>
         </ul>
         <p>
           For example, creating a 2-radius sphere centered at (1, 2, 3) requires the creation of three objects:
-          a <code>Sphere</code>, a <code>Translation</code> and a <code>Scaling</code> object. C++ code creating
+          a ``Sphere``, a ``Translation`` and a ``Scaling`` object. C++ code creating
           these objects would look like this:
         </p>
         <%= source 'sphere-example.cpp' %>
@@ -322,23 +322,23 @@
           we could not have translated the scaling.
         </p>
         <p>
-          Remember though that these classes belong to the <code>primitives</code> module, so the classes are private to that module.
+          Remember though that these classes belong to the ``primitives`` module, so the classes are private to that module.
           The only functionality the module exposes is the ability to create objects of these classes:
         </p>
         <%= source 'primitives-api.cpp' %>
         <p>
           Now, we've always told you that working with pointers directly is generally a bad idea, on account of them
-          being so brittle. It'd be much better were we to use the more robust <code>std::shared_ptr</code>, so
-          the public interface of the <code>primitives</code> module looks like this:
+          being so brittle. It'd be much better were we to use the more robust ``std::shared_ptr``, so
+          the public interface of the ``primitives`` module looks like this:
         </p>
         <%= source 'primitives-api-shared-ptrs.cpp' %>
         <p>
           While this is technically a better solution, it is also excessively verbose.
-          Luckily, C++ allows for type aliases. Let's introduce an alias for <code>std::shared_ptr&lt;Primitive&gt;</code>:
+          Luckily, C++ allows for type aliases. Let's introduce an alias for ``std::shared_ptr&lt;Primitive&gt;``:
         </p>
         <%= source 'primitives-api-alias.cpp' %>
         <p>
-          Now, this is rather silly. <code>Primitive</code> is meant to be hidden, while <code>PPrimitive</code> is exposed.
+          Now, this is rather silly. ``Primitive`` is meant to be hidden, while ``PPrimitive`` is exposed.
           Why give the clumsy name to the type that we'll actually have to use?
         </p>
         <p>
@@ -346,9 +346,9 @@
         </p>
         <%= source 'primitives-api-wrappers.cpp' %>
         <p>
-          Now, <code>Primitive</code> is the public type, while <code>PrimitiveImplementation</code> is the private one.
+          Now, ``Primitive`` is the public type, while ``PrimitiveImplementation`` is the private one.
           This is the naming used in the RayTracer's design. There is one small difference though: instead
-          of <code>Primitive</code> being an alias for <code>std::shared_ptr&lt;PrimitiveImplementation&gt;</code>,
+          of ``Primitive`` being an alias for ``std::shared_ptr&lt;PrimitiveImplementation&gt;``,
           it is a small <%= link 'reference/design/wrappers', 'wrapper class' %>, but this makes almost no difference.
         </p>
         <section>
@@ -360,10 +360,10 @@
             but rest assured, it does not.
           </p>
           <p>
-            What happened is that we traded in inheritance for composition. Compare it to creating a <code>Person</code> class,
-            where each <code>Person</code> has an age. While it is certainly possible to have a <code>Person</code> superclass
-            with subclasses <code>PersonAged1</code>, <code>PersonAged2</code>, <code>PersonAged3</code>, etc. you would
-            probably prefer to just use a single <code>Person</code> class with a member variable <code>age</code>.
+            What happened is that we traded in inheritance for composition. Compare it to creating a ``Person`` class,
+            where each ``Person`` has an age. While it is certainly possible to have a ``Person`` superclass
+            with subclasses ``PersonAged1``, ``PersonAged2``, ``PersonAged3``, etc. you would
+            probably prefer to just use a single ``Person`` class with a member variable ``age``.
           </p>
           <p>
             The same principle applies to transformers, but instead of having an age, transformers have <em>transformation matrices</em>.
@@ -378,7 +378,7 @@
           <ul>
             <li>
               A <em>transformation matrix</em> is a matrix representing a transformation. Internally, it is nothing but a bunch of numbers.
-              Transformation matrices are accessible through <code>math/transformation-matrices.h</code>.
+              Transformation matrices are accessible through ``math/transformation-matrices.h``.
             </li>
             <li>
               A <em>transformation</em> groups two transformation matrices together, one representing the "forward" transformation,
@@ -400,11 +400,11 @@
                   0 & 0 & 0 & 1 \\
                 \end{bmatrix}
               \]
-              Transformations are declared in <code>math/transformation3d.h</code>.
+              Transformations are declared in ``math/transformation3d.h``.
             </li>
             <li>
               A <em>transformer</em> takes a transformation and a primitive and applies the former on the latter.
-              You can find its declaration in <code>primitives/transformer-primitive</code>.
+              You can find its declaration in ``primitives/transformer-primitive``.
             </li>
           </ul>
           <%= tex_image 'scale-objects' %>
@@ -415,7 +415,7 @@
         <h1>Functionality</h1>
         <p>
           We've discussed what the primitive class hierarchy looks like, but we ignored what member functions were
-          necessary. In other words, given that <code>PrimitiveImplementation</code> is the superclass of all
+          necessary. In other words, given that ``PrimitiveImplementation`` is the superclass of all
           primitives, what are its member functions?
         </p>
         <p>
@@ -423,16 +423,16 @@
         </p>
         <ul>
           <li>
-            <code>std::vector&lt;std::shared_ptr&lt;Hit&gt;&gt; find_all_hits(const Ray&amp; ray) const</code>
+            ``std::vector&lt;std::shared_ptr&lt;Hit&gt;&gt; find_all_hits(const Ray&amp; ray) const``
             computes where the <%= link 'reference/math/ray', 'ray' %> hits the primitive.
           </li>
           <li>
-            <code>Box bounding_box() const</code> returns a 3D box that should be barely large enough to contain the whole primitive.
+            ``Box bounding_box() const`` returns a 3D box that should be barely large enough to contain the whole primitive.
           </li>
         </ul>
         <p>
-          A third member function, <code>find_first_positive_hit</code>, can optionally be overridden for optimization purposes.
-          If you do not override it, it will fall back on its default implementation, i.e. calling <code>find_all_hits</code>
+          A third member function, ``find_first_positive_hit``, can optionally be overridden for optimization purposes.
+          If you do not override it, it will fall back on its default implementation, i.e. calling ``find_all_hits``
           and returning the first positive hit. It should be obvious that writing a separate algorithm
           that specializes in only finding the first positive hit should work much faster than one that computes all hits.
         </p>
@@ -446,7 +446,7 @@
           <section>
             <h3>find_all_hits for spheres</h3>
             <p>
-              As mentioned above, <code>find_all_hits</code>'s job is to determine where a <%= link 'reference/math/ray', 'ray' %> hits the primitive.
+              As mentioned above, ``find_all_hits``'s job is to determine where a <%= link 'reference/math/ray', 'ray' %> hits the primitive.
               Let's consider the case of a sphere:
             </p>
             <%= tex_image 'find-all-hits' %>
@@ -483,7 +483,7 @@
               the global position is.
             </p>
             <p>
-              All these pieces of information correspond to member variables of the RayTracer's <code>Hit</code> structure.
+              All these pieces of information correspond to member variables of the RayTracer's ``Hit`` structure.
               A primitive does not have to update each field, but only those that apply to the primitive in question.
               A sphere primitive will have to fill out the t-value, the local and global position, and the normal.
               The material and group id are ignored: these are the responsibility of other primitives (namely
@@ -504,14 +504,14 @@
               </li>
             </ul>
             <p>
-              So, how does <code>find_all_hits</code> work in the case of decorators? It's very simple:
+              So, how does ``find_all_hits`` work in the case of decorators? It's very simple:
               since a primitive and a decorated primitive have exactly the same shape,
               the hits will also be the same. This means that a decorator object can simply
               ask its child primitives for its hit list. Go take a look at the code to see how this happens.
             </p>
             <p>
               Once the decorator gets hold of the hit list returned by the child primitive,
-              it has to update the <code>Hit</code> objects somehow, otherwise the decorator wouldn't be much use.
+              it has to update the ``Hit`` objects somehow, otherwise the decorator wouldn't be much use.
               For every hit in the list, it updates the material member variable, thereby
               assigning a material to the hit.
             </p>
@@ -567,7 +567,7 @@
                 We ask the small sphere for its intersections. It returns $H'_1$ and $H'_2$.
               </li>
               <li>
-                We "enlarge" these hits, giving $H_1$ and $H_2$, which are returned by the transformer's <code>find_all_hits</code> member function.
+                We "enlarge" these hits, giving $H_1$ and $H_2$, which are returned by the transformer's ``find_all_hits`` member function.
               </li>
             </ol>
           </section>
@@ -575,7 +575,7 @@
         <section>
           <h2>bounding_box</h2>
           <p>
-            Compared to <code>find_all_hits</code>, <code>bounding_box</code> is quite easy.
+            Compared to ``find_all_hits``, ``bounding_box`` is quite easy.
             The only thing it must do is return a <em>bounding box</em>, i.e. a box
             that encompasses the entire primitive:
           </p>
@@ -593,7 +593,7 @@
           </p>
           <p>
             We can make use of bounding boxes as follows to speed up the process: we build a box around
-            all millions of triangles. The <code>find_all_hits</code> function will, instead
+            all millions of triangles. The ``find_all_hits`` function will, instead
             of immediately collecting all hits with all triangles, first perform a quick check:
             does the ray hit the box? If it does not, we can safely say that it won't hit any of the triangles.
             We've just avoided having to perform millions of computations.
@@ -603,7 +603,7 @@
           <section>
             <h3>bounding_box on spheres</h3>
             <p>
-              Let's take a look at how the <code>bounding_box</code> function might be implemented for different primitives.
+              Let's take a look at how the ``bounding_box`` function might be implemented for different primitives.
               For spheres, it's quite simple: we know the sphere has radius 1, so we build a box around it with corners
               $(-1,-1,-1)$ and $(1,1,1)$.
             </p>
@@ -621,7 +621,7 @@
             <h3>bounding_box on transformers</h3>
             <p>
               There is a bit of hidden complexity here. At first glance, you might think implementing
-              <code>bounding_box</code> on transformers is simple: just transform the bounding box.
+              ``bounding_box`` on transformers is simple: just transform the bounding box.
               There are, however, two issues.
             </p>
             <p>

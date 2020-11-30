@@ -90,7 +90,7 @@
         <p>
           Since reading in a mesh file is not our focus, the <%= raw_link('meshes', 'meshes we provide', check: false) %>
           are stored in a very simple file format. In order to understand it, you must know what it's meant to contain:
-          triangles. The most straightforward format would be to store one triangle per line: <code>x1 y1 z1 x2 y2 z2 x3 y3 z3</code>.
+          triangles. The most straightforward format would be to store one triangle per line: ``x1 y1 z1 x2 y2 z2 x3 y3 z3``.
           However, since some meshes are composed of millions of triangles, mesh files would quickly grow very large, literally GBs in size.
         </p>
         <p>

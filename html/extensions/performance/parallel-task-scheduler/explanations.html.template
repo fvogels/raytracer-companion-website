@@ -38,8 +38,8 @@
             should be able to be performed in any order without it affecting the results.
           </p>
           <p>
-            Tasks are modelled by the <code>Task</code> class, declared in <code>tasks/tasks.h</code>.
-            This class defines a single method <code>perform</code>.
+            Tasks are modelled by the ``Task`` class, declared in ``tasks/tasks.h``.
+            This class defines a single method ``perform``.
           </p>
         </section>
 
@@ -50,18 +50,18 @@
             No guarantees are made about the order in which it performs them.
           </p>
           <p>
-            Task schedulers are modelled by the <code>TaskSchedulerImplementation</code>
-            (and <%= link 'reference/design/wrappers', 'wrapped' %> by <code>TaskScheduler</code>s.
-            They only provide one method: <code>perform</code>, which takes a list of tasks.
+            Task schedulers are modelled by the ``TaskSchedulerImplementation``
+            (and <%= link 'reference/design/wrappers', 'wrapped' %> by ``TaskScheduler``s.
+            They only provide one method: ``perform``, which takes a list of tasks.
           </p>
         </section>
 
         <section>
           <h2>Serial Task Scheduler</h2>
           <p>
-            You were given <code>SerialTaskScheduler</code>, a task scheduler
+            You were given ``SerialTaskScheduler``, a task scheduler
             that performs the tasks in sequential order. Take a look at the code
-            in <code>tasks/serial-task-scheduler.cpp</code>: you'll see that
+            in ``tasks/serial-task-scheduler.cpp``: you'll see that
             it is nothing but a loop.
           </p>
         </section>
@@ -69,21 +69,21 @@
         <section>
           <h2>Parallel Task Scheduler</h2>
           <p>
-            The purpose of this extension is to implement <code>ParallelTaskScheduler</code>.
-            Its <code>perform</code> method should create multiple threads and
+            The purpose of this extension is to implement ``ParallelTaskScheduler``.
+            Its ``perform`` method should create multiple threads and
             divide the tasks among them.
           </p>
           <aside class="boxed2">
             <h1>Task</h1>
             <p>
-              Implement <code>ParallelTaskScheduler</code>. It needs to give the following guarantees:
+              Implement ``ParallelTaskScheduler``. It needs to give the following guarantees:
             </p>
             <ul>
               <li>
                 All given tasks must be performed exactly once.
               </li>
               <li>
-                When the scheduler's <code>perform</code> method returns, all tasks have to be performed.
+                When the scheduler's ``perform`` method returns, all tasks have to be performed.
               </li>
             </ul>
             <p>

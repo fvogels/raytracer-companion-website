@@ -29,14 +29,14 @@
       <section>
         <h1>Explanation</h1>
         <p>
-          The member function <code>find_all_hits</code> looks for <em>all</em> hits between a primitive and a ray.
+          The member function ``find_all_hits`` looks for <em>all</em> hits between a primitive and a ray.
           However, it is often the case that only the first positive hit is necessary. It is therefore
           more efficient to also implement a member function that specializes in finding this first positive hit.
         </p>
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Override XZ-plane's <code>find_first_positive_hit</code>.
+            Override XZ-plane's ``find_first_positive_hit``.
           </p>
         </aside>
       </section>

@@ -129,7 +129,7 @@
           <p>
             In order to define a depth of field camera, we do not need to simulate this lens
             Instead, a simpler method exists. We create a separate perspective camera at each
-            pinhole position, but we put the <code>look_at</code> on the point we want to focus on:
+            pinhole position, but we put the ``look_at`` on the point we want to focus on:
           </p>
           <table style="width: 50%; margin: 10px auto;">
             <tbody>
@@ -143,7 +143,7 @@
             In summary, to create a depth of field camera with the eye at $E$, looking
             at position $P$ (which should be in focus),          
             you need to create multiple perspective cameras. These cameras share
-            the same <code>look_at</code> $P$, but differ slightly in $E$.
+            the same ``look_at`` $P$, but differ slightly in $E$.
             The larger the eye positions differ, the more pronounced the blur becomes
             for objects out of focus.
           </p>
@@ -152,10 +152,10 @@
       <section>
         <h1>Comparisons</h1>
         <section>
-          <h2><code>look_at</code></h2>
+          <h2>``look_at``</h2>
           <p>
             Below you can compare what happens when you create depth of field cameras
-            for a different <code>look_at</code> positions:
+            for a different ``look_at`` positions:
           </p>
           <%= raytrace_comparison 'close-focal-point', 'far-focal-point' %>
         </section>

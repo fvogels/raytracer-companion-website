@@ -49,15 +49,15 @@
         <h1>Explanation</h1>
         <p>
           There are different kinds of primitives. The most basic primitives are those modelling shapes,
-          such as <code>Sphere</code>, <code>Triangle</code> and the plane primitives.
-          A more abstract kind of primitives model operations on primitives: <code>Decorator</code>s
-          assign materials to other primitives while <code>Transformer</code>s can be used
-          to move primitives around in space. The <code>BoundingBoxAccelerator</code> primitive
+          such as ``Sphere``, ``Triangle`` and the plane primitives.
+          A more abstract kind of primitives model operations on primitives: ``Decorator``s
+          assign materials to other primitives while ``Transformer``s can be used
+          to move primitives around in space. The ``BoundingBoxAccelerator`` primitive
           is even more abstract: it changes absolutely nothing about the scene.
           If it does, there's a bug.
         </p>
         <p>
-          The <code>BoundingBoxAccelerator</code>'s only purpose in life is to <span style="text-decoration: line-through">pass the butter</span>
+          The ``BoundingBoxAccelerator``'s only purpose in life is to <span style="text-decoration: line-through">pass the butter</span>
           speed up rendering. Say you have a scene containing a complex object built out of
           thousands or millions of triangles (i.e. a <em>mesh</em>):
         </p>

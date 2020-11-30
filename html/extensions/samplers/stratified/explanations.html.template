@@ -37,7 +37,7 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Implement the <%= link 'reference/samplers/stratified', 'stratified sampler' %>. You can use the <code>math::Rasterizer</code> class
+            Implement the <%= link 'reference/samplers/stratified', 'stratified sampler' %>. You can use the ``math::Rasterizer`` class
             to subdivide the rectangle into subrectangles.
           </p>
         </aside>

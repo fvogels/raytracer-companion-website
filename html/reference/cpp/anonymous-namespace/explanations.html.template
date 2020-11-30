@@ -48,38 +48,38 @@
       <section>
         <h1>Namespaces</h1>
         <p>
-          A C++ application can comprise many <code>.cpp</code> files. These generally contain class and function definitions,
+          A C++ application can comprise many ``.cpp`` files. These generally contain class and function definitions,
           some of which are private to the file, others which are made public by putting a declaration in a corresponding header file.
         </p>
         <p>
-          Consider two <code>.cpp</code> files, <code>A.cpp</code> and <code>B.cpp</code>. They expose a function <code>a()</code> and <code>b()</code>
+          Consider two ``.cpp`` files, ``A.cpp`` and ``B.cpp``. They expose a function ``a()`` and ``b()``
           respectively, and both rely on some helper method.
         </p>
         <%= tex_image 'helper-functions' %>
         <p>
-          This won't build successfully: the compiler will not complain, but the linker will see two definitions for <code>helper</code>, which it doesn't like.
+          This won't build successfully: the compiler will not complain, but the linker will see two definitions for ``helper``, which it doesn't like.
           Every function should have only one definition. It does not matter to the linker that the definitions reside in separate compilation units.
         </p>
         <p>
-          This is a rather annoying problem: <code>helper</code> is supposed to be private to each <code>.cpp</code> file. When working in a team,
-          you would have to document which private functions there are in each <code>.cpp</code> file so that no one uses the same names.
+          This is a rather annoying problem: ``helper`` is supposed to be private to each ``.cpp`` file. When working in a team,
+          you would have to document which private functions there are in each ``.cpp`` file so that no one uses the same names.
           This would quickly lead to a horrible naming mess.
         </p>
         <p>
-          To remedy this problem, you could put the helper functions in a <code>.cpp</code>-specific namespace:
-          <code>A.cpp</code> would have a <code>A_private::helper</code> and <code>B.cpp</code> a <code>B_private::helper</code> function.
+          To remedy this problem, you could put the helper functions in a ``.cpp``-specific namespace:
+          ``A.cpp`` would have a ``A_private::helper`` and ``B.cpp`` a ``B_private::helper`` function.
           In this case, neither the compiler nor the linker would complain.
         </p>
         <%= source 'namespaces.cpp' %>        
         <p>
-          An easier solution would be to have <code>A.cpp</code> and <code>B.cpp</code> put their private definitions in an
+          An easier solution would be to have ``A.cpp`` and ``B.cpp`` put their private definitions in an
           <em>anonymous namespace</em>, i.e. a namespace without name:
         </p>
         <%= source 'anonymous-namespaces.cpp' %>
         <p>
           In this case, the compiler would auto-generate a unique name for you. This namespace is automatically imported
-          in the global namespace, i.e. you don't have to write <code>using namespace</code> and can simply
-          refer to <code>helper()</code> without namespace qualification.
+          in the global namespace, i.e. you don't have to write ``using namespace`` and can simply
+          refer to ``helper()`` without namespace qualification.
         </p>
       </section>
     </div>

@@ -40,7 +40,7 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Create a <code>lights/directional-light.cpp</code> and <code>lights/directional-light.h</code>.
+            Create a ``lights/directional-light.cpp`` and ``lights/directional-light.h``.
           </p>
         </aside>
         <p>
@@ -48,7 +48,7 @@
         </p>
         <ul>
           <li>
-            A direction (<code>Vector3D</code>) indicating where the light comes from.
+            A direction (``Vector3D``) indicating where the light comes from.
           </li>
           <li>
             A color.
@@ -57,22 +57,22 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Write the class <code>DirectionalLight</code> in <code>directional-light.cpp</code> in an <%= link 'reference/cpp/anonymous-namespace', 'anonymous namespace' %>
+            Write the class ``DirectionalLight`` in ``directional-light.cpp`` in an <%= link 'reference/cpp/anonymous-namespace', 'anonymous namespace' %>
           </p>
           <ul>
             <li>
-              The class should subclass <code>LightSourceImplementation</code>.
+              The class should subclass ``LightSourceImplementation``.
             </li>
             <li>
-              It has two member variables: <code>direction</code> and <code>color</code>.
+              It has two member variables: ``direction`` and ``color``.
             </li>
             <li>
-              The constructor should take a <code>direction</code> and <code>color</code> parameter
+              The constructor should take a ``direction`` and ``color`` parameter
               and use them to initialize the member variables.
             </li>
             <li>
-              The class needs to override the method <code>lightrays_to</code>.
-              This method receives a <code>Point3D p</code> for which it is asked
+              The class needs to override the method ``lightrays_to``.
+              This method receives a ``Point3D p`` for which it is asked
               which light rays it shines onto that point. A directional light need only
               produce a single light ray per such point. Find out for yourself which light ray it needs to generate.
             </li>
@@ -82,19 +82,19 @@
           <h1>Task</h1>
           <ul>
             <li>
-              Add a declaration for the factory function named <code>directional</code> in the header file. Put
-              it in the namespace <code>raytracers::lights</code>.
+              Add a declaration for the factory function named ``directional`` in the header file. Put
+              it in the namespace ``raytracers::lights``.
             </li>
             <li>
-              Add the definition for the factory function in the <code>cpp</code> file. Take
+              Add the definition for the factory function in the ``cpp`` file. Take
               a look at the factory function for omnidirectional point lights for inspiration.
             </li>
             <li>
-              Add the directional light to <code>lights/lights.h</code>.
+              Add the directional light to ``lights/lights.h``.
             </li>
             <li>
-              Open <code>scripting/lights-module.cpp</code>. Add an extra member function <code>directional</code> to <code>LightLibrary</code>.
-              Add an extra binding in <code>create_lights_module</code>.
+              Open ``scripting/lights-module.cpp``. Add an extra member function ``directional`` to ``LightLibrary``.
+              Add an extra binding in ``create_lights_module``.
             </li>
             <li>
               As always, check your work by rendering a scene using the directional light.

@@ -38,30 +38,30 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Examine the file <code>math/transformation-matrices.h</code>.
+            Examine the file ``math/transformation-matrices.h``.
             You will find functions that just might be quite helpful to you.
           </p>
         </aside>
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Open <code>math/transformation3d.cpp</code>. Use <code>math::transformations::translation</code> as a guide for this task.
+            Open ``math/transformation3d.cpp``. Use ``math::transformations::translation`` as a guide for this task.
           </p>
           <p>
-            Define a function <code>math::transformations::rotate_y(Angle angle)</code> in <code>math/transformation3d.cpp</code>.
+            Define a function ``math::transformations::rotate_y(Angle angle)`` in ``math/transformation3d.cpp``.
             Expose it to the rest of the application by adding a declaration in the corresponding header.
           </p>
         </aside>
         <p>
-          Lastly, we need to define a rotating <code>Primitive</code>. The <code>Transformer</code> class models the primitive responsible
+          Lastly, we need to define a rotating ``Primitive``. The ``Transformer`` class models the primitive responsible
           for all transformations and has already been written for you. What remains for you to do is to initialize it so that it rotates.
         </p>
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Define a factory function <code>Primitive raytracer::primitives::rotate_around_y(Angle angle, Primitive transformee)</code>
-            in <code>primitives/transformer-primitive.cpp</code>.
-            Use the given function <code>raytracer::primitives::translate</code> as a guide.
+            Define a factory function ``Primitive raytracer::primitives::rotate_around_y(Angle angle, Primitive transformee)``
+            in ``primitives/transformer-primitive.cpp``.
+            Use the given function ``raytracer::primitives::translate`` as a guide.
           </p>
         </aside>
         <aside class="boxed2">

@@ -51,16 +51,16 @@
             Its up vector.
           </li>
           <li>
-            Its horizontal angle (of type <code>Angle</code>).
+            Its horizontal angle (of type ``Angle``).
           </li>
           <li>
-            Its vertical angle (of type <code>Angle</code>).
+            Its vertical angle (of type ``Angle``).
           </li>
         </ul>
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Create the files <code>cameras/fisheye-camera.cpp</code> and <code>cameras/fisheye-camera.h</code>.
+            Create the files ``cameras/fisheye-camera.cpp`` and ``cameras/fisheye-camera.h``.
             We suggest you copy paste the code from perspective cameras to these files and modify them as necessary.
           </p>
           <p>
@@ -68,10 +68,10 @@
           </p>
           <ul>
             <li>
-              <code>math::Interval</code> and <code>math::IntervalMapper</code> to translate $[0, 1]$ to $[\alpha, \beta]$.
+              ``math::Interval`` and ``math::IntervalMapper`` to translate $[0, 1]$ to $[\alpha, \beta]$.
             </li>
             <li>
-              <code>Point3D::spherical</code> to create a point given spherical coordinates.
+              ``Point3D::spherical`` to create a point given spherical coordinates.
             </li>
           </ul>
         </aside>

@@ -33,7 +33,7 @@
           <h1>Task</h1>
           <ul>
             <li>
-              Implement <code>TriangleImplementation::find_first_positive_hit</code>.
+              Implement ``TriangleImplementation::find_first_positive_hit``.
             </li>
           </ul>
         </aside>

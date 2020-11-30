@@ -38,29 +38,29 @@
         </table>
         <p>
           Perlin noise is in essence a random number generator that guarantees a certain smoothness.
-          Concretely, what we want is some function <code>double random(double x)</code> that satisfies the following conditions:
+          Concretely, what we want is some function ``double random(double x)`` that satisfies the following conditions:
         </p>
         <ul>
           <li>
-            <code>random</code> must be deterministic: <code>random(x)</code> must return the same result when given the same <code>x</code>.
+            ``random`` must be deterministic: ``random(x)`` must return the same result when given the same ``x``.
           </li>
           <li>
-            <code>random</code> must be continuous: <code>random(x)</code> and <code>random(x + 0.00001)</code> should be close to each other, i.e. no sudden jumps.
+            ``random`` must be continuous: ``random(x)`` and ``random(x + 0.00001)`` should be close to each other, i.e. no sudden jumps.
           </li>
         </ul>
         <p>
           Perlin noise satisfies these criteria.
         </p>
         <p>
-          The function <code>double random(double x)</code> is one-dimensional: it associates a value with each <code>double</code>.
+          The function ``double random(double x)`` is one-dimensional: it associates a value with each ``double``.
           We can lift this to higher dimensions:
         </p>
         <ul>
           <li>
-            <code>double random(const Point2D&amp;)</code> is a two dimensional variant: it associates a value with each <code>Point2D</code>.
+            ``double random(const Point2D&amp;)`` is a two dimensional variant: it associates a value with each ``Point2D``.
           </li>
           <li>
-            <code>double random(const Point3D&amp;)</code> is three dimensional: each point in 3D space is mapped to a value.
+            ``double random(const Point3D&amp;)`` is three dimensional: each point in 3D space is mapped to a value.
           </li>
         </ul>
       </section>
@@ -68,7 +68,7 @@
         <h1>Perlin Noise</h1>
         <p>
           Perlin noise is such a deterministic continuous function. For the remainder of this page, we will work in 2D, i.e.
-          we will build a function <code>double perlin(const Point2D&amp;)</code>.
+          we will build a function ``double perlin(const Point2D&amp;)``.
         </p>
         <p>
           Perlin noise works as follows: take a 2D grid of 1 &times; 1 cells and associate a unit vector with every intersection.

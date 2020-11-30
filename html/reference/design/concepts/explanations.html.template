@@ -86,7 +86,7 @@
           </p>
           <p>
             There is no arrow leaving the WIF rectangle because it does not produce any output. You can
-            see it as a <code>void</code>-returning function. It takes the bitmap, writes it to file, and that's it.
+            see it as a ``void``-returning function. It takes the bitmap, writes it to file, and that's it.
           </p>
           <p>
             A pipeline segment that accepts input is called a <em>consumer</em>. One that produces
@@ -94,7 +94,7 @@
             segments that is only a consumer, not a producer.
           </p>
           <p>
-            All functionality related to pipelines can be found in the <code>pipeline</code> module.
+            All functionality related to pipelines can be found in the ``pipeline`` module.
             Examples of other pipeline segments are
           </p>
           <ul>
@@ -110,7 +110,7 @@
             </li>
             <li>
               <%= link 'extensions/pipeline/ppm', 'PPM' %> produces PPM files instead of WIFs.
-              This makes it possible to produce "real" movies (mp4, animated gifs, &hellip;) using an external tool like <code>ffmpeg</code>.
+              This makes it possible to produce "real" movies (mp4, animated gifs, &hellip;) using an external tool like ``ffmpeg``.
             </li>
             <li>
               <%= link 'extensions/pipeline/motion-blur', 'Motion blur' %> comes after the renderer and adds bitmaps together, thereby creating
@@ -194,7 +194,7 @@
             Different types of renderers have different components, so for now we will
             pretend only the standard renderer exists.
             Go find the declaration for the factory function in the code.
-            It is located in the renderers module, in the file <code>standard-renderer.h</code>.
+            It is located in the renderers module, in the file ``standard-renderer.h``.
             As you see, it requires the following inputs:
           </p>
           <dl>
@@ -205,7 +205,7 @@
               This is a more advanced feature which will be explained later in greater detail.
               Suffice it to say that it determines image quality. To create a sampler,
               you can look what factory functions are available in the
-              <code>raytracer::samplers</code> namespace.
+              ``raytracer::samplers`` namespace.
             </dd>
             <dt>Ray tracer</dt>
             <dd>
@@ -228,7 +228,7 @@
             </dd>
           </dl>
           <p>
-            Once you've created a renderer, you can feed it a scene using the <code>render</code> method
+            Once you've created a renderer, you can feed it a scene using the ``render`` method
             (see renderers/renderer.h), and it will give you a nice bitmap in return.
           </p>
         </section>
@@ -255,7 +255,7 @@
           </ul>
           <p>
             Go take a look in raytracers/ray-tracer.h and you'll find that ray tracers offers
-            only a single method: <code>trace</code>.
+            only a single method: ``trace``.
             This method takes two parameters: a scene and a ray. The ray tracer then traces the ray, i.e. computes
             what object in the scene it hits and finds out what color the object has at that point.
             If the object is transparent, the ray tracer will (if it supports refraction at least) compute
@@ -347,17 +347,17 @@
             The most obvious effect a camera has on the final result is that
             its location determines from what point of view the scene
             is rendered. For example, we can put the camera high in the sky or low to the ground.
-            In the RayTracer, the location of the camera is represented by a <code>Point3D</code> and
+            In the RayTracer, the location of the camera is represented by a ``Point3D`` and
             generally referred to as the eye's position.
           </p>
           <p>
             We of course also need to specify the camera's orientation: what is it looking at?
-            In the RayTracer, this corresponds to the <code>look_at</code>, of type <code>Point3D</code>.
+            In the RayTracer, this corresponds to the ``look_at``, of type ``Point3D``.
           </p>
           <p>
             Even with the position and the look_at point, the orientation of the camera is not yet fully determined:
             it is possible to tilt the camera. For example, you can choose to turn the camera upside down.
-            How the camera is positioned is determined by the <em>up-vector</em> (of type <code>Vector3D</code>). If you
+            How the camera is positioned is determined by the <em>up-vector</em> (of type ``Vector3D``). If you
             want the camera to stand up right, choose $(0, 1, 0)$ as up-vector. To turn the camera upside down,
             take $(0, -1, 0)$, etc.
           </p>
@@ -488,14 +488,14 @@
           </p>
           <p>
             The basic ray tracer is very simple. It receives a ray and has access to the scene data. It asks the scene's
-            root where the ray hits an object using <code>find_first_positive_hit</code>. Not any intersection will do:
+            root where the ray hits an object using ``find_first_positive_hit``. Not any intersection will do:
             the ray tracer needs to have the intersection that's closest to the eye <em>and</em> is in front of the eye.
             This is similar to the situation where if you take a picture of a forest, the picture will only
             show the trees that are not obscured by other trees (= first hit), and trees behind the camera will not
             show on the picture either (= only positive hits).
           </p>
           <p>
-            Once the ray tracer has gotten hold of the first positive hit, it will look for the <code>Material</code> in the <code>Hit</code> data structure.
+            Once the ray tracer has gotten hold of the first positive hit, it will look for the ``Material`` in the ``Hit`` data structure.
             This determines the color of the hit. This suffices for a simple ray tracer. More advanced ray tracers will perform extra computations:
           </p>
           <ul>

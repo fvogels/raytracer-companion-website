@@ -37,8 +37,8 @@
         <h1>Implementation</h1>
         <p>
           First, familiarize yourself with <%= link 'reference/refraction', 'refraction' %>.
-          Also go take a look at <code>MaterialProperties</code>: you'll find you'll need the member variables
-          <code>refractive_index</code> and <code>transparency</code> for this extension.
+          Also go take a look at ``MaterialProperties``: you'll find you'll need the member variables
+          ``refractive_index`` and ``transparency`` for this extension.
         </p>
         <p>
           Correctly implementing refraction is not an easy task. We choose to introduce the following simplifications:
@@ -74,32 +74,32 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Implement <code>RayTracerV6</code>.
+            Implement ``RayTracerV6``.
           </p>
           <ul>
             <li>
-              <code>RayTracerV5</code> should have two <code>trace</code> methods: one with and one without <code>weight</code> parameter.
-              For <code>RayTracerV6</code>, you'll need to override the one with the <code>weight</code> parameter.
+              ``RayTracerV5`` should have two ``trace`` methods: one with and one without ``weight`` parameter.
+              For ``RayTracerV6``, you'll need to override the one with the ``weight`` parameter.
             </li>
             <li>
-              <code>RayTracerV5::trace</code> calls <code>compute_ambient</code>, <code>process_lights</code> and
-              <code>compute_reflection</code> and adds their results. <code>RayTracerV6::trace</code> is identical,
-              but should also call the new member function <code>compute_refraction</code>.
+              ``RayTracerV5::trace`` calls ``compute_ambient``, ``process_lights`` and
+              ``compute_reflection`` and adds their results. ``RayTracerV6::trace`` is identical,
+              but should also call the new member function ``compute_refraction``.
             </li>
             <li>
-              <code>compute_refraction</code> computes two refractions of the light ray: once
+              ``compute_refraction`` computes two refractions of the light ray: once
               at the entry point, once at the exit point.
             </li>
             <li>
-              <code>compute_refraction</code> is in essence quite similar to <code>compute_reflection</code>:
-              where <code>compute_reflection</code> simply bounces the ray off of the surface of the shape and then
-              calls <code>trace</code> recursively, <code>compute_refraction</code> lets the ray
-              pass through the shape and calls <code>trace</code> recursively on the exiting light ray.
+              ``compute_refraction`` is in essence quite similar to ``compute_reflection``:
+              where ``compute_reflection`` simply bounces the ray off of the surface of the shape and then
+              calls ``trace`` recursively, ``compute_refraction`` lets the ray
+              pass through the shape and calls ``trace`` recursively on the exiting light ray.
             </li>
             <li>
               You might have to give the ray small "nudges" here and there. Say the ray enters the transparent
               object at $P_1$. You compute the direction of the refracted ray and then determine where
-              this new ray exits the object. If you let the ray start at $P_1$, <code>find_first_positive_hit</code>
+              this new ray exits the object. If you let the ray start at $P_1$, ``find_first_positive_hit``
               will quite probably return $P_1$. In order to prevent this, you'll have to move the origin of the refracted
               ray a tiny bit.
             </li>

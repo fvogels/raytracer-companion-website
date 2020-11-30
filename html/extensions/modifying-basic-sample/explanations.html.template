@@ -60,7 +60,7 @@
       <section>
         <h1>Identifying The Key Parts</h1>
         <p>
-          Open <code>demos/basic-sample.cpp</code>. This file contains all necessary code
+          Open ``demos/basic-sample.cpp``. This file contains all necessary code
           to create the above scene.
         </p>
         <p>
@@ -97,9 +97,9 @@
       <section>
         <h1>Modifying the Animation</h1>
         <p>
-          Create a new demo by making a copy of the files <code>basic-sample.h</code> and <code>basic-sample.cpp</code>.
-          Choose names of your own liking (e.g. <code>my-demo.h</code> and <code>my-demo.cpp</code>).
-          Rename the function <code>basic_sample</code> to e.g. <code>my_demo</code> and update <code>app.cpp</code> to call this new function.
+          Create a new demo by making a copy of the files ``basic-sample.h`` and ``basic-sample.cpp``.
+          Choose names of your own liking (e.g. ``my-demo.h`` and ``my-demo.cpp``).
+          Rename the function ``basic_sample`` to e.g. ``my_demo`` and update ``app.cpp`` to call this new function.
           Make the following changes to your own demo file:
         </p>
         <aside class="boxed2">
@@ -121,12 +121,12 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Add a second sphere. Use <code>make_union</code> to group primitives together, as
+            Add a second sphere. Use ``make_union`` to group primitives together, as
             shown in the code below.
           </p>
           <%= source 'make-union.cpp' %>
           <p>
-            Never use <code>union</code> as a variable or function name: <code>union</code> is already a C++ keyword.
+            Never use ``union`` as a variable or function name: ``union`` is already a C++ keyword.
           </p>
           <%= raytrace_movie 'two-spheres' %>
         </aside>

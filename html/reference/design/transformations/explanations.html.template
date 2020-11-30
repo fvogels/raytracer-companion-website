@@ -47,7 +47,7 @@
         </p>
         <p>
           Transformation matrices have already been implemented for you.
-          You will find them in <code>math/transformation-matrices.h</code>.
+          You will find them in ``math/transformation-matrices.h``.
         </p>
       </section>
       <section>
@@ -88,17 +88,17 @@
           we would have to resort to a more complex algorithm to invert the matrix.
         </p>
         <p>
-          For this reason, we introduced the class <code>Transformation</code>. This class pairs up both the
+          For this reason, we introduced the class ``Transformation``. This class pairs up both the
           matrix $T$ and its inverse $T^{-1}$. Whenever we need a translation transformation, we set up both matrices and
-          group them in a <code>Transformer</code> object.
+          group them in a ``Transformer`` object.
         </p>
       </section>
       <section>
         <h1>Transformer Primitive</h1>
         <p>
-          Lastly, we need to define a scaling <code>Primitive</code>.
-          The <code>Transformer</code> class has already been written for you and takes care of most of the complexity.
-          It takes a <code>Transformation</code> object and uses it to transform and "untransform" rays and hit locations.
+          Lastly, we need to define a scaling ``Primitive``.
+          The ``Transformer`` class has already been written for you and takes care of most of the complexity.
+          It takes a ``Transformation`` object and uses it to transform and "untransform" rays and hit locations.
         </p>
       </section>
     </div>

@@ -61,14 +61,14 @@
         </p>
         <p>
           In our design, the primitive shapes (sphere, cylinder, plane, &hellip;) are always in their canonical form:
-          the <code>Sphere</code> class models a sphere with radius 1 and positioned at $(0,0,0)$, etc. In order to change
-          the position, size and orientation of a primitive, we rely on the <code>Transformer</code> class.
+          the ``Sphere`` class models a sphere with radius 1 and positioned at $(0,0,0)$, etc. In order to change
+          the position, size and orientation of a primitive, we rely on the ``Transformer`` class.
         </p>
         <p>
           The same technique is usable on cameras. When implementing a camera, we always assume its eye is located
           at $(0,0,0)$, that it looks straight in front of it to some point on the Z-axis, and that it is always standing upright (i.e. up = $(0,1,0)$).
           The logic needed to moving the camera around has arleady been implemented separately for you in the
-          <code>DisplaceableCamera</code> class. This means that by subclassing <code>DisplaceableCamera</code>, you are freed
+          ``DisplaceableCamera`` class. This means that by subclassing ``DisplaceableCamera``, you are freed
           from the burden of having to take into account all of the above parameters (i.e. eye, lookat, up).
         </p>
       </section>
@@ -90,14 +90,14 @@
           a rectangular canvas, a <%= link 'extensions/cameras/fisheye', 'fisheye camera' %> uses a spherical canvas.
         </p>
         <p>
-          To get a concrete idea of what a camera does, open the file <code>cameras/camera.h</code>.
-          <code>CameraImplementation</code> is the base class for all cameras and in essence
-          only provides one method: <code>enumerate_rays</code>. There are two overloads of this method,
+          To get a concrete idea of what a camera does, open the file ``cameras/camera.h``.
+          ``CameraImplementation`` is the base class for all cameras and in essence
+          only provides one method: ``enumerate_rays``. There are two overloads of this method,
           but you only need to override one of them. The easiest (but probably least efficient) choice
-          would be to override the overload returning a list of <code>Ray</code>s.
+          would be to override the overload returning a list of ``Ray``s.
         </p>
         <p>
-          The <code>enumerate_rays</code> method takes only one argument: a 2D position $P$. This $P$
+          The ``enumerate_rays`` method takes only one argument: a 2D position $P$. This $P$
           tells the camera for what point on the canvas the rays need to be generated.
           While the canvas can actually be any size you want, say W &times; H, a camera expects it to
           have size 1 &times; 1. It will be up to the renderer to translate coordinates from
@@ -133,7 +133,7 @@
           In order to ask a camera for rays, we need to tell it what point on the canvas we're interested in.
           This is the above mentioned 2D point $P$. If we want to know which rays should be cast through the lower left
           corner of the canvas, we ask the camera to enumerate rays for $(0, 0)$. Likewise, to get rays through the center of the canvas,
-          we need to pass $(0.5, 0.5)$ as coordinates to the <code>enumerate_rays</code> member function. Below are the rays a perspective camera
+          we need to pass $(0.5, 0.5)$ as coordinates to the ``enumerate_rays`` member function. Below are the rays a perspective camera
           would shoot.
         </p>
         <%= tex_image 'perspective-camera-rays' %>
@@ -145,7 +145,7 @@
           </p>
           <ul>
             <li>
-              The canvas's size can change. In the current implementation, the height is always 1, but the width is determined by the <code>aspect_ratio</code> parameter.
+              The canvas's size can change. In the current implementation, the height is always 1, but the width is determined by the ``aspect_ratio`` parameter.
               Note that the coordinates to pick a point on the canvas remain unchanged: $(1, 1)$ still refers to the upper right corner, no matter how large the canvas is.
               <%= tex_image 'aspect-ratio' %>
               For best results, the camera's aspect ratio should coincide with the ultimate rendering's aspect ratio. E.g. if you render a 1920 &times; 1080 bitmap,
@@ -154,13 +154,13 @@
             <li>
               The distance between the eye and the canvas can change, i.e. the canvas can be placed further away (or closer by) on the Z-axis.
               <%= tex_image 'distance' %>
-              The <code>distance</code> parameter specifies the distance between the eye and the center of the canvas, as shown in the figure above.
-              You could say that the <code>distance</code> parameter is redundant as the <code>look_at</code> parameter could be taken as the center
+              The ``distance`` parameter specifies the distance between the eye and the center of the canvas, as shown in the figure above.
+              You could say that the ``distance`` parameter is redundant as the ``look_at`` parameter could be taken as the center
               of the canvas. This is perfectly true, but splitting it up in two separate parameters simplifies usage: often you want
-              which object you want to look at, at putting your <code>look_at</code> at the same position as this object
+              which object you want to look at, at putting your ``look_at`` at the same position as this object
               will automatically make the camera point in the right direction. Just like when you want to paint a river, while you are indeed <em>looking</em> at
               the river, you do not put your canvas in the river. Instead, you put the canvas close to your eye, in the direction of the river. The same
-              idea applies here: <code>look_at</code> specifies direction, <code>distance</code> specifies where to put the canvas along that direction.
+              idea applies here: ``look_at`` specifies direction, ``distance`` specifies where to put the canvas along that direction.
             </li>
           </ul>
         </section>

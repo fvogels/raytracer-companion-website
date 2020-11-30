@@ -40,26 +40,26 @@
         </p>
         <ul>
           <li>
-            The eye, a <code>Point3D</code>.
+            The eye, a ``Point3D``.
           </li>
           <li>
-            The look at point (<code>Point3D</code>), which specifies what the camera is looking at. This point is also the focal point:
+            The look at point (``Point3D``), which specifies what the camera is looking at. This point is also the focal point:
             objects around this location will be sharp, far away objects will look blurry.
           </li>
           <li>
-            The up vector (<code>Vector3D</code>).
+            The up vector (``Vector3D``).
           </li>
           <li>
-            The <%= link 'reference/design/cameras', 'distance' %> (<code>double</code>) between the eye and the canvas.
+            The <%= link 'reference/design/cameras', 'distance' %> (``double``) between the eye and the canvas.
           </li>
           <li>
-            The <%= link 'reference/design/cameras', 'aspect ratio' %> (<code>double</code>) of the canvas.
+            The <%= link 'reference/design/cameras', 'aspect ratio' %> (``double``) of the canvas.
           </li>
           <li>
-            The eye size (<code>double</code>).
+            The eye size (``double``).
           </li>
           <li>
-            The eye sampler (<code>Sampler</code>).
+            The eye sampler (``Sampler``).
           </li>
         </ul>
         <p>
@@ -94,48 +94,48 @@
       <section>
         <h1>Implementation</h1>
         <p>
-          Let's start off with the definition of a <code>DepthOfFieldPerspectiveCamera</code> class.
+          Let's start off with the definition of a ``DepthOfFieldPerspectiveCamera`` class.
         </p>
         <aside class="boxed2">
           <h1>Task</h1>
           <ul>
             <li>
-              Create new files <code>cameras/depth-of-field-perspective-camera.cpp</code> and
-              <code>cameras/depth-of-field-perspective-camera.h</code>.
+              Create new files ``cameras/depth-of-field-perspective-camera.cpp`` and
+              ``cameras/depth-of-field-perspective-camera.h``.
             </li>
             <li>
-              Define the class <code>DepthOfFieldPerspectiveCamera</code> in an anonymous namespace
-              (i.e. a namespace with no name, see <code>primitives/sphere-primitive.cpp</code> for an example.)
-              <code>DepthOfFieldPerspectiveCamera</code> should be a subclass of <code>DisplaceableCamera</code>.
+              Define the class ``DepthOfFieldPerspectiveCamera`` in an anonymous namespace
+              (i.e. a namespace with no name, see ``primitives/sphere-primitive.cpp`` for an example.)
+              ``DepthOfFieldPerspectiveCamera`` should be a subclass of ``DisplaceableCamera``.
             </li>
             <li>
-              <code>DepthOfFieldPerspectiveCamera</code> has one member variable: a list of <code>Camera</code> objects.
+              ``DepthOfFieldPerspectiveCamera`` has one member variable: a list of ``Camera`` objects.
               These will be a bunch of perspective cameras with slightly different eyes.
             </li>
             <li>
-              <code>DepthOfFieldPerspectiveCamera</code>'s constructor takes two parameters:
-              a <code>Matrix4x4</code> transformation matrix, and a list of <code>Camera</code>s.
+              ``DepthOfFieldPerspectiveCamera``'s constructor takes two parameters:
+              a ``Matrix4x4`` transformation matrix, and a list of ``Camera``s.
               The transformation matrix is passed along to the base class's constructor.
-              The list of <code>Camera</code>s is used to initialize the member variable you declared earlier.
+              The list of ``Camera``s is used to initialize the member variable you declared earlier.
             </li>
             <li>
-              <code>DepthOfFieldPerspectiveCamera</code> overrides one member function: <code>enumerate_untransformed_rays</code>
-              (from <code>DisplaceableCamera</code>.)
+              ``DepthOfFieldPerspectiveCamera`` overrides one member function: ``enumerate_untransformed_rays``
+              (from ``DisplaceableCamera``.)
               <ul>
                 <li>
-                  It takes two parameters: <code>point</code> and <code>callback</code>.
+                  It takes two parameters: ``point`` and ``callback``.
                 </li>
                 <li>
-                  Add sanity checks: write assertions (<code>assert</code>) that verify that <code>point</code>'s <code>x</code>
-                  and <code>y</code>-coordinates are indeed between <code>0</code> and <code>1</code>.
+                  Add sanity checks: write assertions (``assert``) that verify that ``point``'s ``x``
+                  and ``y``-coordinates are indeed between ``0`` and ``1``.
                 </li>
                 <li>
-                  Next, iterate over the <code>Camera</code> list and call <code>enumerate_rays</code> on each of them,
-                  passing along <code>point</code> and <code>callback</code> as arguments.
+                  Next, iterate over the ``Camera`` list and call ``enumerate_rays`` on each of them,
+                  passing along ``point`` and ``callback`` as arguments.
                 </li>
-              The <code>callback</code> parameter is a function that <code>enumerate_untransformed_rays</code>
+              The ``callback`` parameter is a function that ``enumerate_untransformed_rays``
               must call for each ray it produces. Working this way should be more efficient than accumulating
-              <code>Ray</code> objects in lists (less memory needed, no heap allocation necessary.)
+              ``Ray`` objects in lists (less memory needed, no heap allocation necessary.)
             </li>
           </ul>
         </aside>
@@ -149,47 +149,47 @@
           <h1>Task</h1>
           <ul>
             <li>
-              Declare the factory function <code>depth_of_field_perspective</code> in the header file.
-              It should be a member of the <code>raytracers::cameras</code> namespace. See other header files for help.
+              Declare the factory function ``depth_of_field_perspective`` in the header file.
+              It should be a member of the ``raytracers::cameras`` namespace. See other header files for help.
               Its parameters were enumerated earlier on this page.
             </li>
             <li>
-              Define the factory function in the <code>cpp</code> file.
+              Define the factory function in the ``cpp`` file.
               <ul>
                 <li>
-                  Sanity check: <code>up</code> must be a unit vector.
+                  Sanity check: ``up`` must be a unit vector.
                 </li>
                 <li>
-                  Create the transformation matrix using <code>create_transformation</code>. This function
-                  expects an <code>eye</code>, a <code>look_at</code> and an <code>up</code> vector.
+                  Create the transformation matrix using ``create_transformation``. This function
+                  expects an ``eye``, a ``look_at`` and an ``up`` vector.
                 </li>
                 <li>
-                  Define a <code>canonical_look_at</code> point. It should lie on the Z-axis and as far away
-                  from $(0,0,0)$ as the <code>eye</code> point is from the <code>look_at</code> point.
+                  Define a ``canonical_look_at`` point. It should lie on the Z-axis and as far away
+                  from $(0,0,0)$ as the ``eye`` point is from the ``look_at`` point.
                 </li>
                 <li>
-                  Initialize an empty list of <code>Camera</code>s named <code>cameras</code>.
+                  Initialize an empty list of ``Camera``s named ``cameras``.
                 </li>
                 <li>
-                  Create the <code>eye_area</code>, which is a <code>Rectangle2D</code>.
-                  Derive from the figures above where this <code>Rectangle2D</code> should be positioned.
+                  Create the ``eye_area``, which is a ``Rectangle2D``.
+                  Derive from the figures above where this ``Rectangle2D`` should be positioned.
                 </li>
                 <li>
-                  Ask the <code>sampler</code> to pick points from the <code>eye_area</code>.
+                  Ask the ``sampler`` to pick points from the ``eye_area``.
                 </li>
                 <li>
-                  Create a new <code>PerspectiveCamera</code> for each such point $P$, where you use
-                  $P$ as the camera's eye. All cameras should share <code>relative_look_at</code>,
-                  and have $(0,1,0)$ as <code>up</code>-vector. <code>distance</code> and
-                  <code>aspect_ratio</code> should also be the same for each camera.
+                  Create a new ``PerspectiveCamera`` for each such point $P$, where you use
+                  $P$ as the camera's eye. All cameras should share ``relative_look_at``,
+                  and have $(0,1,0)$ as ``up``-vector. ``distance`` and
+                  ``aspect_ratio`` should also be the same for each camera.
                 </li>
                 <li>
-                  Put each <code>PerspectiveCamera</code> in the list <code>cameras</code>.
+                  Put each ``PerspectiveCamera`` in the list ``cameras``.
                 </li>
                 <li>
-                  Finally, create a <code>DepthOfFieldPerspectiveCamera</code>,
-                  initializing it with the transformation matrix and the list of <code>Camera</code>s.
-                  Wrap it inside a <code>Camera</code> (same as in <code>cameras/perspective-camera.cpp</code>.)
+                  Finally, create a ``DepthOfFieldPerspectiveCamera``,
+                  initializing it with the transformation matrix and the list of ``Camera``s.
+                  Wrap it inside a ``Camera`` (same as in ``cameras/perspective-camera.cpp``.)
                 </li>
               </ul>
             </li>
@@ -203,16 +203,16 @@
           </p>
           <ul>
             <li>
-              Add the camera to the list of cameras in <code>cameras/cameras.h</code>.
+              Add the camera to the list of cameras in ``cameras/cameras.h``.
             </li>
             <li>
-              Open <code>scripting/cameras-module.cpp</code>. Add an extra member function <code>depth_of_field</code>.
-              Add a binding in <code>create_cameras_module</code>.
+              Open ``scripting/cameras-module.cpp``. Add an extra member function ``depth_of_field``.
+              Add a binding in ``create_cameras_module``.
             </li>
             <li>
-              In the same file, try to create <code>depth_of_field_by_map</code> and bind it.
+              In the same file, try to create ``depth_of_field_by_map`` and bind it.
               This would allow you to create a depth of field camera using the keyword parameter syntax
-              (i.e. <code>Cameras.depth_of_field( [ "eye": pos(0,0,0), ... ] )</code>).
+              (i.e. ``Cameras.depth_of_field( [ "eye": pos(0,0,0), ... ] )``).
             </li>
           </ul>
         </aside>

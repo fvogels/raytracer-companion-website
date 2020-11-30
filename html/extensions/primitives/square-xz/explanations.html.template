@@ -49,14 +49,14 @@
           </p>
           <ul>
             <li>
-              Define a class <code>SquareXZImplementation</code> that subclasses <code>PrimitiveImplementation</code>.
+              Define a class ``SquareXZImplementation`` that subclasses ``PrimitiveImplementation``.
               It must model the square shown in the above figure. Use the plane primitive as a guide.
             </li>
             <li>
-              Override <code>find_all_hits</code>.
+              Override ``find_all_hits``.
             </li>
             <li>
-              Define a <code>Primitive xz_square()</code> factory function.
+              Define a ``Primitive xz_square()`` factory function.
             </li>
             <li>
               Add a binding to the scripting language.

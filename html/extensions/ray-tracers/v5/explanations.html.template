@@ -110,8 +110,8 @@
           </ul>
           <p>
             One solution solves both problems: we associate a <em>reflectivity</em> with each material,
-            which is a number between <code>0</code> and <code>1</code> indicating how many
-            photons get reflected. A nonreflective material has reflectivity <code>0</code>.
+            which is a number between ``0`` and ``1`` indicating how many
+            photons get reflected. A nonreflective material has reflectivity ``0``.
           </p>
           <p>
             We update the pseudocode to take into account reflectivity:
@@ -138,36 +138,36 @@
           </p>
           <%= tex_image 'weight' %>
           <p>
-            To implement this, we need to pass along the "weight" to the <code>trace</code> function.
+            To implement this, we need to pass along the "weight" to the ``trace`` function.
             The weight indicates how much the result of the call will count in the final result.
-            <code>trace</code> can then choose to immediately return black if this weight is below $1\%$.
+            ``trace`` can then choose to immediately return black if this weight is below $1\%$.
             This way, recursion is guaranteed to end, as long as with each recursive call,
-            <code>trace</code> passes along an updated version of the weight which is lower than its own.
+            ``trace`` passes along an updated version of the weight which is lower than its own.
           </p>
           <%= source 'recursive3.pseudo' %>
           <aside class="boxed2">
             <h1>Task</h1>
             <p>
-              Implement <code>RayTracerV5</code>. We give you the following hints:
+              Implement ``RayTracerV5``. We give you the following hints:
             </p>
             <ul>
               <li>
-                You will need to add a new <code>trace</code> overload. It takes the same arguments
-                as the original <code>trace</code> function and adds a <code>double weight</code> parameter.
+                You will need to add a new ``trace`` overload. It takes the same arguments
+                as the original ``trace`` function and adds a ``double weight`` parameter.
               </li>
               <li>
-                <code>RayTracerV5</code> overrides <code>trace</code>. It calls the new <code>trace</code> overload,
-                passing it <code>1.0</code> as <code>weight</code>.
+                ``RayTracerV5`` overrides ``trace``. It calls the new ``trace`` overload,
+                passing it ``1.0`` as ``weight``.
               </li>
               <li>
-                The new <code>trace</code> will behave the same as the old <code>trace</code>, but will,
-                after calling <code>compute_ambient</code> and <code>process_lights</code>, perform
-                a third call, to <code>compute_reflection</code>.
+                The new ``trace`` will behave the same as the old ``trace``, but will,
+                after calling ``compute_ambient`` and ``process_lights``, perform
+                a third call, to ``compute_reflection``.
               </li>
               <li>
-                <code>compute_reflection</code> will need to be able to call <code>trace</code> recursively.
+                ``compute_reflection`` will need to be able to call ``trace`` recursively.
                 It is important that you call the new overload, and that you always pass along the correct weight.
-                Make sure to pass all necessary data to <code>compute_reflection</code> using parameters
+                Make sure to pass all necessary data to ``compute_reflection`` using parameters
                 so that it can perform its job.
               </li>
               <li>

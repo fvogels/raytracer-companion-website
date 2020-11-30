@@ -49,7 +49,7 @@
           <h1>3D Studio</h1>
           <ul>
             <li>
-              5/10/2017: autosave option (see <code>Configuration</code> class)
+              5/10/2017: autosave option (see ``Configuration`` class)
             </li>
             <li>
               29/9/2017: you can now choose the animation speed.
@@ -92,21 +92,21 @@
         <article>
           <h1>Sanity Checks (06/10/2016)</h1>
           <p>
-            Try to write as many assertions as you can. An assertion is written <code>assert(some_condition)</code>
+            Try to write as many assertions as you can. An assertion is written ``assert(some_condition)``
             and is checked only in debug builds. If the condition fails, the application will crash
             with an error message indicating which assertion went wrong.
           </p>
           <p>
-            Assertions are a valuable debugging tool. Say you're writing code that should produce a unit length vector <code>v</code>
-            that's perpendicular on some other vector <code>u</code>. Before returning this vector <code>v</code>,
+            Assertions are a valuable debugging tool. Say you're writing code that should produce a unit length vector ``v``
+            that's perpendicular on some other vector ``u``. Before returning this vector ``v``,
             perform the following sanity checks:
           </p>
           <ul>
             <li>
-              <code>assert(v.is_unit());</code>
+              ``assert(v.is_unit());``
             </li>
             <li>
-              <code>assert(v.is_perpendicular_on(u));</code>
+              ``assert(v.is_perpendicular_on(u));``
             </li>
           </ul>
           <p>
@@ -147,20 +147,20 @@
               Initial situation: you are on the master branch and have made some changes to your code, but they don't work. These changes have not been "git add"-ed yet, which is good.
             </li>
             <li>
-              Create a new branch: <code>git branch <span style="font-style: italic;">branchname</span></code>. E.g. <code>git branch helpimstuck</code>.
+              Create a new branch: ``git branch <span style="font-style: italic;">branchname</span>``. E.g. ``git branch helpimstuck``.
             </li>
             <li>
-              Switch to this new branch using <code>git checkout <span style="font-style: italic;">branchname</span></code>, e.g. <code>git checkout helpimstuck</code>.
+              Switch to this new branch using ``git checkout <span style="font-style: italic;">branchname</span>``, e.g. ``git checkout helpimstuck``.
             </li>
             <li>
-              Add your changes: <code>git add <span style="font-style: italic;">files</span></code>.
+              Add your changes: ``git add <span style="font-style: italic;">files</span>``.
             </li>
             <li>
-              Commit your changes: <code>git commit -m <span style="font-style: italic;">message</span></code>.
+              Commit your changes: ``git commit -m <span style="font-style: italic;">message</span>``.
             </li>
             <li>
-              Push your changes: <code>git push -u origin <span style="font-style: italic;">branchname</span></code>, e.g. <code>git push -u origin helpimstuck</code>. The <code>-u</code> is only needed for your first push.
-              It tells git to remember that your new local branch must be linked with the remote branch on Bitbucket. Subsequent pushes on this branch can be done with a simple <code>git push</code>.
+              Push your changes: ``git push -u origin <span style="font-style: italic;">branchname</span>``, e.g. ``git push -u origin helpimstuck``. The ``-u`` is only needed for your first push.
+              It tells git to remember that your new local branch must be linked with the remote branch on Bitbucket. Subsequent pushes on this branch can be done with a simple ``git push``.
             </li>
           </ul>
           <p>
@@ -168,19 +168,19 @@
           </p>
           <ul>
             <li>
-              While on the correct branch (the one you created above), pull in my modifications: <code>git pull</code>.
+              While on the correct branch (the one you created above), pull in my modifications: ``git pull``.
             </li>
             <li>
-              You should take a look at the changes I made: <code>git diff HEAD~1 HEAD</code>.
+              You should take a look at the changes I made: ``git diff HEAD~1 HEAD``.
             </li>
             <li>
               You should definitely check that everything works, i.e. build and run.
             </li>
             <li>
-              Switch to the master branch: <code>git checkout master</code>.
+              Switch to the master branch: ``git checkout master``.
             </li>
             <li>
-              Take in the changes made in the other branch: <code>git merge <span style="font-style: italic;">branchname</span></code>, e.g. <code>git merge helpimstuck</code>.
+              Take in the changes made in the other branch: ``git merge <span style="font-style: italic;">branchname</span>``, e.g. ``git merge helpimstuck``.
             </li>
           </ul>
         </article>

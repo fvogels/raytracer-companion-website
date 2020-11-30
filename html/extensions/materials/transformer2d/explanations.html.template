@@ -43,7 +43,7 @@
           <%= link 'extensions/materials/rotation2d', 'rotate2d' %> extensions.
         </p>
         <p>
-          For this extension, you will implement the <code>Material2DTransformer</code>. It is
+          For this extension, you will implement the ``Material2DTransformer``. It is
           able to perform arbitrary transformations on 2D materials. The <%= link 'extensions/materials/scaling2d', 'scale2d' %>,
           <%= link 'extensions/materials/translation2d', 'translate2d' %> and
           <%= link 'extensions/materials/rotation2d', 'rotate2d' %> extensions will build upon this class.
@@ -51,16 +51,16 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Implement <code>Material2DTransformer</code>.
+            Implement ``Material2DTransformer``.
           </p>
           <ul>
             <li>
-              A <code>Material2DTransformer</code> is a subclass of <code>MaterialImplementation</code>.
-              It is parameterized by a child <code>Material</code> (the one that is being transformed)
-              and a <code>Transformation2D</code>.
+              A ``Material2DTransformer`` is a subclass of ``MaterialImplementation``.
+              It is parameterized by a child ``Material`` (the one that is being transformed)
+              and a ``Transformation2D``.
             </li>
             <li>
-              You will need to override the <code>at</code> member function. You will have to find out for yourself
+              You will need to override the ``at`` member function. You will have to find out for yourself
               what should happen here.
             </li>
           </ul>

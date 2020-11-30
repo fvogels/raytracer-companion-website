@@ -33,7 +33,7 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Implement <code>SquareYZImplementation::find_first_positive_hit</code> so
+            Implement ``SquareYZImplementation::find_first_positive_hit`` so
             that it finds the first positive hit efficiently.
           </p>
         </aside>

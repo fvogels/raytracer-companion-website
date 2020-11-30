@@ -43,10 +43,10 @@
           The ray tracer makes extensive use of small wrapper types such as
         </p>
         <ul>
-          <li><code>raytracer::primitives::Primitive</code></li>
-          <li><code>raytracer::materials::Material</code></li>
-          <li><code>raytracer::lights::LightSource</code></li>
-          <li><code>raytracer::cameras::Camera</code></li>
+          <li>``raytracer::primitives::Primitive``</li>
+          <li>``raytracer::materials::Material``</li>
+          <li>``raytracer::lights::LightSource``</li>
+          <li>``raytracer::cameras::Camera``</li>
         </ul>
         <p>
           If you look at these classes, you will notice that they look quite alike.
@@ -54,28 +54,28 @@
           The reason for this is that they are just "gateways" to the actual objects.
         </p>
         <p>
-          If you would take a quick look at <code>raytracer::primitives::Primitive</code>,
-          you'll see that it keeps a pointer to a <code>PrimitiveImplementation</code> object.
-          This object provides the actual <code>Primitive</code>-related functionality.
+          If you would take a quick look at ``raytracer::primitives::Primitive``,
+          you'll see that it keeps a pointer to a ``PrimitiveImplementation`` object.
+          This object provides the actual ``Primitive``-related functionality.
         </p>
         <p>
-          So, given a <code>Primitive</code> object, you normally would have to first
-          get to the <code>PrimitiveImplementation</code> object it points to, on which
-          you can call methods: <code>primitive.getImplementation()->doSomethingUseful()</code>.
+          So, given a ``Primitive`` object, you normally would have to first
+          get to the ``PrimitiveImplementation`` object it points to, on which
+          you can call methods: ``primitive.getImplementation()->doSomethingUseful()``.
           However, having to write this all the time would get tiresome very quickly.
         </p>
         <p>
-          Luckily, C++ lets you overload the <code>-&gt;</code> operator.
-          Normally, <code>-&gt;</code> is only meant to be used on pointers,
+          Luckily, C++ lets you overload the ``-&gt;`` operator.
+          Normally, ``-&gt;`` is only meant to be used on pointers,
           but you can define what it means when it's being used on objects
-          of your own class. In our case, <code>Primitive</code> overloads
-          <code>-&gt;</code> such that it "redirects" you automatically towards the implementation object.
-          This means that instead of having to write <code>primitive.getImplementation()->doSomethingUseful()</code>,
-          you can use the shorter notation <code>primitive->doSomethingUseful()</code>.
+          of your own class. In our case, ``Primitive`` overloads
+          ``-&gt;`` such that it "redirects" you automatically towards the implementation object.
+          This means that instead of having to write ``primitive.getImplementation()->doSomethingUseful()``,
+          you can use the shorter notation ``primitive->doSomethingUseful()``.
         </p>
         <p>
-          In summary, whenever you're working with a wrapper type such as <code>Primitive</code>, <code>Material</code>,
-          <code>LightSource</code>, <code>Camera</code>, and so on, you should use the <code>-&gt;</code> operator to get
+          In summary, whenever you're working with a wrapper type such as ``Primitive``, ``Material``,
+          ``LightSource``, ``Camera``, and so on, you should use the ``-&gt;`` operator to get
           easy access to the "real object"'s functionality.
       </section>
 
@@ -83,8 +83,8 @@
         <h1>Rationale</h1>
         <p>
           Wrapper types are used where there are class hierarchies (i.e. inheritance) making use of
-          dynamic dispatch (i.e. overriding member functions). Let's say there's a superclass <code>S</code> with
-          subclasses <code>A</code> and <code>B</code>. <code>S</code> defines a virtual method <code>m()</code>,
+          dynamic dispatch (i.e. overriding member functions). Let's say there's a superclass ``S`` with
+          subclasses ``A`` and ``B``. ``S`` defines a virtual method ``m()``,
           which is overriden in both subclasses.
         </p>
         <p>
@@ -92,19 +92,19 @@
         </p>
         <%= source 'using-pointers.cpp' %>
         <p>
-          This means that you should never work with <code>S</code>, but instead with <code>S*</code>.
+          This means that you should never work with ``S``, but instead with ``S*``.
           The problem with pointers is that they are quite brittle. A more robust solution would
-          be to rely on <code>std::shared_ptr</code>.
+          be to rely on ``std::shared_ptr``.
         </p>
         <%= source 'using-smart-pointers.cpp' %>
         <p>
           While this approach is technically better, it is also overly verbose.
-          Having to type <code>std::shared_ptr&lt;S&gt;</code> all the time
+          Having to type ``std::shared_ptr&lt;S&gt;`` all the time
           will become annoying very quickly.
         </p>
         <p>
           Fortunately, C++ allows you to define type aliases. This way,
-          you can introduce a shorter name for <code>std::shared_ptr&lt;S&gt;</code>:
+          you can introduce a shorter name for ``std::shared_ptr&lt;S&gt;``:
         </p>
         <%= source 'using-typedef.cpp' %>
         <p>
@@ -114,11 +114,11 @@
         <%= source 'using-wrapper.cpp' %>
         <p>
           These helper classes (wrappers) are extensively relied upon in our ray tracer's design.
-          For example, the <code>primitives</code> module contains a hierarchy of classes
+          For example, the ``primitives`` module contains a hierarchy of classes
           each representing different shapes and operations. These classes are private to the module,
           i.e. code outside the module can't see the class hierarchy. The only class made public
-          is the wrapper class for the supertype, which in the case of the <code>primitives</code> module
-          is <code>Primitive</code>. To create specific kinds of primitives (e.g. a sphere or a cone),
+          is the wrapper class for the supertype, which in the case of the ``primitives`` module
+          is ``Primitive``. To create specific kinds of primitives (e.g. a sphere or a cone),
           the module also exposes factory functions:
         </p>
         <%= source 'module-api.cpp' %>
@@ -131,11 +131,11 @@
           </li>
           <li>
             You can pass primitives as arguments or return them without syntactic clutter.
-            The parameter type can just be <code>Primitive</code>, no need for pointers or references.
+            The parameter type can just be ``Primitive``, no need for pointers or references.
           </li>
           <li>
-            We can define operators on <code>Primitive</code>s. We didn't make use of this possibility
-            in the case of <code>Primitive</code>s, but we did for <code>Function</code>s.
+            We can define operators on ``Primitive``s. We didn't make use of this possibility
+            in the case of ``Primitive``s, but we did for ``Function``s.
           </li>
           <li>
             It comes at no performance penalty.

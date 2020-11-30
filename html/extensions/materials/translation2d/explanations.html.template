@@ -39,9 +39,9 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Use <code>MaterialTransformer2D</code> to implement 2D material translation.
-            You may have to define extra classes in <code>math</code>.
-            Hint: you'll need <code>Matrix3x3</code> in order to represent 2D transformations.
+            Use ``MaterialTransformer2D`` to implement 2D material translation.
+            You may have to define extra classes in ``math``.
+            Hint: you'll need ``Matrix3x3`` in order to represent 2D transformations.
             Make sure to take a look around, some useful functionality might already be implemented.
           </p>
         </aside>

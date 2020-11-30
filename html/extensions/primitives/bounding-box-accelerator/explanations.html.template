@@ -38,22 +38,22 @@
               Add the necessary files to the project.
             </li>
             <li>
-              Define a new <code>PrimitiveImplementation</code> subclass.
+              Define a new ``PrimitiveImplementation`` subclass.
               <ul>
                 <li>
-                  Its constructor should accept a <code>Primitive</code>, which it stores.
+                  Its constructor should accept a ``Primitive``, which it stores.
                 </li>
                 <li>
                   The constructor should also ask for the child's bounding box and store it
                   in a member variable so as to only have to generate it once.
                 </li>
                 <li>
-                  Implement <code>find_all_hits</code> as described in the reading material (see overview above.)
+                  Implement ``find_all_hits`` as described in the reading material (see overview above.)
                 </li>
               </ul>
             </li>
             <li>
-              Define a factory method <code>Primitive raytracer::primitives::bounding_box_accelerator(Primitive)</code>.
+              Define a factory method ``Primitive raytracer::primitives::bounding_box_accelerator(Primitive)``.
             </li>
           </ul>
         </aside>

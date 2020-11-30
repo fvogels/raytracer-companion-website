@@ -76,15 +76,15 @@
         </p>
         <p>
           So, what do we actually need to do in ray tracer v4? Not much, really: we need only update
-          <code>process_light_ray</code> so that it checks whether the given light ray
+          ``process_light_ray`` so that it checks whether the given light ray
           intersects the scene at $t$ values between $0$ and $1$. If not, it can continue
           in the same way as v3 did, otherwise it returns black.
         </p>
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Define the class <code>RayTracerV4</code> in its own set of files (<code>ray-tracer-v4.cpp</code> and <code>ray-tracer-v4.h</code>).
-            Override <code>process_light_ray</code>:
+            Define the class ``RayTracerV4`` in its own set of files (``ray-tracer-v4.cpp`` and ``ray-tracer-v4.h``).
+            Override ``process_light_ray``:
           </p>
           <ul>
             <li>
@@ -94,14 +94,14 @@
               If there's a hit where $0 \leq t &lt; 1$, return black.
             </li>
             <li>
-              Call <code>RayTracerV3::process_light_ray</code> and return its result.
+              Call ``RayTracerV3::process_light_ray`` and return its result.
             </li>
           </ul>
         </aside>
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Integrate <code>RayTracerV4</code> with the rest of the ray tracer.
+            Integrate ``RayTracerV4`` with the rest of the ray tracer.
             Show off by creating a scene with shadows.
           </p>
         </aside>

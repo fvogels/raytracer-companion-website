@@ -39,8 +39,8 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Implement <code>ConeAlongZImplementation</code> and its <code>find_all_hits</code> member function.
-            Add a factory function <code>cone_along_z</code>. Add a binding for the scripting language.
+            Implement ``ConeAlongZImplementation`` and its ``find_all_hits`` member function.
+            Add a factory function ``cone_along_z``. Add a binding for the scripting language.
           </p>
         </aside>
       </section>

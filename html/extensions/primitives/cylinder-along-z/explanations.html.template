@@ -57,7 +57,7 @@
         <aside class="boxed2">
           <h1>Task</h1>
           <p>
-            Create a class <code>CylinderZImplementation</code> and implement its <code>find_all_hits</code> member function.
+            Create a class ``CylinderZImplementation`` and implement its ``find_all_hits`` member function.
             The class should model an Z-axis aligned cylinder with radius 1.
           </p>
         </aside>
