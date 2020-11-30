@@ -1,0 +1,24 @@
+= Bounce Animation
+
+[overview]
+----
+reading math/animations
+reading design/animations/basics
+----
+
+preview::preview[]
+
+== Implementation
+
+[TASK]
+====
+Create the files ``animation/circular-animation.cpp`` and ``animation/circular-animation.h`` and
+define a factory function named ``circular`` returning a ``Animation&lt;math::Point3D&gt;`` and accepts the following parameters:
+
+* ``const math::Point3D& point``: original position.
+* ``const math::Point3D& center``: point around which animation revolves.
+* ``const math::Vector3D& rotation_axis``: normal on the plane in which the circular motion takes place.
+* ``const math::Interval&lt;math::Angle&gt;& angle_interval``: start and end angle. Start angle should be 0&deg;.
+* ``const Duration& duration``: how long the animation takes.
+* Use ``animation/interval-animation.h`` as inspiration for how to go about implementing the animation. Don't forget to add a binding for the scripting language.
+====
