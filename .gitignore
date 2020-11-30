@@ -1,5 +1,6 @@
 dist/
 logs/
+.vscode/
 *~
 *.aux
 *.log
