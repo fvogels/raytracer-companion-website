@@ -1,0 +1,31 @@
+= Fisheye Camera
+
+[overview]
+----
+reading cameras/fisheye
+----
+
+preview::preview[]
+
+== Implementation
+
+Start with the reading material mentioned in the overview above.
+
+The parameters for a fisheye camera are
+
+* Its eye.
+* Its look_at point.
+* Its up vector.
+* Its horizontal angle, type ``Angle``.
+* Its vertical angle, type ``Angle``.
+
+[TASK]
+====
+Create the files ``cameras/fisheye-camera.cpp`` and ``cameras/fisheye-camera.h``.
+We suggest you copy paste the code from perspective cameras to these files and modify them as necessary.
+
+Following things might prove useful for implementing fisheye cameras are
+
+* ``math::Interval`` and ``math::IntervalMapper`` to translate stem:[[0, 1]] to stem:[[\alpha, \beta]].
+* ``Point3D::spherical`` to create a point given spherical coordinates.
+====
