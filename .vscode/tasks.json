@@ -22,8 +22,10 @@
             "type": "shell",
             "command": "rake html",
             "presentation": {
-                "reveal": "never",
-                "panel": "new"
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": false,
+                "clear": true
             },
             "problemMatcher": [],
             "group": {
