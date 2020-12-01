@@ -1,0 +1,18 @@
+= Lissajous Animation
+
+[overview]
+----
+reading math/animations
+reading math/animations
+reading design/animations/basics
+----
+
+preview::preview[]
+
+== Implementation
+
+[TASK]
+====
+Implement the Lissajous animation.
+It animates a ``Point3D`` following https://en.wikipedia.org/wiki/Lissajous_curve[certain mathematical rules].
+====
