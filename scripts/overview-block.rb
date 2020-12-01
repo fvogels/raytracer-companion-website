@@ -21,6 +21,7 @@ class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
     lines << '|==='
 
     create_open_block(parent, [], attrs).tap do |b|
+      b.role = 'overview'
       parse_content(b, lines, {})
     end
   end
@@ -62,5 +63,21 @@ class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
     extensions.zip(headers).map do |extension, header|
       "| #{header} | <</#{extension}#,#{extension}>>"
     end
+  end
+end
+
+class OverviewBlockMacroDocinfoProcessor < Asciidoctor::Extensions::DocinfoProcessor
+  use_dsl
+
+  def process doc
+    <<~END
+      <style>
+        .overview {
+          width: 80%;
+          margin: 1em auto;
+          box-shadow: #BBB 10px 10px 10px;
+        }
+      </style>'
+    END
   end
 end

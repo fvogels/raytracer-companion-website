@@ -13,6 +13,7 @@ WIF = 'C:\Python37\Scripts\wif'
 
 Asciidoctor::Extensions.register do
   block OverviewBlock
+  docinfo_processor OverviewBlockMacroDocinfoProcessor if document.basebackend? 'html'
   block TaskBlock
   docinfo_processor TaskBlockDocinfoProcessor if document.basebackend? 'html'
   block_macro PreviewBlockMacro
