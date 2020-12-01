@@ -1,0 +1,14 @@
+= Spot Lights
+
+[overview]
+----
+requires ray-tracers/v2
+reading lights/spot
+----
+
+preview::preview[]
+
+[TASK]
+====
+Implement spot lights.
+====
