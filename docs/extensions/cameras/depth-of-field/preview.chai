@@ -1,0 +1,67 @@
+def scene_at(now)
+{
+  var lookat = Animations.animate( pos(0,0,0), pos(0,0,-15), seconds(3) )[now]
+
+
+  var camera = Cameras.depth_of_field( [ "eye": pos(0, 0, 5),
+                                         "look_at": lookat,
+                                         "up": vec(0, 1, 0),
+                                         "distance": 1,
+                                         "aspect_ratio": 1,
+                                         "eye_size": 0.1,
+                                         "eye_sampler": Samplers.multijittered(3) ] )
+
+  var white = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                   "diffuse": Colors.white() * 0.8,
+                                   "specular": Colors.white(),
+                                   "specular_exponent": 20,
+                                   "reflectivity": 0,
+                                   "transparency": 0,
+                                   "refractive_index": 0 ] )
+
+  var black = Materials.uniform( [ "ambient": Colors.black(),
+                                   "diffuse": Colors.white() * 0.1,
+                                   "specular": Colors.white(),
+                                   "specular_exponent": 20,
+                                   "reflectivity": 0,
+                                   "transparency": 0,
+                                   "refractive_index": 0 ] )
+
+  var checkered = Materials.checkered2d(black, white)
+
+  var spheres   = []
+
+  for_each([-2..5], bind(fun (i, spheres) {
+                     spheres.push_back(translate(vec(-2,0,-i*3), sphere()))
+                     spheres.push_back(translate(vec(2,0,-i*3), sphere()))
+                   }, _, spheres))
+
+  var spheres_union = decorate(white, union(spheres))
+
+  var plane     = decorate(checkered, translate(vec(0,-1,0), xz_plane()))
+
+  var root      = union( [spheres_union, plane] )
+
+  var lights    = [ Lights.omnidirectional( pos(0, 5, 5), Colors.white() ) ]
+
+  return create_scene(camera, root, lights)
+}
+
+
+var anim = scene_animation(scene_at, seconds(3))
+
+var raytracer   = Raytracers.v6()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.multijittered(2),
+                                        "ray_tracer": raytracer ] )
+
+
+pipeline( anim,
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )
+
