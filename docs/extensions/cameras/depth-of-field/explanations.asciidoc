@@ -1,4 +1,4 @@
-= Angle Animation
+= Depth of Field Camera
 
 [overview]
 ----
