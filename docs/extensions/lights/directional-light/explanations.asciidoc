@@ -1,0 +1,39 @@
+= Directional Light
+
+[overview]
+----
+requires ray-tracers/v2
+reading lights/directional
+----
+
+preview::preview[]
+
+== Implementation
+
+A directional light has the following parameters:
+
+* A direction (``Vector3D``) indicating where the light comes from.
+* A color.
+
+[TASK]
+====
+Create a ``lights/directional-light.cpp`` and ``lights/directional-light.h``.
+
+* Write the class ``DirectionalLight`` in ``directional-light.cpp`` in an <<reference/cpp/anonymous-namespace,anonymous namespace>>.
+* The class should subclass ``LightSourceImplementation``.
+* It has two member variables: ``direction`` and ``color``.
+* The constructor should take a ``direction`` and ``color`` parameter and use them to initialize the member variables.
+* The class needs to override the method ``lightrays_to``.
+  This method receives a ``Point3D p`` for which it is asked which light rays it shines onto that point.
+  A directional light need only produce a single light ray per such point.
+  Find out for yourself which light ray it needs to generate.
+* Add a declaration for the factory function named ``directional`` in the header file.
+  Put it in the namespace ``raytracers::lights``.
+* Add the definition for the factory function in the ``cpp`` file.
+  Take a look at the factory function for omnidirectional point lights for inspiration.
+* Add the directional light to ``lights/lights.h``.
+* Open ``scripting/lights-module.cpp``.
+  Add an extra member function ``directional`` to ``LightLibrary``.
+  Add an extra binding in ``create_lights_module``.
+* As always, check your work by rendering a scene using the directional light.
+====
