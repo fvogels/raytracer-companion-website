@@ -1,0 +1,29 @@
+= Area Lights
+
+[overview]
+----
+requires ray-tracers/v2
+requires samplers/random
+reading lights/area
+----
+
+preview::preview[]
+
+== Implementation
+
+Read the <<reference/lights/area,explanations on area lights>> first.
+
+An area light has the following properties:
+
+* A ``Rectangle3D`` defining its area.
+* A sampler, which will be used to determine which points from the area will be used as light sources.
+* A color.
+
+The area light operates as follows: when asked for a list of ``LightRay``s that reach a given ``Point3D`` P, it asks the sampler to pick points stem:[L_i] from its area.
+For each such point, it creates a ``LightRay`` starting in stem:[L_i] going through stem:[P].
+Note that it is important that the ray has to be created in such a way that stem:[t = 0] coincides with stem:[L_i] and stem:[t = 1] with stem:[P], otherwise the <<extensions/ray-tracers/v4,shadowing algorithm>> will not work.
+
+[TASK]
+====
+Implement area lights.
+====
