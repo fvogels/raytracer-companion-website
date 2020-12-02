@@ -19,7 +19,7 @@ A directional light has the following parameters:
 ====
 Create a ``lights/directional-light.cpp`` and ``lights/directional-light.h``.
 
-* Write the class ``DirectionalLight`` in ``directional-light.cpp`` in an <<reference/cpp/anonymous-namespace,anonymous namespace>>.
+* Write the class ``DirectionalLight`` in ``directional-light.cpp`` in an <</reference/cpp/anonymous-namespace,anonymous namespace>>.
 * The class should subclass ``LightSourceImplementation``.
 * It has two member variables: ``direction`` and ``color``.
 * The constructor should take a ``direction`` and ``color`` parameter and use them to initialize the member variables.
