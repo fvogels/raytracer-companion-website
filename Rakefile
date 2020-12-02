@@ -103,12 +103,26 @@ end.then do |paths|
   task :tex => paths.map(&:to_s)
 end
 
+Rake::FileList.new('docs/**/*.svg').map do |path|
+  absolute_source_path = Pathname.new(path).expand_path
+  absolute_target_path = dist_path(absolute_source_path)
+
+  file absolute_target_path.to_s => absolute_source_path.to_s do |task|
+    puts "Copying #{absolute_source_path} -> #{absolute_target_path}"
+    FileUtils.cp(absolute_source_path, absolute_target_path)
+  end
+
+  absolute_target_path
+end.then do |paths|
+  task :copy => paths.map(&:to_s)
+end
+
 task :clean do
   FileUtils.rm_rf 'dist'
   FileUtils.rm_rf 'temp'
 end
 
-task :default => [ :html, :chai, :tex ]
+task :default => [ :html, :chai, :tex, :copy ]
 
 
 # ONLY DO THIS WHEN EVERYTHING IS FINISHED
