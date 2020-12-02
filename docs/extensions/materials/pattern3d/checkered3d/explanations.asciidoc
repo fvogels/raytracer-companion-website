@@ -1,0 +1,18 @@
+= Checkered 3D
+
+[overview]
+----
+excludes materials/pattern2d/grid3d
+reading materials/2d-vs-3d
+----
+
+preview::preview[]
+
+== Implementation
+
+[TASK]
+====
+The basic ray tracer already has support for horizontal lines.
+Use this to implement the 3D checkered pattern.
+Do not forget to add bindings for the scripting language.
+====
