@@ -279,28 +279,28 @@ We will start off with a basic rendering algorithm, which we will iteratively im
 
 [cols="^,<"]
 |===
-a| image::ray-tracer-v0.png[]
+a| video::ray-tracer-v0.mp4[]
 | The first version will be a "binary ray tracer": if the laser beam hits the landscape, you paint a white dot.
   If the laser beam instead misses the landscape (i.e. escapes into space), you paint a black dot.
-a| image::ray-tracer-v1.png[]
+a| video::ray-tracer-v1.mp4[]
 | Next, ambient lighting is added.
   You achieve this by traveling down to where the laser hits the landscape, then pointing a bright flashlight at it to better see which color the landscape has at that point, and using that to determine the color of your pointillistic dot.
   The problem with this approach is that you "destroy" all lighting information: you don't take into account <em>how much</em> light arrived at that point.
-a| image::ray-tracer-v2.png[]
+a| video::ray-tracer-v2.mp4[]
 | Next comes diffuse lighting.
   You do now take into account how much light arrives at the laser dot.
   You do this by finding all light sources (e.g. the sun) and determining how much light they each shed on the landscape at that point.
-a| image::ray-tracer-v3.png[]
+a| video::ray-tracer-v3.mp4[]
 | Specular highlights add a metallic look.
   This is hard to explain using the pointillism analogy.
   In ray tracing terms, it's just a more elaborate mathematical formula that produces bright spots.
-a| image::ray-tracer-v4.png[]
+a| video::ray-tracer-v4.mp4[]
 | Shadows arise when you check whether the light from light sources (e.g. the sun) actually arrives at the laser dot position.
   For this, you need a secondary laser pointer.
   You place it at where the first laser's dot hits the landscape and you point it to the light source.
   If the second laser beam is blocked by another part of the landscape, you know that no light arrives from that direction.
-a| image::ray-tracer-v5.png[]
+a| video::ray-tracer-v5.mp4[]
 | Reflection: if the laser hits a reflective object, you use a secondary laser to determine what color it reflects.
-a| image::ray-tracer-v6.png[]
+a| video::ray-tracer-v6.mp4[]
 | Refraction: objects can be transparent, meaning laser beams can travel through them.
 |===

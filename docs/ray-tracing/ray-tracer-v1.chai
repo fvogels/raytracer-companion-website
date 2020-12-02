@@ -1,51 +1,78 @@
-// image
-var ray_tracer_version = 1
+// movie
+global ray_tracer_version = 1
 
-var camera = Cameras.perspective( [ "eye": pos(0, 0, 5),
-                                    "look_at": pos(0, 0, 0),
-                                    "up": vec(0, 1, 0),
-                                    "distance": 1,
-                                    "aspect_ratio": 1 ] )
+def scene_at(now)
+{
+	var camera_position = Animations.circular([ "position": pos(0,0,5),
+	                                              "around": pos(0,0,0),
+	                                              "duration": seconds(5) ])
 
-var ambient;
-if ( ray_tracer_version == 1 ) { ambient = 1.0; }
-else { ambient = 0.1; }
+	var camera = Cameras.perspective( [ "eye": camera_position[now],
+	                                    "look_at": pos(0, 0, 0),
+	                                    "up": vec(0, 1, 0),
+	                                    "distance": 1,
+	                                    "aspect_ratio": 1 ] )
 
-var sphere_material = Materials.uniform( [ "ambient": Colors.red() * ambient,
-                                           "diffuse": Colors.red() * 0.8,
-                                           "specular": Colors.white(),
-                                           "specular_exponent": 20,
-                                           "reflectivity": 0,
-                                           "transparency": 0.5,
-                                           "refractive_index": 1.5 ] )
+	var ambient;
+	if ( ray_tracer_version == 1 ) { ambient = 1.0; }
+	else { ambient = 0.1; }
 
-var white = Materials.uniform( [ "ambient": Colors.white() * ambient,
-                                 "diffuse": Colors.white() * 0.8,
-                                 "specular": Colors.white() * 0.5,
-                                 "specular_exponent": 20,
-                                 "reflectivity": 0.8,
-                                 "transparency": 0,
-                                 "refractive_index": 0 ] )
+	var sphere_material1 = Materials.uniform( [ "ambient": Colors.green() * ambient,
+	                                            "diffuse": Colors.green() * 0.8,
+	                                            "specular": Colors.white(),
+	                                            "specular_exponent": 20,
+	                                            "reflectivity": 0,
+	                                            "transparency": 0.5,
+	                                            "refractive_index": 1.5 ] )
 
-var black = Materials.uniform( [ "ambient": Colors.white() * ambient,
-                                 "diffuse": Colors.white() * 0.1,
-                                 "specular": Colors.white() * 0.5,
-                                 "specular_exponent": 20,
-                                 "reflectivity": 0.8,
-                                 "transparency": 0,
-                                 "refractive_index": 0 ] )
+    var sphere_material2 = Materials.uniform( [ "ambient": Colors.blue() * ambient,
+	                                            "diffuse": Colors.blue() * 0.8,
+	                                            "specular": Colors.white(),
+	                                            "specular_exponent": 20,
+	                                            "reflectivity": 0,
+	                                            "transparency": 0.5,
+	                                            "refractive_index": 2.5 ] )
 
-var checkered = Materials.checkered2d( white, black )
+    var sphere_material3 = Materials.uniform( [ "ambient": Colors.red() * ambient,
+	                                            "diffuse": Colors.red() * 0.8,
+	                                            "specular": Colors.white(),
+	                                            "specular_exponent": 20,
+	                                            "reflectivity": 0,
+	                                            "transparency": 0.5,
+	                                            "refractive_index": 1.01 ] )
 
+	var white = Materials.uniform( [ "ambient": Colors.white() * ambient,
+	                                 "diffuse": Colors.white() * 0.8,
+	                                 "specular": Colors.white() * 0.5,
+	                                 "specular_exponent": 20,
+	                                 "reflectivity": 0.8,
+	                                 "transparency": 0,
+	                                 "refractive_index": 0 ] )
 
+	var black = Materials.uniform( [ "ambient": Colors.white() * ambient,
+	                                 "diffuse": Colors.white() * 0.1,
+	                                 "specular": Colors.white() * 0.5,
+	                                 "specular_exponent": 20,
+	                                 "reflectivity": 0.8,
+	                                 "transparency": 0,
+	                                 "refractive_index": 0 ] )
 
-var root        = union( [ decorate( checkered, translate(vec(0,-1,0), xz_plane()) ),
-                           decorate( sphere_material, sphere() ) ])
-var lights      = [ Lights.omnidirectional( pos(5, 5, 5), Colors.white() ) ]
-var scene       = create_scene(camera, root, lights)
+	var checkered = Materials.checkered2d( white, black )
+
+	var root        = union( [ decorate( checkered, translate(vec(0,-1,0), xz_plane()) ),
+	                           translate(vec(-2,-0.5,0), scale(0.5, 0.5, 0.5, decorate(sphere_material1, sphere()))),
+	                           translate(vec(1.5,-0.333,1), scale(0.666, 0.666, 0.666, decorate(sphere_material2, sphere()))),
+	                           decorate(sphere_material3, sphere())])
+	var lights      = [ Lights.omnidirectional( pos(5, 5, 5), Colors.white() ) ]
+	var scene       = create_scene(camera, root, lights)
+
+	return scene
+}
+
 var raytracer   = Raytracers.v(ray_tracer_version)
 var renderer    = Renderers.standard(500, 500, Samplers.multijittered(2), raytracer)
 
-pipeline( scene,
-          [ Pipeline.renderer(renderer),
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
             Pipeline.studio() ] )
