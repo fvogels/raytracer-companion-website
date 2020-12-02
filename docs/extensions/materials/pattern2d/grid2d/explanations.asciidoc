@@ -1,0 +1,19 @@
+= Grid 2D
+
+[overview]
+----
+excludes materials/pattern2d/vertical-lines
+excludes materials/pattern2d/checkered2d
+reading materials/2d-vs-3d
+----
+
+preview::preview[]
+
+== Implementation
+
+[TASK]
+====
+The basic ray tracer already has support for horizontal lines.
+Use this to implement a 2D grid pattern.
+Do not forget to add bindings for the scripting language.
+====
