@@ -1,2 +1,0 @@
-var ray_tracer_version = 0
-use("ray-tracer-vx.chai")
