@@ -21,10 +21,23 @@ Asciidoctor::Extensions.register do
 end
 
 
-def render_movie(chai_path, movie_path)
-  puts "Rendering #{chai_path} -> #{movie_path}"
-  movie_path.dirname.mkpath
-  puts `#{RAYTRACER} --quiet -s #{chai_path.to_s} | #{WIF} convert #{movie_path}`
+def chai_type(chai_path)
+  abort "Tag not found in #{chai_path}" unless %r{// (movie|image|skip)} =~ chai_path.readlines.first.strip
+  type = $1
+end
+
+def render_movie(chai_path, render_path)
+  puts "Rendering #{chai_path} -> #{render_path}"
+  render_path.dirname.mkpath
+
+  puts `#{RAYTRACER} --quiet -s #{chai_path.to_s} | #{WIF} movie #{render_path}`
+end
+
+def render_image(chai_path, render_path)
+  puts "Rendering #{chai_path} -> #{render_path}"
+  render_path.dirname.mkpath
+
+  puts `#{RAYTRACER} --quiet -s #{chai_path.to_s} | #{WIF} frames -i STDIN -o #{render_path}`
 end
 
 
@@ -79,15 +92,30 @@ end
 
 Rake::FileList.new('docs/**/*.chai').map do |path|
   absolute_source_path = Pathname.new(path).expand_path
-  absolute_target_path = dist_path(absolute_source_path).sub_ext('.mp4')
 
-  file absolute_target_path.to_s => absolute_source_path.to_s do |task|
-    render_movie(absolute_source_path, absolute_target_path)
+  case chai_type absolute_source_path
+  when 'movie'
+    absolute_target_path = dist_path(absolute_source_path).sub_ext('.mp4')
+
+    file absolute_target_path.to_s => absolute_source_path.to_s do |task|
+      render_movie(absolute_source_path, absolute_target_path)
+    end
+  when 'image'
+    absolute_target_path = dist_path(absolute_source_path).sub_ext('.png')
+
+    file absolute_target_path.to_s => absolute_source_path.to_s do |task|
+      render_image(absolute_source_path, absolute_target_path)
+    end
+  when 'skip'
+    # Skip
+    absolute_source_path = nil
+  else
+    abort 'Unrecognized chai type'
   end
 
   absolute_target_path
 end.then do |paths|
-  task :chai => paths.map(&:to_s)
+  task :chai => paths.compact.map(&:to_s)
 end
 
 Rake::FileList.new('docs/**/*.tex').map do |path|
