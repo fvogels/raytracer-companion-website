@@ -9,7 +9,8 @@
             "command": "rake",
             "presentation": {
                 "reveal": "always",
-                "panel": "new"
+                "panel": "dedicated",
+                "clear": true
             },
             "problemMatcher": [],
             "group": {
