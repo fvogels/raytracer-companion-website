@@ -1,0 +1,306 @@
+:toc: left
+
+= Ray Tracing
+
+There are many ways to tackle 3D computer graphics.
+In this course, we do not have time to explore all these approaches in detail.
+Instead, we will focus on one single technique, namely ray tracing, as used by The 7th Guest.
+
+Ray tracing produces far more realistic looking images than other approaches.
+The reason for this is very simple: ray tracing attempts to faithfully imitate the actual physics happening in reality.
+
+There is a major downside however: ray tracing is _slow_.
+Take for example https://renderman.pixar.com/view/renderman[RenderMan], software that is used in many movies such as Finding Dory, Ex Machina, Mad Max: Fury Road, Interstellar, Star Wars VII, etc.
+Using a render farm, it can take many hours to produce even a single frame.
+
+In order to understand ray tracing, you must first understand how "seeing" works in reality.
+
+== Photons
+
+Let us be honest straight away: all the following explanations are actually lies.
+The reason for this blatant dishonesty is that real photons are actually _very_ strange little things, and we fear for your sanity if we were to try to make you understand how they really went about their business.
+
+Photons are what lie at the very heart of our sense of vision.
+Without photons, we would not be able to see anything.
+For the sake of simplicity, we'll just pretend that photons are tiny spheres of light.
+These photons always travel in straight lines at the speed of light. A photon has something akin to a "heartbeat"; this is called its frequency.
+Often people talk about the "wavelength" of a photon, which is another way of expressing the heartbeat of the photon: the wavelength is the distance the photon traverses between two heartbeats.
+
+The frequency uniquely determines the wavelength and vice versa.
+Compare it to your length: you can express it in meters or centimeters, but one determines the other.
+You cannot choose to be both 1.80m and 150cm tall.
+From now on, we will always talk about the wavelength of a photon, as this is typical when talking about light-related things.
+
+So, where do photons come into play in all of this?
+Simple: our eyes are state of the art photon detectors.
+Whenever a photon enters our eye through the pupil and reaches the retina, our brain is notified of this event with a nerve impulse which it translates into "seeing".
+
+The wavelength of a photon determines its https://en.wikipedia.org/wiki/Color[color].
+For example, if a photon with wavelength 700nm is detected by our eyes, our brain tells us we see red.
+A photon with wavelength 400nm would be translated to violet.
+
+++++
+<table style="margin: 1em auto;">
+    <tbody>
+        <tr>
+        <td>IR</td>
+        <td>&gt; 700nm</td>
+        </tr>
+        <tr>
+        <td style="background: red;"></td>
+        <td>700-635nm</td>
+        </tr>
+        <tr>
+        <td style="background: orange;"></td>
+        <td>635-590nm</td>
+        </tr>
+        <tr>
+        <td style="background: yellow;"></td>
+        <td>590-560nm</td>
+        </tr>
+        <tr>
+        <td style="background: green;"></td>
+        <td>560-520nm</td>
+        </tr>
+        <tr>
+        <td style="background: cyan;"></td>
+        <td>520-490nm</td>
+        </tr>
+        <tr>
+        <td style="background: blue;"></td>
+        <td>490-450nm</td>
+        </tr>
+        <tr>
+        <td style="background: violet;"></td>
+        <td>450-400nm</td>
+        </tr>
+        <tr>
+        <td>UV</td>
+        <td>&lt;400nm</td>
+        </tr>
+    </tbody>
+</table>
+++++
+
+Just like with sounds, where we cannot hear very low sounds (&lt; 20Hz) or very high sounds (anything above 20KHz), the same is true for photons: our eyes can only detect a certain range of photon wavelengths.
+If the wavelength is greater than 700nm, the photon is said to be infrared.
+Likewise for wavelengths below 400nm: these photons are said to be ultraviolet.
+Both are invisible to human eyes.
+
+Note that not all colors are displayed in the table above.
+This is because many colors are actually inventions of our brain.
+If photons of different colors arrive with enough delay between them, our brain will let us see each photon's "true" color and we will perceive flickering.
+However, if many photons arrive approximately at the same time, the brain does not want to overload our mind with the specifics and instead will pack these photons together into a new color.
+For example, if many photons of different colors arrive at once, we will perceive these as white, while in reality there is no such thing as a white photon.
+
+== The Secret Lives of Photons
+
+How photons are born is a complicated matter and beyond the scope of this course.
+All we were able to find out is that it involves cabbages, bees and storks, and that you should feel free to ask your parents for more details.
+
+For this course, we will abstract this all away and say that there are "photon sources", also known as "light sources", that somehow produce photons. Examples of such light sources are the sun, lamps, your computer screen, etc.
+Not only do these light sources generate photons, they generate them en masse.
+To give you an idea of how many photons you are constantly bombarded with: a conservative approximation tells us that a regular lamp easily emits stem:[10^18] photons each second.
+
+Let's say the light source produces white light.
+As explained before, there is no such thing as white photons.
+What really happens is that a white light source produces photons of all colors at once.
+
+After a photon is generated, it moves in a straight line at the speed of light until it bumps into something, at which time one of three things can happen:
+
+++++
+<table style="margin: 1em auto;">
+    <thead>
+        <tr>
+        <th>Reflection</th>
+        <th>Absorption</th>
+        <th>Refraction</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td><img src="reflection.svg" /></td>
+        <td><img src="absorption.svg" /></td>
+        <td><img src="refraction.svg" /></td>
+        </tr>
+    </tbody>
+</table>
+++++
+
+Which of these happens depends on the color of the photon and the object itself:
+
+* A red object will absorb all non-red photons and only reflect the red ones.
+* A white object will reflect all photons indiscriminately.
+* A black object absorbs them all.
+* Refraction means a photon goes through the object, meaning the object is transparent.
+  Such is the case for water, glass, etc. Refraction will be discussed in detail later.
+
+When a photon is reflected by an object, the question remains in which direction it is reflected.
+You could expect it to happen the same way as when a snooker ball hits the border of the table, i.e. that the incoming angle and the outgoing angle are the same.
+This is hardly ever the case with photons.
+Photons are very small, and objects are quite bumpy at the microscopic level.
+From our standpoint, it will look as if photons bounce off of object in random directions.
+This is called _diffuse reflection_.
+
+Mirrors are an exception to this: these have very smooth surfaces, and when a photon bumps into one, it will bounce off of it in the same manner as a snooker ball would.
+This is called _specular reflection_.
+Mirrors are in fact white, as they do reflect photons of all colors.
+So, when you stand in front of a white wall, you actually perceive a scrambled reflection of yourself: all colors are mixed up together, your brain can't make any sense of it, throws its arms up in the air in despair, and resigns itself to interpret the multicolored avalanche of photons as white.
+
+[options="header",cols="^,^"]
+|===
+| Diffuse | Specular
+a| image::diffuse-reflection.png[] a| image::specular-reflection.png[]
+|===
+
+Some photons are lucky enough to have their journey end up in our eyes.
+An eye has a relatively complex https://en.wikipedia.org/wiki/Eye[internal structure], but we will limit ourselves to the bare minimum.
+The eye can be seen as a sphere with an opening in front (the pupil) through which photons enter.
+They then travel through the inside of the eye and crash into the back side where the retina is located.
+
+Our retina is like some two-dimensional canvas on which photons are continuously landing and thereby drawing an image, as if they are tiny blobs of paint.
+This image, however, fades away very quickly, so for us to be able to continue seeing something, we need a constant stream of incoming photons that keeps on regenerating the image.
+Fortunately for us, there are huge amounts of photons arriving each second.
+But once the photons stop coming in, everything goes black immediately.
+
+In summary: when we see an object, it is because a light source generated a photon, which then bounced around the world a number of times, and finally ended up on our retina.
+
+image::photon-life.svg[align="center"]
+
+== The Eye
+
+There is one slight problem with the above explanations: they does not explain how a clear image can appear on the retina.
+Consider the figure above showing the life of a photon: the light source is shown to produce one photon, which is reflected into the eye.
+But in reality, the light source produces many photons, and these are reflected in all directions.
+
+image::problem.svg[align="center"]
+
+Photons being reflected by the red sphere do not arrive at the retina at only one single spot, but instead the retina is flooded by red photons.
+How is the brain to know where these photons came from?
+How can it form the image of a sphere?
+
+image::brain-pov.svg[align="center"]
+
+The main issue is that when a photon hits the retina, the brain has no clue about which direction the photon came from.
+Take a look at the figure above and put yourself in the brain's shoes: you are told that a red photon has reached the retina at location L.
+The red lines show possible paths the photon could have taken to reach that location.
+If you are to successfully reconstruct an image, you need to know exactly which direction a photon came from.
+
+The simplest solution to this problem is to make the pupil very small, ideally so small that a photon barely gets through it.
+Let's call it a pinhole pupil.
+With such a small hole to enter the eye, if a photon hits the retina at some location L, we can deduce where it came from:
+
+* We know a photon travels in a straight path.
+* This path ends at location L.
+* The path goes through the pinhole pupil.
+
+image::pinhole.svg[align="center"]
+
+You have probably heard before that the image you see is actually upside down and the brain learns to turn it upside down.
+The above figure corroborates this: the green ray comes from below yet it hits the retina in a higher location than the red ray, which comes from above.
+
+In reality, a "pinhole eye" would not work very well: the eye's photon sensors are not perfect and we need a minimal amount of photons entering our eye for us to be able to see clearly.
+Unfortunately, this is not the case with a pinhole eye.
+
+Evolution has solved this problem by equipping our eye with a lens, which is placed just behind the pupil and is able to bend a photon's path.
+Ideally, the lens would redirect photons so that each lands on "the right spot" on the retina and a clear image would ensue.
+
+Unfortunately, this is not the case.
+The lens can only make those photons "arrive correctly" that originate from objects from a certain distance.
+For example, you would be able to see objects that are exactly 5m away from you sharply, but objects closer or farther away would become blurry.
+The farther an object is located from the "ideal distance" of 5m, the blurrier it gets.
+This ideal distance is called the _focal length_ of the lens.
+
+Being able to see only objects exactly 5m away clearly would be rather detrimental to our survival, so evolution's way of making up for it is to allow the lens to change shape, thereby modifying its focal length.
+This means that if you want to see an object 3m away clearly, the brain will send a message to your eye to change the lens's shape so that its focal distance becomes 3m.
+
+https://en.wikipedia.org/wiki/Near-sightedness[Myopia], for example, can be caused by the lens's inability to change its shape sufficiently so that photons arrive at the retina at the right location.
+
+Compare the three images below.
+The left image is rendered using a pinhole camera.
+Notice how everything is in focus: both the front and back sphere sharp.
+The middle image shows what a regular eye might see when it focuses on the front sphere.
+Notice how the checkerboard pattern in front and the sphere in the back are blurry.
+The right image shows what happens when the eye focuses on the back sphere.
+
+[cols="^,^,^",options="header"]
+|===
+| Pinhole | Lens (focal length 5) | Lens (focal length 10)
+a| image::pinhole.png[] a| image::eye.png[] a| image::eye2.png[]
+|===
+
+== Turning Things Around
+
+Now that you have an idea of how sight works, we can discuss how to fake it in software.
+
+One way would be to actually simulate reality: we generate a photon in a light source, compute its journey across the world and check whether it ends up in our eye.
+While this technique is valid and yields the best results, it is also incredibly inefficient.
+The chances that a photon actually ends up on the retina are pretty small, so we'll need to simulate millions of them in the hope that enough reach the retina.
+
+Luckily, there is a smarter way to go about it.
+It turns out that the laws of physics exhibit many symmetries, and that it makes no difference if you simulate them forwards or backwards in time.
+Concretely, this means that instead of starting at a light source and hoping to end up in the eye, we do the opposite: we start in the eye in the search of a light source.
+
+== An Odd Paint Job
+
+Imagine that during a trip you discover a truly beautiful landscape which you want to immortalize by painting it.
+You decide to use the https://en.wikipedia.org/wiki/Pointillism[Pointillism] technique, i.e. painting using tiny little dots on the canvas.
+
+You carefully choose a location from which to paint.
+You prepare an easel and canvas on that spot.
+You pick up your brush and your paint and want to start painting, when you suddenly realize you've never painted anything before.
+
+You decide to take a scientific approach.
+The painting will be a success if you manage to assign the correct color to every pointillistic dot.
+In order to do so, you fetch your tripod on which you attach a laser pointer, and you put it right in front of your easel.
+Next, you turn on the laser pointer and swivel it so that a little red laser dot appears on the upper left corner of your canvas.
+
+Then, you remove the canvas.
+The laser beam is able to travel farther and will hit the landscape somewhere at some location.
+You travel to that location in search of the red laser dot.
+It turns out it landed on the trunk of a tree, which is brown.
+You go back to your easel and put the canvas back.
+The laser again points at the upper left corner of the canvas.
+You now paint a little brown dot at exactly that point.
+
+Next, you swivel the laser point a minute amount to the right so that the laser dot lands just next to the brown paint dot.
+You again remove the canvas and go find where the laser hits the landscape.
+Turns out it's the same tree again.
+You go back, put the canvas back on the easel, and draw a second brown dot.
+You continue this way until your entire canvas is filled with little dots.
+
+Simulating this process using a computer is what ray tracing amounts to.
+The pointillism dots correspond to pixels and the canvas to a bitmap.
+The landscape itself is modelled using mathematical objects such as spheres and triangles.
+
+== The Evolution of a Ray Tracer
+
+We will start off with a basic rendering algorithm, which we will iteratively improve upon during this course.
+
+[cols="^,<"]
+|===
+a| image::ray-tracer-v0.png[]
+| The first version will be a "binary ray tracer": if the laser beam hits the landscape, you paint a white dot.
+  If the laser beam instead misses the landscape (i.e. escapes into space), you paint a black dot.
+a| image::ray-tracer-v1.png[]
+| Next, ambient lighting is added.
+  You achieve this by traveling down to where the laser hits the landscape, then pointing a bright flashlight at it to better see which color the landscape has at that point, and using that to determine the color of your pointillistic dot.
+  The problem with this approach is that you "destroy" all lighting information: you don't take into account <em>how much</em> light arrived at that point.
+a| image::ray-tracer-v2.png[]
+| Next comes diffuse lighting.
+  You do now take into account how much light arrives at the laser dot.
+  You do this by finding all light sources (e.g. the sun) and determining how much light they each shed on the landscape at that point.
+a| image::ray-tracer-v3.png[]
+| Specular highlights add a metallic look.
+  This is hard to explain using the pointillism analogy.
+  In ray tracing terms, it's just a more elaborate mathematical formula that produces bright spots.
+a| image::ray-tracer-v4.png[]
+| Shadows arise when you check whether the light from light sources (e.g. the sun) actually arrives at the laser dot position.
+  For this, you need a secondary laser pointer.
+  You place it at where the first laser's dot hits the landscape and you point it to the light source.
+  If the second laser beam is blocked by another part of the landscape, you know that no light arrives from that direction.
+a| image::ray-tracer-v5.png[]
+| Reflection: if the laser hits a reflective object, you use a secondary laser to determine what color it reflects.
+a| image::ray-tracer-v6.png[]
+| Refraction: objects can be transparent, meaning laser beams can travel through them.
+|===

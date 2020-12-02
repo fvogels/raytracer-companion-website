@@ -1,0 +1,51 @@
+// image
+var ray_tracer_version = 6
+
+var camera = Cameras.perspective( [ "eye": pos(0, 0, 5),
+                                    "look_at": pos(0, 0, 0),
+                                    "up": vec(0, 1, 0),
+                                    "distance": 1,
+                                    "aspect_ratio": 1 ] )
+
+var ambient;
+if ( ray_tracer_version == 1 ) { ambient = 1.0; }
+else { ambient = 0.1; }
+
+var sphere_material = Materials.uniform( [ "ambient": Colors.red() * ambient,
+                                           "diffuse": Colors.red() * 0.8,
+                                           "specular": Colors.white(),
+                                           "specular_exponent": 20,
+                                           "reflectivity": 0,
+                                           "transparency": 0.5,
+                                           "refractive_index": 1.5 ] )
+
+var white = Materials.uniform( [ "ambient": Colors.white() * ambient,
+                                 "diffuse": Colors.white() * 0.8,
+                                 "specular": Colors.white() * 0.5,
+                                 "specular_exponent": 20,
+                                 "reflectivity": 0.8,
+                                 "transparency": 0,
+                                 "refractive_index": 0 ] )
+
+var black = Materials.uniform( [ "ambient": Colors.white() * ambient,
+                                 "diffuse": Colors.white() * 0.1,
+                                 "specular": Colors.white() * 0.5,
+                                 "specular_exponent": 20,
+                                 "reflectivity": 0.8,
+                                 "transparency": 0,
+                                 "refractive_index": 0 ] )
+
+var checkered = Materials.checkered2d( white, black )
+
+
+
+var root        = union( [ decorate( checkered, translate(vec(0,-1,0), xz_plane()) ),
+                           decorate( sphere_material, sphere() ) ])
+var lights      = [ Lights.omnidirectional( pos(5, 5, 5), Colors.white() ) ]
+var scene       = create_scene(camera, root, lights)
+var raytracer   = Raytracers.v(ray_tracer_version)
+var renderer    = Renderers.standard(500, 500, Samplers.multijittered(2), raytracer)
+
+pipeline( scene,
+          [ Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
