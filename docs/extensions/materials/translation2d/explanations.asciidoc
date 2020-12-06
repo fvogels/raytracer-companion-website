@@ -1,0 +1,19 @@
+= Material Translation 2D
+
+[overview]
+----
+excludes materials/rotation2d
+excludes materials/scaling2d
+requires materials/transformer2d
+reading math/transformations/2d/translation
+----
+
+preview::preview[]
+
+[TASK]
+====
+Use ``MaterialTransformer2D`` to implement 2D material translation.
+You may have to define extra classes in ``math``.
+Hint: you'll need ``Matrix3x3`` in order to represent 2D transformations.
+Make sure to take a look around, some useful functionality might already be implemented.
+====
