@@ -1,0 +1,27 @@
+= Quaternions
+
+[overview]
+----
+reading reference/math/quaternions
+----
+
+[TASK]
+====
+Implement the class ``Quaternion``. Following operations will be required:
+
+* A constructor ``Quaternion(double a, double b, double c, double d)`` creating the quaternion stem:[a + bi + cj + dk].
+* A static factory ``rotation(Angle theta, const Vector3D&amp; axis)`` creating a quaternion representing the rotation around the given axis by the given angle.
+* A member function ``Point3D rotate(const Point3D&amp; p)`` which rotates ``p``.
+* The member function ``conjugate``.
+* The operators
+**``Quaternion + Quaternion``
+**``Quaternion - Quaternion``
+**``double * Quaternion``
+**``Quaternion * double``
+**``Quaternion * Quaternion``
+**``Quaternion / double``
+**``Quaternion += Quaternion``
+**``Quaternion -= Quaternion``
+**``Quaternion *= double``
+**``Quaternion /= double``
+====
