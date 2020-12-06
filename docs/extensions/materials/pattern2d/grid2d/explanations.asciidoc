@@ -2,7 +2,8 @@
 
 [overview]
 ----
-excludes materials/pattern2d/vertical-lines
+requires materials/pattern2d/vertical-lines
+requires materials/pattern2d/horizontal-lines
 excludes materials/pattern2d/checkered2d
 reading materials/2d-vs-3d
 ----
@@ -13,7 +14,6 @@ preview::preview[]
 
 [TASK]
 ====
-The basic ray tracer already has support for horizontal lines.
-Use this to implement a 2D grid pattern.
+Implement 2D grid by combining vertical and horizontal lines.
 Do not forget to add bindings for the scripting language.
 ====
