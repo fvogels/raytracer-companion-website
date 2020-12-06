@@ -1,0 +1,19 @@
+= Material Translation 3D
+
+[overview]
+----
+excludes materials/rotation3d
+excludes materials/scaling3d
+requires materials/transformer3d
+reading math/transformations/3d/translation
+----
+
+preview::preview[]
+
+[TASK]
+====
+Use ``MaterialTransformer3D`` to implement 3D material translation.
+You may have to define extra classes in ``math``.
+Hint: you'll need ``Matrix4x4`` in order to represent 3D transformations.
+Make sure to take a look around, some useful functionality might already be implemented.
+====
