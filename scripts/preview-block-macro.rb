@@ -1,6 +1,7 @@
 require 'asciidoctor'
 require 'asciidoctor/extensions'
 require 'pathname'
+require_relative './util.rb'
 
 
 class PreviewBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
@@ -10,14 +11,24 @@ class PreviewBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
 
   def process parent, target, attrs
     document_directory = Pathname.new parent.document.attributes['docdir']
+    target_absolute_path = document_directory.join("#{target}.chai")
 
     create_section(parent, 'Preview', {}).tap do |open_block|
       open_block.role = 'preview'
-      attrs = { **attrs, "target" => "#{target}.mp4", "align" => "center" }
+      attrs = { **attrs, "align" => "center" }
 
-      open_block << create_block(open_block, :video, nil, attrs).tap do |video_block|
-        video_block.set_option('autoplay')
-        video_block.set_option('loop')
+      case chai_type(target_absolute_path)
+      when 'movie'
+        attrs = { **attrs, "target" => "#{target}.mp4" }
+        open_block << create_block(open_block, :video, nil, attrs).tap do |video_block|
+          video_block.set_option('autoplay')
+          video_block.set_option('loop')
+        end
+      when 'image'
+        attrs = { **attrs, "target" => "#{target}.png" }
+        open_block << create_image_block(open_block, attrs)
+      else
+        abort "Unrecognized tag in #{target_absolute_path}"
       end
 
       filename = document_directory.join("#{target}.chai")
