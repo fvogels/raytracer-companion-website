@@ -1,0 +1,38 @@
+= 2D Material Transformer
+
+[overview]
+----
+reading materials/2d-vs-3d
+reading math/transformations/2d/rotation
+reading math/transformations/2d/scaling
+reading math/transformations/2d/translation
+----
+
+== Implementation
+
+[WARNING]
+====
+Note: before you implement this extension, you need to have at least implemented some kind of 2D material, otherwise 2D material transformations will be useless.
+====
+
+Material transformers should not be confused with primitive transformers.
+Primitive transformers change the shape of primitives, i.e. they scale, move and rotate 3D objects.
+Material transformers only transform the materials themselves.
+Examples of 2D transformations can be found on the pages regarding
+
+* <<extensions/materials/scaling2d#,scale2d>>
+* <<extensions/materials/translation2d#,translate2d>>
+* <<extensions/materials/rotation2d#,rotate2d>>
+
+For this extension, you will implement the ``Material2DTransformer``.
+It is able to perform arbitrary transformations on 2D materials.
+The <<extensions/materials/scaling2d#,scale2d>>, <<extensions/materials/translation2d#,translate2d>> and <<extensions/materials/rotation2d#,rotate2d>> extensions will build upon this class.
+
+[TASK]
+====
+Implement ``Material2DTransformer``.
+
+* A ``Material2DTransformer`` is a subclass of ``MaterialImplementation``.
+  It is parameterized by a child ``Material`` (the one that is being transformed) and a ``Transformation2D``.
+* You will need to override the ``at`` member function. You will have to find out for yourself what should happen here.
+====
