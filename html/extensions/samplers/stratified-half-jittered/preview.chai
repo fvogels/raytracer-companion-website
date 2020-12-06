@@ -17,7 +17,7 @@ var black_material = Materials.uniform( [ "ambient": Colors.black(),
 var checkered_material = Materials.checkered2d(white_material, black_material)
 
 var root        = decorate(checkered_material, xz_plane())
-                  
+
 var lights      = [ Lights.omnidirectional( pos(0, 10, 0), Colors.white() ) ]
 
 var scene = create_scene(camera, root, lights)
@@ -31,4 +31,4 @@ var renderer    = Renderers.standard( [ "width": 500,
 
 pipeline( scene,
           [ Pipeline.renderer(renderer),
-            Pipeline.bmp("demo.bmp") ] )
+            Pipeline.studio() ] )
