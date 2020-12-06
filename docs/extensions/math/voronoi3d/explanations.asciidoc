@@ -1,0 +1,19 @@
+= Voronoi 3D
+
+[overview]
+----
+reading reference/math/voronoi
+----
+
+== Explanation
+
+[TASK]
+====
+Implement a class ``Voronoi3D`` that provides the following functionality.
+
+* The constructor should receive a seed (or something functionally equivalent) making it possible to generate the exact same Voronoi diagram deterministically.
+* A member function ``closest_to``, that, given a ``Point3D``, returns the ``Point3D`` closest to it.
+
+The class should not restrict itself to a particular part of the 3D space.
+Instead, it should fill the entire "universe" with an infinite number of points, thereby creating an infinitely large Voronoi diagram.
+====
