@@ -1,20 +1,36 @@
+require 'open3'
+
 def chai_type(chai_path)
-  abort "Tag not found in #{chai_path}" unless %r{// (movie|image|skip)} =~ chai_path.readlines.first.strip
+  abort "Tag not found in #{chai_path}\nFirst line should contain comment with movie, image or skip" unless %r{// (movie|image|skip)} =~ chai_path.readlines.first.strip
   type = $1
+end
+
+def read_chai_script(chai_path)
+  script = chai_path.read
+  script.gsub(/use\("(.*)"\)/) do
+    IO.read(chai_path.dirname + $1)
+  end
 end
 
 def render_movie(chai_path, render_path)
   puts "Rendering #{chai_path} -> #{render_path}"
   render_path.dirname.mkpath
 
-  puts `#{RAYTRACER} -s #{chai_path.to_s} | #{WIF} movie #{render_path}`
+  script = read_chai_script(chai_path)
+
+  out, err, status = Open3.capture3("#{RAYTRACER} -s - | #{WIF} movie #{render_path}", stdin_data: script)
+  puts err
+  # puts `#{RAYTRACER} -s #{chai_path.to_s} | #{WIF} movie #{render_path}`
 end
 
 def render_image(chai_path, render_path)
   puts "Rendering #{chai_path} -> #{render_path}"
   render_path.dirname.mkpath
 
-  puts `#{RAYTRACER} -s #{chai_path.to_s} | #{WIF} frames -i STDIN -o #{render_path}`
+  script = read_chai_script(chai_path)
+
+  out, err, status = Open3.capture3("#{RAYTRACER} -s - | #{WIF} frames -i STDIN -o #{render_path}", stdin_data: script)
+  puts err
 end
 
 

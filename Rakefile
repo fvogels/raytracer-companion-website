@@ -9,7 +9,7 @@ require_relative './scripts/util'
 
 
 RAYTRACER = 'G:\repos\ucll\3dcg\raytracer\raytracer\x64\Release\raytracer.exe'
-WIF = 'C:\Python37\Scripts\wif'
+WIF = 'C:\Python39\Scripts\wif'
 
 
 Asciidoctor::Extensions.register do
@@ -26,12 +26,14 @@ Rake::FileList.new('docs/**/*.asciidoc').map do |path|
   absolute_source_path = Pathname.new(path).expand_path
   absolute_target_path = dist_path(absolute_source_path).sub_ext('.html')
 
+  desc "Convert #{absolute_source_path}"
   file absolute_target_path.to_s => absolute_source_path.to_s do |task|
     compile_asciidoc(absolute_source_path, absolute_target_path)
   end
 
   absolute_target_path
 end.then do |paths|
+  desc 'Convert asciidocs to htmls'
   task :html => paths.map(&:to_s)
 end
 
@@ -42,12 +44,14 @@ Rake::FileList.new('docs/**/*.chai').map do |path|
   when 'movie'
     absolute_target_path = dist_path(absolute_source_path).sub_ext('.mp4')
 
+    desc "Render #{absolute_source_path}"
     file absolute_target_path.to_s => absolute_source_path.to_s do |task|
       render_movie(absolute_source_path, absolute_target_path)
     end
   when 'image'
     absolute_target_path = dist_path(absolute_source_path).sub_ext('.png')
 
+    desc "Render #{absolute_source_path}"
     file absolute_target_path.to_s => absolute_source_path.to_s do |task|
       render_image(absolute_source_path, absolute_target_path)
     end
@@ -60,6 +64,7 @@ Rake::FileList.new('docs/**/*.chai').map do |path|
 
   absolute_target_path
 end.then do |paths|
+  desc 'Render chai files'
   task :chai => paths.compact.map(&:to_s)
 end
 
@@ -67,12 +72,14 @@ Rake::FileList.new('docs/**/*.tex').map do |path|
   absolute_source_path = Pathname.new(path).expand_path
   absolute_target_path = dist_path(absolute_source_path).sub_ext('.png')
 
+  desc "Compile #{absolute_source_path}"
   file absolute_target_path.to_s => absolute_source_path.to_s do |task|
     latex_to_png(absolute_source_path, absolute_target_path)
   end
 
   absolute_target_path
 end.then do |paths|
+  desc "Compile tex files"
   task :tex => paths.map(&:to_s)
 end
 
