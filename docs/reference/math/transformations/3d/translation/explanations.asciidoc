@@ -1,0 +1,23 @@
+= 3D Translation
+
+Translating a point with <</reference/math/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, z, w)] by a vector stem:[(\Delta x, \Delta y, \Delta z, 0)]
+can be computed using the following matrix multiplication:
+
+[stem]
+++++
+  \begin{bmatrix}
+    1 & 0 & 0 & \Delta x \\
+    0 & 1 & 0 & \Delta y \\
+    0 & 0 & 1 & \Delta z \\
+    0 & 0 & 0 & 1 \\
+  \end{bmatrix}
+  \cdot
+  \begin{bmatrix}
+    x \\
+    y \\
+    z \\
+    w \\
+  \end{bmatrix}
+++++
+
+Note that translation only has any effect on points (stem:[w = 1]): vectors (stem:[w = 0]) remain unaffected.
