@@ -64,7 +64,7 @@ We only need to solve to stem:[t] and we know where the ray hits the plane.
 Now that we know where the hit stem:[H] occurs between the ray and the plane containing the triangle,
 we still need to determine whether stem:[H] lies within the bounds of the triangle.
 
-<%= tex_image 'triangle' %>
+image::triangle.png[align="center"]
 
 Let's say we stand at stem:[P_1] and look at stem:[P_2]. stem:[H] will be to the left of us.
 Next, let's stand at stem:[P_2] and look at stem:[P_3]. Again, stem:[H] will be the to left of us.
@@ -80,7 +80,7 @@ Next, for each point stem:[P] on the plane, we determine the vector stem:[\vec u
 from the origin to stem:[P]. Next, we compute the dot product stem:[\vec u \cdot \vec v]. Depending on whether the result is
 positive, zero or negative, we assign the point stem:[P] the color green, blue or red, respectively.
 
-<%= tex_image 'dot-sign' %>
+image::dot-sign.png[align="center"]
 
 As you can see, all points "in front of stem:[\vec v]" are green and all points behind stem:[\vec v] are red.
 In other words, the dot product can tell us whether a point lies before or behind us. But this does not help us
@@ -90,7 +90,7 @@ Maybe the cross product can help. There's a small problem though: the cross prod
 and there's no such thing as the "sign of a vector". We'll just have to draw the resulting vector then.
 More specifically, in each point stem:[P] we draw the vector stem:[\vec v \times (P - O)].
 
-<%= tex_image 'cross-product' %>
+image::cross-product.png[align="center"]
 
 The result is quite interesting: the vectors to the left of stem:[\vec v] point upwards and those to the right downwards.
 This makes sense: remember that with the <%= link 'reference/math/cross-product', 'cross product' %>,
