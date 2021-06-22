@@ -2,8 +2,8 @@
 
 == Definition
 
-A stratified sampler takes two parameter $N$ and $M$. Given a rectangle to be sampled,
-it subdivides this rectangle into $N \times M$ subrectangles of equal size.
+A stratified sampler takes two parameter stem:[N] and stem:[M]. Given a rectangle to be sampled,
+it subdivides this rectangle into stem:[N \times M] subrectangles of equal size.
 The sampler then returns the center point of each of these rectangles.
 
 image::sampler.png[align="center"]
