@@ -2,8 +2,8 @@
 
 == Definition
 
-An n-rooks sampler takes a single parameter $N$. It subdivides the given rectangle in $N \times N$ subrectangles.
-It then picks $N$ random subrectangles so that in exactly one subrectangle is picked in each row and
+An n-rooks sampler takes a single parameter stem:[N]. It subdivides the given rectangle in stem:[N \times N] subrectangles.
+It then picks stem:[N] random subrectangles so that in exactly one subrectangle is picked in each row and
 exactly one subrectangle is picked in each column. The name comes from the fact that if you view the subdivided
 rectangle as a chess board and rooks are placed on the selected subrectangles, that none
 of the rooks can capture any of the other rooks.
