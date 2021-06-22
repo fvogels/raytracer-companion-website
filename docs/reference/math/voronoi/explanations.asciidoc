@@ -1,0 +1,12 @@
+= Voronoi Diagram
+
+A Voronoi diagram is a partitioning of a plane constructed as follows:
+
+* Pick a random number of random points stem:[P_i] in the plane.
+* To each stem:[P_i] corresponds that part of the plane that is the set
+  of all points that are closer to stem:[P_i] than to any other stem:[P].
+
+image::voronoi.png[align="center"]
+
+In the above figure, the red partition corresponds
+to the set of all points that are closest to stem:[P_1].
