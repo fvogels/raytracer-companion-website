@@ -1,0 +1,29 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+
+\newcommand{\showpoint}[2]{
+  \point[position={(#1,#2)}]
+  \draw[dashed,thin] (#1,#2) -- (#1,0);
+  \draw[dashed,thin] (#1,#2) -- (0,#2);
+  \node[anchor=south west] at (#1,#2) {(#1,#2)};
+}
+
+
+\begin{document}
+
+\begin{tikzpicture}
+  \draw[-latex] (-1,0) -- (5, 0) node[anchor=north west] {X};
+  \draw[-latex] (0,-1) -- (0, 5) node[anchor=south west] {Y};
+
+  \draw[fill=black] (3,3) circle [radius=0.05cm] node[anchor=north west] { $(\theta=45^\circ, r=3)$ };
+  \draw[dashed] (0,0) -- (4.5,4.5);
+
+  \foreach \r in {1,2,3,4} {
+    \draw (\r,\r) ++(-45:0.1) -- ++(135:0.2) node[font=\tiny,anchor=south east] {\r};
+  }
+
+  \draw[-latex,dashed] (1,0) arc [start angle=0,end angle=45,radius=1cm] node[midway,anchor=west,font=\tiny] {$\theta$};
+\end{tikzpicture}
+
+\end{document}

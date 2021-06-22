@@ -1,0 +1,9 @@
+= Polar Coordinate System
+
+
+Polar coordinates specify a position of some point stem:[P] using an angle stem:[\theta] and a radius stem:[r].
+
+* The stem:[\theta] designated the angle between the stem:[X] axis and stem:[OP].
+* The radius stem:[r] equals the distance between the origin stem:[O] and the point stem:[P].
+
+image::polar.png[align="center"]
