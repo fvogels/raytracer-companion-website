@@ -1,0 +1,14 @@
+= N-Rooks Sampler
+
+[overview]
+----
+reading samplers/nrooks
+----
+
+preview::preview[]
+
+
+[TASK]
+====
+Implement the <</reference/samplers/nrooks/explanations#,n-rooks sampler>>.
+====
