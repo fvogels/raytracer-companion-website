@@ -24,7 +24,7 @@ The square root being rather bothersome, we square it away:
 (P-C)\cdot(P-C) = R^2
 ++++
 
-We know that stem:[P] must reside on the ray, i.e. stem:[P] must <em>also</em> satisfy
+We know that stem:[P] must reside on the ray, i.e. stem:[P] must _also_ satisfy
 
 [stem]
 ++++
