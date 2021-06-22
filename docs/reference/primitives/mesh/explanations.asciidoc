@@ -43,7 +43,7 @@ back in and use it to rebuild the mesh.
 === Step One: Finding Meshes
 
 First, you need to find a mesh to render. You can build one yourself using
-a 3D modelling tool such as <a href="https://www.blender.org/">Blender</a>, or
+a 3D modelling tool such as https://www.blender.org[Blender], or
 you could just look for a premade one online. We've provided you with a few
 meshes <</meshes#'meshes', 'here', check: false) %>.
 
