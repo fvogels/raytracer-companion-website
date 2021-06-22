@@ -1,0 +1,23 @@
+= N-Rooks Sampler
+
+== Definition
+
+An n-rooks sampler takes a single parameter $N$. It subdivides the given rectangle in $N \times N$ subrectangles.
+It then picks $N$ random subrectangles so that in exactly one subrectangle is picked in each row and
+exactly one subrectangle is picked in each column. The name comes from the fact that if you view the subdivided
+rectangle as a chess board and rooks are placed on the selected subrectangles, that none
+of the rooks can capture any of the other rooks.
+
+From each selected subrectangle, a random point is returned.
+
+image::n-rooks.png[align="center"]
+
+== Comparison
+
+[cols="^"]
+|===
+| n = 1 | image:demo1.png[align="center"]
+| n = 2 | image:demo2.png[align="center"]
+| n = 3 | image:demo3.png[align="center"]
+| n = 4 | image:demo4.png[align="center"]
+|====
