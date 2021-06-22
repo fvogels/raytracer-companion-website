@@ -3,8 +3,8 @@
 == Explanation
 
 A point light is a zero-dimensional entity: it has no size. All photons emitted by such a light source
-originate in the same point. When determining which photons reach some location $P$,
-either all photons from a point light reach $P$, or none of them do. This has as consequence that
+originate in the same point. When determining which photons reach some location stem:[P],
+either all photons from a point light reach stem:[P], or none of them do. This has as consequence that
 shadows are very sharp.
 
 Area lights are mathematically an infinite set of point lights arranged in a rectangular area.
