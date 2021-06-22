@@ -10,5 +10,6 @@ logs/
 *.html
 *.mesh
 *.bmesh
+*.omesh
 *.out
 *.mp4
