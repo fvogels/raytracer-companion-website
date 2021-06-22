@@ -15,13 +15,13 @@ def scene_at(now)
                                       "look_at": pos(0,0,0) ] )
 
   var x_anim = Animations.animate(-3, 3, seconds(5))
-  var quad_in = Animations.ease(x_anim, Easing.cubic_in());
-  var quad_out = Animations.ease(x_anim, Easing.cubic_out());
-  var quad_inout = Animations.ease(x_anim, Easing.cubic_inout());
+  var cubic_in = Animations.ease(x_anim, Easing.cubic_in());
+  var cubic_out = Animations.ease(x_anim, Easing.cubic_out());
+  var cubic_inout = Animations.ease(x_anim, Easing.cubic_inout());
 
-  var root = union( [ translate(vec(quad_in[now], 3, 0), decorate( material(Colors.red()), sphere())),
-                      translate(vec(quad_out[now], 0, 0), decorate( material(Colors.green()), sphere())),
-                      translate(vec(quad_inout[now], -3, 0), decorate( material(Colors.blue()), sphere())) ] )
+  var root = union( [ translate(vec(cubic_in[now], 3, 0), decorate( material(Colors.red()), sphere())),
+                      translate(vec(cubic_out[now], 0, 0), decorate( material(Colors.green()), sphere())),
+                      translate(vec(cubic_inout[now], -3, 0), decorate( material(Colors.blue()), sphere())) ] )
 
   var lights = [ Lights.omnidirectional( pos(0,5,5), Colors.white() ) ]
 

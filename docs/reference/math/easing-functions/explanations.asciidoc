@@ -192,3 +192,7 @@ video::quintic.mp4[align="center"]
 | image:quintic-out.png[]
 | image:quintic-inout.png[]
 |===
+
+== Comparison
+
+video::comparison.mp4[align="center"]
