@@ -1,0 +1,15 @@
+= Stratified - Half Jittered Sampler
+
+[overview]
+----
+requires samplers/stratified-jittered
+reading samplers/half-jittered
+----
+
+preview::preview[]
+
+
+[TASK]
+====
+Implement the <</reference/samplers/half-jittered/explanations#,half-jittering sampler>>.
+====
