@@ -1,0 +1,18 @@
+= 2D Rotation
+
+Rotating a point with <</reference/math/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, w)] around the origin by an angle stem:[\alpha] can be achieved using
+
+[stem]
+++++
+  \begin{bmatrix}
+    \cos\alpha & -\sin\alpha & 0 \\
+    \sin\alpha & \cos\alpha & 0 \\
+    0 & 0 & 1 \\
+  \end{bmatrix}
+  \cdot
+  \begin{bmatrix}
+    x \\
+    y \\
+    w \\
+  \end{bmatrix}
+++++
