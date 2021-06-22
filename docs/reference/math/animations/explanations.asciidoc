@@ -11,7 +11,7 @@ If we are to visualize this, we would get:
 
 image::double-animation.png[layout="center"]
 
-The animation is actually a <em>function</em> mapping time values to ``double`` values.
+The animation is actually a _function_ mapping time values to ``double`` values.
 Let's denote this function with stem:[X(t)]. We can translate the properties above to mathematical formulae:
 in the very beginning, the animated ``double`` should have value stem:[0]. This is expressed by
 
@@ -124,7 +124,7 @@ would be perceived as very abrupt. Compare the animations below:
 | image:smooth.png[]
 |===
 
-Animations can be made smoother using <em>easing functions</em>. Below are a few examples:
+Animations can be made smoother using _easing functions_. Below are a few examples:
 
 [cols="^,^,^"]
 |===
