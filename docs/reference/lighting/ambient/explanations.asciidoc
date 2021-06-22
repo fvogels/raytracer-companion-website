@@ -18,7 +18,7 @@ For this reason, we will generally limit ourselves to direct lighting, i.e.
 in our algorithms, we take into account only light that comes directly from a light source.
 
 Ambient lighting is our way of pretending that we can handle indirect lighting:
-we just assume that somehow, there's <em>always</em> some "light seepage" that slightly illuminates
+we just assume that somehow, there's _always_ some "light seepage" that slightly illuminates
 objects in the scene. To be physically correct, we would have to actually find a path from light
 source to object along which photons can reach the objects, but as is typical in the graphics world,
 we try to find a cheap way that still gives reasonable results.
