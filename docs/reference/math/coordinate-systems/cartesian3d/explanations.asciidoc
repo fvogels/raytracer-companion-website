@@ -1,14 +1,14 @@
 = 3D Cartesian Coordinate System
 
-In a 3D Cartesian coordinate system is defined by its origin point $O$ and three perpendicular axes $X$, $Y$ and $Z$.
-The location of each point in 3D space can be expressed using coordinates $(x, y, z)$.
+In a 3D Cartesian coordinate system is defined by its origin point stem:[O] and three perpendicular axes stem:[X], stem:[Y] and stem:[Z].
+The location of each point in 3D space can be expressed using coordinates stem:[(x, y, z)].
 
-<%= tex_image '3d-cartesian' %>
+image::3d-cartesian.png[align="center"]
 
 == Left vs Right Handed
 
 We distinguish two kinds of 3D Cartesian coordinate system: left handed and right handed ones.
-These differ in the orientation of the Z-axis with respect to the $X$ and $Y$-axis.
+These differ in the orientation of the Z-axis with respect to the stem:[X] and stem:[Y]-axis.
 
 
 [cols="^,^"]
@@ -17,5 +17,5 @@ These differ in the orientation of the Z-axis with respect to the $X$ and $Y$-ax
 | Left handed | Right handed
 |===
 
-The distinction between both becomes apparent when dealing with the <%= link 'reference/math/cross-product', 'cross product' %>.
+The distinction between both becomes apparent when dealing with the <</reference/math/cross-product/explanations#,cross product>>.
 During this course, we will always use the right handed variant.
