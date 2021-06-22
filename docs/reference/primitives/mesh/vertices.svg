@@ -1,0 +1,7 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" style="background: white; margin: 1em auto; display: block">
+    <polygon points="100,80 200,200 210,20" style="stroke:black; stroke-width: 2; fill:white" />
+    <polygon points="210,20 200,200 380,250" style="stroke:black; stroke-width: 2; fill:white" />
+    <polygon points="380,250 200,200 50,350" style="stroke:black; stroke-width: 2; fill:white" />
+    <polygon points="50,350 200,200 100,80" style="stroke:black; stroke-width: 2; fill:white" />
+</svg>

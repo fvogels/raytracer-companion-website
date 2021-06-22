@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="200" style="margin: 1em auto; display: block">
+  <g transform="translate(50 100)">
+    <polygon style="fill: black" points="0,-15 8,0 -8,0" />
+    <text x="0" y="15" text-anchor="middle">T0</text>
+  </g>
+
+  <g transform="translate(120 100)">
+    <polygon style="fill: black" points="0,-15 8,0 -8,0" />
+    <text x="0" y="15" text-anchor="middle">T1</text>
+  </g>
+
+  <g transform="translate(190 100)">
+    <polygon style="fill: black" points="0,-15 8,0 -8,0" />
+    <text x="0" y="15" text-anchor="middle">T2</text>
+  </g>
+
+  <g transform="translate(260 100)">
+    <polygon style="fill: black" points="0,-15 8,0 -8,0" />
+    <text x="0" y="15" text-anchor="middle">T3</text>
+  </g>
+
+  <g transform="translate(330 100)">
+    <polygon style="fill: black" points="0,-15 8,0 -8,0" />
+    <text x="0" y="15" text-anchor="middle">T4</text>
+  </g>
+
+  <g transform="translate(400 100)">
+    <polygon style="fill: black" points="0,-15 8,0 -8,0" />
+    <text x="0" y="15" text-anchor="middle">T5</text>
+  </g>
+
+  <g transform="translate(470 100)">
+    <polygon style="fill: black" points="0,-15 8,0 -8,0" />
+    <text x="0" y="15" text-anchor="middle">T6</text>
+  </g>
+
+  <g transform="translate(540 100)">
+    <polygon style="fill: black" points="0,-15 8,0 -8,0" />
+    <text x="0" y="15" text-anchor="middle">T7</text>
+  </g>
+
+  <rect x="40" y="80" width="90" height="40" style="stroke:black;fill:red; opacity: 0.2;" />
+  <rect x="180" y="80" width="90" height="40" style="stroke:black;fill:red; opacity: 0.2;" />
+  <rect x="320" y="80" width="90" height="40" style="stroke:black;fill:red; opacity: 0.2;" />
+  <rect x="460" y="80" width="90" height="40" style="stroke:black;fill:red; opacity: 0.2;" />
+
+  <rect x="30" y="70" width="250" height="60" style="stroke:black;fill:red; opacity: 0.2;" />
+  <rect x="310" y="70" width="250" height="60" style="stroke:black;fill:red; opacity: 0.2;" />
+
+  <rect x="20" y="60" width="550" height="80" style="stroke:black;fill:red; opacity: 0.2;" />
+</svg>
