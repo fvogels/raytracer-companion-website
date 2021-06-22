@@ -1,0 +1,16 @@
+= Directional Lights
+
+== Explanation
+
+Directional light is the same as an omnidirectional point light, except that its position is infinitely far away.
+For example, the sun can be seen as directional light.
+
+Typical for directional lights is the fact that shadows are parallel. In the animation above,
+a directional light and an omnidirectional light are combined in the same scene. The shadows
+that are perfectly aligned to each other are cast by the directional light.
+
+[cols="^,^"]
+|===
+| image:point-light.png[]
+| image:directional-light.png[]
+|===
