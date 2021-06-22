@@ -1,6 +1,6 @@
 = Sphere
 
-== Mathematical Derivation
+== Mathematics
 
 We want to find the intersections of
 
