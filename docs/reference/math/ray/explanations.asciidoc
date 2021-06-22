@@ -1,0 +1,33 @@
+= Rays
+
+image::ray.png[align="center"]
+
+A _ray_ consists of two components:
+
+* an origin stem:[O] of type ``Point3D``;
+* a direction stem:[\vec\Delta] of type ``Vector3D``.
+
+The ray is the entirety of points that lies on the line that goes through stem:[O] and has orientation stem:[\vec\Delta].
+All points on the ray are represented by the thin red line on the above figure.
+
+Mathematically, a ray is written as follows:
+
+[stem]
+++++
+  O + \vec\Delta \cdot t
+++++
+
+where stem:[t \in \mathbb{R}].
+
+Each point on the ray has a unique stem:[t]-value associated with it. stem:[t] represents the number of "steps" of size stem:[\Delta] one
+has to make starting at the origin stem:[O]. For example,
+
+* stem:[t = 0]: take zero steps starting in the origin stem:[O]. You obviously end up in stem:[O].
+* stem:[t = 1]: take one step away from stem:[O] in direction stem:[\vec\Delta].
+* stem:[t = 5]: take five steps away from stem:[O] in direction stem:[\vec\Delta].
+* stem:[t = -1]: take one step in the _opposite_ direction of stem:[\vec\Delta].
+
+In the ray tracer, the ray's origin will often coincide with the eye.
+If stem:[t > 0], the point is in front of the eye; if stem:[t < 0], the point is behind the eye.
+Making this distinction is very important in ray tracing: you will only be interested
+in points in front of the eye.
