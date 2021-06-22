@@ -1,0 +1,65 @@
+= Dot Product
+
+The <a href="https://en.wikipedia.org/wiki/Dot_product">dot product</a> of two vectors yields a scalar, which is computed as follows:
+[stem]
+++++
+(x_1, y_1, z_1) \cdot (x_2, y_2, z_2) = x_1 x_2 + y_1 y_2 + z_1 z_2
+++++
+
+Without <em>meaning</em> this operator wouldn't have much use. So, what
+does this scalar represent? What can we use it for?
+
+To answer this question, you need to know of an alternative way or computing the dot product:
+[stem]
+++++
+\vec u \cdot \vec v = |\vec u| \cdot |\vec v| \cdot cos(\theta)
+++++
+In other words,
+the dot product equals the multiplication of the length of both vectors
+and the cosine of the angle between them.
+
+image::dot-product.png[align="center"]
+
+This alternative formula makes it possible to use the dot product to compute the length
+of vectors and the angle between them.
+
+== Determining the Length
+
+To determine the length of a vector stem:[\vec{v}(x,y,z)] we can multiply stem:[\vec v] by itself.
+In this case the dot product yields stem:[|\vec v| \cdot |\vec v| \cdot \cos(0^\circ)]. Because stem:[\cos(0^\circ) = 1],
+we ultimately get
+
+[stem]
+++++
+  x^2 + y^2 + z^2 = |\vec v|^2
+++++
+Taking the square root yields the length of the vector.
+
+== Determining the Angle
+
+Finding the angle between the vectors is a bit more complicated.
+We know
+
+[stem]
+++++
+\vec u \cdot \vec v = |\vec u| \cdot |\vec v| \cdot cos(\theta)
+++++
+
+and we are interested in stem:[\cos(\theta)]. We move the vector lengths to the left hand side of the equation.
+Computing the length of both vectors is a problem already solved, so we get
+
+[stem]
+++++
+\cos(\theta) = \frac{\vec u \cdot \vec v}{|\vec u| \cdot |\vec v|} = \frac{\vec u \cdot \vec v}{\sqrt{\vec u \cdot \vec u} \cdot \sqrt{\vec v \cdot \vec v}}
+++++
+
+So, now we have stem:[\cos(\theta)] from which it is possible to compute stem:[\theta]. However, this extra step will seldom be necessary:
+having stem:[\cos(\theta)] itself will often be exactly what we need in this course.
+
+Lastly, the dot product allows us to easily find out whether two vectors are perpendicular to each other.
+If they are, their dot product is 0. This is due to the fact that stem:[\cos(90^\circ) = 0].
+
+[stem]
+++++
+\vec u \perp \vec v \qquad \Leftrightarrow \qquad \vec u \cdot \vec v = 0
+++++
