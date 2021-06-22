@@ -3,9 +3,9 @@
 == Mathematics
 
 For other shapes such as the sphere and cylinder, we have always worked with their "canonical form", i.e.
-we have centered them at $(0,0,0)$ and set the radius to 1. While it is technically possible to treat
+we have centered them at stem:[(0,0,0)] and set the radius to 1. While it is technically possible to treat
 triangles the same, we will take a different approach with triangles. In other words,
-we will directly support triangles with arbitrary vertices $P_1$, $P_2$ and $P_3$.
+we will directly support triangles with arbitrary vertices stem:[P_1], stem:[P_2] and stem:[P_3].
 
 The reason triangles are so often chosen as primitive shape (think of games) instead of, say, quadrilaterals,
 is that three points always lie in the same plane. The same can't be said of quadrilaterals, whose
@@ -13,84 +13,86 @@ vertices could very easily not lie in the same plane, making the mathematics beh
 
 Given that the three vertices of a triangle lie in a plane, we can take the following approach in finding
 the intersection between a ray and a triangle: first, we determine where the ray hits
-the plane in which the triangle lies. Let's call this point $H$. Next, we need to determine
-whether this $H$ lies within the bounds of the triangle, which is the tricky part.
+the plane in which the triangle lies. Let's call this point stem:[H]. Next, we need to determine
+whether this stem:[H] lies within the bounds of the triangle, which is the tricky part.
 
 === Ray-Plane Hit
 
-A triangle is uniquely defined by its three vertices $P_1$, $P_2$ and $P_3$, so
+A triangle is uniquely defined by its three vertices stem:[P_1], stem:[P_2] and stem:[P_3], so
 using only those three points we need to be able to find the intersection of the triangle
-with an arbitrary ray $R(t) = O + \vec\Delta \cdot t$.
+with an arbitrary ray stem:[R(t) = O + \vec\Delta \cdot t].
 
-As explained earlier, our first goal is to find out where the ray $R(t)$ hits the plane containing the triangle.
-The easiest way to go about this is relying on the following formula: say $P$ is an arbitrary point on the plane and
-$\vec N$ is a vector perpendicular on the plane, then if for a point $H$
+As explained earlier, our first goal is to find out where the ray stem:[R(t)] hits the plane containing the triangle.
+The easiest way to go about this is relying on the following formula: say stem:[P] is an arbitrary point on the plane and
+stem:[\vec N] is a vector perpendicular on the plane, then if for a point stem:[H]
 
 [stem]
 ++++
 (H - P) \cdot \vec N = 0
 ++++
 
-then $H$ lies on the plane. To be able to use this formula, we need a point $P$ and vector $\vec N$.
+then stem:[H] lies on the plane. To be able to use this formula, we need a point stem:[P] and vector stem:[\vec N].
 
-Finding a $P$ is easy: we have three of them, namely the triangles vertices $P_1$, $P_2$ and $P_3$. Any one of them
-will do. To find $\vec N$, we need a little extra math.
+Finding a stem:[P] is easy: we have three of them, namely the triangles vertices stem:[P_1], stem:[P_2] and stem:[P_3]. Any one of them
+will do. To find stem:[\vec N], we need a little extra math.
 
 image::finding-normal.png[align="center"]
 
-We compute $\vec u = P_2 - P_1$ and $\vec v = P_3 - P_1$. Both these vectors are in the plane. Taking
-their cross product $\vec n = \vec u \times \vec v$ will yield a vector perpendicular on both of them, meaning it will also
+We compute stem:[\vec u = P_2 - P_1] and stem:[\vec v = P_3 - P_1]. Both these vectors are in the plane. Taking
+their cross product stem:[\vec n = \vec u \times \vec v] will yield a vector perpendicular on both of them, meaning it will also
 be perpendicular on the plane.
 
 The formula above thus becomes
 
-\[
+[stem]
+++++
 (H - P_1) \cdot ((P_2 - P_1) \times (P_3 - P_1)) = 0
-\]
+++++
 
-The point $H$ should lie on the ray, i.e. $H = O + \vec\Delta \cdot t$ for some $t$. Plugging this into the equation gives
+The point stem:[H] should lie on the ray, i.e. stem:[H = O + \vec\Delta \cdot t] for some stem:[t]. Plugging this into the equation gives
 
-\[
+[stem]
+++++
 (O + \vec\Delta \cdot t - P_1) \cdot ((P_2 - P_1) \times (P_3 - P_1)) = 0
-\]
+++++
 
-We only need to solve to $t$ and we know where the ray hits the plane.
+We only need to solve to stem:[t] and we know where the ray hits the plane.
 
 
 === Inside Triangle Test
 
-Now that we know where the hit $H$ occurs between the ray and the plane containing the triangle,
-we still need to determine whether $H$ lies within the bounds of the triangle.
+Now that we know where the hit stem:[H] occurs between the ray and the plane containing the triangle,
+we still need to determine whether stem:[H] lies within the bounds of the triangle.
 
 <%= tex_image 'triangle' %>
 
-Let's say we stand at $P_1$ and look at $P_2$. $H$ will be to the left of us.
-Next, let's stand at $P_2$ and look at $P_3$. Again, $H$ will be the to left of us.
-If we repeat this a last time, i.e. stand at $P_3$ and look at $P_1$, once again, $H$
+Let's say we stand at stem:[P_1] and look at stem:[P_2]. stem:[H] will be to the left of us.
+Next, let's stand at stem:[P_2] and look at stem:[P_3]. Again, stem:[H] will be the to left of us.
+If we repeat this a last time, i.e. stand at stem:[P_3] and look at stem:[P_1], once again, stem:[H]
 lies to the left.
 
-So, if we can somehow determine to which side $H$ lies with respect to a triangle's side, we can
-find out if $H$ lies inside the triangle.
+So, if we can somehow determine to which side stem:[H] lies with respect to a triangle's side, we can
+find out if stem:[H] lies inside the triangle.
 
 Maybe the dot product can help us somehow. Let us investigate its sign.
-For the sake of clarity, we work in 2D. We take an arbitrary vector $\vec v$ and draw it with its origin at $(0,0)$.
-Next, for each point $P$ on the plane, we determine the vector $\vec u = P - (0,0)$, i.e. we draw a vector
-from the origin to $P$. Next, we compute the dot product $\vec u \cdot \vec v$. Depending on whether the result is
-positive, zero or negative, we assign the point $P$ the color green, blue or red, respectively.
+For the sake of clarity, we work in 2D. We take an arbitrary vector stem:[\vec v] and draw it with its origin at stem:[(0,0)].
+Next, for each point stem:[P] on the plane, we determine the vector stem:[\vec u = P - (0,0)], i.e. we draw a vector
+from the origin to stem:[P]. Next, we compute the dot product stem:[\vec u \cdot \vec v]. Depending on whether the result is
+positive, zero or negative, we assign the point stem:[P] the color green, blue or red, respectively.
 
 <%= tex_image 'dot-sign' %>
 
-As you can see, all points "in front of $\vec v$" are green and all points behind $\vec v$ are red.
+As you can see, all points "in front of stem:[\vec v]" are green and all points behind stem:[\vec v] are red.
 In other words, the dot product can tell us whether a point lies before or behind us. But this does not help us
 with our triangle: we'd rather know whether a point is to the left or to the right of us.
 
 Maybe the cross product can help. There's a small problem though: the cross product yields vectors, not numbers,
 and there's no such thing as the "sign of a vector". We'll just have to draw the resulting vector then.
-More specifically, in each point $P$ we draw the vector $\vec v \times (P - O)$.
+More specifically, in each point stem:[P] we draw the vector stem:[\vec v \times (P - O)].
 
 <%= tex_image 'cross-product' %>
 
-The result is quite interesting: the vectors to the left of $\vec v$ point upwards and those to the right downwards.
+The result is quite interesting: the vectors to the left of stem:[\vec v] point upwards and those to the right downwards.
 This makes sense: remember that with the <%= link 'reference/math/cross-product', 'cross product' %>,
 the direction of the result depends on whether the angle between the operands goes clockwise or counterclockwise.
 
@@ -102,55 +104,62 @@ Consider the following figures:
 | image:ccw-h.png[]
 |===
 
-Say we stand at $P_1$ and look at $P_2$. We then turn slowly to $P_3$. If while turning from $P_2$ to $P_3$ we encounter $H$,
-it means $H$ is on the right side of $P_1P_2$. To define the "correct turning direction", we
-first compute $P_1P_2 \times P_1P_3 = (P_2 - P_1) \times (P_3 - P_1)$.
-Next we compute $P_1P_2 \times P_1H = (P_2 - P_1) \times (H-P_1)$. If both directions turn the same
+Say we stand at stem:[P_1] and look at stem:[P_2]. We then turn slowly to stem:[P_3]. If while turning from stem:[P_2] to stem:[P_3] we encounter stem:[H],
+it means stem:[H] is on the right side of stem:[P_1P_2]. To define the "correct turning direction", we
+first compute stem:[P_1P_2 \times P_1P_3 = (P_2 - P_1) \times (P_3 - P_1)].
+Next we compute stem:[P_1P_2 \times P_1H = (P_2 - P_1) \times (H-P_1)]. If both directions turn the same
 way (i.e. both clockwise or both counterclockwise), the cross product vectors will point in the same direction. We can detect this
-by relying on the dot product, which will be positive if this is the case. In short, $H$ is on the correct
-side of $P_1P_2$ if
+by relying on the dot product, which will be positive if this is the case. In short, stem:[H] is on the correct
+side of stem:[P_1P_2] if
 
-\[
+[stem]
+++++
 ((P_2 - P_1) \times (H - P_1)) \cdot ((P_2 - P_1) \times (P_3 - P_1)) \geq 0
-\]
+++++
 
 == Summary
 
 Given the following information:
 
-* The ray $R(t) = O + \vec\Delta t$.
-* Three vertices $P_1$, $P_2$, $P_3$.
+* The ray stem:[R(t) = O + \vec\Delta t].
+* Three vertices stem:[P_1], stem:[P_2], stem:[P_3].
 
 Follow these steps:
 
 . Compute the normal vector on the plane. Since this remains constant, you might want to do this only once, in the constructor.
 +
-\[
+[stem]
+++++
  \vec n = \frac{(P_2 - P_1) \times (P_3 - P_1)}{|(P_2 - P_1) \times (P_3 - P_1)|}
-\]
-. Compute the hit $t$:
+++++
+. Compute the hit stem:[t]:
 +
-\[
+[stem]
+++++
 t = \frac{(P_1 - O) \cdot \vec n}{\vec \Delta \cdot \vec n}
-\]
-. Compute the hit position $H$:
+++++
+. Compute the hit position stem:[H]:
 +
-\[
+[stem]
+++++
 H = O + \vec \Delta \cdot t
-\]
-. Check if $H$ lies to the right of $P_1P_2$:
+++++
+. Check if stem:[H] lies to the right of stem:[P_1P_2]:
 +
-\[
+[stem]
+++++
 ((P_2 - P_1) \times (H - P_1)) \cdot \vec n \geq 0
-\]
-. Check if $H$ lies to the right of $P_2P_3$:
+++++
+. Check if stem:[H] lies to the right of stem:[P_2P_3]:
 +
-\[
+[stem]
+++++
   ((P_3 - P_2) \times (H - P_2)) \cdot \vec n \geq 0
-\]
-. Check if $H$ lies to the right of $P_3P_1$:
+++++
+. Check if stem:[H] lies to the right of stem:[P_3P_1]:
 +
-\[
+[stem]
+++++
   ((P_1 - P_3) \times (H - P_3)) \cdot \vec n \geq 0
-\]
-. If any of the previous checks fails, $H$ does not lie within the bounds of the triangle.
+++++
+. If any of the previous checks fails, stem:[H] does not lie within the bounds of the triangle.
