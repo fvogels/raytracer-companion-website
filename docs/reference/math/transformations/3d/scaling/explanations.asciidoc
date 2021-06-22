@@ -1,0 +1,21 @@
+= 3D Scaling
+
+Scaling a point with <</reference/math/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, z, w)] by factors stem:[s_\mathrm{x}], stem:[s_\mathrm{y}] and stem:[s_\mathrm{z}] along the X-, Y- and Z-axis,
+respectively, is achieved by the following matrix multiplication:
+
+[stem]
+++++
+  \begin{bmatrix}
+    s_\mathrm{x} & 0 & 0 & 0 \\
+    0 & s_\mathrm{y} & 0 & 0 \\
+    0 & 0 & s_\mathrm{z} & 0 \\
+    0 & 0 & 0 & 1 \\
+  \end{bmatrix}
+  \cdot
+  \begin{bmatrix}
+    x \\
+    y \\
+    z \\
+    w \\
+  \end{bmatrix}
+++++
