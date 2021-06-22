@@ -1,0 +1,28 @@
+% magick -quality 90 -density 1200 $input -resize 25% -trim $output
+
+\documentclass{standalone}
+\usepackage{tikz}
+
+\usetikzlibrary{math}
+
+
+\begin{document}
+
+\begin{tikzpicture}
+  \draw (0,0) grid (4,4);
+
+  \foreach \i in {1,2,3,4} {
+    \foreach \j in {1,2,3,4} {
+      \tikzmath{
+        real \x;
+        real \y;
+        \x = \i - random();
+        \y = \j - random();
+      }
+
+      \draw[fill=black] (\x, \y) circle [radius=0.05cm];
+    }
+  }
+\end{tikzpicture}
+
+\end{document}

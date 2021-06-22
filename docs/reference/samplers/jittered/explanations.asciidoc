@@ -1,0 +1,19 @@
+= Jittered Sampler
+
+== Definition
+
+A jittering sampler takes two parameter $N$ and $M$. Given a rectangle to be sampled,
+it subdivides this rectangle into $N \times M$ subrectangles of equal size.
+The sampler then returns a random point of each subrectangle.
+
+image::jittered.png[align="center"]
+
+== Comparison
+
+[cols="^"]
+|===
+| n = 1 | image:demo1.png[align="center"]
+| n = 2 | image:demo2.png[align="center"]
+| n = 3 | image:demo3.png[align="center"]
+| n = 4 | image:demo4.png[align="center"]
+|====
