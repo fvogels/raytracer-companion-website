@@ -104,7 +104,7 @@ the photons grazing by, almost hitting the sphere, but not quite, meaning the br
 
 What should happen at point D? The photons and normal are parallel, so is it a point of maximal brightness? Clearly
 it should not be: the light does not reach there and hence it should remain unlit. The solution is simple:
-you have to take the <em>direction</em> into account, not just the orientation. At A, the normal and the photons
+you have to take the _direction_ into account, not just the orientation. At A, the normal and the photons
 go in opposite directions, while at D, they point in the same direction.
 
 All these rules are nice, but how do we put them in such a form that is easily implemented?
@@ -113,7 +113,7 @@ and the surface normal as a red vector stem:[\vec n]. It is important that both 
 
 image::dot-product[align="center"]
 
-The dot product gives us <em>almost</em> exactly the values we need, namely it gives us the exact opposite value each time. We can solve this by simply flipping the sign.
+The dot product gives us _almost_ exactly the values we need, namely it gives us the exact opposite value each time. We can solve this by simply flipping the sign.
 
 == Mathematics
 
