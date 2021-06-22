@@ -1,0 +1,19 @@
+= Stratified Sampler
+
+[overview]
+----
+reading samplers/stratified
+----
+
+preview::preview[]
+
+
+[TASK]
+====
+Implement the <</reference/samplers/stratified/explanations#,stratified sampler.
+====
+
+[TIP]
+=====
+You can use the ``math::Rasterizer`` class to subdivide the rectangle into subrectangles.
+=====
