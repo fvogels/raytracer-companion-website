@@ -1,0 +1,50 @@
+= Homogeneous Coordinates
+
+Homogenoous coordinates blur the distinction between points and vectors and
+provide a unified mathematical framework. The basic idea is to see vectors
+as being points at infinity. However, if we were to simply
+use stem:[(\infty, \infty, \infty)] as the coordinates for a vector,
+we would not know in what direction the vector points, nor what its length is.
+
+The solution to this problem consists of adding an extra coordinate, often called stem:[w].
+This means that when working in 2D space, we need three coordinates, while working in 3D
+space requires 4 coordinates. During this explanation, we will work in 2D.
+
+A 2D point whose "regular" Cartesian coordinates are stem:[(x, y)] has homogeneous coordinates stem:[(x, y, 1)], whereas
+a 2D vector with Cartesian coordinates stem:[(x, y)] has homogeneous coordinates stem:[(x, y, 0)].
+In other words, we can differentiate between points and vectors based on their stem:[w]-value.
+
+So what about other values of stem:[w]? The general rule is that if stem:[w \neq 0], homogeneous
+coordinates stem:[(x, y, w)] correspond to the Cartesian coordinates stem:[(x / w, y / w)].
+In case stem:[w = 0], we would get stem:[(x / 0, y / 0)], which leads to infinities, hence
+the interpretation that vectors are "points on infinity".
+
+From the fact that stem:[(x, y, w) = (x / w, y / w)] follows that a point has infinitely many homogeneous coordinates.
+The following examples all correspond to the same point stem:[(2, 1)]:
+
+[stem]
+++++
+  (2, 1, 1) \qquad (4, 2, 2) \qquad (-2, -1, -1) \qquad (20, 10, 10)
+++++
+
+Generally, we will want to keep stem:[w = 0] for vectors and stem:[w = 1] for points and not venture
+further in the crazy abstract worlds that homogeneous coordinates produce.
+
+== Operations
+
+As explained on <</reference/math/points-and-vectors/explanations#,points and vectors>>,
+addition and subtraction is only allowed on certain combinations of operands:
+we can add two vectors together, but not two points, etc.
+
+Homogeneous coordinates provide a simple way to remember these rules:
+any combination is allowed, as long as the result's stem:[w]-coordinate is either stem:[0] or stem:[1].
+For example,
+
+* Adding a point stem:[(x, y, 1)] and a vector stem:[(x', y', 0)] is allowed, since
+  the result would be stem:[(x + x', y + y', 1)]. This also tells us that
+  adding a point and a vector yields a point, because the result's stem:[w]-coordinate is 1.
+* Adding two points stem:[(x, y, 1)] and stem:[(x', y', 1)] is disallowed, as we
+  would get stem:[(x + x', y + y', 2)]. While it is technically possible to allow this result
+  (addition would correspond to some kind of weird average between points,
+  since stem:[(x + x', y + y', 2) = (\frac{x+x'}{2}, \frac{y+y'}{2}, 1)]),
+  we will refrain to do so.
