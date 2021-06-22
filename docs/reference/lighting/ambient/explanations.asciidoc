@@ -30,7 +30,7 @@ Notice how the shadows are less dark and that the sphere now remains slightly vi
 Expressed more formally: when the ray tracer finds a hit, it needs to determine
 how many photons and their color arrive at that location. Normally,
 it does this by going through the list of light sources, computing how many
-photons each light source $L_{1,2,\dots}$ emits and how many of those find their way to the
+photons each light source stem:[L_{1,2,\dots}] emits and how many of those find their way to the
 hit location:
 
 [stem]
