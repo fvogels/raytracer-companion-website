@@ -1,6 +1,4 @@
-:toc: left
-
-= Depth of Field
+= Depth of Field Camera
 
 == Explanation
 
