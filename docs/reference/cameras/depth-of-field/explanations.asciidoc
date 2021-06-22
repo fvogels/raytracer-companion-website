@@ -4,7 +4,7 @@
 
 === Single Pinhole Cameras
 
-As explained in <<raytracing#,the perspective camera>> (the default camera) simulates a pinhole camera, which is a camera that only allows photons that travel through a very small photon-sized hole to reach the screen. This produces a perfectly crisp image.
+As explained in <</ray-tracing/explanations#,the perspective camera>> (the default camera) simulates a pinhole camera, which is a camera that only allows photons that travel through a very small photon-sized hole to reach the screen. This produces a perfectly crisp image.
 
 image::single-pinhole.png[align="center"]
 
