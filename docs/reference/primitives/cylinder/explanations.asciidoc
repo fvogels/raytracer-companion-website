@@ -1,0 +1,146 @@
+= Cylinder
+
+image::preview.png[align="center"]
+
+== Mathematical Derivation
+
+We want to find the intersections of
+
+* A ray starting at point stem:[O] and having direction stem:[\vec\Delta].
+* An infinitely long cylinder with radius stem:[R]. We choose the cylinder to be aligned with the Z-axis.
+
+
+A cylinder can be seen as an infinite number of circles stacked upon each other. To find the intersections,
+we temporarily get rid of the Z-dimension, which reduces the problem to 2D space in which
+we need to find the intersection of a ray with a circle. We thus have
+
+* A ray starting at point stem:[O' = (O_\mathrm{x}, O_\mathrm{y})] where stem:[O_x] and stem:[O_y] are the x- and y-coordinates of the original ray's origin stem:[O].
+  The ray's direction is stem:[\vec\Delta' = (\vec\Delta_\mathrm{x}, \vec\Delta_\mathrm{y})].
+* A circle centered at stem:[(0, 0)] with radius stem:[R].
+
+A circle is defined as the set of all points stem:[P] at a distance stem:[R] from a given center (in our case, stem:[(0, 0)].)
+stem:[P] must therefore satisfy the following equation:
+
+[stem]
+++++
+\mathrm{dist}(P, (0,0)) = R
+++++
+
+The distance can be expressed using the dot product:
+
+[stem]
+++++
+\sqrt{(P - (0,0)) \cdot (P - (0,0))} = R
+++++
+
+Squaring both sides gets rid of the square root:
+
+[stem]
+++++
+(P - (0,0)) \cdot (P - (0,0)) = R^2
+++++
+
+stem:[P] must also lie on the ray, which means it must also satisfy
+
+[stem]
+++++
+P = O' + \vec\Delta' \cdot t
+++++
+
+Combining both equations, we get
+
+[stem]
+++++
+(O' + \vec\Delta' \cdot t - (0,0)) \cdot (O' + \vec\Delta' \cdot t - (0,0)) = R^2
+++++
+
+Expanding and rearranging yields
+
+[stem]
+++++
+\vec\Delta' \cdot \vec\Delta' \cdot t^2 + 2 \cdot (O' - (0,0)) \cdot \vec\Delta' \cdot t + (O' - (0,0)) \cdot (O' - (0,0)) - R^2 = 0
+++++
+
+We simplify this equation by introducing
+
+[stem]
+++++
+\begin{array}{rcl}
+  a & = & \vec\Delta' \cdot \vec\Delta' \\
+  b & = & 2 \cdot (O' - (0,0)) \cdot \vec\Delta' \\
+  c & = & (O' - (0,0)) \cdot (O' - (0,0)) - R^2
+\end{array}
+++++
+
+which turns the equation to
+
+[stem]
+++++
+a \cdot t^2 + b \cdot t + c = 0
+++++
+
+This is a standard quadratic equation:
+
+* Compute the discriminant:
++
+[stem]
+++++
+D = b^2 - 4 \cdot a \cdot c
+++++
+* If stem:[D < 0], the ray does not intersect with the circle, and hence neither does it intersect the cylinder.
+* If stem:[D \geq 0], there are two intersections with stem:[t]-values
++
+[stem]
+++++
+t_1 = \frac{-b-\sqrt{D}}{2 \cdot a} \qquad t_2 = \frac{-b+\sqrt{D}}{2 \cdot a}
+++++
+
+stem:[t_1] and stem:[t_2] tell us where in 2D space the ray hits the circle. We can restore the Z-dimension
+and find out the 3D-intersections:
+
+[stem]
+++++
+  P_1 = O + \vec\Delta \cdot t_1 \qquad P_2 = O + \vec\Delta \cdot t_2
+++++
+
+The normal at position stem:[P] is
+
+[stem]
+++++
+  \vec{N} = (\frac{P_\mathrm{x}}{R}, \frac{P_\mathrm{y}}{R}, 0)
+++++
+
+== Summary
+
+Given
+
+* A ray starting at point stem:[O = (O_\mathrm{x}, O_\mathrm{y})] and having direction stem:[\vec\Delta = (\vec\Delta_\mathrm{x}, \vec\Delta_\mathrm{y})].
+* A infinitely long cylinder with radius stem:[R] around the Z-axis.
+
+The intersections can be found using the following steps:
+
+. Compute stem:[O' = (O_\mathrm{x}, O_\mathrm{y})].
+. Compute stem:[\vec\Delta' = (\vec\Delta_\mathrm{x}, \vec\Delta_\mathrm{y})].
+. Compute stem:[a = \vec\Delta' \cdot \vec\Delta'].
+. Compute stem:[b = 2 \cdot (O' - (0,0)) \cdot \vec\Delta'].
+. Compute stem:[c = (O' - (0,0)) \cdot (O' - (0,0)) - R^2].
+. Compute stem:[D = b^2 - 4 \cdot a \cdot c].
+. If stem:[D < 0], there are no intersections.
+. If stem:[D \geq 0], there are two intersections:
++
+[stem]
+++++
+t_1 = \frac{-b-\sqrt{D}}{2 \cdot a} \qquad t_2 = \frac{-b+\sqrt{D}}{2 \cdot a}
+++++
+. The hit positions can be found using
++
+[stem]
+++++
+P_1 = O + \vec\Delta \cdot t_1 \qquad P_2 = O + \vec\Delta \cdot t_2
+++++
+. The normal at an intersection point stem:[P = (P_\mathrm{x}, P_\mathrm{y}, P_\mathrm{z})] is
++
+[stem]
+++++
+\vec{N} = (\frac{P_\mathrm{x}}{R}, \frac{P_\mathrm{y}}{R}, 0)
+++++
