@@ -2,8 +2,8 @@
 
 == Definition
 
-A jittering sampler takes two parameter $N$ and $M$. Given a rectangle to be sampled,
-it subdivides this rectangle into $N \times M$ subrectangles of equal size.
+A jittering sampler takes two parameter stem:[N] and stem:[M]. Given a rectangle to be sampled,
+it subdivides this rectangle into stem:[N \times M] subrectangles of equal size.
 The sampler then returns a random point of each subrectangle.
 
 image::jittered.png[align="center"]
