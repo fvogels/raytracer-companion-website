@@ -34,4 +34,4 @@ var renderer    = Renderers.standard( [ "width": 500,
 
 pipeline( scene,
           [ Pipeline.renderer(renderer),
-            Pipeline.bmp("scene.bmp") ] )
+            Pipeline.studio() ] )
