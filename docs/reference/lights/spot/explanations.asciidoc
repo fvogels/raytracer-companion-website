@@ -1,0 +1,30 @@
+= Spot Lights
+
+== Explanation
+
+Contrary to omnidirectional lights, which send photons out in all directions, spot lights
+emit photons as if blocked by a cone:
+
+image::spot-light.png[align="center"]
+
+A spot light has the following characteristics:
+
+* A position stem:[L].
+* A central shining direction specified by a vector stem:[\vec v] (shown in red in the above figure).
+* A beam angle stem:[\theta].
+
+The spot light sends lights to some location stem:[P] if the angle between stem:[LP] and stem:[\vec v] is less than stem:[\frac\theta2].
+We know the dot product stem:[\vec u \cdot \vec v] gives us the cosine of the angle between the two vectors stem:[\vec u] and stem:[\vec v].
+Given that the cosine decreases with increasing angle, we get
+
+[stem]
+++++
+\alpha < \beta \Leftrightarrow \cos\alpha > \cos\beta \qquad \textrm{for } 0 \leq \alpha, \beta \leq 90^\circ
+++++
+
+Applied to our spot lights, this results in
+
+[stem]
+++++
+\frac{P-L}{|P-L|} \cdot \vec v \geq \cos \frac\theta2
+++++
