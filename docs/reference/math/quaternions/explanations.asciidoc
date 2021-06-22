@@ -1,0 +1,101 @@
+= Quaternions
+
+Quaternions are very much like <</reference/math/complex-numbers/explanations#,complex numbers>> in that
+they add new dimensions to the otherwise one dimensional real numbers.
+
+Complex numbers introduced the imaginary unit stem:[i]. Quaternions go a step further:
+there are three _quaternion units_ named stem:[i], stem:[j] and stem:[k], each adding a new dimension.
+A quaternion can be written as
+
+[stem]
+++++
+  a + bi + cj + dk
+++++
+
+The rules governing stem:[i], stem:[j] and stem:[k] are a bit more difficult than when dealing with complex numbers,
+which only added the new rule stem:[i^2 = -1]. Quaternions need rules for every possible combination:
+
+[stem]
+++++
+  \begin{array}{r|ccc}
+    \times & i & j & k \\
+    \hline
+    i & -1 & k & -j \\
+    j & -k & -1 & i \\
+    k & j & -i & -1 \\
+  \end{array}
+++++
+
+Note that multiplication is _not_ commutative: stem:[i \cdot j = k] whereas stem:[j \cdot i = -k].
+
+== Operations
+
+Quaternions without any operations defined upon them would not be of much use.
+
+=== Addition and Subtraction
+
+Addition and subtraction are defined as you would expect:
+
+[stem]
+++++
+  \begin{array}{rcl}
+    (a + bi + cj + dk) + (a' +  b'i + c'j + d'k) & = & (a + a') + (b + b')i + (c + c')j + (d + d')k \\
+    (a + bi + cj + dk) - (a' +  b'i + c'j + d'k) & = & (a - a') + (b - b')i + (c - c')j + (d - d')k \\
+  \end{array}
+++++
+
+=== Multiplication
+
+
+As with complex numbers, multiplication is a matter of applying distributivity and then simplifying
+the rules shown in the table above.
+
+[stem]
+++++
+  (a_1+b_1i+c_1j+d_1k) \cdot (a_2+b_2i+c_2j+d_2k) = \begin{array}{clc}
+                                                      a_1a_2-b_1b_2-c_1c_2-d_1d_2 & & + \\
+                                                      (a_1b_2+b_1a_2+c_1d_2-d_1c_2) & i & + \\
+                                                      (a_1c_2-b_1d_2+c_1a_2+d_1b_2) & j & + \\
+                                                      (a_1d_2+b_1c_2-c_1b_2+d_1a_2) & k
+                                                    \end{array}
+++++
+
+=== Conjugate
+
+The _conjugate_ of a quaternion stem:[q], written stem:[q^*], is defined as
+[stem]
+++++
+  (a + bi + cj + dk)^* = a - bi - cj - dk
+++++
+
+== Usage
+
+On the <</reference/math/complex-numbers/explanations#,page about complex numbers>> we briefly mentioned
+multiplication corresponded to rotation in 2D. Similarly, quaternion multiplication
+can be used to perform 3D rotations.
+
+Using quaternions, you can rotate a point around an arbitrary axis _that goes through the origin_.
+To rotate around an axis that does no go through the origin, some extra effort is needed (see later.)
+
+If you want to rotate point stem:[P(x, y, z)] an angle stem:[\theta] around the axis whose direction is represented by the _unit vector_ stem:[\vec v(r_\mathrm{x}, r_\mathrm{y}, r_\mathrm{z})], follow
+these steps:
+
+. Compute the quaternion stem:[p]:
++
+[stem]
+++++
+  p = x i + y j + z k
+++++
+. Compute the quaternion stem:[q]:
++
+[stem]
+++++
+  q = \cos(\frac\theta2) + \sin(\frac\theta2) r_\mathrm{x} i + \sin(\frac\theta2) r_\mathrm{y} j + \sin(\frac\theta2) r_\mathrm{z} k
+++++
+. Multiply as follows:
++
+[stem]
+++++
+  p' = q \cdot p \cdot q^*
+++++
+* stem:[p'] will have the form stem:[x' i+y' j+z' k]. The rotation of stem:[P] is stem:[P'(x', y', z')].
