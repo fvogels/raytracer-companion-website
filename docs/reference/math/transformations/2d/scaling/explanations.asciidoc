@@ -1,0 +1,45 @@
+= 2D Scaling
+
+Scaling a point with <</reference/math/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, w)] by a factor stem:[s_\mathrm{x}] along the X-axis and a factor stem:[s_\mathrm{y}] along the Z-axis
+is achieved by the following matrix multiplication:
+
+[stem]
+++++
+  \begin{bmatrix}
+    s_\mathrm{x} & 0 & 0 \\
+    0 & s_\mathrm{y} & 0 \\
+    0 & 0 & 1 \\
+  \end{bmatrix}
+  \cdot
+  \begin{bmatrix}
+    x \\
+    y \\
+    w \\
+  \end{bmatrix}
+++++
+
+[NOTE,caption="Example"]
+====
+Scaling stem:[P(3, 5)] by 2 along the X-axis:
+
+[stem]
+++++
+  \begin{bmatrix}
+    2 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1 \\
+  \end{bmatrix}
+  \cdot
+  \begin{bmatrix}
+    3 \\
+    5 \\
+    1 \\
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    6 \\
+    10 \\
+    1 \\
+  \end{bmatrix}
+++++
+====
