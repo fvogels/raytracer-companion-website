@@ -60,6 +60,4 @@ pipeline( scene_animation(scene_at, seconds(5)),
           [ Pipeline.animation(150),
             Pipeline.renderer(renderer),
             Pipeline.motion_blur(5, 5),
-            Pipeline.wif(),
-            Pipeline.base64(),
-            Pipeline.stdout() ] )
+            Pipeline.studio() ] )
