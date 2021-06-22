@@ -1,0 +1,194 @@
+= Easing Functions
+
+== Introduction
+
+Easing functions are functions used to create <%= link 'reference/math/animations', 'smoother animations' %>.
+We say a function stem:[f] is an easing function if
+
+[stem]
+++++
+f(0) = 0 \qquad f(1) = 1
+++++
+
+The simplest easing function is the linear one:
+
+[stem]
+++++
+f(t) = t
+++++
+
+which goes from stem:[0] to stem:[1] in a straight line:
+
+image::linear.png[align="center"]
+
+== Easing Functions
+
+=== Quadratic
+
+A quadratic easing function must be a polynomial of the second degree, i.e. it has the form
+
+[stem]
+++++
+  f(t) = a \cdot t^2 + b \cdot t + c
+++++
+
+We distinguish three types of quadratic easing functions:
+
+* Quad-in starts at zero speed and accelerates. Mathematically, it is characterized by the fact that
++
+[stem]
+++++
+  f'(0) = 0
+++++
+* Quad-out slows down to zero speed as it approaches stem:[1]. Put mathematically,
++
+[stem]
+++++
+  f'(1) = 0
+++++
+* Quad-inout both starts and finishes with zero speed. You need to cheat here a little bit by working
+  with piecewise functions: the easing function will consist of two parts, let's call them stem:[f_1] and stem:[f_2], which satisfy
+  the following constraints:
++
+[stem]
+++++
+  \begin{array}{rcl}
+    f(t) & = & \left\{
+                  \begin{array}{lr}
+                    f_1(t) & 0 \leq t &lt; \frac12 \\
+                    f_2(t) & \frac12 \leq t \leq 1 \\
+                  \end{array}
+                \right. \\ \\
+    f_1(t) & = & a_1 \cdot t^2 + b_1 \cdot t + c_1 \\
+    f_2(t) & = & a_2 \cdot t^2 + b_2 \cdot t + c_2 \\
+    f'_1(0) & = & 0 \\
+    f'_2(1) & = & 0 \\
+    f_1(\frac12) & = & f_2(\frac12) \\
+    f'_1(\frac12) & = & f'_2(\frac12) \\
+  \end{array}
+++++
+
+video::quad.mp4[align="center"]
+
+[%header,cols="^,^,^"]
+|===
+| quad-in
+| quad-out
+| quad-inout
+
+| image:quad-in.png[]
+| image:quad-out.png[]
+| image:quad-inout.png[]
+|===
+
+=== Cubic
+
+A cubic easing function must be a polynomial of the third degree, i.e. it has the form
+
+[stem]
+++++
+f(t) = a \cdot t^3 + b \cdot t^2 + c \cdot t + d
+++++
+
+We distinguish three types of cubic easing functions:
+
+* Cubic-in starts at zero speed and acceleration. Mathematically, it is characterized by the fact that
++
+[stem]
+++++
+  f'(0) = \qquad f''(0) = 0
+++++
+* Cubic-out slows down to zero speed as it approaches stem:[1]. Put mathematically,
++
+[stem]
+++++
+   f'(1) = f''(1) = 0
+++++
+* Cubic-inout both starts and finishes with zero speed.
++
+[stem]
+++++
+\begin{array}{rcl}
+  f(t) & = & \left\{
+                \begin{array}{lr}
+                  f_1(t) & 0 \leq t &lt; \frac12 \\
+                  f_2(t) & \frac12 \leq t \leq 1 \\
+                \end{array}
+              \right. \\ \\
+  f_1(t) & = & a_1 \cdot t^3 + b_1 \cdot t^2 + c_1 \cdot t + d_1 \\
+  f_2(t) & = & a_2 \cdot t^3 + b_2 \cdot t^2 + c_2 \cdot t + d_2 \\
+  f'_1(0) = f''_1(0) = & = & 0 \\
+  f'_2(1) = f''_2(1) & = & 0 \\
+  f_1(\frac12) & = & f_2(\frac12) \\
+  f'_1(\frac12) & = & f'_2(\frac12) \\
+\end{array}
+++++
+
+video::cubic.mp4[align="center"]
+
+[%header,cols="^,^,^"]
+|===
+| cubic-in
+| cubic-out
+| cubic-inout
+
+| image:cubic-in.png[]
+| image:cubic-out.png[]
+| image:cubic-inout.png[]
+|===
+
+=== Quintic
+
+A quintic easing function must be a polynomial of the fifth degree, i.e. it has the form
+
+[stem]
+++++
+  f(t) = a \cdot t^5 + b \cdot t^4 + c \cdot t^3 + d \cdot t^2 + e \cdot t + g
+++++
+
+We distinguish three types of quintic easing functions:
+
+* Quintic-in
++
+[stem]
+++++
+  f'(0) = f''(0) = f'''(0) = f''''(0) = 0
+++++
+* Quintic-out
++
+[stem]
+++++
+  f'(1) = f''(1) = f'''(1) = f''''(1) = 0
+++++
+* Quintic-inout
++
+[stem]
+++++
+\begin{array}{rcl}
+  f(t) & = & \left\{
+                \begin{array}{lr}
+                  f_1(t) & 0 \leq t &lt; \frac12 \\
+                  f_2(t) & \frac12 \leq t \leq 1 \\
+                \end{array}
+              \right. \\ \\
+  f_1(t) & = & a_1 \cdot t^5 + b_1 \cdot t^4 + c_1 \cdot t^3 + d_1 \cdot t^2 + e_1 \cdot t + g_1 \\
+  f_2(t) & = & a_2 \cdot t^5 + b_2 \cdot t^4 + c_2 \cdot t^3 + d_2 \cdot t^2 + e_2 \cdot t + g_2 \\
+  f'_1(0) = f''_1(0) = f'''_1(0) = f''''_1(0) & = & 0 \\
+  f'_2(1) = f''_2(1) = f'''_2(1) = f''''_2(1) & = & 0 \\
+  f_1(\frac12) & = & f_2(\frac12) \\
+  f'_1(\frac12) & = & f'_2(\frac12) \\
+\end{array}
+++++
+
+video::quintic.mp4[align="center"]
+
+[%header,cols="^,^,^"]
+|===
+| quintic-in
+| quintic-out
+| quintic-inout
+
+| image:quintic-in.png[]
+| image:quintic-out.png[]
+| image:quintic-inout.png[]
+|===
