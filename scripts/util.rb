@@ -18,9 +18,10 @@ def render_movie(chai_path, render_path)
 
   script = read_chai_script(chai_path)
 
-  out, err, status = Open3.capture3("#{RAYTRACER} -s - | #{WIF} movie #{render_path}", stdin_data: script)
-  puts err
-  # puts `#{RAYTRACER} -s #{chai_path.to_s} | #{WIF} movie #{render_path}`
+  Dir.chdir(chai_path.dirname) do
+    out, err, status = Open3.capture3("#{RAYTRACER} -s - | #{WIF} movie #{render_path}", stdin_data: script)
+    puts err
+  end
 end
 
 def render_image(chai_path, render_path)
@@ -29,8 +30,10 @@ def render_image(chai_path, render_path)
 
   script = read_chai_script(chai_path)
 
-  out, err, status = Open3.capture3("#{RAYTRACER} -s - | #{WIF} frames -i STDIN -o #{render_path}", stdin_data: script)
-  puts err
+  Dir.chdir(chai_path.dirname) do
+    out, err, status = Open3.capture3("#{RAYTRACER} -s - | #{WIF} frames -i STDIN -o #{render_path}", stdin_data: script)
+    puts err
+  end
 end
 
 
