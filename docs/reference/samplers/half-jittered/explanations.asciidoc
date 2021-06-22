@@ -2,8 +2,8 @@
 
 == Definition
 
-A half-jittering sampler takes two parameters stem:[N] and $M$. Given a rectangle to be sampled,
-it subdivides this rectangle into $N \times M$ subrectangles of equal size.
+A half-jittering sampler takes two parameters stem:[N] and stem:[M]. Given a rectangle to be sampled,
+it subdivides this rectangle into stem:[N \times M] subrectangles of equal size.
 The sampler then returns a random point close to the center of each subrectangle, to make sure samples
 cannot be too close to each other.
 
