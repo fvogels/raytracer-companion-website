@@ -1,0 +1,124 @@
+= Sphere
+
+== Mathematical Derivation
+
+We want to find the intersections of
+
+* A ray starting at point stem:[O] and having direction stem:[\vec\Delta].
+* A sphere with radius stem:[R] centered at stem:[C].
+
+A sphere is defined as the set of all points stem:[P] that are at a distance stem:[R] from a center stem:[C].
+Put into formula, each stem:[P] must satisfy the following equation:
+
+[stem]
+++++
+\mathrm{dist}(P, C) = R
+++++
+
+
+Making use of the dot product, the distance stem:[\mathrm{dist}(P, C)] can be written as stem:[\sqrt{(P-C)\cdot(P-C)}].
+The square root being rather bothersome, we square it away:
+
+[stem]
+++++
+(P-C)\cdot(P-C) = R^2
+++++
+
+We know that stem:[P] must reside on the ray, i.e. stem:[P] must <em>also</em> satisfy
+
+[stem]
+++++
+P = O + \vec\Delta \cdot t
+++++
+
+for some stem:[t]. Combining these two equations we get
+
+[stem]
+++++
+(O + \vec\Delta \cdot t - C) \cdot (O + \vec\Delta \cdot t - C) = R^2
+++++
+
+Expanding and rearranging terms gives
+
+[stem]
+++++
+(\vec\Delta \cdot \vec\Delta) \cdot t^2 + ((O - C) \cdot \vec\Delta) \cdot t + (O - C) \cdot (O - C) - R^2 = 0
+++++
+
+We simplify the equation replacing the larger subexpressions by letters:
+
+[stem]
+++++
+\begin{array}{rcl}
+  a & = & \vec\Delta \cdot \vec\Delta \\
+  b & = & (O - C) \cdot \vec\Delta \\
+  c & = & (O - C) \cdot (O - C) - R^2
+\end{array}
+++++
+
+Thus giving as new equation
+
+[stem]
+++++
+a \cdot t^2 + b \cdot t + c = 0
+++++
+
+This quadratic equation can be solved using standard techniques.
+
+
+. Compute the discriminant:
++
+[stem]
+++++
+D = b^2 - 4 \cdot a \cdot c
+++++
+. If stem:[D < 0], there are no solutions. This means the ray does not intersect the sphere.
+. If stem:[D \geq 0], there are two solutions.
++
+[stem]
+++++
+t_1 = \frac{-b-\sqrt{D}}{2 \cdot a} \qquad t_2 = \frac{-b+\sqrt{D}}{2 \cdot a}
+++++
+
+Both stem:[t] values indicate where on the ray the intersections lie. If stem:[t > 0], the intersection
+lies in front of the beginning of the ray, i.e. these are generally the intersections that matter to us.
+
+The actual intersection positions can be found using
+
+[stem]
+++++
+P_1 = O + \vec\Delta \cdot t_1 \qquad P_2 = O + \vec\Delta \cdot t_2
+++++
+
+== Summary
+
+Given
+
+* A ray starting at point stem:[O] and having direction stem:[\vec\Delta].
+* A sphere with radius stem:[R] centered at stem:[C].
+
+The intersections can be found using the following steps:
+
+. Compute stem:[a = \vec\Delta \cdot \vec\Delta].
+. Compute stem:[b = (O - C) \cdot \vec\Delta].
+. Compute stem:[c = (O - C) \cdot (O - C) - R^2].
+. Compute stem:[D = b^2 - 4 \cdot a \cdot c].
+. If stem:[D < 0], there are no intersections.
+. If stem:[D \geq 0], there are two intersections:
++
+[stem]
+++++
+t_1 = \frac{-b-\sqrt{D}}{2 \cdot a} \qquad t_2 = \frac{-b+\sqrt{D}}{2 \cdot a}
+++++
+. The hit positions can be found using
++
+[stem]
+++++
+P_1 = O + \vec\Delta \cdot t_1 \qquad P_2 = O + \vec\Delta \cdot t_2
+++++
+. The normals are
++
+[stem]
+++++
+\vec{N}_1 = \frac{P_1 - C}{R} \qquad \vec{N}_2 = \frac{P_2 - C}{R}
+++++
