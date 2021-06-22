@@ -45,7 +45,7 @@ back in and use it to rebuild the mesh.
 First, you need to find a mesh to render. You can build one yourself using
 a 3D modelling tool such as https://www.blender.org[Blender], or
 you could just look for a premade one online. We've provided you with a few
-meshes <</meshes#'meshes', 'here', check: false) %>.
+meshes link:/meshes[meshes].
 
 Just like there are many different graphics formats (png, jpeg, bmp, &hellip;),
 there exists a diversity of mesh formats such as ply, obj, etc.
