@@ -55,11 +55,19 @@ def latex_to_png(source, destination)
   temp_root.mkpath
   pdf_path = temp_root.join(source.basename).sub_ext '.pdf'
 
+  if %r{%\s+(magick .*)} =~ source.readlines[0]
+    conversion_template = $1
+  else
+    conversion_template = "magick -quality 90 -density 150 $input -trim $output"
+  end
+
+  conversion_command = conversion_template.gsub(/\$input/, pdf_path.to_s).gsub(/\$output/, destination.to_s)
+
   puts "Converting #{source.to_s} -> #{destination}"
 
   puts `pdflatex -output-directory #{temp_root.to_s} #{source.to_s}`
   puts `pdflatex -output-directory #{temp_root.to_s} #{source.to_s}`
-  puts `magick -quality 90 -density 150 #{pdf_path} -trim #{destination}`
+  puts `#{conversion_command}`
 end
 
 
