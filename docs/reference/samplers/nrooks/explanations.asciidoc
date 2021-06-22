@@ -20,4 +20,4 @@ image::n-rooks.png[align="center"]
 | n = 2 | image:demo2.png[align="center"]
 | n = 3 | image:demo3.png[align="center"]
 | n = 4 | image:demo4.png[align="center"]
-|====
+|===
