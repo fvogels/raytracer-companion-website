@@ -1,0 +1,15 @@
+= Stratified - Jittered Sampler
+
+[overview]
+----
+requires samplers/stratified
+reading samplers/jittered
+----
+
+preview::preview[]
+
+
+[TASK]
+====
+Implement the <</reference/samplers/jittered/explanations#,jittering sampler>>.
+====
