@@ -1,0 +1,27 @@
+= Fisheye Camera
+
+== Explanation
+
+A fisheye camera is similar to a <<ray-tracing#,perspective camera>>, except for the fact that instead of having a rectangular canvas, you paint on a spherical one.
+
+[.center,cols="^,^"]
+|===
+| image:rectangular-canvas.png[]
+| image:spherical-canvas.png[]
+|===
+
+We can choose how wide the fisheye camera is both horizontally and vertically.
+For example, on the figure above, the fisheye camera spans an angle of 180&deg; both horizontally and vertically.
+Having a 180&deg; horizontal angle means that you can see what's left and right of you.
+A horizontal angle larger than 180&deg; allows you to see behind you.
+Consider the scene below:
+
+image::scene.png[align="center"]
+
+We now move the camera to just above the white sphere and let it point towards the red sphere.
+The movie below shows what happens if we gradually enlarge the horizontal angle
+from 90&deg; to 360&deg;
+
+video::fisheye.mp4[align="center"]
+
+Notice how the cyan sphere comes into view towards the end, at which point the canvas forms a complete sphere.
