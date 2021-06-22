@@ -1,0 +1,74 @@
+= 2D Translation
+
+Translating a point with <</reference/math/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, w)] by a vector stem:[(\Delta x, \Delta y, 0)] can be computed using the following matrix multiplication:
+
+[stem]
+++++
+\begin{bmatrix}
+1 & 0 & \Delta x \\
+0 & 1 & \Delta y \\
+0 & 0 & 1 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+x \\
+y \\
+w \\
+\end{bmatrix}
+++++
+
+Note that translation only has any effect on points (stem:[w = 1]): vectors (stem:[w = 0]) remain unaffected.
+
+[NOTE,caption="Example"]
+====
+Translating stem:[P(3, 5)] by stem:[\vec v(2,-4)]:
+
+[stem]
+++++
+\begin{bmatrix}
+1 & 0 & 2 \\
+0 & 1 & -4 \\
+0 & 0 & 1 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+3 \\
+5 \\
+1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+4 \\
+-1 \\
+1 \\
+\end{bmatrix}
+++++
+====
+
+[NOTE,caption="Example"]
+====
+Translating stem:[\vec n(0, 1)] by stem:[\vec v(2,-4)]:
+
+[stem]
+++++
+\begin{bmatrix}
+1 & 0 & 2 \\
+0 & 1 & -4 \\
+0 & 0 & 1 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+0 \\
+1 \\
+0 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+1 \\
+0 \\
+\end{bmatrix}
+++++
+
+Notice how translating a vector has no effect.
+====
