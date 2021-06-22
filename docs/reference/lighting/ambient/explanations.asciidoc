@@ -1,0 +1,46 @@
+= Ambient Lighting
+
+== Explanation
+
+Ambient lighting is the simplest of all lighting methods, but it is also very very fake.
+
+Consider the following animation:
+
+video::without-ambient.mp4[align="center"]
+
+As the light source moves inside the box and to the upper left part of it,
+the sphere gets completely obscured in shadows. In reality,
+part of the light should travel from the upper left to the right white wall,
+bounce off of it, and still reach the sphere, making it slightly visible.
+
+This kind of indirect lighting is both relatively complex to implement and computationally expensive.
+For this reason, we will generally limit ourselves to direct lighting, i.e.
+in our algorithms, we take into account only light that comes directly from a light source.
+
+Ambient lighting is our way of pretending that we can handle indirect lighting:
+we just assume that somehow, there's <em>always</em> some "light seepage" that slightly illuminates
+objects in the scene. To be physically correct, we would have to actually find a path from light
+source to object along which photons can reach the objects, but as is typical in the graphics world,
+we try to find a cheap way that still gives reasonable results.
+
+video::with-ambient.mp4[align="center"]
+
+Notice how the shadows are less dark and that the sphere now remains slightly visible throughout the animation.
+
+Expressed more formally: when the ray tracer finds a hit, it needs to determine
+how many photons and their color arrive at that location. Normally,
+it does this by going through the list of light sources, computing how many
+photons each light source $L_{1,2,\dots}$ emits and how many of those find their way to the
+hit location:
+
+[stem]
+++++
+\textrm{total light} = \textrm{photons from } L_1 + \textrm{photons from } L_2 + \dots
+++++
+
+Ambient lighting adds a constant to this:
+
+[stem]
+++++
+\textrm{total light} = \textrm{ambient photons} + \textrm{photons from } L_1 + \textrm{photons from } L_2 + \dots
+++++
