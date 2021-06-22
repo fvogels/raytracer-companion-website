@@ -94,14 +94,17 @@ Rake::FileList.new('docs/**/*.svg').map do |path|
 
   absolute_target_path
 end.then do |paths|
+  desc 'Copies all files to dist that need to be preserved as-is'
   task :copy => paths.map(&:to_s)
 end
 
+desc 'Removed dist and temp directories'
 task :clean do
   FileUtils.rm_rf 'dist'
   FileUtils.rm_rf 'temp'
 end
 
+desc 'Makes a full build'
 task :default => [ :html, :chai, :tex, :copy ]
 
 
