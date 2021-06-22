@@ -2,8 +2,8 @@
 
 == Definition
 
-A multijittering sampler takes a parameter $N$. It subdivides the given rectangle in $N \times N$ subrectangles.
-Each of these subrectangles is then subdivided once more into $N \times N$ subsubrectangles. In each of the $N \times N$ subrectangles,
+A multijittering sampler takes a parameter stem:[N]. It subdivides the given rectangle in stem:[N \times N] subrectangles.
+Each of these subrectangles is then subdivided once more into stem:[N \times N] subsubrectangles. In each of the stem:[N \times N] subrectangles,
 a different subsubrectangle is chosen. For example, the lower-left subsubrectangle is selected in exactly one subrectangle.
 
 image::multijittered1.png[align="center"]
