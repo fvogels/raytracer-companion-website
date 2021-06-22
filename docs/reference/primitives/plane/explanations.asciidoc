@@ -2,7 +2,7 @@
 
 image::preview.png[align="center"]
 
-== Mathematical Derivation
+== Mathematics
 
 A plane can be uniquely defined in many ways:
 
