@@ -10,9 +10,9 @@ to move primitives around in space. The ``BoundingBoxAccelerator`` primitive
 is even more abstract: it changes absolutely nothing about the scene.
 If it does, there's a bug.
 
-The ``BoundingBoxAccelerator``'s only purpose in life is to <span style="text-decoration: line-through">pass the butter</span>
+The ``BoundingBoxAccelerator``'s only purpose in life is to [.line-through]#pass the butter#
 speed up rendering. Say you have a scene containing a complex object built out of
-thousands or millions of triangles (i.e. a <em>mesh</em>):
+thousands or millions of triangles (i.e. a _mesh_):
 
 image::mesh.png[align="center"]
 
