@@ -1,3 +1,5 @@
+// image
+
 var camera = Cameras.perspective( [ "eye": pos(0,0,5),
                                     "look_at": pos(0,0,0) ] )
 
@@ -19,4 +21,4 @@ var renderer = Renderers.standard( [ "width": 500,
 
 pipeline( scene,
           [ Pipeline.renderer(renderer),
-            Pipeline.bmp("specular-narrow-highlight.bmp") ] )
+            Pipeline.studio() ] )

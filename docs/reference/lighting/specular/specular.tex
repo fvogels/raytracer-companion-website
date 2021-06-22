@@ -1,3 +1,4 @@
+% magick -density 2400 $input -resize 640x $output
 \documentclass{standalone}
 \usepackage{tikz}
 
@@ -14,7 +15,7 @@
   \coordinate (hit) at (0,0);
   \coordinate (light) at ($ (hit) + (120:2) $);
   \coordinate (eye) at (1,1.5);
-  
+
   \draw[fill=blue] (eye) circle [radius=0.05cm] node[right,blue] {$E$};
   \draw[fill=white] (light) circle [radius=0.1cm] node [white,above] {$L$};
   \node[anchor=north,white] at (hit) {$P$};
