@@ -58,7 +58,7 @@ def latex_to_png(source, destination)
   if %r{%\s+(magick .*)} =~ source.readlines[0]
     conversion_template = $1
   else
-    conversion_template = "magick -quality 90 -density 150 $input -trim $output"
+    conversion_template = "magick -density 2400 $input -resize 640x $output"
   end
 
   conversion_command = conversion_template.gsub(/\$input/, pdf_path.to_s).gsub(/\$output/, destination.to_s)
