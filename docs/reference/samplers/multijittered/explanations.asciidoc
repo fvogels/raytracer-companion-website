@@ -1,0 +1,23 @@
+= Multijittered Sampler
+
+== Definition
+
+A multijittering sampler takes a parameter $N$. It subdivides the given rectangle in $N \times N$ subrectangles.
+Each of these subrectangles is then subdivided once more into $N \times N$ subsubrectangles. In each of the $N \times N$ subrectangles,
+a different subsubrectangle is chosen. For example, the lower-left subsubrectangle is selected in exactly one subrectangle.
+
+image::multijittered1.png[align="center"]
+
+Shuffling this around gives:
+
+image::multijittered2.png[align="center"]
+
+== Comparison
+
+[cols="^"]
+|===
+| n = 1 | image:demo1.png[align="center"]
+| n = 2 | image:demo2.png[align="center"]
+| n = 3 | image:demo3.png[align="center"]
+| n = 4 | image:demo4.png[align="center"]
+|====
