@@ -1,0 +1,51 @@
+= Conversions Between Coordinate Systems
+
+You can convert from one coordinate system to another using the formulae below.
+
+== From 2D Cartesian to Polar
+
+[stem]
+++++
+  \begin{array}{rcl}
+    r & = & \sqrt{x^2 + y^2} \\
+    \theta & = & \mathrm{atan2}(y, x) \\
+  \end{array}
+++++
+
+where http://en.cppreference.com/w/cpp/numeric/math/atan2[atan2] is an arc tangent function which takes into account the quadrant.
+
+== From Polar to 2D Cartesian
+
+[stem]
+++++
+  \begin{array}{rcl}
+    x & = & r \cdot \cos(\theta) \\
+    y & = & r \cdot \sin(\theta) \\
+  \end{array}
+++++
+
+== From 3D Cartesian to Spherical
+
+[stem]
+++++
+  \begin{array}{rcl}
+    r & = & \sqrt{x^2 + y^2 + z^2} \\
+    \theta & = & \mathrm{atan2}(z, x) \\
+    \phi & = & 90^\circ - \arccos(y/r) \\
+  \end{array}
+++++
+
+where stem:[\theta] corresponds to the azimuth angle and stem:[\phi] to the elevation angle.
+
+== From Spherical to 3D Cartesian
+
+[stem]
+++++
+  \begin{array}{rcl}
+    x & = & r \cdot \cos\theta \cdot \cos\phi \\
+    y & = & r \cdot \sin\phi \\
+    z & = & r \cdot \sin\theta \cdot \cos\phi \\
+  \end{array}
+++++
+
+where stem:[\theta] corresponds to the azimuth angle and stem:[\phi] to the elevation angle.
