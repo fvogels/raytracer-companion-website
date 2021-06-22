@@ -1,0 +1,31 @@
+= Bounding Box Accelerator
+
+== Explanation
+
+There are different kinds of primitives. The most basic primitives are those modelling shapes,
+such as ``Sphere``, ``Triangle`` and the plane primitives.
+A more abstract kind of primitives model operations on primitives: ``Decorator``s
+assign materials to other primitives while ``Transformer``s can be used
+to move primitives around in space. The ``BoundingBoxAccelerator`` primitive
+is even more abstract: it changes absolutely nothing about the scene.
+If it does, there's a bug.
+
+The ``BoundingBoxAccelerator``'s only purpose in life is to <span style="text-decoration: line-through">pass the butter</span>
+speed up rendering. Say you have a scene containing a complex object built out of
+thousands or millions of triangles (i.e. a <em>mesh</em>):
+
+image::mesh.png[align="center"]
+
+Each time a ray is cast (e.g. from the camera, for shadowing purposes, reflection or refraction),
+we need to check whether this ray intersects any of these triangles. Rendering would take an inexcusably
+long time if we were to do nothing about it.
+
+The solution is to surround the mesh by a box. This box needs to be as small as possible,
+but still contain the entire mesh. When we need to determine whether a ray intersects the mesh,
+we first check if it intersects the box. If the ray misses the box, we know it will
+also miss the mesh, thereby sparing us the need to iterate over all triangles in search of hits.
+
+image::bounding-box.png[align="center"]
+
+By building a <</reference/primitives/mesh/optimization/explanations#,hierarchy>>,
+you can even speed up rendering more.
