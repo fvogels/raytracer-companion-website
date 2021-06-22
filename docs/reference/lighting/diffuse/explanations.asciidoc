@@ -12,18 +12,18 @@ image::bounce.png[align="center"]
 With diffuse reflection, all non-red photons will be absorbed by the red surface while all the red ones will be reflected
 in random directions.
 
-During ray tracing, we need to think backwards. We cast a ray originating in the eye $E$. Say the ray hits the scene at some position $P$.
+During ray tracing, we need to think backwards. We cast a ray originating in the eye stem:[E]. Say the ray hits the scene at some position stem:[P].
 In order to determine the color of that hit, we need to determine two things:
 
-* What is the color of the photons going from $P$ to $E$?
-* How many photons are going from $P$ to $E$? This determines the brightness.
+* What is the color of the photons going from stem:[P] to stem:[E]?
+* How many photons are going from stem:[P] to stem:[E]? This determines the brightness.
 
 == Determining the Color
 
-The color of the photons arriving at $E$ depends on two things:
+The color of the photons arriving at stem:[E] depends on two things:
 
-* What color photons does the light source $L$ produce?
-* Which colors are reflected at $P$?
+* What color photons does the light source stem:[L] produce?
+* Which colors are reflected at stem:[P]?
 
 For example, if a white light (= all colors at once) shines on a green surface,
 you will perceive the surface as green as only the green photons get reflected.
@@ -57,21 +57,21 @@ If the red light RGB(1,0,0) shines on a blue surface RGB(0,0,1), we get
 
 The number of photons depends on
 
-* How bright is the light itself? I.e. how many photons does the light $L$ produce?
-* How many photons arrive at $P$?
-* How many photons are reflected at $P$?
+* How bright is the light itself? I.e. how many photons does the light stem:[L] produce?
+* How many photons arrive at stem:[P]?
+* How many photons are reflected at stem:[P]?
 
-So, there's a certain amount of photons starting at $L$, of which only a certain
-percentage reaches $P$, of which only a certain percentage is reflected towards $E$.
+So, there's a certain amount of photons starting at stem:[L], of which only a certain
+percentage reaches stem:[P], of which only a certain percentage is reflected towards stem:[E].
 Written mathematically, we get
 
 [stem]
 ++++
-\textrm{arriving at $E$} = \textrm{produced} \cdot \underbrace{\textrm{arrive at $P$}}_{\in [0,1]} \cdot \underbrace{\textrm{reflected at $P$}}_{\in [0,1]}
+\textrm{arriving at stem:[E]} = \textrm{produced} \cdot \underbrace{\textrm{arrive at stem:[P]}}_{\in [0,1]} \cdot \underbrace{\textrm{reflected at stem:[P]}}_{\in [0,1]}
 ++++
 
 
-=== Number of Photons Arriving at $P$
+=== Number of Photons Arriving at stem:[P]
 
 Let's briefly switch to 2D to make explanations simpler. Consider the following figure:
 
@@ -93,8 +93,8 @@ is much brighter compared to the others due to the high concentration of photons
 How do we compute how many photons arrive at a given location?
 A good approximation is to look at the angle of the incoming light with respect to the surface.
 
-To determine the brightness at a point $P$, we take the normal unit vector on the surface at point $P$, i.e.
-a vector that is perpendicular on the surface at $P$. We measure the angle it makes with the incoming light.
+To determine the brightness at a point stem:[P], we take the normal unit vector on the surface at point stem:[P], i.e.
+a vector that is perpendicular on the surface at stem:[P]. We measure the angle it makes with the incoming light.
 
 image::normal.png[align="center"]
 
@@ -108,8 +108,8 @@ you have to take the <em>direction</em> into account, not just the orientation. 
 go in opposite directions, while at D, they point in the same direction.
 
 All these rules are nice, but how do we put them in such a form that is easily implemented?
-The <</reference/math/dot-product#explanations,dot product>> comes to the rescue. Examine the following cases: the incoming light ray is represented by a yellow vector $\vec i$,
-and the surface normal as a red vector $\vec n$. It is important that both have length 1.
+The <</reference/math/dot-product#explanations,dot product>> comes to the rescue. Examine the following cases: the incoming light ray is represented by a yellow vector stem:[\vec i],
+and the surface normal as a red vector stem:[\vec n]. It is important that both have length 1.
 
 image::dot-product[align="center"]
 
@@ -119,15 +119,15 @@ The dot product gives us <em>almost</em> exactly the values we need, namely it g
 
 To compute diffuse lighting, we need the following pieces of information:
 
-* The color $C_\mathrm{L}$ of the light.
-* The position $L$ of the light.
-* The location $P$ of the point on a surface that we need to determine the color of.
-* The color $C_\mathrm{S}$ of the surface's material at $P$.
-* The normal vector $\vec n$ on the surface at $P$.
+* The color stem:[C_\mathrm{L}] of the light.
+* The position stem:[L] of the light.
+* The location stem:[P] of the point on a surface that we need to determine the color of.
+* The color stem:[C_\mathrm{S}] of the surface's material at stem:[P].
+* The normal vector stem:[\vec n] on the surface at stem:[P].
 
 image::diffuse.png[align="center"]
 
-Compute the cosine of the angle $\alpha$:
+Compute the cosine of the angle stem:[\alpha]:
 
 [stem]
 ++++
