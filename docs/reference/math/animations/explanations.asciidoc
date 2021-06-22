@@ -14,11 +14,14 @@ image::double-animation.png[layout="center"]
 The animation is actually a <em>function</em> mapping time values to ``double`` values.
 Let's denote this function with $X(t)$. We can translate the properties above to mathematical formulae:
 in the very beginning, the animated ``double`` should have value $0$. This is expressed by
+
 \[
 X(0) = 0
 \]
+
 Next, we know the animation takes 1 second to finish and that the ``double``
 should have value $1$ at that time:
+
 \[
 X(1) = 1
 \]
@@ -59,10 +62,13 @@ easily by mapping the interval $[0, 1]$ to $[a, b]$.
 <%= tex_image 'range-mapping' %>
 
 We build another function, $f$, that can do this for us. Again this is linear function:
+
 \[
 f(x) = m \cdot x + q \qquad f(0) = a \qquad f(1) = b
 \]
+
 which gives
+
 \[
 f(x) = a + (b - a) \cdot x
 \]
@@ -70,6 +76,7 @@ f(x) = a + (b - a) \cdot x
 How can we combine this function $f$ with the basic animation $X(t)$ to produce
 an animation from $a$ to $b$? Simple: we first animate $0$ to $1$ and
 use $f$ to map the value to $[a, b]$. Let's call this new animation $X_2(t)$.
+
 \[
 X_2(t) = f(X(t)) = f \circ X
 \]
@@ -85,12 +92,14 @@ Again we can do this with a linear transformation:
 <%= tex_image 'domain-mapping' %>
 
 Let's assign the name $g$ to the function that maps the interval $[0, \tau]$ to $[0,1]$.
+
 \[
 g(t) = \frac{t}{\tau}
 \]
 
 Given our basic animation $X(t)$, which moves from $0$ to $1$ in 1 second,
 we can transform it to an animation $X_3(t)$ that goes from $0$ to $1$ in $\tau$ seconds as follows:
+
 \[
 X_3(t) = X(g(t)) = X \circ g
 \]
@@ -133,6 +142,7 @@ X_3(t) = X(e(t)) = X \circ e
 == Putting It All Together
 
 Using the range mapper $f$, the domain mapper $g$ and the easing function $e$ we can transform the basic animation any way we want:
+
 \[
 f(X(g(e(t)))) = f \circ X \circ g \circ e
 \]
@@ -143,23 +153,30 @@ We can build a library of range mappers, domain mappers and easing functions and
 
 The ``double`` animation is the basic building block for all animations: all other animations can be built from it.
 Let's introduce a convenient notation to denote ``double`` animations:
+
 \[
 X(t) = x \xrightarrow{\tau} y
 \]
+
 represents a ``double`` animation from $x$ to $y$ in $\tau$ seconds. We ignore the shape of the animation for now, i.e.
 we disregard easing functions.
 
 Say we now want to create ``Point3D`` animation $P(t)$: we wish a movement
 from $(0, 0, 10)$ to $(0, 5, 0)$. The animation of a ``Point3D``
 is the animation of its components, i.e. its x, y and z-coordinates:
+
 \[
   (0, 0, 10) \xrightarrow{\tau} (0,5,0) \quad=\quad (0 \xrightarrow{\tau} 0, 0 \xrightarrow{\tau} 5, 10 \xrightarrow{\tau} 0)
 \]
+
 or, more generally,
+
 \[
   (x, y, z) \xrightarrow{\tau} (x',y',z') \quad=\quad (x \xrightarrow{\tau} x', y \xrightarrow{\tau} y', z \xrightarrow{\tau} z')
 \]
+
 We can animate colors or any other type of value the same way:
+
 \[
   \begin{array}{rcl}
     (r, g, b) \xrightarrow{\tau} (r', g', b') & = & (r \xrightarrow{\tau} r', g \xrightarrow{\tau} g', b \xrightarrow{\tau} b') \\ \\
