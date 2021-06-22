@@ -1,0 +1,70 @@
+= Plane
+
+image::preview.png[align="center"]
+
+== Mathematical Derivation
+
+A plane can be uniquely defined in many ways:
+
+* Three points that are not lying on the same line.
+* One point and two non-parallel vectors.
+* One point and one normal vector (i.e. a vector perpendicular on the plane).
+
+To solve the ray-plane intersection problem, using a point stem:[P] and normal vector stem:[\vec n] is the most practical approach.
+
+Some point stem:[Q] lies in the plane if the segment stem:[PQ] is perpendicular on stem:[\vec n]. Determining perpendicularity is
+easy using the <</reference/math/dot-product/explanations#,dot product>>:
+
+[stem]
+++++
+Q \textrm{ lies in plane} \Leftrightarrow (Q-P) \cdot \vec n = 0
+++++
+
+We also need stem:[Q] to lie on the ray (having origin stem:[O] and direction stem:[\vec\Delta]):
+
+[stem]
+++++
+Q \textrm{ lies on the ray} \Leftrightarrow \exists \; t \in \mathbb{R}. \; Q = O + \vec\Delta \cdot t
+++++
+
+Substituting stem:[Q] in the first equation yields
+
+[stem]
+++++
+(O + \vec\Delta \cdot t - P) \cdot \vec n = 0
+++++
+
+Solving for stem:[t]
+
+[stem]
+++++
+\begin{array}{rl}
+  & (O + \vec\Delta \cdot t - P) \cdot \vec n = 0 \\ \\
+  \Leftrightarrow & (O - P) \cdot \vec n + \vec\Delta \cdot \vec n \cdot t = 0 \\ \\
+  \Leftrightarrow & t = \displaystyle \frac{(P-O) \cdot \vec n}{\vec\Delta \cdot \vec n}
+\end{array}
+++++
+
+== Summary
+
+Given
+
+* a ray with origin stem:[O] and direction stem:[\vec\Delta];
+* a plane through point stem:[P] and normal vector stem:[\vec n].
+
+To find the intersection between this ray and plane, perform the following calculations:
+
+. Compute stem:[d = \vec\Delta \cdot \vec n].
+. If stem:[d = 0], the ray runs parallel to the plane and hence there is no intersection.
+. Compute
++
+[stem]
+++++
+t = \frac{(P - O) \cdot \vec n}{d}
+++++
+. The ray hits the plane at position
++
+[stem]
+++++
+O + \vec\Delta \cdot t
+++++
