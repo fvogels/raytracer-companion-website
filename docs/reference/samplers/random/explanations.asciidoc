@@ -2,8 +2,8 @@
 
 == Definition
 
-A random sampler can be parameterized by the number of samples $N$.
-Give a rectangle, a $N$-random sampler will pick $N$ random
+A random sampler can be parameterized by the number of samples stem:[N].
+Give a rectangle, a stem:[N]-random sampler will pick stem:[N] random
 points in this rectangle.
 
 image::sampler.png[align="center"]
