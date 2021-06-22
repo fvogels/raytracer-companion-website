@@ -1,0 +1,17 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+\usetikzlibrary{calc,math}
+
+
+\begin{document}
+
+\begin{tikzpicture}
+  \path[fill=green] (-3,0) rectangle (3,3);
+  \path[fill=red] (-3,0) rectangle (3,-3);
+  \draw[ultra thick,blue] (-3,0) -- (3,0);
+
+  \draw[-latex] (0,0) -- (0,1) node[above] {$\vec v$};
+\end{tikzpicture}
+
+\end{document}

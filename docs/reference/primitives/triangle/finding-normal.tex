@@ -1,0 +1,29 @@
+\documentclass{standalone}
+\usepackage{tikz,tikz-3dplot}
+
+\usetikzlibrary{calc,math}
+
+\begin{document}
+
+\tdplotsetmaincoords{150}{145}
+\begin{tikzpicture}[tdplot_main_coords]
+  \draw[-latex] (2,0,0) -- (-2,0,0) node[above] {X};
+  \draw[-latex] (0,1,0) -- (0,-3,0) node[left] {Z};
+  \draw[-latex] (0,0,-1) -- (0,0,5) node[above] {Y};
+
+  \coordinate (P1) at (0,0,0);
+  \coordinate (P2) at (-1,0,0);
+  \coordinate (P3) at (0,0,3);
+
+  \path[fill=black] (P1) circle [radius=0.05cm] node[left] {$P_1$};
+  \path[fill=black] (P2) circle [radius=0.05cm] node[right] {$P_2$};
+  \path[fill=black] (P3) circle [radius=0.05cm] node[right] {$P_3$};
+  \path[fill=gray,opacity=0.5] (P1) -- (P2) -- (P3) -- cycle;
+  \draw (P1) -- (P2) -- (P3) -- cycle;
+
+  \draw[red,-latex] (P1) -- (P2) node[midway,sloped,below,font=\tiny] {$\vec u$};
+  \draw[red,-latex] (P1) -- (P3) node[midway,sloped,above,font=\tiny] {$\vec v$};
+  \draw[red,-latex] (P1) -- (0,-2,0) node[midway,sloped,below,font=\tiny] {$\vec n = \vec u \times \vec v$};
+\end{tikzpicture}
+
+\end{document}
