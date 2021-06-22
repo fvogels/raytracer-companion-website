@@ -1,0 +1,15 @@
+= Multijittered Sampler
+
+[overview]
+----
+requires samplers/nrooks
+reading samplers/multijittered
+----
+
+preview::preview[]
+
+
+[TASK]
+====
+Implement the <</reference/samplers/multijittered/explanations#,multijittering sampler>>.
+====
