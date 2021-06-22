@@ -1,6 +1,6 @@
 = 2D Cartesian Coordinate System
 
-In a 2D Cartesian coordinate system is defined by its origin point $O$ and two perpendicular axes $X$ and $Y$.
-The location of each point in the 2D plane can be expressed using coordinates $(x, y)$.
+In a 2D Cartesian coordinate system is defined by its origin point stem:[O] and two perpendicular axes stem:[X] and stem:[Y].
+The location of each point in the 2D plane can be expressed using coordinates stem:[(x, y)].
 
-<%= tex_image '2d-cartesian' %>
+image::2d-cartesian.png[align="center"]
