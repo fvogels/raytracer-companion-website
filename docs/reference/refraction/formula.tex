@@ -1,0 +1,17 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+\usetikzlibrary{calc,math}
+
+
+\begin{document}
+
+\begin{tikzpicture}
+  \draw (-2,0) -- (2,0);
+  \draw[red,-latex] (0,0) -- (0,1) node[right] {$\vec n$};
+  \draw[red,thin,dashed] (0,-1) -- (0,0);
+  \draw[-latex] (150:1) -- (0,0) node[above,at start] {$\vec i$};
+  \draw[-latex] (0,0) -- (-60:1) node[below,at end] {$\vec o$};
+\end{tikzpicture}
+
+\end{document}
