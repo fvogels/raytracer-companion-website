@@ -41,18 +41,18 @@ class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
   end
 
   def generate_prerequisities(extensions)
-    generate_rows('*Prerequisites*', extensions)
+    generate_rows('*Prerequisites*', extensions, 'extensions')
   end
 
   def generate_exclusive_rows(extensions)
-    generate_rows('*Mutually exclusive with*', extensions)
+    generate_rows('*Mutually exclusive with*', extensions, 'extensions')
   end
 
-  def generate_reading_material(extensions)
-    generate_rows('*Reading material*', extensions)
+  def generate_reading_material(references)
+    generate_rows('*Reading material*', references, 'reference')
   end
 
-  def generate_rows(header, extensions)
+  def generate_rows(header, extensions, category)
     headers = Enumerator.new do |yielder|
       yielder << header
       while true
@@ -61,7 +61,7 @@ class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
     end
 
     extensions.zip(headers).map do |extension, header|
-      "| #{header} | <</#{extension}#,#{extension}>>"
+      "| #{header} | <</#{category}/#{extension}/explanations#,#{extension}>>"
     end
   end
 end
