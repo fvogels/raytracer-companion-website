@@ -1,0 +1,32 @@
+= Cone
+
+[overview]
+----
+reading design/primitives/ray-intersections
+reading primitives/cone
+----
+
+preview::preview[]
+
+== Implementation
+
+For this extension, you will implement three cones:
+
+* One that is directed along the X-axis.
+* One that is directed along the Y-axis.
+* One that is directed along the Z-axis.
+
+All three are infinitely long, make an angle of 45&deg; and go through stem:[(0, 0, 0)].
+
+[TASK]
+====
+* Create new files `primitives/cone-primitive.cpp` and `primitives/cone-primitive.h`.
+* Write the necessary class(es) that model these three cylinders.
+* Provide factory functions `cone_along_x()`, `cone_along_y()`, `cone_along_z()`.
+* Add bindings so as to make cones available in the scripting language.
+====
+
+[TIP]
+====
+You can start off with copying the `Sphere` primitive code and change the code so that it models a cylinder.
+====
