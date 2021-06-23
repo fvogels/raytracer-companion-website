@@ -1,0 +1,49 @@
+// movie
+def scene_at(now)
+{
+  var t = Animations.ease( Animations.animate( 0, 20, seconds(5) ), Easing.cubic_inout() )[now]
+ 
+  var eye_position = Animations.circular( [ "position": pos(0, 5 + t, 5 + t),
+                                            "around": pos(0, 0, 0),
+                                            "duration": seconds(5) ] )
+
+  var camera = Cameras.perspective( [ "eye": eye_position[now],
+                                      "look_at": pos(0,0,0) ] )
+
+  var r = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                               "diffuse": Colors.red() * 0.8,
+                               "specular": Colors.white() * 0.5,
+                               "specular_exponent": 10 ] )
+  var g = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                               "diffuse": Colors.green() * 0.8,
+                               "specular": Colors.white() * 0.5,
+                               "specular_exponent": 10 ] )
+  var b = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                               "diffuse": Colors.blue() * 0.8,
+                               "specular": Colors.white() * 0.5,
+                               "specular_exponent": 10 ] )
+  
+  var xcyl = decorate(r, cylinder_along_x())
+  var ycyl = decorate(g, cylinder_along_y())
+  var zcyl = decorate(b, cylinder_along_z())
+
+  var root = union( [ xcyl, ycyl, zcyl ] )
+
+  var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() * 0.5 ),
+                 Lights.omnidirectional( pos(-5,5,-5), Colors.white() * 0.5 )
+               ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v6()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                       "height": 500,
+                                       "sampler": Samplers.multijittered(2),
+                                       "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )

@@ -1,0 +1,33 @@
+= Cylinder
+
+[overview]
+----
+reading design/primitives/ray-intersections
+reading primitives/cylinder
+----
+
+preview::preview[]
+
+== Implementation
+
+For this extension, you will implement three cylinders:
+
+* One that is directed along the X-axis.
+* One that is directed along the Y-axis.
+* One that is directed along the Z-axis.
+
+All three are infinitely long, have a radius of 1 and go through stem:[(0, 0, 0)].
+
+
+[TASK]
+====
+* Create new files `primitives/cylinder-primitive.cpp` and `primitives/cylinder-primitive.h`.
+* Write the necessary class(es) that model these three cylinders.
+* Provide factory functions `cylinder_along_x()`, `cylinder_along_y()`, `cylinder_along_z()`.
+* Add bindings so as to make cylinders available in the scripting language.
+====
+
+[TIP]
+====
+You can start off with copying the `Sphere` primitive code and change the code so that it models a cylinder.
+====
