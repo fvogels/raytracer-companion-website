@@ -1,0 +1,45 @@
+= Scaling
+
+[overview]
+----
+reading design/transformations
+reading math/transformations/3d/scaling
+----
+
+preview::preview[]
+
+== Implementation
+
+=== `Transformation3D`
+
+First, define the translation matrices and their inverse and bundle them in a `Transformation3D` object.
+
+[TASK]
+====
+Open ``math/transformation3d.cpp``.
+Use ``math::transformations::translation`` as a guide for this task.
+
+In ``math/transformation3d.cpp``, add a function definition `math::transformations::scale(double sx, double sy, double sz)`.
+
+Expose the function to the rest of the application by adding a declaration in the corresponding header.
+====
+
+=== Rotation Primitive
+
+Now we want scaling to exist as a member of the `Primitive` hierarchy.
+
+[TASK]
+====
+Open ``primitives/transformer-primitive.cpp``.
+You can use the given implementation of `raytracer::primitives::translate` as a guide.
+
+To the same file, add a function with signature `Primitive raytracer::primitives::scale(double sx, double sy, double sz, Primitive transformee)`
+Add declarations to the appropriate header file so that these functions are accessible to the other compilation units.
+====
+
+=== Bindings
+
+[TASK]
+====
+Add the necessary bindings so to make scaling available in scripts.
+====
