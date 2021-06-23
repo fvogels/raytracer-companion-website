@@ -1,0 +1,53 @@
+= Bounding Box Accelerator
+
+[overview]
+----
+reading primitives/bounding-box-accelerator
+----
+
+== Implementation
+
+[TASK]
+====
+* Create the necessary files (`bbacc.cpp`, `bbacc.h`).
+* Define a new ``PrimitiveImplementation`` subclass.
+** Its constructor should accept a ``Primitive``, which it stores in a field.
+* Implement ``find_all_hits`` as described in the reading material.
+* Define a factory method ``Primitive raytracer::primitives::bounding_box_accelerator(Primitive)``.
+====
+
+[TIP]
+====
+You don't want to repeatedly recompute the child's bounding box.
+Have the ``BoundingBoxAccelerator``'s constructor compute it once and cache it in a field.
+====
+
+== Checking Your Work
+
+Visually, a bounding box accelerator should have no effect.
+Its sole purpose is to speed up rendering.
+In other words, in order to find out whether your implementation of `BoundingBoxAccelerator` is correct,
+you need to set up a scene that greatly benefits from bounding box accelerators.
+
+Say you have a scene with many (thousands) of spheres.
+Under normal circumstances, the ray intersection algorithm would iterate over all these sphere, one by one,
+and check whether a given ray hits any one of them.
+The more spheres there are, the slower this will be.
+
+What would happen if we were to put all these spheres in one big bounding box accelerator?
+Well, if those spheres are actually visible on the rendering, not much: the rays would hit the bounding box
+and again we would have to check all spheres one by one.
+If, however, we can make it so that rays don't hit the bounding box, thereby avoiding
+the need to process each sphere in turn, we can speed up rendering a lot.
+
+So, create thousands of spheres, but place them _above_ (or below, whichever you fancy the most) the camera.
+
+* Without bounding box accelerator, the ray tracer will check each sphere in turn and realize none of them gets hit by the ray.
+* If all spheres are enclosed within a bounding box accelerator, the ray tracer will only check the bounding box, find out
+  that the ray misses it, and won't bother looking at the spheres.
+
+[TASK]
+====
+Create two scripts that only differ in whether a bounding box accelerator is present or not.
+Render both and compare rendering times.
+====
