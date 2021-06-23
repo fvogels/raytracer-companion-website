@@ -1,0 +1,94 @@
+= Motion Blur
+
+preview::preview[]
+
+== Explanation
+
+An animation consists of, say, 30 frames per second. Each frame is rendered separately and shows
+the state of the scene at a specific instance in time. E.g. the first frame contains
+a snapshot of the scene at T = 0, the next frame at T = 0.033, etc.
+
+In reality, cameras are unable to be this precise. When a real-world camera takes a picture,
+it exposes its sensors to incoming photons during a non-zero time interval, say 2 milliseconds.
+During this time, the sensors attempt to detect as many photons as they can so as
+to be able to produce a clean image. The longer the exposure time, the more photons
+can enter, the better the picture (especially in dim-lit scenes.)
+
+There is a catch though: during the time the camera catches photons, objects in the scene might move.
+Say you're taking a picture of a moving car and the exposure time is 1 second. The car moves from position A
+to position B during this second. The resulting picture will then be built from photons reflected by the car from positions A and
+B, and all positions in between. This causes moving objects to appear "smeared out" on pictures.
+
+In summary, our ray tracer generates frames corresponding to single points in time: T=0, T=0.1, T=0.2, &hellip;
+while a real world camera produces images that are the summation over an interval: the first frame shows
+an accumulation of all states from T=0 to T=0.1, the second frame from T=0.1 to T=0.2, etc.
+
+== Implementation
+
+In order to implement motion blur, you'll need to work at the pipeline level. The pipeline
+is a chain of functions: you feed something to the first segment, whose result is fed to the second segment,
+etc. The last segment in the chain does not produce further output; instead, it writes the results
+to file, stdout, or something similar.
+
+A typical pipeline looks as follows:
+
+[source,language="chai"]
+----
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(150),
+            Pipeline.renderer(renderer),
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )
+----
+
+* The pipeline itself starts with ``Pipeline.animation(fps)``. It expects to receive a single object representing a scene animation. This animation
+  is represented here by ``scene_at(now)``, which, given a timestamp ``now``, returns
+  a description of the scene at that instant. The animation pipeline segment calls this function repeatedly for different values of ``now``
+  and passes the results to the next segment. Assuming a frame rate of 50, we can write this as ``[scene_at(0), scene_at(0.02), scene_at(0.04), scene_at(0.06), ...]``.
+* Next, each scene is fed to ``Pipeline.renderer(renderer)`` which turns every scene into an image. In other words, this segment's output is a
+  sequence of images representing the animation.
+* Next, the ``Pipeline.wif()`` segment turns every image into the WIF file format.
+* The ``Pipeline.base64()`` encodes its input into base64.
+* Lastly, ``Pipeline.stdout()`` writes all its input to stdout, so that 3D studio can intercept it and visualize it. This is the end of the line: no further output is generated.
+
+Motion blur can be implemented using an additional pipeline segment. Say you want to produce a one second animation at 20 fps, i.e., there are 20 frames to produce.
+
+* Without motion blur, a frame corresponds to a snapshot at a single point in time. The first frame shows the scene at T=0, the second frame at T=0.05, etc.
+* With motion blur, a frame shows the sum of "subframes" rendered at multiple moments in time. The first frame shows the scene going from T=0 to T=0.05, the second
+  frame from T=0.05 to T=0.10, etc.
+* In order to render a single motion-blurred frame, you need to render multiple subframes. Say you render 10 subframes per frame: you would
+  then need to render subframes at T=0, T=0.005, T=0.010, T=0.015, ..., T=0.045 (this without motion blur), and add them all together
+  to form one single motion-blurred frame. For the second frame, you again render 10 subframes (T=0.050, T=0.055, T=0.060, ..., T=0.095)
+  and add them together.
+* The adding of subframes is simple: add corresponding pixels together and divide the result by the number of frames, effectively
+  averaging out the color of all pixels over time.
+
+image::blur.png[align="center"]
+
+== Approximation
+
+Motion blur requires you to render many more frames: every frame is built out of N subframes, meaning rendering times are multiplied by N.
+This N should be high enough so as to create an actual blur.
+
+You can get away with less frames by having frames share subframes. For example, say we have 10 subframes per frame and one frame per second. With "real" motion blur,
+you would get
+
+* Frame 1 consists of subframes with T=0.0, T=0.1, T=0.2, T=0.3, &hellip;
+* Frame 2 consists of subframes with T=1.0, T=1.1, T=1.2, &hellip;
+* Frame 3 consists of subframes with T=2.0, T=2.1, T=2.2, &hellip;
+
+Now imagine that a frame can reuse subframes from a previous frame. You would get
+
+* Frame 1 consists of subframes with T=0.0, T=0.2, T=0.4, T=0.6, T=0.8. In other words, it only has 5 subframes instead of 10.
+* Frame 2 consists of subframes with T=0.0, T=0.2, T=0.4, T=0.6, T=0.8, T=1.0, T=1.2, T=1.4, T=1.6 and T=1.8. It reuses
+  all subframes of frame 1 and supplements it with 5 extra subframes.
+* Frame 3 consists of subframes with T=1.0, T=1.2, T=1.4, T=1.6, T=1.8, T=2.0, T=2.2, T=2.4, T=2.6, T=2.8.
+
+image::shared-blur.png[align="center"]
+
+As you can see, using shared subframes reduces the amount of rendering to be done.
+
+Another trick that you can apply is to give subframes different weights. E.g. you may want
+to count the last subframe twice, so that it stands out more.
+It's up to you to find out what approach produces the best results.
