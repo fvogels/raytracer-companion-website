@@ -1,0 +1,79 @@
+= Ray Tracer v4
+
+[overview]
+----
+requires ray-tracers/v3
+reading lighting/specular
+----
+
+preview::preview[]
+
+== Implementation
+
+Previous versions of the ray tracer added new lighting models (ambient, diffuse, specular highlights), but none
+took shadows into account. Now, to be fair, <</reference/lighting/ambient/explanations#,ambient lighting>>
+is not supposed to take into consideration shadows, as that would defeat the entire point.
+But there is no such excuse for diffuse lighting and specular highlights.
+
+Ray tracer v2 and v3 iterate over all light sources in the scene and
+determine the amount of light based on the incoming angle of the light, without checking
+whether this incoming light is not obstructed by something else in the scene.
+
+image::shadow-ray.png[align="center"]
+
+In the figure above, it is clear that stem:[P] cannot be illuminated by stem:[L] as the blue sphere blocks the photons.
+Fortunately, it is quite easy to detect that this is the case: we already have the necessary infrastructure
+in place to cast rays and find intersections with the scene. So, when computing the lighting effect of stem:[L] on stem:[P],
+we need only to check if the ray going through stem:[L] and stem:[P] hits the scene.
+
+However, we have to be careful not to be overzealous: stem:[P] is shadowed only if the hit occurs
+between stem:[L] and stem:[P]. The ray through stem:[L] and stem:[P] also hits the red and green spheres, but these
+have no effect on whether stem:[P] is illuminated or not, as they are not located between stem:[L] and stem:[P].
+
+The easiest way to check if a hit occurs between stem:[L] and stem:[P] is to rely on the stem:[t]-value of the hit.
+Say we want to determine whether photons can get from stem:[L] to stem:[P]. We define a ray
+whose origin lies in stem:[L] and whose direction reaches from stem:[L] to stem:[P], i.e. we do _not_ use
+a unit vector. We then get the following stem:[t]-values:
+
+image::t-value.png[align="center"]
+
+As you can see, by choosing the origin and direction carefully, finding out whether there's a shadow
+becomes quite simple.
+
+There's further good news: we don't even need to create this ray ourselves. Instead, we
+delegate this task to the light classes: whenever a light is asked for its light rays,
+it is its responsibility to create these rays in such a way that stem:[t = 0] coincides
+with the photon's origin and stem:[t = 1] to be equal to stem:[P].
+
+So, what do we actually need to do in ray tracer v4? Not much, really: we need only update
+``process_light_ray`` so that it checks whether the given light ray
+intersects the scene at stem:[t] values between stem:[0] and stem:[1]. If not, it can continue
+in the same way as v3 did, otherwise it returns black.
+
+[TASK]
+====
+Define the class ``RayTracerV4`` in its own set of files (``ray-tracer-v4.cpp`` and ``ray-tracer-v4.h``).
+Override ``process_light_ray``:
+
+* Find the intersection between the light ray and the scene.
+* If there's a hit where stem:[0 \leq t < 1], return black.
+* Call ``RayTracerV3::process_light_ray`` and return its result.
+====
+
+[TIP]
+====
+Note that if there's no shadow, the ray will hit the scene at stem:[t = 1].
+However, your CPU is not capable of performing arbitrarily precise arithmetic and it might be
+that instead of stem:[t = 1], you get stem:[t = 0.99999999978] or stem:[1.0000000096].
+In other words, there's a high chance that the stem:[t] will randomly be slightly too high or slightly too low.
+
+If you use the test stem:[0 \leq t < 1], it will add shadow at positions where stem:[t] happens to be slightly too low,
+causing some "noise" to appear on your renderings. To remedy this, you will have to slightly change the stem:[0 \leq t < 1] to account
+for the approximation errors.
+====
+
+[TASK]
+====
+Integrate ``RayTracerV4`` with the rest of the ray tracer.
+Show off by creating a scene with shadows.
+====
