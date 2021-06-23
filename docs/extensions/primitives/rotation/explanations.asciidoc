@@ -1,0 +1,65 @@
+= Rotation
+
+[overview]
+----
+reading design/transformations
+reading math/transformations/3d/rotation
+----
+
+preview::preview[]
+
+== Implementation
+
+We will offer rotation as three separate functions, one for each axis:
+
+* `rotate_around_x(angle, child)`
+* `rotate_around_y(angle, child)`
+* `rotate_around_z(angle, child)`
+
+You might wonder why we don't simply use a single `rotate(x_angle, y_angle, z_angle, child)`.
+We could, but the problem is that the order of rotation matters:
+rotating around X, then around Y yields different results than rotating around Y, then around X.
+
+=== `Transformation3D`
+
+First, we need to define the rotation matrices and their inverse.
+We bundle each rotation matrix and its corresponding inverse in a `Transformation3D` object.
+
+[TASK]
+====
+Open ``math/transformation3d.cpp``.
+Use ``math::transformations::translation`` as a guide for this task.
+
+In ``math/transformation3d.cpp``, add function definitions for
+
+* ``math::transformations::rotate_x(Angle angle)``
+* ``math::transformations::rotate_y(Angle angle)``
+* ``math::transformations::rotate_z(Angle angle)``
+
+Expose them to the rest of the application by adding a declaration in the corresponding header.
+====
+
+=== Rotation Primitive
+
+Now we want rotation to exist as a member of the `Primitive` hierarchy.
+
+[TASK]
+====
+Open ``primitives/transformer-primitive.cpp``.
+You can use the given implementation of `raytracer::primitives::translate` as a guide.
+
+To the same file, add three functions with signatures
+
+* `Primitive raytracer::primitives::rotate_around_x(math::Angle angle, Primitive transformee)``
+* `Primitive raytracer::primitives::rotate_around_y(math::Angle angle, Primitive transformee)``
+* `Primitive raytracer::primitives::rotate_around_z(math::Angle angle, Primitive transformee)``
+
+Add declarations to the appropriate header file so that these functions are accessible to the other compilation units.
+====
+
+=== Bindings
+
+[TASK]
+====
+Add the necessary bindings so to make rotation available in scripts.
+====
