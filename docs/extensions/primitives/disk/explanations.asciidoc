@@ -1,0 +1,20 @@
+= Disk
+
+[overview]
+----
+reading design/primitives/ray-intersections
+----
+
+preview::preview[]
+
+== Implementation
+
+[TASK]
+====
+Implement the disc primitive.
+
+* Make three variants: `xy_disk`, `xz_disk` and `yz_disk`.
+* Make canonical disks:
+** The disks should have center stem:[(0, 0, 0)].
+** The disks should have radius 1.
+====
