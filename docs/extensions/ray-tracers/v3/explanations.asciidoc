@@ -1,0 +1,71 @@
+= Ray Tracer v3
+
+[overview]
+----
+requires ray-tracers/v2
+reading lighting/specular
+----
+
+preview::preview[]
+
+== Implementation
+
+Ray tracer v1 gave us <</reference/lighting/ambient/explanations#,ambient lighting>>.
+Ray tracer v2 improved upon this by introducing <</reference/lighting/diffuse/explanations#,diffuse lighting>>.
+Ray tracer v3 will add <</reference/lighting/specular/explanations#,specular highlights>>,
+which enables us to make objects look metallic.
+
+[stem]
+++++
+\begin{array}{rcl}
+  \textrm{v1} & = & \textrm{ambient photons} \\
+  \textrm{v2} & = & \textrm{ambient photons} + \sum_{L \in \textrm{lights}} \textrm{diffuse photons from }L \\
+  \textrm{v3} & = & \textrm{ambient photons} + \sum_{L \in \textrm{lights}} (\textrm{diffuse photons from } L + \textrm{specular photons from }L) \\
+\end{array}
+++++
+
+Ray tracer v3 will build upon v2. In code, this is reflected by the fact
+that ``RayTracerV3`` should be a subclass of ``RayTracerV2``.
+
+image::uml.png[align="center",width="100%"]
+
+As shown in the UML class diagram above, only two functions need to be implemented.
+
+=== `process_light_ray`
+
+Remember ``process_light_ray`` from <</extensions/ray-tracers/v2/explanations#,v2>>:
+it is called once for every light ray emitted by each light source in the scene.
+In the case of v2, it merely called ``compute_diffuse`` and returned that function's result,
+making its existence seem pointless.
+
+In v3, we can override this function so that instead of only returning the diffuse color,
+it adds the specular highlight to this result. The algorithm looks as follows:
+
+. Call the base class's version of ``process_light_ray``. Look online for how to do this in C++.
+  Assign the result to a local variable ``result``.
+. Call ``compute_specular`` and add its return value to ``result``.
+. Return ``result``.
+
+[TASK]
+====
+Implement ``process_light_ray``.
+====
+
+=== `compute_specular`
+
+[TASK]
+====
+Implement the <</reference/lighting/specular/explanations#,specular highlight algorithm>> in ``compute_specular``.
+
+* You can gather all necessary information from the parameter values.
+* To normalize vectors, you can use ``Vector3D::normalized``.
+* Reflection of a vector stem:[\vec v] by a surface with normal stem:[\vec n] is already implemented for you as ``Vector3D::reflect_by``.
+* To compute stem:[a^b], use ``pow(a, b)``.
+* You can optimize the function a little bit by first checking whether the ``specular`` member of the given ``MaterialProperties``
+  is black. If it is, there's no point performing all calculations.
+====
+
+[TASK]
+====
+Add the finishing touches so that you can make use of specular highlights in your scripts.
+====
