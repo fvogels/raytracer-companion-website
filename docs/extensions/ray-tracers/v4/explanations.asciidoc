@@ -60,20 +60,25 @@ Override ``process_light_ray``:
 * Call ``RayTracerV3::process_light_ray`` and return its result.
 ====
 
-[TIP]
+[TASK]
 ====
+Integrate ``RayTracerV4`` with the rest of the ray tracer.
+Show off by creating a scene with shadows.
+====
+
+== Approximation Errors
+
 Note that if there's no shadow, the ray will hit the scene at stem:[t = 1].
 However, your CPU is not capable of performing arbitrarily precise arithmetic and it might be
 that instead of stem:[t = 1], you get stem:[t = 0.99999999978] or stem:[1.0000000096].
 In other words, there's a high chance that the stem:[t] will randomly be slightly too high or slightly too low.
 
 If you use the test stem:[0 \leq t < 1], it will add shadow at positions where stem:[t] happens to be slightly too low,
-causing some "noise" to appear on your renderings. To remedy this, you will have to slightly change the stem:[0 \leq t < 1] to account
-for the approximation errors.
-====
+causing some "noise" to appear on your renderings as shown in the video below.
+
+video::noise.mp4[align="center"]
 
 [TASK]
 ====
-Integrate ``RayTracerV4`` with the rest of the ray tracer.
-Show off by creating a scene with shadows.
+Remedy this by slightly changing the stem:[0 \leq t < 1] to account for the approximation errors.
 ====
