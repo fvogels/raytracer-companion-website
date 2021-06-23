@@ -1,0 +1,35 @@
+// skip
+var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                    "look_at": pos(0,0,0) ] )
+
+var sphere_material = Materials.uniform( [ "ambient": Colors.blue() * 0.1,
+                                           "diffuse": Colors.green() * 0.8,
+                                           "specular": Colors.white() * 0.5,
+                                           "specular_exponent": 20
+                                          ] )
+
+
+var spheres = [];
+
+[0..10000].for_each( bind( fun (i, spheres) {
+  spheres.push_back( sphere() )
+}, _, spheres ) );
+
+var spheres2 = bounding_box_acclerator(union(spheres));
+
+var root = decorate(sphere_material, translate(vec(0, 100, 0), spheres2))
+
+var lights = [ Lights.omnidirectional( pos(2,5,5), Colors.white() ) ]
+
+var scene = create_scene(camera, root, lights)
+
+var raytracer   = Raytracers.v6()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.multijittered(2),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene,
+          [ Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
