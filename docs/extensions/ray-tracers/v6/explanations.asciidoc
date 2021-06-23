@@ -1,0 +1,90 @@
+= Ray Tracer v6
+
+[overview]
+----
+requires ray-tracers/v5
+reading refraction
+----
+
+preview::preview[]
+
+== Implementation
+
+First, familiarize yourself with <</reference/refraction/explanations#,refraction>>.
+Also go take a look at ``MaterialProperties``: you'll find you'll need the member variables
+``refractive_index`` and ``transparency`` for this extension.
+
+Correctly implementing refraction is not an easy task. We choose to introduce the following simplifications:
+
+* Technically, we should find out what medium the light ray originates in.
+  In our implementation, we will make the assumption we always start in vacuum.
+* When encountering a transparent material, we assume that, after bending the ray,
+  the next intersection brings us back to the outside world (i.e. stem:[n = 1]).
+  In reality, it can happen that upon exiting the stem:[n_1]-material, we immediately enter a new stem:[n_2]-material,
+  but we ignore this possibility.
+* We ignore total internal reflection. Whenever it arises, we simply return black.
+
+image::refraction.png[align="center"]
+
+The algorithm for refraction then looks as follows:
+
+[source,language="python"]
+----
+def compute_refraction(scene, material_properties, hit, ray, weight):
+  transparency = material_properties.transparency
+
+  if transparency > 0
+    n1 = 1
+    n2 = material_properties.refractive_index
+
+    # Ray enters transparent object, compute how it is bent at point P1
+    P1 = hit.location
+    refracted_ray = compute_refraction(ray, P1, n1, n2)
+
+    if total internal reflection occurred:
+      return black
+
+    # Find exit point P2
+    exit_hit = find_hit(scene, refracted_ray)
+
+    if not exit_hit:
+      # Apparently there is no exit point
+      # This should not occur, but rounding errors might make it happen
+      return black
+
+    P2 = exit_hit.location
+    exit_ray = compute_refraction(refracted_ray, P2, n2, n1)
+
+    # Continue tracing ray after it left the transparent object
+    # Don't forget to decrease weight
+    return trace(scene, exit_ray, weight * transparency) * transparency
+----
+
+Note that, as with <</extensions/ray-tracers/v5/explanations#,reflection>>,
+only part of the photons gets refracted. How much is specified by
+the material's transparency: a value of 0 means none of the photons
+get refracted (i.e. the material is not transparent), a value of 1
+means all photons get through. In our ray tracer, like reflectivity, the transparency
+determines the factor by which the resulting color is multiplied.
+
+[TASK]
+====
+Implement ``RayTracerV6``.
+
+* ``RayTracerV5`` should have two ``trace`` methods: one with and one without ``weight`` parameter.
+  For ``RayTracerV6``, you'll need to override the one with the ``weight`` parameter.
+* ``RayTracerV5::trace`` calls ``compute_ambient``, ``process_lights`` and
+  ``compute_reflection`` and adds their results. ``RayTracerV6::trace`` is identical,
+  but should also call the new member function ``compute_refraction``.
+* ``compute_refraction`` computes two refractions of the light ray: once
+  at the entry point, once at the exit point.
+* ``compute_refraction`` is in essence quite similar to ``compute_reflection``:
+  where ``compute_reflection`` simply bounces the ray off of the surface of the shape and then
+  calls ``trace`` recursively, ``compute_refraction`` lets the ray
+  pass through the shape and calls ``trace`` recursively on the exiting light ray.
+* You might have to give the ray small "nudges" here and there. Say the ray enters the transparent
+  object at stem:[P_1]. You compute the direction of the refracted ray and then determine where
+  this new ray exits the object. If you let the ray start at stem:[P_1], ``find_first_positive_hit``
+  will quite probably return stem:[P_1]. In order to prevent this, you'll have to move the origin of the refracted
+  ray a tiny bit.
+====

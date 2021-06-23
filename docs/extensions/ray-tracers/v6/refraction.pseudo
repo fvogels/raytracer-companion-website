@@ -1,0 +1,21 @@
+compute_refraction(scene, material_properties, hit, ray, weight)
+  if material_properties.transparency > 0
+    // Ray enters transparent object, compute how it is bent at point P1
+    refracted_ray = compute refraction of ray with n1 = 1 and n2 = material_properties.refractive_index
+
+    if total internal reflection occurred
+      return black
+
+    // Find exit point P2
+    exit_hit = find hit between scene and refracted_ray
+
+    if no hit between scene and refracted_ray found
+      // Apparently there is no exit point
+      // This should not occur, but rounding errors might make it happen
+      return black
+
+    exit_ray = compute refraction at point P2 with n1 = material_properties.refractive_index and n2 = 1
+
+    // Continue tracing ray after it left the transparent object
+    // Don't forget to decrease weight
+    return trace(scene, exit_ray, weight * material_properties.transparency) * material_properties.transparency
