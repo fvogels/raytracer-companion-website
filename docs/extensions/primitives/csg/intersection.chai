@@ -1,0 +1,26 @@
+// image
+var camera = Cameras.perspective( [ "eye": pos(5,5,5),
+                                    "look_at": pos(0,0,0) ] )
+
+var material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                    "diffuse": Colors.white() * 0.8,
+                                    "specular": Colors.white(),
+                                    "specular_exponent": 100 ] )
+
+var root = decorate(material, intersection( translate(vec(0,0,-0.5), sphere()),
+                                            translate(vec(0,0,0.5), sphere()) ))
+
+var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
+
+var scene = create_scene(camera, root, lights)
+
+var raytracer   = Raytracers.v6()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.multijittered(2),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene,
+          [ Pipeline.renderer(renderer),
+            Pipeline.studio() ] )

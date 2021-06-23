@@ -1,0 +1,42 @@
+= Constructive Solid Geometry
+
+[overview]
+----
+reading design/primitives/ray-intersections
+----
+
+preview::preview[]
+
+Shapes can be constructed by combining simpler shapes in different ways:
+
+[cols="^.^,^.^"]
+|===
+| Union | image:union.png[align="center"]
+| Difference | image:difference.png[align="center"]
+| Intersection | image:intersection.png[align="center"]
+|===
+
+The code for union is already given.
+Use it as a template to define the two other operations.
+Note however that while the union operation is defined as taking a list of children,
+intersection and difference can limit themselves to exactly two children.
+
+== Intersection
+
+[TASK]
+====
+* Create files `primitives/intersection-primitive.cpp` and `primitives/intersection-primitive.h`.
+* Write the necessary code.
+* Provide a factory function with signature `Primitive intersection(Primitive, Primitive)`.
+* Expose this operation as `intersection` to the scripting language.
+====
+
+== Difference
+
+[TASK]
+====
+* Create files `primitives/difference-primitive.cpp` and `primitives/difference-primitive.h`.
+* Write the necessary code.
+* Provide a factory function with signature `Primitive difference(Primitive, Primitive)`.
+* Expose this operation as `intersection` to the scripting language.
+====
