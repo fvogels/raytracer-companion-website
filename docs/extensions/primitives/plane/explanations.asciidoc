@@ -1,0 +1,25 @@
+= Planes
+
+[overview]
+----
+reading design/primitives/ray-intersections
+----
+
+preview::preview[]
+
+== Implementation
+
+The RayTracer comes with an implementation for XY-planes.
+Your task, should you choose to accept it, is to implement XZ-planes and YZ-planes.
+
+As a first step, we suggest you take a good look at the XY-plane implementation to understand how the ray-plane intersection algorithm works.
+Then, implement extra classes using XY-plane as a guide.
+
+[TASK]
+====
+Implement XZ- and YZ planes.
+
+* Both planes should contain the point stem:[(0, 0, 0)].
+  Moving the plane around can be done separately using translations.
+* Make these available as `xz_plane()` and `yz_plane()` in the scripting language.
+====
