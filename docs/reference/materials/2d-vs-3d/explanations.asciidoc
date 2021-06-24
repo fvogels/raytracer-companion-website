@@ -3,7 +3,7 @@
 == 2D Materials
 
 2D materials can be likened to paint which we attach to a primitive's surface.
-For example, <em>textures</em> are images that are used to wrap a primitive with.
+For example, _textures_ are images that are used to wrap a primitive with.
 If we take a sphere
 
 image::sphere.png[align="center"]
