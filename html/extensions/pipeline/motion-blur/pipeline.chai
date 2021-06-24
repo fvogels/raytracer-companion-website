@@ -1,4 +1,0 @@
-pipeline( scene_animation(scene_at, seconds(5)),
-          [ Pipeline.animation(150),
-            Pipeline.renderer(renderer),
-            Pipeline.studio() ] )
