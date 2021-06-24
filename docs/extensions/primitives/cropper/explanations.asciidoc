@@ -26,7 +26,7 @@ Create a new `Cropper` primitive.
 ** `Primitive crop_along_y(Primitive child, const Interval<double>&)` only allows hits whose y-coordinate fall inside the given interval.
 ** `Primitive crop_along_z(Primitive child, const Interval<double>&)` only allows hits whose z-coordinate fall inside the given interval.
 ** `Primitive crop_by_box(Primitive child, const Box&)` only allows hits who fall inside the given box.
-** `Primitive crop_by_sphere(Primitive child, double radius)` only allows hits that fall within
+** `Primitive crop_by_sphere(Primitive child, double radius)` only allows hits that fall within a sphere of the given radius around stem:[(0, 0, 0)].
 ====
 
 [TIP]
