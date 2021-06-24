@@ -9,7 +9,7 @@ reading primitives/bounding-box-accelerator
 
 [TASK]
 ====
-* Create the necessary files (`bbacc.cpp`, `bbacc.h`).
+* Create the files `primitives/bbacc.cpp` and `primitives/bbacc.h`.
 * Define a new ``PrimitiveImplementation`` subclass.
 ** Its constructor should accept a ``Primitive``, which it stores in a field.
 * Implement ``find_all_hits`` as described in the reading material.
