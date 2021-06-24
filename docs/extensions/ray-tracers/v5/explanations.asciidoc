@@ -72,9 +72,9 @@ There are two details we need to take into account:
 
 * Infinite recursion can occur if a ray gets caught between reflective materials.
 * Materials are not necessarily 100% reflective. As mentioned before,
-  only <em>part</em> of the photons get reflected.
+  only _part_ of the photons get reflected.
 
-One solution solves both problems: we associate a <em>reflectivity</em> with each material,
+One solution solves both problems: we associate a _reflectivity_ with each material,
 which is a number between ``0`` and ``1`` indicating how many
 photons get reflected. A nonreflective material has reflectivity ``0``.
 
