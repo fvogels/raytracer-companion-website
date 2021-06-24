@@ -285,7 +285,7 @@ a| video::ray-tracer-v0.mp4[]
 a| video::ray-tracer-v1.mp4[]
 | Next, ambient lighting is added.
   You achieve this by traveling down to where the laser hits the landscape, then pointing a bright flashlight at it to better see which color the landscape has at that point, and using that to determine the color of your pointillistic dot.
-  The problem with this approach is that you "destroy" all lighting information: you don't take into account <em>how much</em> light arrived at that point.
+  The problem with this approach is that you "destroy" all lighting information: you don't take into account _how much_ light arrived at that point.
 a| video::ray-tracer-v2.mp4[]
 | Next comes diffuse lighting.
   You do now take into account how much light arrives at the laser dot.
