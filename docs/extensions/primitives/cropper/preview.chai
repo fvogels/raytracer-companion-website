@@ -17,7 +17,7 @@ def scene_at(now)
 
   var root = decorate(material, crop_along_z( cylinder_along_z(), interval(-1, 1) ))
 
-  var lights = [ Lights.omnidirectional( pos(0,0,0), Colors.white() ) ]
+  var lights = [ Lights.omnidirectional( pos(0,5,5), Colors.white() ) ]
 
   create_scene(camera, root, lights)
 }

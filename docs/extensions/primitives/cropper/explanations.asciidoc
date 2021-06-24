@@ -6,3 +6,30 @@ reading design/primitives/ray-intersections
 ----
 
 preview::preview[]
+
+One of a ``Primitive``'s few responsibilities is to compute
+its intersections with a ray: the method `find_all_hits(ray)` returns
+a list of these intersections between the primitive itself and the given ray.
+
+What if we were to impose restrictions on which hits can be returned?
+For example, we could only allow hits that are located in a certain region.
+This would make it look as if the primitive only exists in that box.
+In other words, we "cut off" all parts of the primitive that fall outside of this box.
+
+[TASK]
+====
+Create a new `Cropper` primitive.
+
+* Put it in its own files (`primitives/cropper-primitive.cpp` and corresponding header file).
+* Provide the following factory functions:
+** `Primitive crop_along_x(Primitive child, const Interval<double>&)` only allows hits whose x-coordinate fall inside the given interval.
+** `Primitive crop_along_y(Primitive child, const Interval<double>&)` only allows hits whose y-coordinate fall inside the given interval.
+** `Primitive crop_along_z(Primitive child, const Interval<double>&)` only allows hits whose z-coordinate fall inside the given interval.
+** `Primitive crop_by_box(Primitive child, const Box&)` only allows hits who fall inside the given box.
+** `Primitive crop_by_sphere(Primitive child, double radius)` only allows hits that fall within
+====
+
+[TIP]
+====
+One class (featuring the necessary parameters) will suffice for this extension.
+====
