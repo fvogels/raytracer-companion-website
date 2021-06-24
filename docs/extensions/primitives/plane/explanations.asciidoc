@@ -9,7 +9,7 @@ preview::preview[]
 
 == Implementation
 
-The RayTracer comes with an implementation for XY-planes.
+Your starter code comes with an implementation for XY-planes.
 Your task, should you choose to accept it, is to implement XZ-planes and YZ-planes.
 
 As a first step, we suggest you take a good look at the XY-plane implementation to understand how the ray-plane intersection algorithm works.
