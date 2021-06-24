@@ -1,0 +1,36 @@
+= 2D and 3D Materials
+
+== 2D Materials
+
+2D materials can be likened to paint which we attach to a primitive's surface.
+For example, <em>textures</em> are images that are used to wrap a primitive with.
+If we take a sphere
+
+image::sphere.png[align="center"]
+
+and apply the following texture to it
+
+image::texture.png[align="center"]
+
+we get
+
+video::sphere2d.mp4[align="center"]
+
+2D materials rely on uv-coordinates, i.e. a <</reference/math/coordinate-systems/cartesian2d/explanations#,Cartesian coordinate system>>
+that describe where on the surface of a primitive the origin lies and where the X and Y axes lie.
+
+== 3D Materials
+
+Applying 3D materials is similar to taking a big block of that material and carving out the primitive.
+
+image::block.png[align="center"]
+
+Carving a sphere out of it yields
+
+video::sphere3d.mp4[align="center"]
+
+In the case of a checkered pattern, the 2d version is clearly preferable. Generally, other 3d materials won't look as peculiar.
+
+One distinct advantage of 3D materials is that they are easier to implement as, in order to determine their
+properties at a specific point, you need only xyz coordinates, which you already computed.
+There is no need to determine uv-coordinates.

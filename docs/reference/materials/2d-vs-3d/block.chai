@@ -1,0 +1,28 @@
+// image
+
+var camera = Cameras.perspective( [ "eye": pos(5,5,5),
+                                    "look_at": pos(0,0,0) ] )
+
+var black = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                 "diffuse": Colors.black() ] )
+var white = Materials.uniform( [ "ambient": Colors.white(),
+                                 "diffuse": Colors.black() ] )
+
+var material = Materials.checkered3d(black, white)
+
+var root = decorate(Materials.scale(0.25, 0.25, 0.25, material), cube())
+
+var lights = [ ]
+
+var scene = create_scene(camera, root, lights)
+
+var raytracer = Raytracers.v6()
+
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.multijittered(2),
+                                     "ray_tracer": raytracer ] )
+
+pipeline( scene,
+          [ Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
