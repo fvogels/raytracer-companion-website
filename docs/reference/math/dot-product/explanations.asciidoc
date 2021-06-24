@@ -6,7 +6,7 @@ The <a href="https://en.wikipedia.org/wiki/Dot_product">dot product</a> of two v
 (x_1, y_1, z_1) \cdot (x_2, y_2, z_2) = x_1 x_2 + y_1 y_2 + z_1 z_2
 ++++
 
-Without <em>meaning</em> this operator wouldn't have much use. So, what
+Without _meaning_ this operator wouldn't have much use. So, what
 does this scalar represent? What can we use it for?
 
 To answer this question, you need to know of an alternative way or computing the dot product:
