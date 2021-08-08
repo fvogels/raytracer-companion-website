@@ -1,0 +1,261 @@
+= Animations
+
+== Basic Types
+
+An animation is, as is explained on this page regarding the <</reference/math/animations/explanations#,mathematics behind animations>>,
+a function which associates each moment in time with a value. This value can be of any type:
+``double``, ``Angle``, ``Point3D``, &hellip.
+
+The ray tracer's animation module has three types at its core:
+
+* ``Duration`` models duration. This class is comparable to time spans. For example, "5 seconds" is
+  a possible values for ``Duration``.
+* ``TimeStamp`` represents a moment in time. You can compare this to a date or time of day.
+* ``Animation&lt;T&gt;`` models an animation of a ``T``. For example ``Animation&lt;double&gt;``
+  represents a ``double`` animation.
+
+We take a detailed look at each in turn.
+
+== Duration
+
+``Duration`` objects are created using factory functions:
+
+* ``Duration::zero()`` creates a duration of 0 seconds.
+* ``Duration::infinite()`` represents an infinitely long duration.
+* ``Duration::from_milliseconds(double)`` and ``Duration::from_seconds(double)``
+  allow you to create ``Duration``s from milliseconds and seconds, respectively.
+
+C++ allows us to define custom literals. These come in handy for durations.
+For example, say you want to create a ``Duration`` of 4 seconds,
+you can write ``4_s``. It also works with milliseconds: ``4000_ms``.
+
+Note that this only works with compile time constants: you cannot
+have some variable ``x = 5`` and then use ``x_s`` to
+create a ``Duration`` of 5 seconds. In this case,
+you have no other choice than to rely on a regular factory function (e.g., ``TimeStamp::from_seconds(double)``.)
+
+Some standard operators have also been defined on durations, such as
+``+``, ``-``, ``*``, ``/``, ``&lt;``, ``&gt;``, ``<=``,
+``>=``, ``==`` and ``!=``.
+
+== TimeStamp
+
+As explained above, a ``TimeStamp`` represents a specific moment in time.
+An important ``TimeStamp`` value is the _zero time_ stem:[T_0], also referred to as the _epoch_, which in essence corresponds to "the beginning of time".
+Animations will generally start at this moment. Other ``TimeStamp`` values are expressed as
+"time passed since epoch". For example, an animation that takes 5 seconds starts at stem:[T_0] and ends at stem:[T_0 + 5\mathrm{s}].
+
+To create ``TimeStamp``s, we once again rely on factory functions:
+
+* ``TimeStamp::zero()`` return the zero time stem:[T_0].
+* ``TimeStamp::from_epoch(const Duration&amp; d)`` creates a ``TimeStamp`` representing
+  the moment stem:[T_0 + d]. For example, stem:[T_0 + 5\mathrm{s}] is created using ``TimeStamp::from_epoch(5_s)``.
+
+The operators ``&lt;``, ``&lt;=``, ``&gt;``, ``&gt;=``, ``==``, ``!=``
+have been defined for ``TimeStamp``s. You can add ``Duration``s ``TimeStamp``s and subtract
+two ``TimeStamp``s from each other.
+
+== ``Animation&lt;T&gt;``
+
+``Animation&lt;T&gt;`` represents an animation.
+Its most important member function is ``operator ()``: given an ``Animation`` object ``anim`` and a ``TimeStamp timestamp``, you can write anim(timestamp) to ask the animation what its value is at the given time.
+
+For example, say you create a ``double`` animation called ``anim`` that goes from ``10`` to ``20`` in 5 seconds.
+
+[.center,options="header",cols="^,^",width="50%"]
+|===
+| Code | Result
+| ``anim(0_s)`` | ``10``
+| ``anim(2.5_s)`` | ``15``
+| ``anim(5_s)`` | ``20``
+|===
+
+For the purposes of creating animations, the ``seconds()`` member function will also come in handy:
+``timestamp.seconds()`` returns the number of seconds passed since zero time.
+For example, ``TimeStamp::from_epoch(5_s).seconds()`` returns ``5``.
+
+=== Creation
+
+There are multiple ways of creating animations, but the most straightforward
+way consists of making use of _lambda functions_. Let's dive right into it with a simple example.
+
+Let's create a ``double`` animation that goes from ``0`` to ``1`` in 1 second.
+If we were to write this as a regular function, we would get
+
+[source,language='c++']
+----
+double animate(TimeStamp ts)
+{
+  return ts.seconds();
+}
+----
+
+This function receives a ``TimeStamp``, looks at how many seconds have past since zero time in seconds,
+and uses that as return value. This means that after 0 seconds, it returns 0, after 0.5 seconds, it returns 0.5, etc.
+
+This function takes a ``TimeStamp`` and returns a ``double``.
+Say we want to store this function in a variable (the function itself, not its return value!), what
+type should this variable have? {cpp} offers a type ``std::function`` which
+represents types of functions.
+
+[source,language='c++']
+----
+std::function<double(TimeStamp)> func = animate;
+----
+
+Take a good look at its syntax: it has the form ``std::function&lt;R(T1, T2, ...)&gt;``
+where ``T1``, ``T2``, &hellip; are the parameter types and ``R`` is the
+return type of the function.
+
+A lambda function is a function you define inline, as follows:
+
+[source,language='c++']
+----
+std::function<double(TimeStamp)> func = [](TimeStamp ts) -> double {
+  return ts.seconds();
+};
+----
+
+There are multiple advantages to write it as a lambda function. One is that you don't have
+to define a separate ``animate`` function thereby avoiding cluttering the current scope.
+Compare this to local variables versus member variables (fields): a member variable is visible
+to _all_ member functions of the object, while a local variable is only visible inside
+the member function it is defined in. You should always restrict visibility as much as possible;
+using lambda functions allows you to keep function definitions hidden within another function.
+
+Once you've defined a ``std::function&lt;double(TimeStamp)&gt;``, you can
+wrap it into a ``Function`` object with the ``from_lambda`` helper function.
+In this specific context, this is admittedly a rather redundant step,
+but it was done to keep things consistent with other parts of the ray tracer. For now,
+you will have to accept that you have to wrap a lambda function into a ``Function`` object.
+
+This ``Function`` can be used to define an animation using ``make_animation``.
+Put together, the code to create a basic animation looks like this:
+
+[source,language='c++']
+----
+std::lambda<double(TimeStamp)> lambda = [](TimeStamp now) {
+  return now.seconds();
+};
+
+Animation<double> anim = make_animation( from_lambda(lambda), 1_s );
+----
+
+What if we want to create a ``double`` animation that goes from ``0`` to ``5`` in 1 second?
+We can hardcode it:
+
+[source,language='c++']
+----
+std::lambda<double(TimeStamp)> lambda = [](TimeStamp now) {
+  return now.seconds() * 5;
+};
+
+Animation<double> anim = make_animation( from_lambda(lambda), 1_s );
+----
+
+But as you know, hardcoding is rarely a good solution. If we were to need a ``0`` to ``7``
+or a ``0`` to ``100`` animation, we would have to duplicate this code each time.
+We'd rather create a function that does the job for us:
+
+[source,language='c++']
+----
+Animation<double> create_basic_animation(double to)
+{
+  std::lambda<double(TimeStamp)> lambda = [to](TimeStamp now) {
+    return now.seconds() * to;
+  };
+
+  return make_animation( from_lambda(lambda), 1_s );
+}
+----
+
+Note how the lambda function makes use of the ``to`` variable, which is a local
+variable in the surrounding scope. ``to`` is said to be a _captured variable_.
+C++ requires you to be explicit about capturing: you need to mention each
+captured variable in the lambda function's _capture list_. This list appears
+just before the parameter list, between square brackets. In our case, this list is ``[to]``.
+
+There are two ways to capture variables: you can capture them either _by value_ or
+_by reference_. ``to`` is captured by value: this means that the lambda function
+receives a copy. This is the safest way to go about it.
+
+To capture a variable by reference, you need to prefix it with an ampersand (``&amp;``). For example,
+to capture ``to`` by reference, the capture list would become
+``[&amp;to]``. This is more efficient for large objects and allows
+you to write to the captured variable, but it is more dangerous as you
+need to ensure that the variable still exists when the lambda function is called.
+
+In our case, ``to`` should definitely not be passed by reference:
+it is a parameter of ``create_basic_animation``, which means
+that it disappears after ``create_basic_animation`` returns.
+For example, the code below has undefined behavior:
+
+[source,language='c++']
+----
+Animation<double> create_basic_animation(double to)
+{
+  // to captured by reference
+  std::lambda<double(TimeStamp)> lambda = [&to](TimeStamp now) {
+    return now.seconds() * to;
+  };
+
+  // Dangerous: the animation contains a lambda that refers to local variable to
+  // but local variable to goes out of scope
+  return make_animation( from_lambda(lambda), 1_s );
+}
+
+auto anim = create_basic_animation(5);
+auto value = anim(0.1_s); // calls lambda, which refers to 'to', which does not exist anymore at this point
+----
+
+=== Example: Generalized Double Animation
+
+We now generalize the basic animation so that we can choose an initial value stem:[a], a final value stem:[b] and a duration stem:[\tau].
+Using the <</reference/math/animations/explanations#,mathematical formulae>>, we get
+
+[stem]
+++++
+X(t) = t \qquad f(x) = a + (b - c) \cdot x \qquad g(t) = \frac{t}{\tau}
+++++
+
+Combining these yields
+
+[stem]
+++++
+f \circ X \circ g = f(X(g(t))) = f(X(\frac{t}{\tau})) = f(\frac{t}{\tau}) = a + (b-c) \cdot \frac{t}{\tau}
+++++
+
+Translated to C++, this gives
+
+[source,language='c++']
+----
+Animation<double> double_animation(double from, double to, Duration duration)
+{
+  std::function<double(TimeStamp)> lambda = [from, to, duration](TimeStamp now) {
+    return from + (to - from) * now.seconds() / duration.seconds();
+  };
+
+  return make_animation( from_lambda(lambda), duration );
+}
+----
+
+=== Example: Color Animation
+
+Animations can act as building blocks.
+For example, let's create an animation that animates a color.
+
+[source,language='c++']
+----
+Animation<Color> color_animation(const Color& from, const Color& to, Duration duration)
+{
+  auto r = double_animation(from.r, to.r, duration);
+  auto g = double_animation(from.g, to.g, duration);
+  auto b = double_animation(from.b, to.b, duration);
+
+  std::lambda<Color(TimeStamp)> lambda = [r, g, b](TimeStamp now) {
+    return Color( r(now), g(now), b(now) );
+  };
+
+  return make_animation( from_lambda(lambda), duration );
+}
+----
