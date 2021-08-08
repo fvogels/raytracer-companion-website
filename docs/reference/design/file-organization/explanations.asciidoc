@@ -1,0 +1,109 @@
+= File Organization
+
+The ray tracer is built out of many different modules.
+Each module is placed in its own subdirectory and its members (classes, functions)
+reside in a separate namespace, akin to Java packages.
+
+A module exposes only the bare minimum to the outside world.
+You can compare this to a class: a class has to hide as much
+as possible from its users, only making public what is truly necessary.
+The less it makes public, the more it can change things internally afterwards.
+You can apply the same principle to groups of classes:
+some classes are meant to be seen by people outside the module,
+but most should stay hidden as they are merely implementation detail.
+You can compare this with the module having a "public facade".
+
+
+== Example: the Primitives Module
+
+For example, the ``primitives`` module
+lets you create geometric shapes such as spheres, planes, triangles, &hellip;
+Internally, a sphere is implemented as a class,
+but the module wants to hide this detail. Instead,
+only an abstract type ``Primitive`` is made public
+and a factory function which lets you create a sphere.
+So, outside the ``primitives`` module,
+you are limited to writing ``Primitive primitive = sphere();``
+You cannot directly create a Sphere-object (i.e. no ``new Sphere()``),
+and you cannot access ``Sphere``-specific methods.
+
+Each member of the ``primitives`` module resides in its pair of ``.h``/``.cpp`` files:
+
+[.center,options="header",cols="<1,<2,<2",width="90%"]
+|===
+| Primitive | `.h` file | `.cpp` file
+| Sphere | ``primitives/sphere-primitive.h`` | ``primitives/sphere-primitive.cpp``
+| Plane | ``primitives/plane-primitive.h`` | ``primitives/plane-primitive.cpp``
+| Cube | ``primitives/cube-primitive.h`` | ``primitives/cube-primitive.cpp``
+| Decorator | ``primitives/decorator-primitive.h`` | ``primitives/decorator-primitive.cpp``
+|===
+
+The ``.cpp`` file contains the implementation details.
+The ``.h`` file determines what is made public.
+Generally, each ``.h`` only exposes factory functions:
+
+[.center,options="header",cols="<,<",width="90%"]
+|===
+| `.h` file | Contained declarations
+| ``primitives/sphere.h`` | ``Primitive raytracer::primitives::sphere()``
+| ``primitives/plane.h`` | ``Primitive raytracer::primitives::xy_plane()``
+| | ``Primitive raytracer::primitives::xz_plane()``
+| | ``Primitive raytracer::primitives::yz_plane()``
+| ``primitives/cube.h`` | ``Primitive raytracer::primitives::cube()``
+| ``primitives/decorator.h`` | ``Primitive raytracer::primitives::decorator(Material, Primitive)``
+|===
+
+Say you're writing code that relies on spheres, planes and decorators. You would
+have to ``#include`` their respective header files. Most probably
+you will need other classes too, such as materials, lights, cameras, meaning
+you'd have more ``#include``-ing to do. This can become bothersome
+quite quickly, which is why modules generally also offer a separate header file
+that includes all other header files from the module.
+
+For example, the ``primitives`` module provides you with
+``primitives/primitives.h``, which is nothing more than a list of includes:
+
+.primitives/primitives.h
+[source,language="cpp]
+----
+#include "primitives/primitive.h"
+#include "primitives/plane-primitive.h"
+#include "primitives/sphere-primitive.h"
+#include "primitives/cylinder-primitive.h"
+#include "primitives/disk-primitive.h"
+#include "primitives/square-primitive.h"
+#include "primitives/cube-primitive.h"
+#include "primitives/cropper-primitive.h"
+#include "primitives/cone-primitive.h"
+#include "primitives/group-primitive.h"
+#include "primitives/union-primitive.h"
+#include "primitives/decorator-primitive.h"
+#include "primitives/intersection-primitive.h"
+#include "primitives/difference-primitive.h"
+#include "primitives/transformer-primitive.h"
+#include "primitives/triangle-primitive.h"
+#include "primitives/bounding-box-accelerator-primitive.h"
+#include "primitives/mesh-primitive.h"
+#include "primitives/fast-mesh-primitive.h"
+#include "primitives/bumpifier-primitive.h"
+----
+
+So, instead of having to ``#include`` every primitive, material, light and camera
+separately, you can just ``#include`` ``primitives/primitives.h``,
+``materials/materials.h``, ``lights/lights.h`` and ``camera/cameras.h``.
+
+== Overview of Modules
+
+Here's an incomplete list of the modules:
+
+[.center,options="header",cols="<,<,<",width="90%"]
+|===
+| Module name | Subdirectory | Namespace
+| Animation | animation | ``animation``
+| Cameras | cameras | ``raytracer::cameras``
+| Light | lights | ``raytracer::lights``
+| Primitives | primitives | ``raytracer::primitives``
+| Ray tracers | raytracers | ``raytracer::raytracers``
+| Renderers | renderers | ``raytracer::renderers``
+| Scripting | scripting | ``raytracer::scripting``
+|===
