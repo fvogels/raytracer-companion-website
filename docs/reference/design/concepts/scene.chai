@@ -1,0 +1,39 @@
+// image
+
+var camera = Cameras.perspective( [ "eye": pos(0,0,4),
+                                    "look_at": pos(0,0,0),
+                                    "aspect_ratio": 5.0 / 3.0 ] )
+
+var red = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                               "diffuse": Colors.red() * 0.8,
+                               "specular": Colors.white() * 0.5,
+                               "specular_exponent": 10,
+                               "reflectivity": 0.5,
+                               "transparency": 0,
+                               "refractive_index": 0 ] )
+
+var blue = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                "diffuse": Colors.blue() * 0.8,
+                                "specular": Colors.white() * 0.5,
+                                "specular_exponent": 10,
+                                "reflectivity": 0.5,
+                                "transparency": 0,
+                                "refractive_index": 0 ] )
+
+var root = union( [ decorate(red, translate(vec(-1,0,0), sphere())),
+                    decorate(blue, translate(vec(1,0,0), sphere())) ] )
+
+var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
+
+var scene = create_scene(camera, root, lights)
+
+var raytracer   = Raytracers.v6()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 300,
+                                        "sampler": Samplers.multijittered(2),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene,
+          [ Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
