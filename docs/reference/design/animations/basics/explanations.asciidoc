@@ -25,7 +25,7 @@ We take a detailed look at each in turn.
 * ``Duration::from_milliseconds(double)`` and ``Duration::from_seconds(double)``
   allow you to create ``Duration``s from milliseconds and seconds, respectively.
 
-C++ allows us to define custom literals. These come in handy for durations.
+{cpp} allows us to define custom literals. These come in handy for durations.
 For example, say you want to create a ``Duration`` of 4 seconds,
 you can write ``4_s``. It also works with milliseconds: ``4000_ms``.
 
@@ -171,7 +171,7 @@ Animation<double> create_basic_animation(double to)
 
 Note how the lambda function makes use of the ``to`` variable, which is a local
 variable in the surrounding scope. ``to`` is said to be a _captured variable_.
-C++ requires you to be explicit about capturing: you need to mention each
+{cpp} requires you to be explicit about capturing: you need to mention each
 captured variable in the lambda function's _capture list_. This list appears
 just before the parameter list, between square brackets. In our case, this list is ``[to]``.
 
@@ -225,7 +225,7 @@ Combining these yields
 f \circ X \circ g = f(X(g(t))) = f(X(\frac{t}{\tau})) = f(\frac{t}{\tau}) = a + (b-c) \cdot \frac{t}{\tau}
 ++++
 
-Translated to C++, this gives
+Translated to {cpp}, this gives
 
 [source,language='c++']
 ----
