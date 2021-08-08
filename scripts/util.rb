@@ -44,6 +44,7 @@ def compile_asciidoc(source, destination)
     'source-highlighter' => 'pygments',
     'stem' => 'latexmath',
     'toc' => 'left',
+    'cpp' => 'C++',
   }
 
   Asciidoctor.convert_file(source.to_s, safe: :safe, backend: 'html', to_file: destination.to_s, attributes: attributes)
