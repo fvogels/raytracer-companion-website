@@ -6,10 +6,7 @@ require_relative './scripts/overview-block'
 require_relative './scripts/task-block'
 require_relative './scripts/preview-block-macro'
 require_relative './scripts/util'
-
-
-RAYTRACER = 'G:\repos\ucll\3dcg\raytracer\raytracer\x64\Release\raytracer.exe'
-WIF = 'C:\Python39\Scripts\wif'
+require_relative './scripts/verify'
 
 
 Asciidoctor::Extensions.register do
@@ -25,13 +22,14 @@ end
 Rake::FileList.new('docs/**/*.asciidoc').map do |path|
   absolute_source_path = Pathname.new(path).expand_path
   absolute_target_path = dist_path(absolute_source_path).sub_ext('.html')
+  relative_target_path = absolute_target_path.relative_path_from(Pathname.pwd)
 
   desc "Convert #{absolute_source_path}"
-  file absolute_target_path.to_s => absolute_source_path.to_s do |task|
+  file relative_target_path.to_s => absolute_source_path.to_s do |task|
     compile_asciidoc(absolute_source_path, absolute_target_path)
   end
 
-  absolute_target_path
+  relative_target_path
 end.then do |paths|
   desc 'Convert asciidocs to htmls'
   task :html => paths.map(&:to_s)
@@ -43,16 +41,18 @@ Rake::FileList.new('docs/**/*.chai').map do |path|
   case chai_type absolute_source_path
   when 'movie'
     absolute_target_path = dist_path(absolute_source_path).sub_ext('.mp4')
+    relative_target_path = absolute_target_path.relative_path_from(Pathname.pwd)
 
     desc "Render #{absolute_source_path}"
-    file absolute_target_path.to_s => absolute_source_path.to_s do |task|
+    file relative_target_path.to_s => absolute_source_path.to_s do |task|
       render_movie(absolute_source_path, absolute_target_path)
     end
   when 'image'
     absolute_target_path = dist_path(absolute_source_path).sub_ext('.png')
+    relative_target_path = absolute_target_path.relative_path_from(Pathname.pwd)
 
     desc "Render #{absolute_source_path}"
-    file absolute_target_path.to_s => absolute_source_path.to_s do |task|
+    file relative_target_path.to_s => absolute_source_path.to_s do |task|
       render_image(absolute_source_path, absolute_target_path)
     end
   when 'skip'
@@ -62,7 +62,7 @@ Rake::FileList.new('docs/**/*.chai').map do |path|
     abort 'Unrecognized chai type'
   end
 
-  absolute_target_path
+  relative_target_path
 end.then do |paths|
   desc 'Render chai files'
   task :chai => paths.compact.map(&:to_s)
@@ -71,13 +71,14 @@ end
 Rake::FileList.new('docs/**/*.tex').map do |path|
   absolute_source_path = Pathname.new(path).expand_path
   absolute_target_path = dist_path(absolute_source_path).sub_ext('.png')
+  relative_target_path = absolute_target_path.relative_path_from(Pathname.pwd)
 
   desc "Compile #{absolute_source_path}"
-  file absolute_target_path.to_s => absolute_source_path.to_s do |task|
+  file relative_target_path.to_s => absolute_source_path.to_s do |task|
     latex_to_png(absolute_source_path, absolute_target_path)
   end
 
-  absolute_target_path
+  relative_target_path
 end.then do |paths|
   desc "Compile tex files"
   task :tex => paths.map(&:to_s)
@@ -86,13 +87,14 @@ end
 Rake::FileList.new('docs/**/*.svg').map do |path|
   absolute_source_path = Pathname.new(path).expand_path
   absolute_target_path = dist_path(absolute_source_path)
+  relative_target_path = absolute_target_path.relative_path_from(Pathname.pwd)
 
-  file absolute_target_path.to_s => absolute_source_path.to_s do |task|
+  file relative_target_path.to_s => absolute_source_path.to_s do |task|
     puts "Copying #{absolute_source_path} -> #{absolute_target_path}"
     FileUtils.cp(absolute_source_path, absolute_target_path)
   end
 
-  absolute_target_path
+  relative_target_path
 end.then do |paths|
   desc 'Copies all files to dist that need to be preserved as-is'
   task :copy => paths.map(&:to_s)
@@ -102,6 +104,11 @@ desc 'Removed dist and temp directories'
 task :clean do
   FileUtils.rm_rf 'dist'
   FileUtils.rm_rf 'temp'
+end
+
+desc 'Verifies links in dist'
+task :verify do
+  verify_links_in_dist
 end
 
 desc 'Makes a full build'
