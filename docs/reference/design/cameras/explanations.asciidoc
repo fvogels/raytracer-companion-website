@@ -1,0 +1,98 @@
+= Cameras: Design
+
+== Positioning Cameras
+
+A camera's most important properties are
+
+* The _eye_ specifies where the camera is located.
+* The _lookat_ specifies what location the camera is pointed at.
+* The _up_ vector determines which direction is up. For example, a value of stem:[(0,1,0)] means
+  the camera is standing upright, while stem:[(1,0,0)] indicates the camera is lying on its right side.
+
+Taking these parameters into account when implementing a camera is not trivial, as it requires
+you to keep mentally keep track of these parameters. To simplify this situation, we have
+taken the same approach as with primitives.
+
+In our design, the primitive shapes (sphere, cylinder, plane, &hellip;) are always in their canonical form:
+the ``Sphere`` class models a sphere with radius 1 and positioned at stem:[(0,0,0)], etc. In order to change
+the position, size and orientation of a primitive, we rely on the ``Transformer`` class.
+
+The same technique is usable on cameras. When implementing a camera, we always assume its eye is located
+at stem:[(0,0,0)], that it looks straight in front of it to some point on the Z-axis, and that it is always standing upright (i.e. up = stem:[(0,1,0)]).
+The logic needed to moving the camera around has arleady been implemented separately for you in the
+``DisplaceableCamera`` class. This means that by subclassing ``DisplaceableCamera``, you are freed
+from the burden of having to take into account all of the above parameters (i.e., eye, lookat, up).
+
+== But What Does It Do?
+
+A camera's duty is to determine which rays need to be cast.
+
+We have <</ray-tracing/explanations#,likened ray tracing>> to an odd approach to painting:
+first, you position your canvas. Then you start painting small dots of paints all over it.
+The color of each dot is determined by shooting a laser beam originating in the eye towards
+the dot on the canvas. You then remove the canvas and look for the location where the laser beam
+hits the scene. This determines what color the dot should be.
+
+This explanation, however, assumes you are working with a perspective camera. Other cameras correspond
+to small variations on this story. For example, whereas a perspective camera assumes you have
+a rectangular canvas, a <%= link 'extensions/cameras/fisheye', 'fisheye camera' %> uses a spherical canvas.
+
+To get a concrete idea of what a camera does, open the file ``cameras/camera.h``.
+``CameraImplementation`` is the base class for all cameras and in essence
+only provides one method: ``enumerate_rays``. There are two overloads of this method,
+but you only need to override one of them. The easiest (but probably least efficient) choice
+would be to override the overload returning a list of ``Ray``s.
+
+The ``enumerate_rays`` method takes only one argument: a 2D position stem:[P]. This stem:[P]
+tells the camera for what point on the canvas the rays need to be generated.
+While the canvas can actually be any size you want, say W &times; H, a camera expects it to
+have size 1 &times; 1. It will be up to the renderer to translate coordinates from
+W &times; H to 1 &times; 1.
+
+image::coordinates.png[align="center"]
+
+=== Example: Perspective Camera
+
+The perspective camera assumes (as explained above) the following camera positioning:
+
+* Eye positioned at stem:[(0,0,0)].
+* Lookat directed at stem:[(0,0,1)].
+* Up vector equal to stem:[(0,1,0)].
+
+image::perspective-camera.png[align="center"]
+
+The above figure conceptually shows what a perspective camera's components look like.
+stem:[E] is located at stem:[(0,0,0)] at the canvas is located in front of it.
+For illustrative purposes, the canvas is subdivided in many small rectangles: these correspond
+to the pixels of the final rendering. A perspective camera itself, however, does not know anything about pixels.
+Instead, it considers the canvas as a continuous rectangle.
+
+In order to ask a camera for rays, we need to tell it what point on the canvas we're interested in.
+This is the above mentioned 2D point stem:[P]. If we want to know which rays should be cast through the lower left
+corner of the canvas, we ask the camera to enumerate rays for stem:[(0, 0)]. Likewise, to get rays through the center of the canvas,
+we need to pass stem:[(0.5, 0.5)] as coordinates to the ``enumerate_rays`` member function. Below are the rays a perspective camera
+would shoot.
+
+image::perspective-camera-rays.png[align="center"]
+
+== Further Technical Details
+
+We now give you the full technical details. These are not that important since the perspective camera has already been implemented
+for you, but it might come in handy for the implementation of other cameras.
+
+* The canvas's size can change. In the current implementation, the height is always 1, but the width is determined by the ``aspect_ratio`` parameter.
+  Note that the coordinates to pick a point on the canvas remain unchanged: stem:[(1, 1)] still refers to the upper right corner, no matter how large the canvas is.
++
+image::aspect-ratio.png[align="center"]
+For best results, the camera's aspect ratio should coincide with the ultimate rendering's aspect ratio. E.g. if you render a 1920 &times; 1080 bitmap,
+the camera aspect ratio should be equal to stem:[\frac{1920}{1080} = 1.78].
+* The distance between the eye and the canvas can change, i.e. the canvas can be placed further away (or closer by) on the Z-axis.
++
+image::distance.png[align="center"]
+The ``distance`` parameter specifies the distance between the eye and the center of the canvas, as shown in the figure above.
+You could say that the ``distance`` parameter is redundant as the ``look_at`` parameter could be taken as the center
+of the canvas. This is perfectly true, but splitting it up in two separate parameters simplifies usage: often you want
+which object you want to look at, at putting your ``look_at`` at the same position as this object
+will automatically make the camera point in the right direction. Just like when you want to paint a river, while you are indeed _looking_ at
+the river, you do not put your canvas in the river. Instead, you put the canvas close to your eye, in the direction of the river. The same
+idea applies here: ``look_at`` specifies direction, ``distance`` specifies where to put the canvas along that direction.

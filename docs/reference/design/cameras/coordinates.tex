@@ -1,0 +1,27 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+
+\begin{document}
+
+\begin{tikzpicture}
+  \draw[thick] (0,0) rectangle ++(4,3);
+  \draw[thick] (6,0) rectangle ++(1,1);
+
+  \draw[-latex] (0,0) to[bend right=30] (6,0);
+  \draw[-latex] (4,0) to[bend right=30] (7,0);
+  \draw[-latex] (0,3) to[bend left=60] (6,1);
+  \draw[-latex] (4,3) to[bend left=30] (7,1);
+
+  \node[anchor=south west,font=\tiny] at (0,0) {$(0,0)$};
+  \node[anchor=north west,font=\tiny] at (0,3) {$(0,H)$};
+  \node[anchor=south east,font=\tiny] at (4,0) {$(W,0)$};
+  \node[anchor=north east,font=\tiny] at (4,3) {$(W,H)$};
+
+  \node[anchor=south east,font=\tiny] at (6,0) {$(0,0)$};
+  \node[anchor=south east,font=\tiny] at (6,1) {$(0,1)$};
+  \node[anchor=south west,font=\tiny] at (7,0) {$(1,0)$};
+  \node[anchor=south west,font=\tiny] at (7,1) {$(1,1)$};
+\end{tikzpicture}
+
+\end{document}

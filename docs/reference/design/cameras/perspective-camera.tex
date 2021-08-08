@@ -1,0 +1,38 @@
+\documentclass{standalone}
+\usepackage{tikz,tikz-3dplot}
+
+\usetikzlibrary{math}
+
+\begin{document}
+
+\tdplotsetmaincoords{80}{45}
+\begin{tikzpicture}[tdplot_main_coords]
+  \draw[-latex] (-5,0,0) -- (5,0,0) node[above] {X};
+  \draw[-latex] (0,1,0) -- (0,-8,0) node[left] {Z};
+  \draw[-latex] (0,0,-3) -- (0,0,3) node[above] {Y};
+
+  \foreach \x in {-2,-1.9,...,2} {
+    \draw[help lines] (\x,-3,1.5) -- (\x,-3,-1.5);
+  }
+
+  \foreach \y in {-1.5,-1.4,...,1.5} {
+    \draw[help lines] (-2,-3,\y) -- (2,-3,\y);
+  }
+
+  \draw[thick] (2,-3,1.5) -- (-2,-3,1.5) -- (-2,-3,-1.5) -- (2,-3,-1.5) -- cycle;
+
+  \draw (0,0,0) -- (-2,-3,-1.5);
+  \draw (0,0,0) -- (2,-3,-1.5);
+  \draw (0,0,0) -- (-2,-3,1.5);
+  \draw (0,0,0) -- (2,-3,1.5);
+
+  \node[anchor=north west] at (0,0,0) {$E$};
+  \node[anchor=north] at (0,-3,0) {$L$};
+
+  \node[anchor=north,font=\tiny] at (2,-3,-1.5) {$(0,0)$};
+  \node[anchor=north,font=\tiny] at (-2,-3,-1.5) {$(1,0)$};
+  \node[anchor=south,font=\tiny] at (-2,-3,1.5) {$(1,1)$};
+  \node[anchor=south,font=\tiny] at (2,-3,1.5) {$(0,1)$};
+\end{tikzpicture}
+
+\end{document}
