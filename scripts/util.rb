@@ -1,5 +1,8 @@
 require 'open3'
 
+WIF = 'C:\Python39\Scripts\wif'
+
+
 def chai_type(chai_path)
   abort "Tag not found in #{chai_path}\nFirst line should contain comment with movie, image or skip" unless %r{// (movie|image|skip)} =~ chai_path.readlines.first.strip
   type = $1
@@ -16,11 +19,8 @@ def render_movie(chai_path, render_path)
   puts "Rendering #{chai_path} -> #{render_path}"
   render_path.dirname.mkpath
 
-  script = read_chai_script(chai_path)
-
   Dir.chdir(chai_path.dirname) do
-    out, err, status = Open3.capture3("#{RAYTRACER} -s - | #{WIF} movie #{render_path}", stdin_data: script)
-    puts err
+    sh "#{WIF} movie #{chai_path} #{render_path}"
   end
 end
 
@@ -28,11 +28,8 @@ def render_image(chai_path, render_path)
   puts "Rendering #{chai_path} -> #{render_path}"
   render_path.dirname.mkpath
 
-  script = read_chai_script(chai_path)
-
   Dir.chdir(chai_path.dirname) do
-    out, err, status = Open3.capture3("#{RAYTRACER} -s - | #{WIF} frames -i STDIN -o #{render_path}", stdin_data: script)
-    puts err
+    sh "#{WIF} frame #{chai_path} 0 #{render_path}"
   end
 end
 
