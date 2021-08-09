@@ -1,0 +1,104 @@
+= Ray Intersections
+
+== Functions
+
+A ``Primitive``'s core functionality consists of computing
+where a given ray intersects with it. Two functions exist that provide this functionality:
+
+* ``find_all_hits``
+* ``find_first_positive_hit``
+
+``find_all_hits`` covers all ray-intersection related functionality:
+it returns a list of <em>all</em> intersections. However, in practice,
+we're often only interested in the "first positive hit", that is, the
+hit with the lowest positive ``t``-value, which
+corresponds to the hit that's closest to the eye and in front of it.
+
+image::first-positive-hit.png[align="center"]
+
+``find_first_positive_hit`` is specialized in finding this first positive hit
+and therefore is a more efficient choice if one is only interested in this hit. For example, in the figure above,
+``find_all_hits`` returns both stem:[H_1] and stem:[H_2], whereas ``find_first_positive_hit`` would
+only return stem:[H_1].
+
+As another example, consider the following situation:
+
+image::first-positive-hit2.png[align="center"]
+
+Here, ``find_all_hits`` will still return both stem:[H_1] and stem:[H_2], even though they occur behind the ray's origin.
+``find_first_positive_hit``, however, will tell you that no hit has been found, as if it returns a hit,
+it must take place in front of its origin.
+
+== ``Hit``
+
+A ``Hit`` objects contains all relevant information about a single ray/primitive intersection.
+We discuss each member variable in turn.
+
+=== ``t``
+
+The <</reference/math/ray/explanations#,``t``-value>> indicates where on the ray the intersection occurs.
+
+image::t-value.png[align="center"]
+
+=== ``position``
+
+``position`` specifies where the hit took place in 3D Cartesian coordinates. It must
+be consistent with the ``t``-value: if the hit was made by ray with origin stem:[O] and
+direction stem:[\vec\Delta], ``position`` must be equal to stem:[O + \vec\Delta \cdot {\tt t}].
+
+=== ``local_position``
+
+``local_position`` specifies the hit position with respect to the primitive's own coordinate system.
+
+* ``local_position`` has two components: ``xyz`` and ``uv``.
+* ``local_position.xyz`` expresses the hit position in a 3D Cartesian coordinate system.
+* ``local_position.uv`` expresses the hit position in a 2D Cartesian coordinate system.
+* ``local_position`` is used by decorators. A 2D material will look at the ``uv``-component, whereas a 3D material will rely on the ``xyz``-component.
+
+When implementing a shape primitive (e.g. a ``Sphere``, ``Cylinder``, ``Cone``, &hellip;)
+the ``local_position`` will coincide with the ``Hit``'s ``position`` member.
+
+The ``position`` and ``local_position`` will diverge when the primitive is transformed:
+transformers only update ``position``, but leave ``local_position`` alone.
+The reason for this is that an object's color is not dependent on its position in the scene.
+
+=== ``normal``
+
+The unit normal vector on the primitive at ``position``.
+
+image::normal.png[align="center"]
+
+The orientation of the normal vector is important, as it is used by lighting algorithms
+to determine whether or not photons reach that point. For example,
+
+image::lighting.png[align="center"]
+
+The light ray reaching stem:[P_1] is greeted with normal vector stem:[\vec n_1] which points towards the light ray's origin stem:[L],
+whereas at stem:[P_2] the light ray encounters stem:[\vec n_2], which points away from the stem:[L]. The lighting algorithm
+interprets this as stem:[P_1] receiving photons, while stem:[P_2] does not.
+
+Now consider the following setup:
+
+image::inside.png[align="center"]
+
+Both eye and light source are inside the sphere. We expect the inside of the sphere to be illuminated
+by stem:[L], but according to our lighting algorithm, it is not: the normal vectors will point away from stem:[L]
+each time.
+
+One way to solve this problem is to let ``Sphere`` be smart about the direction of its normal vectors.
+While computing hits, the primitive receives a ray whose origin represents the eye of the camera.
+When determining the normal, it can choose its direction is such a way that it points towards this eye.
+
+Mathematically, this can be done using the <%= link 'reference/math/dot-product', 'dot product' %>: given the ray origin stem:[E], the hit position stem:[P]
+and a normal stem:[\vec n] at stem:[P], it computes stem:[(E - P) \cdot \vec n]. If it is negative, the normal points towards stem:[E], which is what we want.
+If, however, the dot product turns out to be positive, we need to flip the normal around: stem:[-\vec n] becomes the new normal.
+
+You can see this algorithm at work in ``SphereImplementation::compute_normal_at``.
+
+=== ``material``
+
+``material`` contains the material which the scene object is made of at that point.
+
+=== ``group_id``
+
+``group_id`` represents which group the intersected primitive is part of. This is important for <</extensions/renderers/cartoon/explanations#,edge detection>>.
