@@ -22,16 +22,16 @@ get to the ``PrimitiveImplementation`` object it points to, on which
 you can call methods: ``primitive.getImplementation()->doSomethingUseful()``.
 However, having to write this all the time would get tiresome very quickly.
 
-Luckily, C++ lets you overload the ``-&gt;`` operator.
-Normally, ``-&gt;`` is only meant to be used on pointers,
+Luckily, C++ lets you overload the ``->`` operator.
+Normally, ``->`` is only meant to be used on pointers,
 but you can define what it means when it's being used on objects
 of your own class. In our case, ``Primitive`` overloads
-``-&gt;`` such that it "redirects" you automatically towards the implementation object.
+``->`` such that it "redirects" you automatically towards the implementation object.
 This means that instead of having to write ``primitive.getImplementation()->doSomethingUseful()``,
 you can use the shorter notation ``primitive->doSomethingUseful()``.
 
 In summary, whenever you're working with a wrapper type such as ``Primitive``, ``Material``,
-``LightSource``, ``Camera``, and so on, you should use the ``-&gt;`` operator to get
+``LightSource``, ``Camera``, and so on, you should use the ``->`` operator to get
 easy access to the "real object"'s functionality.
 
 == Rationale
@@ -84,11 +84,11 @@ ps->m();     // prints A
 ----
 
 While this approach is technically better, it is also overly verbose.
-Having to type ``std::shared_ptr&lt;S&gt;`` all the time
+Having to type ``std::shared_ptr&lt;S>`` all the time
 will become annoying very quickly.
 
 Fortunately, C++ allows you to define type aliases. This way,
-you can introduce a shorter name for ``std::shared_ptr&lt;S&gt;``:
+you can introduce a shorter name for ``std::shared_ptr&lt;S>``:
 
 [source,language="c++"]
 ----
