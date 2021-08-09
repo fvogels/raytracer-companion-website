@@ -13,7 +13,6 @@ some classes are meant to be seen by people outside the module,
 but most should stay hidden as they are merely implementation detail.
 You can compare this with the module having a "public facade".
 
-
 == Example: the Primitives Module
 
 For example, the ``primitives`` module
