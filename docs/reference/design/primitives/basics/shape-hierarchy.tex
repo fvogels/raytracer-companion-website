@@ -1,0 +1,51 @@
+\documentclass{standalone}
+\usepackage{ucll-uml}
+
+\usetikzlibrary{calc}
+
+
+\begin{document}
+
+\begin{tikzpicture}
+  \node[/uml/class] (primitive) {
+    \umlclass\Abstract Primitive%
+    \Fields%
+    \Methods%
+    \endumlclass
+  };
+
+  \node[/uml/class,anchor=west] (sphere) at ($ (primitive) + (1,-1) $) {
+    \umlclass Sphere%
+    \Fields%
+    \Methods%
+    \endumlclass
+  };
+
+  \node[/uml/class,anchor=west] (plane) at ($ (primitive) + (1,-2) $) {
+    \umlclass Plane%
+    \Fields%
+    \Methods%
+    \endumlclass
+  };
+
+  \node[/uml/class,anchor=west] (cone) at ($ (primitive) + (1,-3) $) {
+    \umlclass Cone%
+    \Fields%
+    \Methods%
+    \endumlclass
+  };
+
+  \node[/uml/class,anchor=west] (cylinder) at ($ (primitive) + (1,-4) $) {
+    \umlclass Cylinder%
+    \Fields%
+    \Methods%
+    \endumlclass
+  };
+
+  \draw[/uml/inherits] (sphere) -| (primitive);
+  \draw[/uml/inherits] (plane) -| (primitive);
+  \draw[/uml/inherits] (cone) -| (primitive);
+  \draw[/uml/inherits] (cylinder) -| (primitive);
+\end{tikzpicture}
+
+\end{document}
