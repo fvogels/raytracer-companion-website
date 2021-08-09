@@ -540,7 +540,6 @@ a separate class called a _transformation_.
 
 This all may seem quite confusing, so let's give a quick overview of the different concepts:
 
-
 * A _transformation matrix_ is a matrix representing a transformation. Internally, it is nothing but a bunch of numbers.
   Transformation matrices are accessible through ``math/transformation-matrices.h``.
 * A _transformation_ groups two transformation matrices together, one representing the "forward" transformation,
@@ -585,7 +584,6 @@ A third member function, ``find_first_positive_hit``, can optionally be overridd
 If you do not override it, it will fall back on its default implementation, i.e. calling ``find_all_hits``
 and returning the first positive hit. It should be obvious that writing a separate algorithm
 that specializes in only finding the first positive hit should work much faster than one that computes all hits.
-
 
 === find_all_hits
 
