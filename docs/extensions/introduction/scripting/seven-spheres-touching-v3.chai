@@ -14,10 +14,10 @@ var root = decorate(material, union([
     translate(vec(0,2,0), sphere()),
     translate(vec(0,-2,0), sphere()),
     translate(vec(0,0,2), sphere()),
-    translate(vec(0,0,-2), sphere()),
+    translate(vec(0,0,-2), sphere())
 ]))
 
-var lights = [ ]
+var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
 
 var scene = create_scene(camera, root, lights)
 

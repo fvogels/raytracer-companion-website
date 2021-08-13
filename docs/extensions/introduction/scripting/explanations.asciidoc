@@ -264,6 +264,7 @@ Let's add even more.
 image::seven-spheres-touching.png[align="center"]
 
 Since it might not be clear what is happening here, here's a better rendering.
+Don't forget you can move the camera.
 
 image::seven-spheres-touching-v3.png[align="center"]
 ====
