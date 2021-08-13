@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 3
 excludes materials/scaling3d
 excludes materials/translation3d
 requires materials/transformer3d

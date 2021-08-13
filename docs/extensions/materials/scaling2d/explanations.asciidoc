@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 3
 excludes materials/rotation2d
 excludes materials/translation2d
 requires materials/transformer2d

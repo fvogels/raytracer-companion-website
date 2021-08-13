@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 3
 reading materials/2d-vs-3d
 reading math/transformations/2d/rotation
 reading math/transformations/2d/scaling

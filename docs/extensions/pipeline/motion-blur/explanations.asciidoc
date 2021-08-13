@@ -1,5 +1,10 @@
 = Motion Blur
 
+[overview]
+----
+difficulty 4
+----
+
 preview::preview[]
 
 == Explanation

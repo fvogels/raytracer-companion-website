@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 1
 reading lighting/ambient
 ----
 

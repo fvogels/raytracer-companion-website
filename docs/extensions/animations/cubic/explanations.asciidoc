@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 3
 requires animations/easing-library
 excludes animations/quadratic
 excludes animations/quintic

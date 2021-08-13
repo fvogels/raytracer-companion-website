@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 2
 requires samplers/stratified-jittered
 reading samplers/half-jittered
 ----

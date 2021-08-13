@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 5
 requires primitives/triangle
 requires primitives/bounding-box-accelerator
 reading primitives/mesh

@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 2
 requires ray-tracers/v1
 reading lighting/diffuse
 ----

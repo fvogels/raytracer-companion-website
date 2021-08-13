@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 4
 requires ray-tracers/v5
 reading refraction
 ----

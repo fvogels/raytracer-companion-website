@@ -1,3 +1,8 @@
 = Coarse
 
+[overview]
+----
+difficulty 5
+----
+
 preview::preview[]

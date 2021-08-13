@@ -1,5 +1,10 @@
 = Studio Pipeline Segment
 
+[overview]
+----
+difficulty 2
+----
+
 In order to make your Chaiscript work with 3D Studio, you need to
 have it output the renderings in the correct format:
 

@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 5
 reading design/primitives/ray-intersections
 ----
 

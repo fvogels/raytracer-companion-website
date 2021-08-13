@@ -1,5 +1,9 @@
 = Modifying Basic Sample
 
+[overview]
+----
+----
+
 == Your First Animation
 
 When you first run the RayTracer without having made any changes, you should get the following animation:

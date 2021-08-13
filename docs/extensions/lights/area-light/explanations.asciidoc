@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 2
 requires ray-tracers/v2
 requires samplers/random
 reading lights/area

@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 3
 reading materials/2d-vs-3d
 ----
 

@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 3
 requires ray-tracers/v4
 ----
 

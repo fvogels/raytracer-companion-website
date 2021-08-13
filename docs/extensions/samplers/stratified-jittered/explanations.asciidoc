@@ -2,12 +2,12 @@
 
 [overview]
 ----
+difficulty 2
 requires samplers/stratified
 reading samplers/jittered
 ----
 
 preview::preview[]
-
 
 [TASK]
 ====

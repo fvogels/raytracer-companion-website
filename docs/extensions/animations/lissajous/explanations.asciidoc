@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 3
 reading math/animations
 reading math/animations
 reading design/animations/basics

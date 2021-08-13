@@ -1,5 +1,6 @@
 require 'asciidoctor'
 require 'asciidoctor/extensions'
+require_relative 'util'
 
 
 class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
@@ -10,7 +11,7 @@ class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
 
   def process(parent, reader, attrs)
     overview_contents = reader.read_lines
-    overview_data = parse_overview overview_contents
+    overview_data = parse_explanations_overview overview_contents
 
     lines = [ "" ]
     lines << '[cols="1,2"]'
@@ -28,21 +29,6 @@ class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
   end
 
   private
-  def parse_overview(lines)
-    result = { requires: [], excludes: [], reading: [], difficulty: nil }
-
-    lines.each_with_object(result) do |line, result|
-      case line
-      when /^(requires|excludes|reading) (.*)$/
-        result[$1.to_sym] << $2
-      when /^difficulty (.*)$/
-        result[:difficulty] = $1
-      else
-        abort "Unknown overview entry: #{line}"
-      end
-    end
-  end
-
   def generate_difficulty(difficulty)
     if difficulty
       [ "| *Difficulty* | #{difficulty}" ]

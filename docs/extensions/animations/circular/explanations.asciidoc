@@ -1,7 +1,8 @@
-= Bounce Animation
+= Circular Animation
 
 [overview]
 ----
+difficulty 3
 reading math/animations
 reading design/animations/basics
 ----

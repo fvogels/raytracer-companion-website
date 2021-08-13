@@ -50,16 +50,16 @@ module TOCGeneration
       generate_line '# Overview'
       generate_line ''
 
-      generate_category(top_level_categories.children['extensions'])
-      generate_category(top_level_categories.children['reference'])
+      generate_category(top_level_categories.children['extensions'], true)
+      generate_category(top_level_categories.children['reference'], false)
 
       @lines
     end
 
-    def generate_category(category)
+    def generate_category(category, is_extension)
       generate_header(category.name, category.depth + 1)
-      generate_subcategories(category.subcategories)
-      generate_entries(category.child_entries)
+      generate_subcategories(category.subcategories, is_extension)
+      generate_entries(category.child_entries, is_extension)
     end
 
     def generate_header(title, level)
@@ -67,29 +67,37 @@ module TOCGeneration
       generate_line ""
     end
 
-    def generate_subcategories(subcategories)
+    def generate_subcategories(subcategories, is_extension)
       subcategories.sort_by(&:name).each do |subcategory|
-        generate_category subcategory
+        generate_category(subcategory, is_extension)
       end
     end
 
-    def generate_entries(entries)
+    def generate_entries(entries, is_extension)
       generate_line('[cols="^,^"]')
       generate_line('|===')
 
       entries.sort_by(&:name).each do |entry|
-        generate_entry entry
+        generate_entry(entry, is_extension)
       end
 
       generate_line('|===')
       generate_line ''
     end
 
-    def generate_entry(entry)
+    def generate_entry(entry, is_extension)
       relative_path = entry.path.relative_path_from(Pathname.new('docs').expand_path)
-      difficulty = extension_difficulty(entry.path)
+      title = explanations_title entry.path
 
-      generate_line "| <<#{relative_path.to_s}#,#{entry.name.capitalize}>> | #{difficulty}"
+      if is_extension
+        difficulty = extension_difficulty(entry.path)
+
+        # raise "Could not find difficulty in #{entry.path}" unless difficulty
+
+        generate_line "| <<#{relative_path.to_s}#,#{title}>> | #{difficulty}"
+      else
+        generate_line "| <<#{relative_path.to_s}#,#{title}>> | NA"
+      end
     end
 
     def generate_line(str)

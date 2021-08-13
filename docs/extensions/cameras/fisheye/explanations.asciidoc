@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 4
 reading cameras/fisheye
 ----
 

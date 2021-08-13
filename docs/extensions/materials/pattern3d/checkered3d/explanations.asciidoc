@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 2
 excludes materials/pattern2d/grid3d
 reading materials/2d-vs-3d
 ----

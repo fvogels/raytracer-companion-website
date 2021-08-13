@@ -1,3 +1,8 @@
 = Cartoon Renderer
 
+[overview]
+----
+difficulty 3
+----
+
 preview::preview[]

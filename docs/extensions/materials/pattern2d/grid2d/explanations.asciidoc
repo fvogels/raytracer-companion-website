@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 2
 requires materials/pattern2d/vertical-lines
 requires materials/pattern2d/horizontal-lines
 excludes materials/pattern2d/checkered2d

@@ -2,5 +2,6 @@
 
 [overview]
 ----
+difficulty 5
 reading math/perlin
 ----

@@ -2,6 +2,7 @@
 
 [overview]
 ----
+difficulty 1
 reading design/transformations
 reading math/transformations/3d/rotation
 ----

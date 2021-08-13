@@ -5,7 +5,8 @@ WIF = 'C:\Python39\Scripts\wif'
 
 
 def chai_type(chai_path)
-  abort "Tag not found in #{chai_path}\nFirst line should contain comment with movie, image or skip" unless %r{// (movie|image|skip)} =~ chai_path.readlines.first.strip
+  raise "File #{chai_path} does not exist" unless chai_path.file?
+  raise "Tag not found in #{chai_path}\nFirst line should contain comment with movie, image or skip" unless %r{// (movie|image|skip)} =~ chai_path.readlines.first.strip
   type = $1
 end
 
@@ -35,17 +36,8 @@ def render_image(chai_path, render_path)
 end
 
 
-def compile_asciidoc_file(source_pathname, destination_pathname)
-  puts "#{source_pathname} -> #{destination_pathname}"
-
-  compile_asciidoc_string(source_pathname.read, destination_pathname)
-end
-
-
-def compile_asciidoc_string(string, destination_pathname)
-  destination_pathname.dirname.mkpath
-
-  attributes = {
+def asciidoc_attributes
+  {
     'nofooter' => true,
     'source-highlighter' => 'pygments',
     'stem' => 'latexmath',
@@ -53,8 +45,21 @@ def compile_asciidoc_string(string, destination_pathname)
     'toclevels' => 4,
     'cpp' => 'C++',
   }
+end
 
-  Asciidoctor.convert(string, safe: :safe, backend: 'html', to_file: destination_pathname.to_s, attributes: attributes)
+
+def compile_asciidoc_file(source_pathname, destination_pathname)
+  puts "#{source_pathname} -> #{destination_pathname}"
+
+  destination_pathname.dirname.mkpath
+  Asciidoctor.convert_file(source_pathname.to_s, safe: :safe, backend: 'html', to_file: destination_pathname.to_s, attributes: asciidoc_attributes)
+end
+
+
+def compile_asciidoc_string(string, destination_pathname)
+  destination_pathname.dirname.mkpath
+
+  Asciidoctor.convert(string, safe: :safe, backend: 'html', to_file: destination_pathname.to_s, attributes: asciidoc_attributes)
 end
 
 
@@ -89,15 +94,61 @@ def dist_path(path)
 end
 
 
-def extension_difficulty(extension)
-  case extension
+def read_explanations_as_lines(explanations)
+  case explanations
   when Pathname
-    contents = extension.read
+    explanations.readlines
   when String
-    contents = extension
+    explanations.lines
+  when Array
+    explanations
   else
-    raise "Argument extension should be Pathname or string; instead, it is a #{extension.class}"
+    raise "Argument should be String, Pathname or Array; instead, it is #{asciidoc.class}"
   end
+end
 
-  "TODO"
+
+def extract_overview(asciidoc)
+  lines = read_explanations_as_lines asciidoc
+
+  start_index = lines.find_index { |line| line.strip == '[overview]'} + 2
+  raise "No overview found in #{asciidoc}" unless start_index
+  raise "Expected ---- on line after overview in #{asciidoc}" unless lines[start_index - 1].strip == '----'
+  end_index = (start_index...lines.size).find { |i| lines[i].strip == '----' }
+  raise "Could not find finishing ---- for overview in #{asciidoc}" unless end_index
+
+  lines[start_index...end_index]
+end
+
+
+def parse_explanations_overview(lines)
+  result = { requires: [], excludes: [], reading: [], difficulty: nil }
+
+  lines.each_with_object(result) do |line, result|
+    case line
+    when /^(requires|excludes|reading) (.*)$/
+      result[$1.to_sym] << $2
+    when /^difficulty (.*)$/
+      result[:difficulty] = $1
+    else
+      abort "Unknown overview entry: #{line}"
+    end
+  end
+end
+
+
+def extension_difficulty(extension)
+  overview = extract_overview(extension)
+  data = parse_explanations_overview(overview)
+  data[:difficulty]
+end
+
+
+def explanations_title(extension)
+  lines = read_explanations_as_lines(extension)
+  line = lines.find { |line| line.start_with? '= ' }
+
+  raise "Could not find title in #{extension}" unless line
+
+  line[2..-1]
 end
