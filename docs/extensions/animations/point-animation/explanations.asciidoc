@@ -10,7 +10,7 @@ excludes animations/angle-animation
 By default, the scripting language in your ray tracer only supports ``double`` animations.
 For this extension, you will add support for ``Point3D`` animations.
 
-[source,chai]
+[source,language="chai"]
 ----
 // Old way
 var x = Animations.animate(0, 4, seconds(1))

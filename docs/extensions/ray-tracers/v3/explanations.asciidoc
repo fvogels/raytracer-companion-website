@@ -41,7 +41,7 @@ making its existence seem pointless.
 In v3, we can override this function so that instead of only returning the diffuse color,
 it adds the specular highlight to this result. The algorithm looks as follows:
 
-. Call the base class's version of ``process_light_ray``. Look online for how to do this in C++.
+. Call the base class's version of ``process_light_ray``. Look online for how to do this in {cpp}.
   Assign the result to a local variable ``result``.
 . Call ``compute_specular`` and add its return value to ``result``.
 . Return ``result``.

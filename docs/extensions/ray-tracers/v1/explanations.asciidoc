@@ -100,7 +100,7 @@ into some kind of package named ``Raytracers``. The same thing applies for other
 for example, all samplers can be created using ``Samplers.<span style="font-style: italic;">name</span>()``,
 such as ``Samplers.single()`` or ``Samplers.nrooks(3)``.
 
-In order to have these factories grouped in a package, we need to create a C++ object
+In order to have these factories grouped in a package, we need to create a {cpp} object
 that contains all these factories. If you go take a look in ``scripting/raytracing-module``, you'll
 see that there is a struct called ``RaytracerLibrary`` which contains a member function ``v0()``.
 This member function has the sole responsibility of creating a ``v0`` ray tracer object.
@@ -124,7 +124,7 @@ using top level functions, i.e. you simply write ``sphere()`` instead
 of ``Primitives.sphere()``.
 
 An example of how to export something as a top level function is ``create_scene``.
-In C++, ``create_scene`` is a top level function. ``module-&gt;add`` recognizes
+In {cpp}, ``create_scene`` is a top level function. ``module-&gt;add`` recognizes
 this fact and mirrors it by exposing ``create_scene`` as a top level function inside the scripting language.
 
 [TASK]
