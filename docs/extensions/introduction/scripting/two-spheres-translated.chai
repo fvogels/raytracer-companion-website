@@ -2,7 +2,10 @@
 var camera = Cameras.perspective( [ "eye": pos(0,0,5),
                                     "look_at": pos(0,0,0) ] )
 
-var root = sphere()
+var root = union([
+    sphere(),
+    translate(vec(1,0,0), sphere())
+])
 
 var lights = [ ]
 

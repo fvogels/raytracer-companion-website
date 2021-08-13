@@ -1,5 +1,5 @@
 // image
-var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+var camera = Cameras.perspective( [ "eye": pos(0,0,2.5),
                                     "look_at": pos(0,0,0) ] )
 
 var root = sphere()

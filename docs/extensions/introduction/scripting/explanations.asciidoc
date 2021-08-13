@@ -8,7 +8,7 @@ difficulty 1
 == Scenes
 
 The purpose of a ray tracer is to render scenes.
-A scene consists of many parts:
+A scene consists of three parts:
 
 * A scene is made out of possibly many (millions, billions) geometric shapes, which we will also call _primitives_.
   In games, these shapes all tend to be triangles, since these are the only shapes GPUs can render.
@@ -19,11 +19,6 @@ A scene consists of many parts:
   So, for anything to be visible in a scene, we need light sources to illuminate the primitives.
 * A scene also needs to mention where the "eye" is positioned.
   We will call this the scene's _camera_.
-* A scene can change in time, i.e., it can be _animated_.
-* The end result is am image, or a series of image which together form a movie.
-  A scene must specify the resolution of these images.
-
-There are more elements to a scene, but let's restrict ourselves for now to these, as they can be understood intuitively.
 
 All these elements must be represented somehow.
 Since the ray tracer is written in C++ using the OO paradigm, it makes sense to represent these entities (shapes, light sources, camera, &hellip;) as objects.
@@ -42,7 +37,7 @@ This approach has the following advantages:
 * You can define scenes in a language that is much simpler than {cpp}.
 * You don't need to recompile when you make changes to a scene.
 
-== Single Sphere
+== A Single Sphere
 
 image::sphere.png[align="center"]
 
@@ -51,7 +46,6 @@ This is a rendering of a scene consisting of the following elements:
 * There's a red sphere.
 * A light source shines on this red sphere.
 * The camera looks straight at the sphere.
-* The size of the resulting image is 500&times;500.
 
 This scene can be written in ChaiScript as
 
@@ -86,9 +80,19 @@ pipeline( scene,
             Pipeline.stdout() ] )
 ----
 
+[NOTE]
+====
+Note how the script does define other things besides just the scene:
+
+* The renderer (standard)
+* The bitmap size (500&times;500)
+* The output format (wif format printed out in base64 format)
+* The render quality (single sampler)
+====
+
 [TASK]
 ====
-Take some time to find out how the main elements mentioned earlier are written in this script.
+Take some time to find out how the main elements (primitives, camera, light sources) are written in this script.
 ====
 
 If you were to feed this script to the ray tracer, it should output the image above.
@@ -112,12 +116,8 @@ For example, in its current state, since the ray tracer doesn't take into accoun
 var camera = Cameras.perspective( [ "eye": pos(0,0,5),
                                     "look_at": pos(0,0,0) ] )
 
-// We leave out material details
-var material = Materials.uniform( [ "ambient": Colors.red() ] )
+var root = sphere()
 
-var root = decorate(material, sphere())
-
-// We leave out light sources
 var lights = [ ]
 
 var scene = create_scene(camera, root, lights)
@@ -141,3 +141,129 @@ pipeline( scene,
 Render this simplified version and check that the removal of certain parts of the script does indeed not affect the end result.
 ====
 
+== The Camera
+
+It is important that you understand the basic elements of a scene as well as how to specify them in ChaiScript.
+Let's focus on the camera.
+It is defined as
+
+[source,language="chai"]
+----
+var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                    "look_at": pos(0,0,0) ] )
+----
+
+This little piece of code expresses the following:
+
+* We are using specific type of camera, namely the _perspective camera_.
+  Other cameras are the <</extensions/cameras/depth-of-field/explanations#,depth of field camera>> and
+  <</extensions/cameras/fisheye/explanations#,fisheye camera>>, but these are not implemented yet.
+* The camera is positioned at stem:[(0, 0, 5)].
+* The camera is oriented towards stem:[(0, 0, 0)].
+  This coincides with the sphere's position, which explains why the sphere is centered in the final rendering.
+
+We give you a few simple tasks to familiarize yourself with the coordinate system.
+
+[TASK]
+====
+Change the camera's position so that the camera is farther away from the sphere.
+This should result in a smaller circle in the end result.
+
+image::sphere-far.png[align="center"]
+====
+
+[TASK]
+====
+Change the camera's position so that the camera is closer to the sphere.
+
+image::sphere-close.png[align="center"]
+====
+
+[TASK]
+====
+Move the camera back to where it was.
+Have it look at the top of the sphere, knowing that the sphere has radius 1.
+
+image::sphere-top.png[align="center"]
+====
+
+== Two Spheres
+
+Our scene contains a single sphere:
+
+[source,language="chai"]
+----
+var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                    "look_at": pos(0,0,0) ] )
+
+var root = sphere()
+
+var lights = [ ]
+
+var scene = create_scene(camera, root, lights)
+----
+
+Let's say we want a second sphere.
+There's a slight problem, though: the `create_scene` function accepts only a single primitive.
+However, this does not have to mean we're restricted to scenes containing just a single shape: if we want more than one shape, we can group them together in a _union_.
+A union effectively turns 2 or more primitives in a single one.
+
+[source,language="chai"]
+----
+var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                    "look_at": pos(0,0,0) ] )
+
+var root = union([ sphere(), sphere() ])
+
+var lights = [ ]
+
+var scene = create_scene(camera, root, lights)
+----
+
+If we were to render this, we'd get
+
+image::two-spheres.png[align="center"]
+
+This looks suspiciously similar to our previous result.
+The problem is that we created two spheres, but they are located at exactly the same location.
+We therefore have two perfectly overlapping spheres.
+We should try to move at least one of the spheres.
+
+[source,language="chai"]
+----
+var root = union([
+    sphere(),
+    translate(vec(1,0,0), sphere())
+])
+----
+
+image::two-spheres-translated.png[align="center"]
+
+This looks promising.
+`translate(vec(1, 0, 0), primitive)` moves `primitive` a distance `(1, 0, 0)`, which means "one unit to the right" in our case.
+However, the spheres still partially overlap.
+
+[TASK]
+====
+Adapt the script so that the two spheres touch each other:
+
+image::two-spheres-touching.png[align="center"]
+====
+
+[TASK]
+====
+Add an extra sphere:
+
+image::three-spheres-touching.png[align="center"]
+====
+
+[TASK]
+====
+Let's add even more.
+
+image::seven-spheres-touching.png[align="center"]
+
+Since it might not be clear what is happening here, here's a better rendering.
+
+image::seven-spheres-touching-v3.png[align="center"]
+====
