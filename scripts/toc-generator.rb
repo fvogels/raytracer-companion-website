@@ -101,7 +101,7 @@ module TOCGeneration
       if is_extension
         difficulty = extension_difficulty(entry.path)
 
-        # raise "Could not find difficulty in #{entry.path}" unless difficulty
+        raise "Could not find difficulty in #{entry.path}" unless difficulty
 
         generate_line "| #{difficulty} | <<#{relative_path.to_s}#,#{title}>>"
       else
