@@ -1,0 +1,143 @@
+= Scripting
+
+[overview]
+----
+difficulty 1
+----
+
+== Scenes
+
+The purpose of a ray tracer is to render scenes.
+A scene consists of many parts:
+
+* A scene is made out of possibly many (millions, billions) geometric shapes, which we will also call _primitives_.
+  In games, these shapes all tend to be triangles, since these are the only shapes GPUs can render.
+  Our ray tracer, however, can also support other primitives, such as spheres, planes, cylinders, cones, etc.
+* A ray tracer traces rays (don't act surprised.)
+  These rays can be seen as light rays.
+  In order to have light rays, we need _light sources_.
+  So, for anything to be visible in a scene, we need light sources to illuminate the primitives.
+* A scene also needs to mention where the "eye" is positioned.
+  We will call this the scene's _camera_.
+* A scene can change in time, i.e., it can be _animated_.
+* The end result is am image, or a series of image which together form a movie.
+  A scene must specify the resolution of these images.
+
+There are more elements to a scene, but let's restrict ourselves for now to these, as they can be understood intuitively.
+
+All these elements must be represented somehow.
+Since the ray tracer is written in C++ using the OO paradigm, it makes sense to represent these entities (shapes, light sources, camera, &hellip;) as objects.
+And that is indeed how our ray tracer works internally.
+
+So, in order to render a scene, we can write {cpp} code that instantiates shapes and light sources and a camera and give these to some ray tracer object.
+While this is certainly possible, it is not practical.
+Compare it to a browser: in order to view a page, you don't download Chrome's source code and programmatically create paragraph, header and images objects.
+Instead, a browser can be "scripted": it receives all its data in separate files, such as an `.html`, `.css` or `.js` files.
+From these, the browser is able to create the necessary objects internally and render and interact with them.
+
+The ray tracer works the same way: the scene will be described in a separate file written in a language called https://chaiscript.com/[ChaiScript].
+The ray tracer will parse this file and instantiate the appropriate objects based on its contents.
+This approach has the following advantages:
+
+* You can define scenes in a language that is much simpler than {cpp}.
+* You don't need to recompile when you make changes to a scene.
+
+== Single Sphere
+
+image::sphere.png[align="center"]
+
+This is a rendering of a scene consisting of the following elements:
+
+* There's a red sphere.
+* A light source shines on this red sphere.
+* The camera looks straight at the sphere.
+* The size of the resulting image is 500&times;500.
+
+This scene can be written in ChaiScript as
+
+[source,language="chai"]
+----
+var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                    "look_at": pos(0,0,0) ] )
+
+
+var material = Materials.uniform( [ "ambient": Colors.red() * 0.1,
+                                    "diffuse": Colors.red() * 0.5,
+                                    "specular": Colors.red() * 0.5,
+                                    "specular_exponent": 10 ] )
+
+var root = decorate(material, sphere())
+
+var lights = [ Lights.omnidirectional( pos(2,2,5), Colors.white() ) ]
+
+var scene = create_scene(camera, root, lights)
+
+var raytracer = Raytracers.latest()
+
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.single(),
+                                     "ray_tracer": raytracer ] )
+
+pipeline( scene,
+          [ Pipeline.renderer(renderer),
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )
+----
+
+[TASK]
+====
+Take some time to find out how the main elements mentioned earlier are written in this script.
+====
+
+If you were to feed this script to the ray tracer, it should output the image above.
+There's a small catch though: the ray tracer code you received is quite incomplete and, if given the script above, will produce a _slightly_ different result:
+
+image::sphere-v0.png[align="center"]
+
+[TASK]
+====
+Have your ray tracer render the script above and check that it indeed produces the image shown above.
+====
+
+Right now, your ray tracer works in a very minimalistic way: for each pixel, it simply checks if there's a primitive in that direction
+and colors it white if so, and black if not. It does not care about the sphere's colors or light sources.
+
+Because of this minimalism, some parts of the scene will straight out be ignored by your ray tracer.
+For example, in its current state, since the ray tracer doesn't take into account light sources, so we might as well leave them out:
+
+[source,language="chai"]
+----
+var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                    "look_at": pos(0,0,0) ] )
+
+// We leave out material details
+var material = Materials.uniform( [ "ambient": Colors.red() ] )
+
+var root = decorate(material, sphere())
+
+// We leave out light sources
+var lights = [ ]
+
+var scene = create_scene(camera, root, lights)
+
+var raytracer = Raytracers.latest()
+
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.single(),
+                                     "ray_tracer": raytracer ] )
+
+pipeline( scene,
+          [ Pipeline.renderer(renderer),
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )
+----
+
+[TASK]
+====
+Render this simplified version and check that the removal of certain parts of the script does indeed not affect the end result.
+====
+
