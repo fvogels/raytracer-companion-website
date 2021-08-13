@@ -44,7 +44,11 @@ class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
   end
 
   def generate_difficulty(difficulty)
-    [ "| *Difficulty* | #{difficulty}" ]
+    if difficulty
+      [ "| *Difficulty* | #{difficulty}" ]
+    else
+      []
+    end
   end
 
   def generate_prerequisities(extensions)
