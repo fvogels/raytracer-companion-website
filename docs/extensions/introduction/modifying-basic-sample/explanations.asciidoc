@@ -1,0 +1,76 @@
+= Modifying Basic Sample
+
+== Your First Animation
+
+When you first run the RayTracer without having made any changes, you should get the following animation:
+
+video::basic-sample.mp4[align="center"]
+
+During this assignment, you will familiarize yourself with the different parts of the RayTracer by making
+simple changes to this basic animation.
+
+== Identifying The Key Parts
+
+Open ``demos/basic-sample.cpp``. This file contains all necessary code
+to create the above scene.
+
+Admittedly, there's a lot of code for so little result. The reason for this
+is that all parts still need to be set up and linked together. Your first
+task is to find out which code deals with which part.
+
+[TASK]
+====
+Find answers to the following questions. Let the comments
+and the functions and variables' names guide you.
+
+* Where is the bitmap size specified?
+* How many frames are rendered in total?
+* Where is the eye located in 3D space?
+* How many lights are defined?
+* What are the starting and ending position of the sphere?
+====
+
+== Modifying the Animation
+
+Create a new demo by making a copy of the files ``basic-sample.h`` and ``basic-sample.cpp``.
+Choose names of your own liking (e.g. ``my-demo.h`` and ``my-demo.cpp``).
+Rename the function ``basic_sample`` to e.g. ``my_demo`` and update ``app.cpp`` to call this new function.
+Make the following changes to your own demo file:
+
+[TASK]
+====
+Adapt the animation so that the sphere moves from right to left.
+
+video::right-to-left.mp4[align="center"]
+====
+
+[TASK]
+====
+Adapt the animation so that the sphere moves from top to bottom.
+
+video::top-to-bottom.mp4[align="center"]
+====
+
+[TASK]
+====
+Add a second sphere. Use ``make_union`` to group primitives together, as
+shown in the code below.
+
+[source,language="c++"]
+----
+std::vector<Primitive> primitives = { primitive1, primitive2, ... };
+
+auto root_union = make_union(primitives);
+----
+
+Never use ``union`` as a variable or function name: ``union`` is already a {cpp} keyword.
+
+video::two-spheres.mp4[align="center"]
+====
+
+[TASK]
+====
+Find two ways of making the sphere look bigger. Note: scaling is not implemented yet, so that's not an option.
+
+video::zoom.mp4[align="center"]
+====
