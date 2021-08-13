@@ -7,6 +7,7 @@ require_relative './scripts/task-block'
 require_relative './scripts/preview-block-macro'
 require_relative './scripts/util'
 require_relative './scripts/verify'
+require_relative './scripts/toc-generator'
 
 
 Asciidoctor::Extensions.register do
@@ -26,7 +27,7 @@ Rake::FileList.new('docs/**/*.asciidoc').map do |path|
 
   desc "Convert #{absolute_source_path}"
   file relative_target_path.to_s => absolute_source_path.to_s do |task|
-    compile_asciidoc(absolute_source_path, absolute_target_path)
+    compile_asciidoc_file(absolute_source_path, absolute_target_path)
   end
 
   relative_target_path
@@ -111,8 +112,13 @@ task :verify do
   verify_links_in_dist
 end
 
+desc 'Generates table of contents'
+task :toc do
+  generate_toc
+end
+
 desc 'Makes a full build'
-task :default => [ :html, :chai, :tex, :copy ]
+task :default => [ :toc, :html, :chai, :tex, :copy ]
 
 
 # ONLY DO THIS WHEN EVERYTHING IS FINISHED

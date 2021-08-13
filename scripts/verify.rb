@@ -8,7 +8,7 @@ module Verification
       Find.find('.') do |entry|
         yielder.yield(Pathname.new(entry)) if entry.end_with? 'html'
       end
-    end
+    end.to_a
   end
 
   def self.collect_absolute_links(html_pathname)
@@ -24,9 +24,10 @@ module Verification
 
   def self.verify
     root = Pathname.pwd
+    dist = Pathname.new 'dist'
 
     Dir.chdir('dist') do
-      html_files = collect_html_files.to_a
+      html_files = collect_html_files
       set = html_files.to_set
 
       html_files.each do |html_file|
@@ -35,7 +36,7 @@ module Verification
         links.each do |link|
           unless set.member? link
             asciidoc_file = find_corresponding_asciidoc_file(root, html_file)
-            puts "#{html_file} [#{asciidoc_file}] refers to nonexistent #{link}"
+            puts "#{asciidoc_file} refers to nonexistent #{link}"
           end
         end
       end

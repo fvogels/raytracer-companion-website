@@ -1,4 +1,5 @@
-require 'open3'
+require 'pathname'
+
 
 WIF = 'C:\Python39\Scripts\wif'
 
@@ -34,20 +35,26 @@ def render_image(chai_path, render_path)
 end
 
 
-def compile_asciidoc(source, destination)
-  puts "#{source} -> #{destination}"
+def compile_asciidoc_file(source_pathname, destination_pathname)
+  puts "#{source_pathname} -> #{destination_pathname}"
 
-  destination.dirname.mkpath
+  compile_asciidoc_string(source_pathname.read, destination_pathname)
+end
+
+
+def compile_asciidoc_string(string, destination_pathname)
+  destination_pathname.dirname.mkpath
 
   attributes = {
     'nofooter' => true,
     'source-highlighter' => 'pygments',
     'stem' => 'latexmath',
     'toc' => 'left',
+    'toclevels' => 4,
     'cpp' => 'C++',
   }
 
-  Asciidoctor.convert_file(source.to_s, safe: :safe, backend: 'html', to_file: destination.to_s, attributes: attributes)
+  Asciidoctor.convert(string, safe: :safe, backend: 'html', to_file: destination_pathname.to_s, attributes: attributes)
 end
 
 
@@ -79,4 +86,18 @@ def dist_path(path)
   docs_root = Pathname.new('docs').expand_path
   dist_root = Pathname.new('dist').expand_path
   dist_root.join(path.relative_path_from(docs_root)).expand_path
+end
+
+
+def extension_difficulty(extension)
+  case extension
+  when Pathname
+    contents = extension.read
+  when String
+    contents = extension
+  else
+    raise "Argument extension should be Pathname or string; instead, it is a #{extension.class}"
+  end
+
+  "TODO"
 end

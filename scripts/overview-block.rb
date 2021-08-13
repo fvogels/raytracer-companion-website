@@ -15,6 +15,7 @@ class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
     lines = [ "" ]
     lines << '[cols="1,2"]'
     lines << '|==='
+    lines += generate_difficulty(overview_data[:difficulty])
     lines += generate_prerequisities(overview_data[:requires])
     lines += generate_exclusive_rows(overview_data[:excludes])
     lines += generate_reading_material(overview_data[:reading])
@@ -28,16 +29,22 @@ class OverviewBlock < Asciidoctor::Extensions::BlockProcessor
 
   private
   def parse_overview(lines)
-    result = { requires: [], excludes: [], reading: [] }
+    result = { requires: [], excludes: [], reading: [], difficulty: nil }
 
     lines.each_with_object(result) do |line, result|
       case line
       when /^(requires|excludes|reading) (.*)$/
         result[$1.to_sym] << $2
+      when /^difficulty (.*)$/
+        result[:difficulty] = $1
       else
         abort "Unknown overview entry: #{line}"
       end
     end
+  end
+
+  def generate_difficulty(difficulty)
+    [ "| *Difficulty* | #{difficulty}" ]
   end
 
   def generate_prerequisities(extensions)
