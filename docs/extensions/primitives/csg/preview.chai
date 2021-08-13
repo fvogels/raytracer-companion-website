@@ -1,7 +1,7 @@
 // movie
 def scene_at(now)
 {
-  var camera = Cameras.perspective( [ "eye": Animations.circular( ["position": pos(0,0,10), "around": pos(0,0,0), "duration": seconds(5)] )[now],
+  var camera = Cameras.perspective( [ "eye": pos(0,0,10),
                                       "look_at": pos(0,0,0) ] )
 
   var material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
@@ -12,11 +12,17 @@ def scene_at(now)
                                       "transparency": 0,
                                       "refractive_index": 0 ] )
  
+  var angle = Animations.animate(degrees(0), degrees(360), seconds(5))[now]
+ 
   var csg1 = translate(vec(0,3,0), union( [ translate(vec(0,0,-0.5), sphere()), translate(vec(0,0,0.5), sphere()) ] ))
   var csg2 = intersection( translate(vec(0,0,-0.5), sphere()), translate(vec(0,0,0.5), sphere()) )
   var csg3 = translate(vec(0,-3,0),difference( translate(vec(0,0,-0.5), sphere()), translate(vec(0,0,0.5), sphere()) ))
 
-  var root = decorate(material, union([csg1, csg2, csg3]))
+  var root = decorate(material, union([
+  	rotate_around_y(angle, csg1),
+  	rotate_around_y(angle, csg2),
+  	rotate_around_y(angle, csg3)
+  ]))
 
   var lights = [ Lights.omnidirectional( pos(0,0,5), Colors.white() ) ]
 
