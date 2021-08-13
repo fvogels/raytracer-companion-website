@@ -101,4 +101,4 @@ You can see this algorithm at work in ``SphereImplementation::compute_normal_at`
 
 === ``group_id``
 
-``group_id`` represents which group the intersected primitive is part of. This is important for <</extensions/renderers/cartoon/explanations#,edge detection>>.
+``group_id`` represents which group the intersected primitive is part of. This is important for <</extensions/renderers/edge/explanations#,edge detection>>.

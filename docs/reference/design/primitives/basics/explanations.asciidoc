@@ -605,7 +605,7 @@ The ray (yellow) hits the sphere in two locations stem:[H_1] and stem:[H_2]. For
 * The (global) position: where the hit is located, expressed in the world's coordinate system.
 * The normal vector: a vector of length 1 that is perpendicular on the sphere at the hit position.
 * The material: what material the primitive is made of at that point.
-* The group id: this allows you to specify which primitives form a whole. This is important for <</extensions/renderers/cartoon/explanations#,edge detection>>.
+* The group id: this allows you to specify which primitives form a whole. This is important for <</extensions/renderers/edge/explanations#,edge detection>>.
 
 The difference between the local and the global position only becomes apparent when primitives are moved around.
 Say, for example, that the ray goes through the top of the sphere. The sphere itself is centered at stem:[(0,0,0)].
