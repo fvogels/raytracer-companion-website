@@ -74,8 +74,17 @@ module TOCGeneration
     end
 
     def generate_entries(entries, is_extension)
-      generate_line('[cols="^,^"]')
+      if is_extension
+        generate_line('[.center,options="header", cols="^1,^9",width="60%"]')
+      else
+        generate_line('[.center,cols="^",width="60%"]')
+      end
+
       generate_line('|===')
+
+      if is_extension
+        generate_line('| Difficulty | Extension ')
+      end
 
       entries.sort_by(&:name).each do |entry|
         generate_entry(entry, is_extension)
@@ -94,9 +103,9 @@ module TOCGeneration
 
         # raise "Could not find difficulty in #{entry.path}" unless difficulty
 
-        generate_line "| <<#{relative_path.to_s}#,#{title}>> | #{difficulty}"
+        generate_line "| #{difficulty} | <<#{relative_path.to_s}#,#{title}>>"
       else
-        generate_line "| <<#{relative_path.to_s}#,#{title}>> | NA"
+        generate_line "| <<#{relative_path.to_s}#,#{title}>>"
       end
     end
 
