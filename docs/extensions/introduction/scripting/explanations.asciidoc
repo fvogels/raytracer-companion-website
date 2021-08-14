@@ -268,3 +268,148 @@ Don't forget you can move the camera.
 
 image::seven-spheres-touching-v3.png[align="center"]
 ====
+
+== Animations
+
+Up until now, we've been rendering single images.
+Let's see how we can make animations instead.
+
+=== Scene Function
+
+The idea behind animations is very simple: it's merely a sequence of images shown quickly one after the other.
+For each such image we have to define a separate scene.
+These scenes will be very similar: things will probably only have moved a tiny bit from one scene to the next.
+
+The easiest way to create a series of scenes is to define a function:
+
+[source,language="chai"]
+----
+def scene_at(now)
+{
+  var camera = ...
+
+  var root = ...
+
+  var lights = ...
+
+  // writing "return" is optional
+  create_scene(camera, root, lights)
+}
+----
+
+The parameter `now` represents the time.
+Let's for now pretend it is a `double`.
+Say you want an animation lasting 10 seconds that runs at 50 frames per second.
+The function should then be called with `now` equal to `0.0`, `0.02`, `0.04`, `0.06`, etc.
+
+[source,language="chai"]
+----
+def scene_at(now)
+{
+  var camera = ...
+
+  var root = translate(vec(now, 0, 0), sphere())
+
+  var lights = ...
+
+  // writing "return" is optional
+  create_scene(camera, root, lights)
+}
+----
+
+This describes an animation where the sphere moves to the right.
+
+=== Animate
+
+Now, this won't actually work: `now` is not a `double`, but a `TimeStamp`, meaning we can't directly use `now` as a coordinate.
+Fortunately, it's not too hard to make it work:
+
+[source,language="chai"]
+----
+def scene_at(now)
+{
+  var camera = ...
+
+  var x = Animations.animate(0, 10, seconds(5))
+  var root = translate(vec(x[now], 0, 0), sphere())
+
+  var lights = ...
+
+  create_scene(camera, root, lights)
+}
+----
+
+Here, ``Animations.animate(0, 5, seconds(10))`` means "we wish to have an animated `double` `x` that goes from `0` to `10` in 5 seconds".
+We can ask what ``x``'s current value is using `x[now]`.
+Assuming 50 fps, in the first frame of animation, `x[now]` will equal `0`, for the second frame `0.02`, etc.
+
+=== Animation Pipeline
+
+In order to produce an animation, we need to update the pipeline portion of the script.
+Previously, this was
+
+[source,language="chai"]
+----
+pipeline( scene,
+          [ Pipeline.renderer(renderer),
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )
+----
+
+To create an animation, we need to change this to
+
+[source,language="chai"]
+----
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
+----
+
+* ``scene_animation`` expects the scene function as its first argument and the duration of the animation as its second.
+* `Pipeline.animation(30)` specifies how many frames per second need to be rendered.
+
+Since the animation lasts 5 seconds and the frame rate is set to 30, rendering this script will generate 5 &times; 30 = 150 images.
+
+Here's a complete script describing an animation.
+
+[source,language="chai"]
+----
+def scene_at(now)
+{
+    var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                        "look_at": pos(0,0,0) ] )
+
+    var x = Animations.animate(-5, 5, seconds(5))
+    var root = translate(vec(x[now], 0, 0), sphere())
+
+    var lights = [ Lights.omnidirectional( pos(2,2,5), Colors.white() ) ]
+
+    create_scene(camera, root, lights)
+}
+
+var raytracer = Raytracers.latest()
+
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.single(),
+                                     "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )
+
+----
+
+Rendering this produces the following little movie:
+
+video::animated-sphere.mp4[align="center"]
+
+[TASK]
+====
+
+====
