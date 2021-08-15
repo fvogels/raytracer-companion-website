@@ -86,7 +86,7 @@ Note how the script does define other things besides just the scene:
 
 * The renderer (standard)
 * The bitmap size (500&times;500)
-* The output format (wif format printed out in base64 format)
+* The output format (wif format printed out to STDOUT in base64 format)
 * The render quality (single sampler)
 ====
 
@@ -384,7 +384,7 @@ def scene_at(now)
     var x = Animations.animate(-5, 5, seconds(5))
     var root = translate(vec(x[now], 0, 0), sphere())
 
-    var lights = [ Lights.omnidirectional( pos(2,2,5), Colors.white() ) ]
+    var lights = [ ]
 
     create_scene(camera, root, lights)
 }
@@ -411,5 +411,23 @@ video::animated-sphere.mp4[align="center"]
 
 [TASK]
 ====
+Replicate the following animation:
 
+video::animated-sphere-right-to-left.mp4[align="center"]
+====
+
+[TASK]
+====
+Replicate the following animation:
+
+video::animated-sphere-vertical.mp4[align="center"]
+====
+
+[TASK]
+====
+Replicate the following animation:
+
+video::animated-sphere-z-axis.mp4[align="center"]
+
+Note that you cannot (yet) scale primitives.
 ====

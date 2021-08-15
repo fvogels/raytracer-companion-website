@@ -4,8 +4,8 @@ def scene_at(now)
     var camera = Cameras.perspective( [ "eye": pos(0,0,5),
                                         "look_at": pos(0,0,0) ] )
 
-    var x = Animations.animate(-5, 5, seconds(5))
-    var root = translate(vec(x[now], 0, 0), sphere())
+    var z = Animations.animate(-5, 5, seconds(5))
+    var root = translate(vec(0, 0, z[now]), sphere())
 
     var lights = [ ]
 
