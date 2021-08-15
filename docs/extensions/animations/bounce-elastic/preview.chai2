@@ -1,0 +1,51 @@
+// movie
+def material(color)
+{
+  Materials.uniform( [ "ambient": color * 0.1,
+                       "diffuse": color * 0.8,
+                       "specular": Colors.white(),
+                       "specular_exponent": 100,
+                       "reflectivity": 0.5 ] )
+}
+
+def scene_at(now)
+{
+  var eye_position = Animations.animate(pos(0, 1, 10), pos(0, 1, 20), seconds(5))[now]
+  var camera = Cameras.perspective( [ "eye": eye_position,
+                                      "look_at": pos(0,0,0) ] )
+
+  var bouncy_sphere_position1 = Animations.ease( Animations.animate( pos(-3,5,0), pos(-3,0,0), seconds(5) ), Easing.bounce(5, 0) )[now]
+  var bouncy_sphere_position2 = Animations.ease( Animations.animate( pos(0,5,0), pos(0,0,0), seconds(5) ), Easing.bounce(5, 3) )[now]
+  var bouncy_sphere_position3 = Animations.ease( Animations.animate( pos(3,5,0), pos(3,0,0), seconds(5) ), Easing.bounce(10, 10) )[now]
+
+  var elastic_sphere_position1 = Animations.ease( Animations.animate( pos(-3,5,0), pos(-3,0,0), seconds(3) ), Easing.elastic(10, 0) )[now]
+  var elastic_sphere_position2 = Animations.ease( Animations.animate( pos(0,5,0), pos(0,0,0), seconds(3) ), Easing.elastic(10, 3) )[now]
+  var elastic_sphere_position3 = Animations.ease( Animations.animate( pos(3,5,0), pos(3,0,0), seconds(3) ), Easing.elastic(10, 10) )[now]
+
+  var bouncy = union([ translate(vec(0,-1,0), decorate( material(Colors.white()), crop_spherical(xz_plane(), 5))),
+                       translate(bouncy_sphere_position1 - pos(0, 0, 0), decorate( material(Colors.red()), sphere()) ),
+                       translate(bouncy_sphere_position2 - pos(0, 0, 0), decorate( material(Colors.green()), sphere()) ),
+                       translate(bouncy_sphere_position3 - pos(0, 0, 0), decorate( material(Colors.blue()), sphere()) ) ])
+
+  var elastic = union([ translate(elastic_sphere_position1 - pos(0, 0, 0), decorate( material(Colors.red()), sphere()) ),
+                        translate(elastic_sphere_position2 - pos(0, 0, 0), decorate( material(Colors.green()), sphere()) ),
+                        translate(elastic_sphere_position3 - pos(0, 0, 0), decorate( material(Colors.blue()), sphere()) ) ])
+
+  var root = union([ bouncy, translate(vec(0, 0, 10), elastic) ])
+
+  var lights = [ Lights.omnidirectional( pos(0,5,5), Colors.white() ) ]
+
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v6()
+var renderer    = Renderers.standard( [ "width": 100,
+                                        "height": 100,
+                                        "sampler": Samplers.multijittered(1),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
