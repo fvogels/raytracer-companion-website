@@ -40,6 +40,17 @@ image::elastic4.png[align="center",width="50%"]
 image::elastic5.png[align="center",width="50%"]
 ====
 
+=== Implementation
+
+[TASK]
+====
+Create files `math/functions/easing/elastic-easing-function.cpp/.h`.
+Use `linear-easing-function.h/.cpp` as a guide.
+
+Don't forget to add a binding for the scripting language.
+In `scripting/math-module`, update the `EasingLibrary` structure and add an extra `BIND` to `add_easing`.
+====
+
 == Bouncy
 
 === Formula
@@ -50,11 +61,11 @@ Here too you will need to find the mathematical formula that describes a bouncy 
 ====
 * Start off with stem:[\cos(x)].
 +
-image::cosine.png[align="center",width="50%"]
+image::bouncy1.png[align="center",width="50%"]
 * The function goes below the X-axis.
   You'll need to add something so that it remains positive.
 +
-image::bouncy.png[align="center",width="50%"]
+image::bouncy2.png[align="center",width="50%"]
 * Once you have found the trick to make the stem:[\cos] bounce, you can apply it to your elastic formula.
 ====
 
@@ -66,5 +77,4 @@ Create files `math/functions/easing/bounce-easing-function.cpp/.h`.
 Use `linear-easing-function.h/.cpp` as a guide.
 
 Don't forget to add a binding for the scripting language.
-In `scripting/math-module`, update the `EasingLibrary` structure and add an extra `BIND` to `add_easing`.
 ====
