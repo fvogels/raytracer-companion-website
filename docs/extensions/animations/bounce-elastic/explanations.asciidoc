@@ -20,24 +20,24 @@ Rely on a graphing software such as https://www.desmos.com/calculator[Desmos's g
 ====
 * Start by making a graph of stem:[\cos(x)].
 +
-image::cosine.png[align="center",width="50%"]
+image::elastic.png[align="center",width="50%"]
 * stem:[\cos(x)] swings around stem:[0] going back and forth between stem:[-1] and stem:[1].
   We need it to swing between stem:[0] and stem:[2] instead.
 +
-image::cosine2.png[align="center",width="50%"]
+image::elastic2.png[align="center",width="50%"]
 * It starts at 2 and goes down to 0.
   We need it to start at 0 and go up to 2.
   Modify the formula so that we get
 +
-image::cosine3.png[align="center",width="50%"]
+image::elastic3.png[align="center",width="50%"]
 * Try to increase the frequency. Add some number in the formule, e.g., stem:[F \cos(x)] or stem:[\cos(F x)] where stem:[F] is some number representing the frequency.
 +
-image::cosine4.png[align="center",width="50%"]
+image::elastic4.png[align="center",width="50%"]
 * Find a way to make the bumps become smaller as time passes by.
   You will need to divide the stem:[\cos] by an expression that involves stem:[x].
   Be careful that you divide by numbers greater than 1, otherwise your animation will swing outside the stem:[[0, 2\]] interval.
 +
-image::cosine5.png[align="center",width="50%"]
+image::elastic5.png[align="center",width="50%"]
 ====
 
 == Bouncy
