@@ -120,8 +120,8 @@ would be perceived as very abrupt. Compare the animations below:
 
 [cols="^,^"]
 |===
-| image:abrupt.png[]
-| image:smooth.png[]
+a| video::abrupt.mp4[]
+a| video::smooth.mp4[]
 |===
 
 Animations can be made smoother using _easing functions_. Below are a few examples:
