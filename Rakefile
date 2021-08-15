@@ -85,6 +85,22 @@ end.then do |paths|
   task :tex => paths.map(&:to_s)
 end
 
+Rake::FileList.new('docs/**/*.gp').map do |path|
+  absolute_source_path = Pathname.new(path).expand_path
+  absolute_target_path = dist_path(absolute_source_path).sub_ext('.png')
+  relative_target_path = absolute_target_path.relative_path_from(Pathname.pwd)
+
+  desc "Render #{absolute_source_path}"
+  file relative_target_path.to_s => absolute_source_path.to_s do |task|
+    gnuplot_render(absolute_source_path, absolute_target_path)
+  end
+
+  relative_target_path
+end.then do |paths|
+  desc "Compile gnuplot files"
+  task :gnuplot => paths.map(&:to_s)
+end
+
 Rake::FileList.new('docs/**/*.svg').map do |path|
   absolute_source_path = Pathname.new(path).expand_path
   absolute_target_path = dist_path(absolute_source_path)
@@ -114,11 +130,12 @@ end
 
 desc 'Generates table of contents'
 task :toc do
+  puts "Generating TOC"
   generate_toc
 end
 
 desc 'Makes a full build'
-task :default => [ :toc, :html, :chai, :tex, :copy ]
+task :default => [ :toc, :html, :chai, :tex, :gnuplot, :copy ]
 
 
 # ONLY DO THIS WHEN EVERYTHING IS FINISHED

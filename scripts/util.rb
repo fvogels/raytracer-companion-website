@@ -152,3 +152,10 @@ def explanations_title(extension)
 
   line[2..-1]
 end
+
+
+def gnuplot_render(source, destination)
+  destination.dirname.mkpath
+
+  sh "gnuplot -e \"set terminal pngcairo; set output '#{destination.expand_path.to_s}'\" -c #{source}"
+end
