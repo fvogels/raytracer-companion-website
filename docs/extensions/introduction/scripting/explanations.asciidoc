@@ -431,3 +431,21 @@ video::animated-sphere-z-axis.mp4[align="center"]
 
 Note that you cannot (yet) scale primitives.
 ====
+
+[TASK]
+====
+Replicate the following animation:
+
+video::animated-spheres.mp4[align="center"]
+
+Note that you cannot (yet) scale primitives.
+====
+
+[TASK]
+====
+Replicate the following animation:
+
+video::spheres-animated-camera.mp4[align="center"]
+
+Don't overcomplicate things: scripting-wise, achieving this is not more difficult than the previous tasks.
+====
