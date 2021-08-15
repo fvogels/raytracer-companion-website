@@ -4,32 +4,66 @@
 ----
 difficulty 3
 requires animations/easing-library
+reading animations/bouncy
 reading math/animations
 reading design/animations/basics
 ----
 
 preview::preview[]
 
-== Implementation
+== Elastic
 
-The bounce animation looks as follows:
+You'll need to find the formula for bouncing yourself.
+Rely on a graphing software such as https://www.desmos.com/calculator[Desmos's graphing calculator].
 
-image::graph.png[align="center"]
-
-The animation can be parameterized in two ways:
-
-* Number of bounces
+[TASK]
+====
+* Start by making a graph of stem:[\cos(x)].
 +
-image::bounces.png[align="center"]
-* Bounce absorption
+image::cosine.png[align="center",width="50%"]
+* stem:[\cos(x)] swings around stem:[0] going back and forth between stem:[-1] and stem:[1].
+  We need it to swing between stem:[0] and stem:[2] instead.
 +
-image::absorption.png[align="center"]
+image::cosine2.png[align="center",width="50%"]
+* It starts at 2 and goes down to 0.
+  We need it to start at 0 and go up to 2.
+  Modify the formula so that we get
++
+image::cosine3.png[align="center",width="50%"]
+* Try to increase the frequency. Add some number in the formule, e.g., stem:[F \cos(x)] or stem:[\cos(F x)] where stem:[F] is some number representing the frequency.
++
+image::cosine4.png[align="center",width="50%"]
+* Find a way to make the bumps become smaller as time passes by.
+  You will need to divide the stem:[\cos] by an expression that involves stem:[x].
+  Be careful that you divide by numbers greater than 1, otherwise your animation will swing outside the stem:[[0, 2\]] interval.
++
+image::cosine5.png[align="center",width="50%"]
+====
+
+== Bouncy
+
+=== Formula
+
+Here too you will need to find the mathematical formula that describes a bouncy animation.
+
+[TIP]
+====
+* Start off with stem:[\cos(x)].
++
+image::cosine.png[align="center",width="50%"]
+* The function goes below the X-axis.
+  You'll need to add something so that it remains positive.
++
+image::bouncy.png[align="center",width="50%"]
+* Once you have found the trick to make the stem:[\cos] bounce, you can apply it to your elastic formula.
+====
+
+=== Implementation
 
 [TASK]
 ====
 Create files `math/functions/easing/bounce-easing-function.cpp/.h`.
 Use `linear-easing-function.h/.cpp` as a guide.
-You'll need to find the formula yourself.
 
 Don't forget to add a binding for the scripting language.
 In `scripting/math-module`, update the `EasingLibrary` structure and add an extra `BIND` to `add_easing`.
