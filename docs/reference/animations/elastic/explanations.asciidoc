@@ -1,0 +1,22 @@
+= Elastic Animation
+
+== Visualization
+
+video::elastic.mp4[align="center"]
+
+The elastic easing function's graph looks like this:
+
+image::graph.png[align="center",width="50%"]
+
+The fact that it starts at 0 and bounces against the 1-ceiling might seem unintuitive to you, but don't forget that the _starting position_ corresponds to 0 and the _ending position_ to 1.
+
+== Parameters
+
+The animation can be parameterized in two ways:
+
+* Number of bounces
++
+image::bounces.png[align="center"]
+* Bounce absorption
++
+image::absorption.png[align="center"]
