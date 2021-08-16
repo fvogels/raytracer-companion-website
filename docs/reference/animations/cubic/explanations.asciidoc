@@ -1,0 +1,34 @@
+= Cubic Easing Function
+
+== Visualization
+
+image::comparison.png[align="center",width="50%"]
+
+== Formulae
+
+=== In
+
+[stem]
+++++
+  f(t) = t^3
+++++
+
+=== Out
+
+[stem]
+++++
+  f(t) = t^3 - 3t^2 +3t
+++++
+
+=== In-Out
+
+[stem]
+++++
+  f(t) =
+  \left\{
+      \begin{array}{lr}
+        4 t^3 & t \leq 0.5 \\
+        4 t^3 - 12 t^2 + 12 t - 3& t > 0.5 \\
+      \end{array}
+  \right.
+++++
