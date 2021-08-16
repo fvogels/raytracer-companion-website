@@ -1,9 +1,8 @@
-= Elastic Animation
+= Quadratic Easing Function
 
 == Visualization
 
 image::comparison.png[align="center",width="50%"]
-
 
 == Formulae
 
