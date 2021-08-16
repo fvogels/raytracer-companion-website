@@ -1,0 +1,35 @@
+= Elastic Animation
+
+== Visualization
+
+image::comparison.png[align="center",width="50%"]
+
+
+== Formulae
+
+=== In
+
+[stem]
+++++
+  f(t) = t^2
+++++
+
+=== Out
+
+[stem]
+++++
+  f(t) = 2t-t^2
+++++
+
+=== In-Out
+
+[stem]
+++++
+  f(t) =
+  \left\{
+      \begin{array}{lr}
+        2t^2 & t \leq 0.5 \\
+        -2t^2 + 4t - 1 & t > 0.5 \\
+      \end{array}
+  \right.
+++++
