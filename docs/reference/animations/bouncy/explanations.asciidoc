@@ -1,4 +1,4 @@
-= Bouncy Animation
+= Bouncy Easing Function
 
 == Visualization
 
