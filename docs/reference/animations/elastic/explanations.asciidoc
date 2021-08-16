@@ -1,4 +1,4 @@
-= Elastic Animation
+= Elastic Easing Function
 
 == Visualization
 
