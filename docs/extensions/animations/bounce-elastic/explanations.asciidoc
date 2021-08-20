@@ -4,10 +4,10 @@
 ----
 difficulty 3
 requires animations/easing-library
-reading animations/elastic
-reading animations/bouncy
 reading math/animations
 reading design/animations/basics
+reading animations/elastic
+reading animations/bouncy
 ----
 
 preview::preview[]
