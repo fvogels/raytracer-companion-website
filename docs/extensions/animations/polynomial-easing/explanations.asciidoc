@@ -1,0 +1,37 @@
+= Cubic Easing Function
+
+[overview]
+----
+difficulty 3
+requires animations/easing-library
+reading animations/basics
+reading design/animations/basics
+reading animations/easing-functions
+reading animations/quadratic
+reading animations/cubic
+reading animations/quintic
+----
+
+preview::preview[]
+
+== Implementation
+
+[TASK]
+====
+Create files `math/functions/easing/quadratic-function.cpp/.h` and implement `quadratic_in`, `quadratic_out` and `quadratic_inout` as described in <</reference/animations/quadratic/explanations#,here>>.
+Use `linear-easing-function.h/.cpp` as a guide.
+
+Don't forget to add a binding for the scripting language. In `scripting/math-module`, update the `EasingLibrary` structure and add an extra `BIND` to `add_easing`.
+====
+
+[TASK]
+====
+Do the same for the <</reference/animations/cubic/explanations#,cubic easing function>>.
+Put the implementation in separate files `math/functions/easing/cubic-function.cpp/.h`.
+====
+
+[TASK]
+====
+Do the same for the <</reference/animations/quintic/explanations#,quintic easing function>>.
+Put the implementation in separate files `math/functions/easing/quintic-function.cpp/.h`.
+====
