@@ -11,11 +11,20 @@ def material(color)
 def position(now)
 {
   var anim = Animations.animate(0, 1, seconds(4))[now]
+  var x
+  var y
 
-  if ( anim <= 0.25 ) { pos(-2, 2, 0) }
-  else if ( anim <= 0.5 ) { pos(2, 2, 0) }
-  else if ( anim <= 0.75) { pos(2, -2, 0) }
-  else { pos(-2, -2, 0) }
+  if ( anim <= 0.25 ) { x = Animations.ease(Animations.animate(-1, 1, seconds(1)), Easing.quadratic_inout())[now - seconds(0)] }
+  else if ( anim <= 0.5) { x = 1 }
+  else if ( anim <= 0.75) { x = Animations.ease(Animations.animate(1, -1, seconds(1)), Easing.quadratic_inout())[now - seconds(2)] }
+  else { x = -1 }
+
+  if ( anim <= 0.25 ) { y = 1 }
+  else if ( anim <= 0.5) { y = Animations.ease(Animations.animate(1, -1, seconds(1)), Easing.quadratic_inout())[now - seconds(1)] }
+  else if ( anim <= 0.75) { y = -1 }
+  else { y = Animations.ease(Animations.animate(-1, 1, seconds(1)), Easing.quadratic_inout())[now - seconds(3)] }
+
+  pos(x, y, 0)
 }
 
 def scene_at(now)

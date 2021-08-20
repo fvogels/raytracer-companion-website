@@ -2,30 +2,75 @@
 
 == Introduction
 
+Below is a video of a sphere moving in a square path.
+
 video::discontinuity.mp4[align="center"]
 
-image::discontinuity.png[align="center"]
+You probably don't find it very convincing: the sphere is basically teleporting.
+If you were to encounter this in reality, you'd probably have an averse feeling: to your brain, this is new and unknown, and therefore worthy of suspicion.
+Who knows, maybe this teleporting sphere might want to eat you, so better be cautious.
 
-Easing functions are functions used to create <</reference/animations/basics/explanations#,smoother animations>>.
-We say a function stem:[f] is an easing function if
+If we draw the position of the sphere as a graph, we get
 
-[stem]
-++++
-f(0) = 0 \qquad f(1) = 1
-++++
+image::discontinuity.png[align="center",width="50%"]
 
-The simplest easing function is the linear one:
+As you can see, there are sudden jumps at stem:[0.25] and stem:[0.75], also called _discontinuities_.
+This is what triggers your brain to become wary of the sphere.
+Let's try to make a less disturbing sphere:
 
-[stem]
-++++
-f(t) = t
-++++
+video::discontinuity2.mp4[align="center"]
 
-which goes from stem:[0] to stem:[1] in a straight line:
+This is much better, but the sudden change in direction at the corners comes across as unrealistic.
+Again, this is due to the fact that the laws of physics (more or less) prohibit such behavior.
+If we make a graph of the sphere's position, we get
 
-image::linear.png[align="center"]
+image::smooth-position.png[align="center",width="50%"]
 
-== Examples
+If, however, we graph the sphere's speed, we see we simply moved the discontinuity elsewhere:
+
+image::smooth-position-v.png[align="center",width="50%"]
+
+Let's replace the jumps by slopes.
+There are many ways to do this, one being
+
+image::smooth-speed.png[align="center",width="50%"]
+
+The corresponding X-position is
+
+image::smooth-speed-p.png[align="center",width="50%"]
+
+Rendering this yields
+
+video::smooth-speed.mp4[align="center"]
+
+This is more pleasing to the eye than the previous movie.
+
+== Easing
+
+On the one hand, we want to be able to simply say "move from position A to position B".
+But on the other hand, we want this movement to be smooth, which is more complicated to achieve.
+Easing functions are meant to offer the simplicity of the first combined with the pleasing aesthetics of the second.
+
+For example, say you want a sphere to move from stem:[(0, 0, 0)] to stem:[(1, 0, 0)].
+The simplest way would be
+
+image::linear.png[align="center",width="50%"]
+
+We can make this movement smoother using the easing function known as _quadratic in/out_:
+
+image::quad-inout.png[align="center",width="50%"]
+
+Note how it speeds up gently, then slows down again, arriving at a standstill at stem:[t=1].
+The in/out part refers to the fact that the speed is zero both at the start and the end.
+We could instead start at high speed and slow down to a halt, or vice versa:
+
+image::quad-in-and-out.png[align="center",width="50%"]
+
+There are an infinitude of paths leading us from stem:[0] to stem:[1]:
+
+image::easing.png[align="center",width="50%"]
+
+== Easing Functions Links
 
 * <</reference/animations/quadratic/explanations#,Quadratic>>
 * <</reference/animations/cubic/explanations#,Cubic>>
