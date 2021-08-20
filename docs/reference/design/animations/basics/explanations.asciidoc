@@ -2,7 +2,7 @@
 
 == Basic Types
 
-An animation is, as is explained on this page regarding the <</reference/math/animations/explanations#,mathematics behind animations>>,
+An animation is, as is explained on this page regarding the <</reference/animations/basics/explanations#,mathematics behind animations>>,
 a function which associates each moment in time with a value. This value can be of any type:
 ``double``, ``Angle``, ``Point3D``, &hellip.
 
@@ -211,7 +211,7 @@ auto value = anim(0.1_s); // calls lambda, which refers to 'to', which does not 
 === Example: Generalized Double Animation
 
 We now generalize the basic animation so that we can choose an initial value stem:[a], a final value stem:[b] and a duration stem:[\tau].
-Using the <</reference/math/animations/explanations#,mathematical formulae>>, we get
+Using the <</reference/animations/basics/explanations#,mathematical formulae>>, we get
 
 [stem]
 ++++
