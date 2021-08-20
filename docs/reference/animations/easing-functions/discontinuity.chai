@@ -1,0 +1,44 @@
+// movie
+def material(color)
+{
+  Materials.uniform( [ "ambient": color * 0.1,
+                       "diffuse": color * 0.8,
+                       "specular": Colors.white(),
+                       "specular_exponent": 100,
+                       "reflectivity": 0.5 ] )
+}
+
+def position(now)
+{
+  var anim = Animations.animate(0, 1, seconds(3))[now]
+
+  if ( anim <= 0.25 ) { pos(-2, 2, 0) }
+  else if ( anim <= 0.5 ) { pos(2, 2, 0) }
+  else if ( anim <= 0.75) { pos(2, -2, 0) }
+  else { pos(-2, -2, 0) }
+}
+
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0, 1, 10),
+                                      "look_at": pos(0,0,0) ] )
+
+  var boule = translate(position(now) - pos(0, 0, 0), sphere())
+
+  var root = decorate(material(Colors.red()), boule)
+
+  var lights = [ Lights.omnidirectional( pos(0,5,5), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v6()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.multijittered(2),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(3)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
