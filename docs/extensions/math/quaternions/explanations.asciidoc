@@ -3,7 +3,7 @@
 [overview]
 ----
 difficulty 2
-reading reference/math/quaternions
+reading math/quaternions
 ----
 
 [TASK]
