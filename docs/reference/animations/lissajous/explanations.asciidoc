@@ -1,0 +1,121 @@
+= Lissajous Animation
+
+== 2D
+
+Just for giggles, let's see what happens if we use stem:[\sin] and stem:[\cos] to make 2D animations.
+
+[stem]
+++++
+\begin{array}{rcl}
+  x(t) & = & \cos(2\pi t) \\
+  y(t) & = & \sin(2\pi t) \\
+\end{array}
+++++
+
+where stem:[t] varies from stem:[0] to stem:[1].
+
+image::circle.png[align="center",width="50%"]
+
+So, using that formula, we can make a shape move around in circles.
+We can experiment further by adding or changing some constants:
+
+[cols="^.^,^.^2"]
+|===
+a|
+[stem]
+++++
+\begin{array}{rcl}
+  x(t) & = & \cos(2\pi t) \\
+  y(t) & = & \sin(4\pi t) \\
+\end{array}
+++++
+a| image::lissajous1.png[align="center",width="50%"]
+a|
+[stem]
+++++
+\begin{array}{rcl}
+  x(t) & = & \cos(2\pi t) \\
+  y(t) & = & \sin(6\pi t) \\
+\end{array}
+++++
+a| image::lissajous2.png[align="center",width="50%"]
+a|
+[stem]
+++++
+\begin{array}{rcl}
+  x(t) & = & \cos(6\pi t) \\
+  y(t) & = & \sin(8\pi t) \\
+\end{array}
+++++
+a| image::lissajous3.png[align="center",width="50%"]
+a|
+[stem]
+++++
+\begin{array}{rcl}
+  x(t) & = & 2 \cos(2 \pi t) \\
+  y(t) & = & \sin(8\pi t) \\
+\end{array}
+++++
+a| image::lissajous4.png[align="center",width="50%"]
+|===
+
+We can generalize these formulae to
+
+[stem]
+++++
+\begin{array}{rcl}
+  x(t) & = & A \cdot \sin(B \cdot 2\pi \cdot t - C) \\
+  y(t) & = & D \cdot \sin(E \cdot 2\pi \cdot t) \\
+\end{array}
+++++
+
+where different choices for stem:[A], stem:[B], stem:[C], stem:[D] and stem:[E] will yield different results.
+
+== 3D
+
+We can do the same for three dimensions:
+
+[stem]
+++++
+\begin{array}{rcl}
+  x(t) & = & A \cdot \sin(B \cdot 2\pi \cdot t) \\
+  y(t) & = & C \cdot \sin(D \cdot 2\pi \cdot t - E) \\
+  z(t) & = & F \cdot \sin(G \cdot 2\pi \cdot t - H) \\
+\end{array}
+++++
+
+[cols="^.^,^.^2"]
+|===
+a|
+[stem]
+++++
+\begin{array}{rcl}
+  x(t) & = & \sin(2\pi t) \\
+  y(t) & = & \sin(2\pi t-\frac\pi2) \\
+  z(t) & = & \sin(4\pi t) \\
+\end{array}
+++++
+a| image::lissajous3d-1.png[align="center",width="50%"]
+
+a|
+[stem]
+++++
+\begin{array}{rcl}
+  x(t) & = & \sin(4\pi t) \\
+  y(t) & = & \sin(4\pi t-\frac\pi2) \\
+  z(t) & = & \sin(6\pi t) \\
+\end{array}
+++++
+a| image::lissajous3d-2.png[align="center",width="50%"]
+
+a|
+[stem]
+++++
+\begin{array}{rcl}
+  x(t) & = & \sin(8\pi t) \\
+  y(t) & = & 2 \sin(4\pi t-\frac\pi2) \\
+  z(t) & = & \sin(6\pi t) \\
+\end{array}
+++++
+a| image::lissajous3d-3.png[align="center",width="50%"]
+|===
