@@ -4,7 +4,7 @@
 
 An animation is, as is explained on this page regarding the <</reference/animations/basics/explanations#,mathematics behind animations>>,
 a function which associates each moment in time with a value. This value can be of any type:
-``double``, ``Angle``, ``Point3D``, &hellip.
+``double``, ``Angle``, ``Point3D``, &hellip;
 
 The ray tracer's animation module has three types at its core:
 
@@ -12,7 +12,7 @@ The ray tracer's animation module has three types at its core:
   a possible values for ``Duration``.
 * ``TimeStamp`` represents a moment in time. You can compare this to a date or time of day.
 * ``Animation&lt;T&gt;`` models an animation of a ``T``. For example ``Animation&lt;double&gt;``
-  represents a ``double`` animation.
+  represents a ``double`` animation, but you could also animate ``Point3D``s, ``Color``s, etc.
 
 We take a detailed look at each in turn.
 
@@ -29,14 +29,32 @@ We take a detailed look at each in turn.
 For example, say you want to create a ``Duration`` of 4 seconds,
 you can write ``4_s``. It also works with milliseconds: ``4000_ms``.
 
-Note that this only works with compile time constants: you cannot
+[NOTE]
+====
+This only works with compile time constants: you cannot
 have some variable ``x = 5`` and then use ``x_s`` to
 create a ``Duration`` of 5 seconds. In this case,
-you have no other choice than to rely on a regular factory function (e.g., ``TimeStamp::from_seconds(double)``.)
+you have no other choice than to rely on a regular factory function: ``TimeStamp::from_seconds(x)``.
+====
 
-Some standard operators have also been defined on durations, such as
-``+``, ``-``, ``*``, ``/``, ``&lt;``, ``&gt;``, ``<=``,
-``>=``, ``==`` and ``!=``.
+=== Operators
+
+Some standard operators have also been defined on durations:
+
+[.center,cols="^4,^,^4",width="50%"]
+|===
+| `Duration` | `+` | `Duration`
+| `Duration` | `-` | `Duration`
+| `Duration` | `*` | `double`
+| `double` | `*` | `Duration`
+| `Duration` | `/` | `double`
+| `Duration` | `==` | `Duration`
+| `Duration` | `!=` | `Duration`
+| `Duration` | `&lt;` | `Duration`
+| `Duration` | `&gt;` | `Duration`
+| `Duration` | `&lt;=` | `Duration`
+| `Duration` | `&gt;=` | `Duration`
+|===
 
 == TimeStamp
 
@@ -47,13 +65,23 @@ Animations will generally start at this moment. Other ``TimeStamp`` values are e
 
 To create ``TimeStamp``s, we once again rely on factory functions:
 
-* ``TimeStamp::zero()`` return the zero time stem:[T_0].
+* ``TimeStamp::zero()`` returns the zero time stem:[T_0].
 * ``TimeStamp::from_epoch(const Duration&amp; d)`` creates a ``TimeStamp`` representing
   the moment stem:[T_0 + d]. For example, stem:[T_0 + 5\mathrm{s}] is created using ``TimeStamp::from_epoch(5_s)``.
 
-The operators ``&lt;``, ``&lt;=``, ``&gt;``, ``&gt;=``, ``==``, ``!=``
-have been defined for ``TimeStamp``s. You can add ``Duration``s ``TimeStamp``s and subtract
-two ``TimeStamp``s from each other.
+=== Operators
+
+[.center,cols="^4,^,^4",width="50%"]
+|===
+| `TimeStamp` | `+` | `Duration`
+| `TimeStamp` | `-` | `Duration`
+| `TimeStamp` | `==` | `TimeStamp`
+| `TimeStamp` | `!=` | `TimeStamp`
+| `TimeStamp` | `&lt;` | `TimeStamp`
+| `TimeStamp` | `&gt;` | `TimeStamp`
+| `TimeStamp` | `&lt;=` | `TimeStamp`
+| `TimeStamp` | `&gt;=` | `TimeStamp`
+|===
 
 == ``Animation&lt;T&gt;``
 
