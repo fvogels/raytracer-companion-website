@@ -71,6 +71,11 @@ We can generalize these formulae to
 
 where different choices for stem:[A], stem:[B], stem:[C], stem:[D] and stem:[E] will yield different results.
 
+[NOTE]
+====
+For those wondering about why the original formulae used stem:[\cos] while the generalization uses stem:[\sin]: stem:[\sin(\alpha - \frac\pi2) = \cos(\alpha)].
+====
+
 == 3D
 
 We can do the same for three dimensions:
