@@ -2,7 +2,7 @@
 
 [overview]
 ----
-difficulty 3
+difficulty 2
 requires math/quaternions
 reading math/animations
 reading design/animations/basics
