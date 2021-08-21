@@ -1,7 +1,23 @@
 = Quaternions
 
-Quaternions are very much like <</reference/math/complex-numbers/explanations#,complex numbers>> in that
-they add new dimensions to the otherwise one dimensional real numbers.
+Generally, 3D games need to rotate shapes and therefore need some mathematical constructs to allow to compute the results of 3D rotations.
+One way is to rely on matrices, but these are both memory (nine ``double``s) and cpu intensive (matrix multiplication requires many operations.)
+A much more efficient way is to rely on https://en.wikipedia.org/wiki/Euler_angles[Euler angles], where a rotation is represented by three angles, i.e., three ``double``s.
+However, these have a serious weakness known as https://en.wikipedia.org/wiki/Gimbal_lock[Gimbal lock].
+Quaternions are a good balance: they require only four ``double``s and do not suffer from the Gimbal lock problem.
+
+You should be familiar with natural numbers: 0, 1, 2, 3, &hellip;
+The trouble with natural numbers is that some subtractions have no solution: there is no natural number equal to stem:[3-5].
+Negative numbers had to be invented, resulting in integers: 0, 1, -1, 2, -2, &hellip;
+However, we ran into trouble again with division: stem:[5/3] has no solution, a problem which the introduction of fractions solved.
+This trend went on: real numbers allowed to take square roots of positive values and <</reference/math/complex-numbers/explanations#,complex numbers>> also allow you to take roots of negative numbers.
+
+Quaternions are a further generalization.
+Natural numbers, integers, fractions and real numbers can be laid out on a single line and can be seen as one dimensional.
+Complex numbers add a second dimension: these form a _plane_ of numbers.
+Quaternions however go for 4 dimensions, which makes them very hard to imagine.
+Fortunately, you don't need to _understand_ them.
+You merely need to trust that the formulae work.
 
 Complex numbers introduced the imaginary unit stem:[i]. Quaternions go a step further:
 there are three _quaternion units_ named stem:[i], stem:[j] and stem:[k], each adding a new dimension.
@@ -12,8 +28,8 @@ A quaternion can be written as
   a + bi + cj + dk
 ++++
 
-The rules governing stem:[i], stem:[j] and stem:[k] are a bit more difficult than when dealing with complex numbers,
-which only added the new rule stem:[i^2 = -1]. Quaternions need rules for every possible combination:
+The rules governing stem:[i], stem:[j] and stem:[k] are a bit more difficult than when dealing with complex numbers, which only added the new rule stem:[i^2 = -1].
+Quaternions need rules for every possible combination:
 
 [stem]
 ++++
@@ -39,7 +55,7 @@ Addition and subtraction are defined as you would expect:
 [stem]
 ++++
   \begin{array}{rcl}
-    (a + bi + cj + dk) + (a' +  b'i + c'j + d'k) & = & (a + a') + (b + b')i + (c + c')j + (d + d')k \\
+    (a + bi + cj + dk) + (a' +  b'i + c'j + d'k) & = & (a + a') + (b + b')i + (c + c')j + (d + d')k \\[2mm]
     (a + bi + cj + dk) - (a' +  b'i + c'j + d'k) & = & (a - a') + (b - b')i + (c - c')j + (d - d')k \\
   \end{array}
 ++++
@@ -80,22 +96,63 @@ To rotate around an axis that does no go through the origin, some extra effort i
 If you want to rotate point stem:[P(x, y, z)] an angle stem:[\theta] around the axis whose direction is represented by the _unit vector_ stem:[\vec v(r_\mathrm{x}, r_\mathrm{y}, r_\mathrm{z})], follow
 these steps:
 
-. Compute the quaternion stem:[p]:
+* Compute the quaternion stem:[p]:
 +
 [stem]
 ++++
   p = x i + y j + z k
 ++++
-. Compute the quaternion stem:[q]:
+* Compute the quaternion stem:[q]:
 +
 [stem]
 ++++
   q = \cos(\frac\theta2) + \sin(\frac\theta2) r_\mathrm{x} i + \sin(\frac\theta2) r_\mathrm{y} j + \sin(\frac\theta2) r_\mathrm{z} k
 ++++
-. Multiply as follows:
+* Multiply as follows:
 +
 [stem]
 ++++
   p' = q \cdot p \cdot q^*
 ++++
 * stem:[p'] will have the form stem:[x' i+y' j+z' k]. The rotation of stem:[P] is stem:[P'(x', y', z')].
+
+== Example
+
+Say you want to rotate a point stem:[P = (1, 0, 0)] by an angle of stem:[90^\circ] around the Y-axis.
+Take a moment to understand what the result should be: we expect the result of this rotation to be stem:[p' = (0, 0, -1)].
+
+* We compute the quaternion stem:[p]:
++
+[stem]
+++++
+p = 1 \cdot i + 0 \cdot j + 0 \cdot k = i
+++++
+* The Y-axis is represented by the unit vector stem:[\vec{v} = (0, 1, 0)].
+* The angle stem:[\theta] is stem:[90^\circ].
+* We compute the quaternion stem:[q]:
++
+[stem]
+++++
+q = \cos(45^\circ) + 0 \cdot \sin(45^\circ) \cdot i + 1 \cdot \sin(45^\circ) \cdot j + 0 \cdot \sin(45^\circ) \cdot k = \cos(45^\circ) + \sin(45^\circ) \cdot j
+++++
+* We compute the conjugate stem:[q^*]:
++
+[stem]
+++++
+q^* = \cos(45^\circ) - \sin(45^\circ) \cdot j
+++++
+* We compute stem:[q \cdot p \cdot q^*]:
++
+[stem]
+++++
+  \begin{array}{rcl}
+    q \cdot p \cdot q^* & = & (\cos(45^\circ) + \sin(45^\circ) \cdot j) \cdot i \cdot (\cos(45^\circ) - \sin(45^\circ) \cdot j) \\[2mm]
+    & = & (\cos(45^\circ) \cdot i + \sin(45^\circ) \cdot j i) \cdot (\cos(45^\circ) - \sin(45^\circ) \cdot j) \\[2mm]
+    & = & (\cos(45^\circ) \cdot i - \sin(45^\circ) \cdot k) \cdot (\cos(45^\circ) - \sin(45^\circ) \cdot j) \\[2mm]
+    & = & \cos(45^\circ)^2 \cdot i - \sin(45^\circ) \cos(45^\circ) \cdot k - \cos(45^\circ) \sin(45^\circ) \cdot ij + \sin(45^\circ)^2 \cdot k j \\[2mm]
+    & = & \frac{1}{2} i - \frac{1}{2} \cdot k - \frac{1}{2} \cdot k - \frac{1}{2} \cdot i \\[2mm]
+    & = & - k \\[2mm]
+    & = & 0 \cdot i + 0 \cdot j - 1 \cdot k \\
+  \end{array}
+++++
+* From this we can extract the coordinates of stem:[p']: stem:[(0, 0, -1)], which is exactly what we expected.
