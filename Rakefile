@@ -5,6 +5,7 @@ require 'pathname'
 require_relative './scripts/overview-block'
 require_relative './scripts/task-block'
 require_relative './scripts/preview-block-macro'
+require_relative './scripts/challenge-block-macro'
 require_relative './scripts/util'
 require_relative './scripts/verify'
 require_relative './scripts/toc-generator'
@@ -17,6 +18,7 @@ Asciidoctor::Extensions.register do
   docinfo_processor TaskBlockDocinfoProcessor if document.basebackend? 'html'
   block_macro PreviewBlockMacro
   docinfo_processor PreviewBlockMacroDocinfoProcessor if document.basebackend? 'html'
+  block_macro ChallengeBlockMacro
 end
 
 
