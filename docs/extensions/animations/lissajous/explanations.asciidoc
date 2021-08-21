@@ -2,9 +2,10 @@
 
 [overview]
 ----
-difficulty 3
+difficulty 2
 reading math/animations
 reading design/animations/basics
+reading animations/lissajous
 ----
 
 preview::preview[]
