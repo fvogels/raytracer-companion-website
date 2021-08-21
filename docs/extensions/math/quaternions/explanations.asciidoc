@@ -15,14 +15,14 @@ Implement the class ``Quaternion``. Following operations will be required:
 * A member function ``Point3D rotate(const Point3D&amp; p)`` which rotates ``p``.
 * The member function ``conjugate``.
 * The operators
-**``Quaternion + Quaternion``
-**``Quaternion - Quaternion``
-**``double * Quaternion``
-**``Quaternion * double``
-**``Quaternion * Quaternion``
-**``Quaternion / double``
-**``Quaternion += Quaternion``
-**``Quaternion -= Quaternion``
-**``Quaternion *= double``
-**``Quaternion /= double``
+** ``Quaternion + Quaternion``
+** ``Quaternion - Quaternion``
+** ``double * Quaternion``
+** ``Quaternion * double``
+** ``Quaternion * Quaternion``
+** ``Quaternion / double``
+** ``Quaternion += Quaternion``
+** ``Quaternion -= Quaternion``
+** ``Quaternion *= double``
+** ``Quaternion /= double``
 ====
