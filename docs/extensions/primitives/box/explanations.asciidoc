@@ -1,0 +1,66 @@
+= Box
+
+[overview]
+----
+difficulty 2
+reading design/primitives/ray-intersections
+----
+
+preview::preview[]
+
+== Implementation
+
+[TASK]
+====
+Implement the rectangle primitive.
+
+* Make three variants.
+** `xy_rectangle(x_size, y_size)`
+** `xz_rectangle(x_size, z_size)`
+** `yz_rectangle(y_size, z_size)`.
+* The rectangles should their its center at stem:[(0, 0, 0)].
+
+[TIP]
+=====
+Rectangles are in essence finite planes, so you might want to start off by looking at how planes are implemented.
+=====
+====
+
+
+[TASK]
+====
+Implement the square primitive.
+
+* Make three variants.
+** ``xy_square(size)``
+** ``xz_square(size)``
+** ``yz_square(size)``
+* The squares should have its center at stem:[(0, 0, 0)].
+
+[TIP]
+=====
+KISS.
+=====
+====
+
+[TASK]
+====
+Implement a box primitive.
+
+[source,language="chai"]
+----
+box(4, 2, 1)
+----
+
+should create a box centered around stem:[(0, 0, 0)], with dimensions stem:[4 \times 2 \times 1].
+====
+
+[TASK]
+====
+Implement a cube primitive.
+
+* The cube should have dimensions 1 &times; 1 &times; 1.
+* The cube should be centered around stem:[(0, 0, 0)].
+====
+
+challenge::challenge[]
