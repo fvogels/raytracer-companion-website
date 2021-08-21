@@ -1,4 +1,4 @@
-= Cubic Easing Function
+= Polynomial Easing Functions
 
 [overview]
 ----
