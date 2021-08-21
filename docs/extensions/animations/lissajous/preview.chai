@@ -13,24 +13,16 @@ def scene_at(now)
   var camera = Cameras.perspective( [ "eye": pos(0,5,15),
                                       "look_at": pos(0,0,0) ] )
 
-  var pos1 = Animations.lissajous( [ "x_amplitude": 1,
-                                     "y_amplitude": 1,
-                                     "x_frequency": 1,
-                                     "y_frequency": 1,
-                                     "x_phase": degrees(90),
+  var pos1 = Animations.lissajous( [ "x_phase": degrees(90),
                                      "duration": seconds(5) ] )
 
-  var pos2 = Animations.lissajous( [ "x_amplitude": 1,
-                                     "y_amplitude": 1,
-                                     "z_amplitude": 0,
+  var pos2 = Animations.lissajous( [ "z_amplitude": 0,
                                      "x_frequency": 2,
                                      "y_frequency": 3,
                                      "x_phase": degrees(180),
                                      "duration": seconds(5) ] )
 
-  var pos3 = Animations.lissajous( [ "x_amplitude": 1,
-                                     "y_amplitude": 1,
-                                     "z_amplitude": 3,
+  var pos3 = Animations.lissajous( [ "z_amplitude": 3,
                                      "x_frequency": 7,
                                      "y_frequency": 5,
                                      "z_frequency": 3,

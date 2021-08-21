@@ -12,8 +12,50 @@ preview::preview[]
 
 == Implementation
 
+To simplify things, we generalize the formula from <</reference/animations/lissajous/explanations#,the background information>> even further:
+
+[stem]
+++++
+\begin{array}{rcl}
+  x(t) & = & A_\mathrm{x} \cdot \sin(B_\mathrm{x} \cdot 2\pi \cdot t - C_\mathrm{x}) \\
+  y(t) & = & A_\mathrm{y} \cdot \sin(B_\mathrm{y} \cdot 2\pi \cdot t - C_\mathrm{y}) \\
+  z(t) & = & A_\mathrm{z} \cdot \sin(B_\mathrm{z} \cdot 2\pi \cdot t - C_\mathrm{z}) \\
+\end{array}
+++++
+
+We give the parameters the more descriptive names:
+
+[.center,options="header",cols="^3,^3,^",width="50%"]
+|===
+| Math | Code | Default
+| stem:[A_\mathrm{x}] | ``x_amplitude`` | 1
+| stem:[A_\mathrm{y}] | ``y_amplitude`` | 1
+| stem:[A_\mathrm{z}] | ``z_amplitude`` | 1
+| stem:[B_\mathrm{x}] | ``x_frequency`` | 1
+| stem:[B_\mathrm{y}] | ``y_frequency`` | 1
+| stem:[B_\mathrm{z}] | ``z_frequency`` | 1
+| stem:[C_\mathrm{x}] | ``x_phase`` | stem:[0^\circ]
+| stem:[C_\mathrm{y}] | ``y_phase`` | stem:[0^\circ]
+| stem:[C_\mathrm{z}] | ``z_phase`` | stem:[0^\circ]
+|===
+
 [TASK]
 ====
-Implement the Lissajous animation.
-It animates a ``Point3D`` following https://en.wikipedia.org/wiki/Lissajous_curve[certain mathematical rules].
+Implement the Lissajous animation so that we can use it as
+
+[source,language="chai"]
+----
+var position = Animations.lissajous( [ "x_amplitude": 1,
+                                       "y_amplitude": 1,
+                                       "z_amplitude": 1,
+                                       "x_frequency": 1,
+                                       "y_frequency": 1,
+                                       "z_frequency": 1,
+                                       "x_phase": degrees(0),
+                                       "y_phase": degrees(90),
+                                       "z_phase": degrees(90),
+                                       "duration": seconds(5) ] )
+----
+
+where all parameters except `duration` can be omitted.
 ====
