@@ -153,7 +153,7 @@ The primitives are the building blocks for scenes. Examples are
 * <</extensions/primitives/triangle/explanations#,Triangles>>
 * <</extensions/primitives/disk/explanations#,Disks>>
 * <</extensions/primitives/square-xy/explanations#,Squares>>
-* <</extensions/primitives/cube/explanations#,Cubes>>
+* <</extensions/primitives/box/explanations#,Boxes>>
 
 You can also combine primitives, yielding new primitives:
 
