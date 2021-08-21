@@ -76,7 +76,7 @@ So, what will our basic shapes be? Well, any shape that have a simple enough mat
 * <</extensions/primitives/triangle/explanations#,Triangles>>
 * <</extensions/primitives/disk/explanations#,Disks>>
 * <</extensions/primitives/square-xy/explanations#,Squares>>
-* <</extensions/primitives/cube/explanations#,Cubes>>
+* <</extensions/primitives/box/explanations#,Boxes>>
 
 These basic shapes are so primitive that (in our design) you cannot even change their size or position in space (except for triangles.)
 For example, you can only create spheres with radius 1 that are centered at stem:[(0, 0, 0)].
