@@ -1,0 +1,40 @@
+= Cone
+
+image::preview.png[align="center"]
+
+== Summary
+
+Given
+
+* A ray starting at point stem:[O = (O_\mathrm{x}, O_\mathrm{y}, O_\mathrm{z})] and having direction stem:[\vec\Delta = (\Delta_\mathrm{x}, \Delta_\mathrm{y}, \Delta_\mathrm{z})].
+* A infinitely long cone with radius stem:[R] around the Z-axis.
+
+The intersections can be found using the following steps:
+
+. Compute stem:[O_\mathrm{xy} = (O_\mathrm{x}, O_\mathrm{y})].
+. Compute stem:[\vec\Delta_\mathrm{xy} = (\Delta_\mathrm{x}, \Delta_\mathrm{y})].
+. Compute stem:[\vec V_\mathrm{xy} = O_\mathrm{xy} - (0, 0)].
+. Solve the quadratic equation
++
+[stem]
+++++
+(\vec\Delta_\mathrm{xy} \cdot \vec\Delta_\mathrm{xy} - \Delta_\mathrm{z}^2) \cdot t^2 +
+2 \cdot (\vec\Delta_\mathrm{xy} \cdot \vec V_\mathrm{xy} - O_\mathrm{z} \cdot \Delta_\mathrm{z}) \cdot t +
+\vec V_\mathrm{xy} \cdot \vec V_\mathrm{xy} - O_\mathrm{z}^2
+++++
+. If the quadratic equation has no solutions, the ray does not intersect the cone and the algorithm ends here.
+. Call the two solutions stem:[t_1] and stem:[t_2].
+. The hit positions are
++
+[stem]
+++++
+P_1 = O + \vec\Delta \cdot t_1
+\qquad
+P_2 = O + \vec\Delta \cdot t_2
+++++
+. The normal at an intersection point stem:[P = (P_\mathrm{x}, P_\mathrm{y}, P_\mathrm{z})] is
++
+[stem]
+++++
+\vec{N} = \frac{(P_\mathrm{x}, P_\mathrm{y}, -P_\mathrm{z})}{ |(P_\mathrm{x}, P_\mathrm{y}, -P_\mathrm{z})| }
+++++
