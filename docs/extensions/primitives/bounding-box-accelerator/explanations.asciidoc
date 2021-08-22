@@ -2,7 +2,7 @@
 
 [overview]
 ----
-difficulty 2
+difficulty 1
 reading primitives/bounding-box-accelerator
 ----
 
