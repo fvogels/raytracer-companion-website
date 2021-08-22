@@ -14,8 +14,6 @@ preview::preview[]
 ====
 Implement the disc primitive.
 
-* Make three variants: `xy_disk`, `xz_disk` and `yz_disk`.
-* Make canonical disks:
+* Make three variants: `xy_disk(radius)`, `xz_disk(radius)` and `yz_disk(radius)`.
 ** The disks should have center stem:[(0, 0, 0)].
-** The disks should have radius 1.
 ====

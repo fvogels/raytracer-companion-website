@@ -28,9 +28,9 @@ def scene_at(now)
                                             "diffuse": Colors.white() * 0.8,
                                             "reflectivity": 0.2 ] )
 
-  var disk1 = decorate(disk1_material, translate(vec(-t, 0, 0), yz_disk()))
-  var disk2 = decorate(disk2_material, translate(vec( 0, 0, 0), xy_disk()))
-  var disk3 = decorate(disk3_material, translate(vec( t, 0, 0), xz_disk()))
+  var disk1 = decorate(disk1_material, translate(vec(-t, 0, 0), yz_disk(1)))
+  var disk2 = decorate(disk2_material, translate(vec( 0, 0, 0), xy_disk(1)))
+  var disk3 = decorate(disk3_material, translate(vec( t, 0, 0), xz_disk(1)))
   var disks = union( [disk1, disk2, disk3] )
 
   var plane = decorate(plane_material, translate(vec(0,-2,0), xz_plane()))
