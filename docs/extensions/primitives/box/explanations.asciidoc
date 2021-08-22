@@ -63,4 +63,8 @@ Implement a cube primitive.
 * The cube should be centered around stem:[(0, 0, 0)].
 ====
 
-challenge::challenge[]
+== Checking Your Work
+
+Reproduce the following animation:
+
+video::challenge.mp4[align="center"]
