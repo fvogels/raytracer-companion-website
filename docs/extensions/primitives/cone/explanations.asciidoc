@@ -28,6 +28,11 @@ All three are infinitely long, make an angle of 45&deg; and go through stem:[(0,
 ====
 
 [TIP]
+=====
+You are given a class `QuadraticEquation` which can come in handy.
+=====
+
+[TIP]
 ====
 You can start off with copying the `Sphere` primitive code and change the code so that it models a cylinder.
 ====
