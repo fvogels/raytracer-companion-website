@@ -114,24 +114,23 @@ The normal at position stem:[P] is
 
 Given
 
-* A ray starting at point stem:[O = (O_\mathrm{x}, O_\mathrm{y})] and having direction stem:[\vec\Delta = (\vec\Delta_\mathrm{x}, \vec\Delta_\mathrm{y})].
+* A ray starting at point stem:[O = (O_\mathrm{x}, O_\mathrm{y}, O_\mathrm{z})] and having direction stem:[\vec\Delta = (\vec\Delta_\mathrm{x}, \vec\Delta_\mathrm{y}, \vec\Delta_\mathrm{z})].
 * A infinitely long cylinder with radius stem:[R] around the Z-axis.
 
 The intersections can be found using the following steps:
 
 . Compute stem:[O' = (O_\mathrm{x}, O_\mathrm{y})].
 . Compute stem:[\vec\Delta' = (\vec\Delta_\mathrm{x}, \vec\Delta_\mathrm{y})].
-. Compute stem:[a = \vec\Delta' \cdot \vec\Delta'].
-. Compute stem:[b = 2 \cdot (O' - (0,0)) \cdot \vec\Delta'].
-. Compute stem:[c = (O' - (0,0)) \cdot (O' - (0,0)) - R^2].
-. Compute stem:[D = b^2 - 4 \cdot a \cdot c].
-. If stem:[D < 0], there are no intersections.
-. If stem:[D \geq 0], there are two intersections:
+. Solve the quadratic equation
 +
 [stem]
 ++++
-t_1 = \frac{-b-\sqrt{D}}{2 \cdot a} \qquad t_2 = \frac{-b+\sqrt{D}}{2 \cdot a}
+  (\vec\Delta' \cdot \vec\Delta') \cdot t^2 +
+  (2 \cdot (O' - (0,0)) \cdot \vec\Delta') \cdot t +
+  (O' - (0,0)) \cdot (O' - (0,0)) - R^2
 ++++
+. If the quadratic equation has no solutions, the ray does not intersect the cylinder and the algorithm ends here.
+. Call the two solutions stem:[t_1] and stem:[t_2].
 . The hit positions can be found using
 +
 [stem]
