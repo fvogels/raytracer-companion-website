@@ -35,6 +35,10 @@ module TOCGeneration
     def difficulty
       @difficulty ||= extension_difficulty(@path)
     end
+
+    def order
+      @order ||= extension_order(@path)
+    end
   end
 
   class Generator
@@ -86,7 +90,13 @@ module TOCGeneration
         generate_line('| Difficulty | Extension ')
       end
 
-      entries.sort_by(&:name).each do |entry|
+      entries.sort_by do |entry|
+        if is_extension
+          [ entry.order || 0, entry.name ]
+        else
+          entry.name
+        end
+      end.each do |entry|
         generate_entry(entry, is_extension)
       end
 
