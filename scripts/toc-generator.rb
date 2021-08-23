@@ -72,6 +72,8 @@ module TOCGeneration
     end
 
     def generate_entries(entries, is_extension)
+      return if entries.empty?
+
       if is_extension
         generate_line('[.center,options="header", cols="^1,^9",width="60%"]')
       else
