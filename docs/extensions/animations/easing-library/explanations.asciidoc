@@ -1,4 +1,4 @@
-= Bounce Animation
+= Easing Library
 
 [overview]
 ----
