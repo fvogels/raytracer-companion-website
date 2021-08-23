@@ -74,7 +74,30 @@ Animation<T> sequence(Animation<T> a, Animation<T> b)
 }
 ----
 
-== Repeat
+== Looper
+
+An animation can be repeated at infinitum.
+For example, take the animation below:
+
+image::looper.png[align="center",width="50%"]
+
+Repeating this animation endlessly gives a new animation with infinite duration:
+
+image::looper2.png[align="center",width="50%"]
+
+[TASK]
+====
+Create a file `animation/animation-looper.h`.
+In the namespace `animation`, create a function
+
+[source,language="c++"]
+----
+template<typename T>
+Animation<T> loop(Animation<T> a)
+{
+  ...
+}
+----
 
 == Cyclic
 
