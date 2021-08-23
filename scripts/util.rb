@@ -122,7 +122,7 @@ end
 
 
 def parse_explanations_overview(lines)
-  result = { requires: [], excludes: [], reading: [], difficulty: nil }
+  result = { requires: [], excludes: [], reading: [], difficulty: nil, order: nil }
 
   lines.each_with_object(result) do |line, result|
     case line
@@ -130,6 +130,8 @@ def parse_explanations_overview(lines)
       result[$1.to_sym] << $2
     when /^difficulty (.*)$/
       result[:difficulty] = $1
+    when /^order (\d+)$/
+      result[:order] = $1.to_i
     else
       abort "Unknown overview entry: #{line}"
     end
