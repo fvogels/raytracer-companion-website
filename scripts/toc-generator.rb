@@ -33,9 +33,7 @@ module TOCGeneration
     attr_reader :name, :path
 
     def difficulty
-      contents = path.read
-
-
+      @difficulty ||= extension_difficulty(@path)
     end
   end
 
@@ -99,7 +97,7 @@ module TOCGeneration
       title = explanations_title entry.path
 
       if is_extension
-        difficulty = extension_difficulty(entry.path)
+        difficulty = entry.difficulty
 
         raise "Could not find difficulty in #{entry.path}" unless difficulty
 
