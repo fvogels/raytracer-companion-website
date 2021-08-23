@@ -8,8 +8,6 @@ reading math/animations
 reading design/animations/basics
 ----
 
-preview::preview[]
-
 == Introduction
 
 Numbers have operations defined on them: we can add two numbers together (stem:[a + b]), subtract them (stem:[a - b]), multiply them (stem:[a \times b]), and so on.
@@ -73,6 +71,7 @@ Animation<T> sequence(Animation<T> a, Animation<T> b)
   ...
 }
 ----
+====
 
 == Looper
 
@@ -98,7 +97,66 @@ Animation<T> loop(Animation<T> a)
   ...
 }
 ----
+====
 
-== Cyclic
+== Cycle
+
+Looping an animation is nicer if the starting and ending point coincide, otherwise a sudden jump will occur when the animation resets.
+One way to easily achieve this is to sequence an animation with its inversion.
+
+Consider the animation below:
+
+image::cycle.png[align="center",width="50%"]
+
+We take its inverse:
+
+image::cycle2.png[align="center",width="50%"]
+
+We sequence them:
+
+image::cycle3.png[align="center",width="50%"]
+
+Finally, we loop it:
+
+image::cycle4.png[align="center",width="50%"]
+
+[TASK]
+====
+Create a file `animation/animation-cycler.h`.
+In the namespace `animation`, create a function
+
+[source,language="c++"]
+----
+template<typename T>
+Animation<T> cycle(Animation<T> a)
+{
+  ...
+}
+----
+====
 
 == Limit
+
+Sometimes, we just want to cut off an animation prematurely.
+Say we have an animation of duration 10:
+
+image::limit.png[align="center",width="50%"]
+
+We can choose to cut it off after 5 seconds:
+
+image::limit2.png[align="center",width="50%"]
+
+[TASK]
+====
+Create a file `animation/animation-cycler.h`.
+In the namespace `animation`, create a function
+
+[source,language="c++"]
+----
+template<typename T>
+Animation<T> limit(Animation<T> animation, Duration duration)
+{
+  ...
+}
+----
+====
