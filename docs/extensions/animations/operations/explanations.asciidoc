@@ -1,0 +1,81 @@
+= Animation Operations
+
+[overview]
+----
+difficulty 3
+requires animations/easing-library
+reading math/animations
+reading design/animations/basics
+----
+
+preview::preview[]
+
+== Introduction
+
+Numbers have operations defined on them: we can add two numbers together (stem:[a + b]), subtract them (stem:[a - b]), multiply them (stem:[a \times b]), and so on.
+Similary, we can apply operations on primitives: take their union, their difference, their intersection, we can translate, scale and rotate them, and so on.
+The same can be done with animations.
+
+In this extension, you are tasked with defines a series of operations that act upon animations.
+
+== Invert
+
+An animation can be _inverted_: instead of going from A to B, it goes from B to A.
+
+image::invert.png[align="center",width="50%"]
+
+[TASK]
+====
+Create a file `animation/animation-inverter.h`.
+In the namespace `animation`, create a function
+
+[source,language="c++"]
+----
+template<typename T>
+Animation<T> invert(Animation<T> animation)
+{
+  ...
+}
+----
+
+that returns the inversion of the given animation
+====
+
+[TIP]
+====
+First examine `animations/interval-animation.h` and try to understand what each part does.
+`invert` will have the same structure.
+====
+
+== Sequence
+
+Animations can be put in sequence.
+For example, consider the two animations below, each lasting 10 seconds:
+
+image::sequence.png[align="center",width="50%"]
+
+Sequencing them yields
+
+image::sequence2.png[align="center",width="50%"]
+
+Typically, you will only combine animations if they have matching endpoints (ending point of the first is equal to the starting point of the second), but this is not mandatory.
+
+[TASK]
+====
+Create a file `animation/animation-sequence.h`.
+In the namespace `animation`, create a function
+
+[source,language="c++"]
+----
+template<typename T>
+Animation<T> sequence(Animation<T> a, Animation<T> b)
+{
+  ...
+}
+----
+
+== Repeat
+
+== Cyclic
+
+== Limit
