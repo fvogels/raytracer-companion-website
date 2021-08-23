@@ -16,6 +16,38 @@ The same can be done with animations.
 
 In this extension, you are tasked with defines a series of operations that act upon animations.
 
+== Limit
+
+Sometimes, we just want to cut off an animation prematurely.
+Say we have an animation of duration 10:
+
+image::limit.png[align="center",width="50%"]
+
+We can choose to cut it off after 5 seconds:
+
+image::limit2.png[align="center",width="50%"]
+
+[TASK]
+====
+Create a file `animation/animation-cycler.h`.
+In the namespace `animation`, create a function
+
+[source,language="c++"]
+----
+template<typename T>
+Animation<T> limit(Animation<T> animation, Duration duration)
+{
+  ...
+}
+----
+====
+
+[TIP]
+====
+First examine `animations/interval-animation.h` and try to understand what each part does.
+`limit` (and most of the other operations) will have the same structure.
+====
+
 == Invert
 
 An animation can be _inverted_: instead of going from A to B, it goes from B to A.
@@ -37,12 +69,6 @@ Animation<T> invert(Animation<T> animation)
 ----
 
 that returns the inversion of the given animation
-====
-
-[TIP]
-====
-First examine `animations/interval-animation.h` and try to understand what each part does.
-`invert` will have the same structure.
 ====
 
 == Sequence
@@ -129,32 +155,6 @@ In the namespace `animation`, create a function
 ----
 template<typename T>
 Animation<T> cycle(Animation<T> a)
-{
-  ...
-}
-----
-====
-
-== Limit
-
-Sometimes, we just want to cut off an animation prematurely.
-Say we have an animation of duration 10:
-
-image::limit.png[align="center",width="50%"]
-
-We can choose to cut it off after 5 seconds:
-
-image::limit2.png[align="center",width="50%"]
-
-[TASK]
-====
-Create a file `animation/animation-cycler.h`.
-In the namespace `animation`, create a function
-
-[source,language="c++"]
-----
-template<typename T>
-Animation<T> limit(Animation<T> animation, Duration duration)
 {
   ...
 }
