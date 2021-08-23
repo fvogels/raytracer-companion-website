@@ -3,6 +3,7 @@
 [overview]
 ----
 difficulty 2
+order 1
 reading samplers/random
 ----
 

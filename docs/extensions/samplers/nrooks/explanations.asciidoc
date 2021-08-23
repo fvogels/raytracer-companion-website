@@ -3,6 +3,7 @@
 [overview]
 ----
 difficulty 3
+order 5
 reading samplers/nrooks
 ----
 

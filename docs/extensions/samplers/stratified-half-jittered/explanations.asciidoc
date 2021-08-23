@@ -3,6 +3,7 @@
 [overview]
 ----
 difficulty 2
+order 4
 requires samplers/stratified-jittered
 reading samplers/half-jittered
 ----
