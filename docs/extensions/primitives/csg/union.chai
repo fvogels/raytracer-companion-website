@@ -7,8 +7,8 @@ var material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
                                     "specular": Colors.white(),
                                     "specular_exponent": 100 ] )
 
-var root = decorate(material, union( [ translate(vec(0,0,-0.5), sphere()),
-                                       translate(vec(0,0,0.5), sphere()) ] ))
+var root = decorate(material, csg_union( [ translate(vec(0,0,-0.5), sphere()),
+                                           translate(vec(0,0,0.5), sphere()) ] ))
 
 var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
 

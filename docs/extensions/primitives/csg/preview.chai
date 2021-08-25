@@ -11,12 +11,12 @@ def scene_at(now)
                                       "reflectivity": 0,
                                       "transparency": 0,
                                       "refractive_index": 0 ] )
- 
+
   var angle = Animations.animate(degrees(0), degrees(360), seconds(5))[now]
- 
-  var csg1 = translate(vec(0,3,0), union( [ translate(vec(0,0,-0.5), sphere()), translate(vec(0,0,0.5), sphere()) ] ))
-  var csg2 = intersection( translate(vec(0,0,-0.5), sphere()), translate(vec(0,0,0.5), sphere()) )
-  var csg3 = translate(vec(0,-3,0),difference( translate(vec(0,0,-0.5), sphere()), translate(vec(0,0,0.5), sphere()) ))
+
+  var csg1 = translate(vec(0,3,0), csg_union( [ translate(vec(0,0,-0.5), sphere()), translate(vec(0,0,0.5), sphere()) ] ))
+  var csg2 = csg_intersection( translate(vec(0,0,-0.5), sphere()), translate(vec(0,0,0.5), sphere()) )
+  var csg3 = translate(vec(0,-3,0), csg_difference( translate(vec(0,0,-0.5), sphere()), translate(vec(0,0,0.5), sphere()) ))
 
   var root = decorate(material, union([
   	rotate_around_y(angle, csg1),

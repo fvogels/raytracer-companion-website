@@ -26,18 +26,18 @@ intersection and difference can limit themselves to exactly two children.
 
 [TASK]
 ====
-* Create files `primitives/intersection-primitive.cpp` and `primitives/intersection-primitive.h`.
+* Create files `primitives/csg-intersection-primitive.cpp` and `primitives/csg-intersection-primitive.h`.
 * Write the necessary code.
-* Provide a factory function with signature `Primitive intersection(Primitive, Primitive)`.
-* Expose this operation as `intersection` to the scripting language.
+* Provide a factory function with signature `Primitive csg_intersection(Primitive, Primitive)`.
+* Expose this operation as `csg_intersection` to the scripting language.
 ====
 
 == Difference
 
 [TASK]
 ====
-* Create files `primitives/difference-primitive.cpp` and `primitives/difference-primitive.h`.
+* Create files `primitives/csg-difference-primitive.cpp` and `primitives/csg-difference-primitive.h`.
 * Write the necessary code.
-* Provide a factory function with signature `Primitive difference(Primitive, Primitive)`.
-* Expose this operation as `intersection` to the scripting language.
+* Provide a factory function with signature `Primitive csg_difference(Primitive, Primitive)`.
+* Expose this operation as `csg_intersection` to the scripting language.
 ====
