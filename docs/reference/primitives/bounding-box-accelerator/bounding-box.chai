@@ -17,7 +17,7 @@ var camera = Cameras.perspective( [ "eye": pos(0,0,5),
 
 var angle = Animations.animate(degrees(0), degrees(360), seconds(5))
 var root = union( [ decorate( material(Colors.white(), 0), center( pos(0, 0, 0), mesh("bunny.omesh") ) ),
-                    decorate( material(Colors.blue(), 0.9), scale(0.65, 0.64, 0.5, cube()) ) ] )
+                    decorate( material(Colors.blue(), 0.9), scale(0.65, 0.64, 0.5, cube(2)) ) ] )
 
 var lights = [ Lights.omnidirectional( pos(5, 5, 5), Colors.white() ) ]
 
