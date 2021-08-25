@@ -10,7 +10,7 @@ var white = Materials.uniform( [ "ambient": Colors.white(),
 
 var material = Materials.checkered3d(black, white)
 
-var root = decorate(Materials.scale(0.25, 0.25, 0.25, material), cube())
+var root = decorate(Materials.scale(0.25, 0.25, 0.25, material), cube(2))
 
 var lights = [ ]
 
