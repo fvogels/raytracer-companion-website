@@ -49,14 +49,9 @@ Examples of other pipeline segments are
   its purpose is to produce a sequence of scenes, each of which
   represents a frame of an animation. Each scene then gets passed on to the renderer,
   which produces a series of bitmaps. Stringing those bitmaps together produces a movie.
-* <</extensions/pipeline/bmp/explanations#,BMP>> produces BMP files instead of WIFs. While BMP might be
-  readable by most graphics programs, it does not support animations.
-* <</extensions/pipeline/ppm/explanations#,PPM>> produces PPM files instead of WIFs.
-  This makes it possible to produce "real" movies (mp4, animated gifs, &hellip;) using an external tool like ``ffmpeg``.
 * <</extensions/pipeline/motion-blur/explanations#Motion blur>> comes after the renderer and adds bitmaps together, thereby creating
   a motion blur effect.
 * <</extensions/pipeline/inverter/explanations#,Inverter>> inverts the bitmaps produced by the renderer.
-* <</extensions/pipeline/overprint#,Overprint>> combines all bitmaps into one single bitmap.
 
 === Scene
 
