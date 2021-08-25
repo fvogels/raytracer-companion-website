@@ -16,7 +16,7 @@ def scene_at(now)
   var untransformed_material = Materials.checkered3d(black, white)
   var material = Materials.scale(scale_factor, scale_factor, scale_factor, untransformed_material)
 
-  var root = decorate( material, cube() )
+  var root = decorate( material, cube(2) )
 
   var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
 
