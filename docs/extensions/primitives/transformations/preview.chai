@@ -14,9 +14,19 @@ def scene_at(now)
 
   var cylinder = crop_along_y(cylinder_along_y(), interval(-1,1))
 
-  var angle = Animations.animate(degrees(0), degrees(360), seconds(5))
+  var red_cylinder = decorate(colored_material(Colors.red()), cylinder)
+  var green_cylinder = decorate(colored_material(Colors.green()), cylinder)
+  var blue_cylinder = decorate(colored_material(Colors.blue()), cylinder)
 
-  var root = decorate( colored_material(Colors.green()), rotate_around_x(angle[now], cylinder) )
+  var angle = Animations.animate(degrees(0), degrees(360), seconds(5))[now]
+  var factor = Animations.animate(1, 2, seconds(5))[now]
+  var x = Animations.animate(-10, 10, seconds(5))[now]
+
+  var root = union([
+    translate(vec(x, 0, -5), red_cylinder),
+    translate(vec(-2, 0, 0), rotate_around_x(angle, green_cylinder)),
+    translate(vec(2, 0, 0), scale(factor, factor, factor, blue_cylinder))
+  ])
 
   var lights = [ Lights.omnidirectional( pos(0,5,5), Colors.white() ) ]
 

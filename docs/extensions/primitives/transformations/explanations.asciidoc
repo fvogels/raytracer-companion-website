@@ -1,0 +1,80 @@
+= Transformations
+
+[overview]
+----
+difficulty 2
+requires math/transformations
+reading design/transformations
+----
+
+preview::preview[]
+
+== Introduction
+
+A ray tracer can support many shapes, such as spheres, cylinders, cones, planes, triangles, boxes and so on.
+When building a scene, we want to be able to place these shapes anywhere we want, resize them and rotate them on a whim.
+
+While it would be possible to parameterize all these primitives so that each of them can have a chosen position, size and rotation, this would make their implementation more complex.
+Instead, we choose another approach: each primitive should only be implemented in its most simple form.
+For example, a sphere should be centered at stem:[(0,0,0)] and have radius 1, as these parameters maximally simplify the formulae involved.
+
+So what if we want a bigger sphere?
+Instead of trying to make the sphere bigger, we make the camera smaller.
+The nice part about this approach is that we can apply the same trick on all primitives.
+Similarly, if we want to move the sphere up, we can simply move the camera down instead.
+Rotation can be handled the same way.
+
+== Translation
+
+Translation consists of moving a shape to a different position.
+Luckily for you, this has already been implemented: you can find the code in `primitives/transformer-primitive.cpp`.
+The code can act as a guide for you to implement the two other transformations (rotation and scaling.)
+
+== Rotation
+
+[TASK]
+====
+Open ``primitives/transformer-primitive.cpp``.
+You can use the given implementation of `raytracer::primitives::translate` as a guide.
+
+Add three functions with signatures
+
+* `Primitive rotate_around_x(Angle angle, Primitive child)`
+* `Primitive rotate_around_y(Angle angle, Primitive child)`
+* `Primitive rotate_around_z(Angle angle, Primitive child)`
+
+You will need to rely on the classes defined in <</extensions/math/transformations/explanations#,this extension>>.
+
+Add declarations to the corresponding header file so that these functions are accessible to other compilation units.
+====
+
+[NOTE]
+====
+You might wonder why we don't simply use a single `rotate(x_angle, y_angle, z_angle, child)`.
+We could, but the problem is that the order of rotation matters:
+rotating around X, then around Y yields different results than rotating around Y, then around X.
+Therefore, offering three separate functions would lead to less confusion.
+====
+
+== Scaling
+
+[TASK]
+====
+To the same file, add a function with signature
+
+[source,language="c++"]
+----
+Primitive scale(double sx, double sy, double sz, Primitive child)
+----
+
+You will need to rely on the classes defined in <</extensions/math/transformations/explanations#,this extension>>.
+
+Add declarations to the appropriate header file so that these functions are accessible to the other compilation units.
+====
+
+== Bindings
+
+[TASK]
+====
+Add the necessary bindings so to make rotation available in scripts.
+====
