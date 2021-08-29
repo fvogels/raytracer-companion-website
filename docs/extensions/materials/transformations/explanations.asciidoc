@@ -2,21 +2,16 @@
 
 [overview]
 ----
-difficulty 3
+difficulty 2
 reading materials/2d-vs-3d
-reading math/transformations/2d/translation
-reading math/transformations/3d/translation
-reading math/transformations/2d/scaling
-reading math/transformations/3d/scaling
-reading math/transformations/2d/rotation
-reading math/transformations/3d/rotation
+requires math/transformations
 ----
 
 // preview::preview[]
 
 [WARNING]
 ====
-Note: before you implement this extension, you need to have at least implemented some kind of 2D material _and_ 3D material, otherwise material transformations will be useless.
+Note: before you implement this extension, you need to have at least implemented some kind of 2D material and 3D material, otherwise material transformations will be useless.
 ====
 
 Material transformers should not be confused with primitive transformers.
@@ -32,47 +27,58 @@ It is able to perform arbitrary transformations on 2D materials.
 
 [TASK]
 ====
-Implement ``Material2DTransformer``.
+Implement ``raytracer::materials::Material2DTransformer`` in files `materials/material-transformer.cpp`/`.h`.
 
 * A ``Material2DTransformer`` is a subclass of ``MaterialImplementation``.
   It is parameterized by a child ``Material`` (the one that is being transformed) and a ``Transformation2D``.
 * You will need to override the ``at`` member function.
   You will have to find out for yourself what should happen here.
   Testing whether you got it right will only be possible after you implemented one of the 2D transformations (see further below).
+
+[TIP]
+=====
+You might want to rely on the code defined for <</extensions/math/transformations/explanations#,this extension>>.
+=====
 ====
 
 === 2D Translation
 
 [TASK]
 ====
-Use ``MaterialTransformer2D`` to implement 2D material translation.
-You may have to define extra classes in ``math``.
-Hint: you'll need ``Matrix3x3`` in order to represent 2D transformations.
-Make sure to take a look around, some useful functionality might already be implemented.
+Use ``MaterialTransformer2D`` to implement a function
+
+[source,language="c++"]
+----
+Material raytracer::materials::translate(const math::Vector2D& displacement,
+                                         Material material);
+----
 ====
 
 === 2D Scaling
 
 [TASK]
 ====
-Use ``MaterialTransformer2D`` to implement 2D material scaling.
-You may have to define extra classes in ``math``.
+Define a function
 
-[TIP]
-=====
-Hint: you'll need ``Matrix3x3`` in order to represent 2D transformations.
-Make sure to take a look around, some useful functionality might already be implemented.
-=====
+[source,language="c++"]
+----
+Material raytracer::materials::scale(double sx,
+                                     double sy,
+                                     Material material);
+----
 ====
 
 === 2D Rotation
 
 [TASK]
 ====
-Use ``MaterialTransformer2D`` to implement 2D material rotation.
-You may have to define extra classes in ``math``.
-Hint: you'll need ``Matrix3x3`` in order to represent 2D transformations.
-Make sure to take a look around, some useful functionality might already be implemented.
+Define a function
+
+[source,language="c++"]
+----
+Material raytracer::materials::rotate(math::Angle angle,
+                                      Material material);
+----
 ====
 
 == 3D
@@ -93,29 +99,45 @@ Implement ``Material3DTransformer``.
 
 [TASK]
 ====
-Use ``MaterialTransformer3D`` to implement 3D material translation.
-You may have to define extra classes in ``math``.
-Hint: you'll need ``Matrix4x4`` in order to represent 3D transformations.
-Make sure to take a look around, some useful functionality might already be implemented.
+Define a function
+
+[source,language="c++"]
+----
+Material raytracer::materials::translate(const math::Vector3D& v,
+                                         Material material);
+----
 ====
 
 === 3D Scaling
 
 [TASK]
 ====
-Use ``MaterialTransformer3D`` to implement 3D material scaling.
-You may have to define extra classes in ``math``.
-Hint: you'll need ``Matrix4x4`` in order to represent 3D transformations.
-Make sure to take a look around, some useful functionality might already be implemented.
+Define a function
+
+[source,language="c++"]
+----
+Material raytracer::materials::scale(double sx,
+                                     double sy,
+                                     double sz,
+                                     Material material);
+----
 ====
 
 === 3D Rotation
 
 [TASK]
 ====
-Use ``MaterialTransformer3D`` to implement 3D material rotation around the X, Y and Z axis.
-In other words, you need to define three different rotation transformations.
-You may have to define extra classes in ``math``.
-Hint: you'll need ``Matrix4x4`` in order to represent 3D transformations.
-Make sure to take a look around, some useful functionality might already be implemented.
+Define functions
+
+[source,language="c++"]
+----
+Material raytracer::materials::rotate_around_x(math::Angle angle,
+                                               Material material)
+
+Material raytracer::materials::rotate_around_y(math::Angle angle,
+                                               Material material)
+
+Material raytracer::materials::rotate_around_z(math::Angle angle,
+                                               Material material)
+----
 ====
