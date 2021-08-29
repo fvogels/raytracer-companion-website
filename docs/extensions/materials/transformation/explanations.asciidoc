@@ -1,0 +1,121 @@
+= Material Transformation
+
+[overview]
+----
+difficulty 3
+reading materials/2d-vs-3d
+reading math/transformations/2d/translation
+reading math/transformations/3d/translation
+reading math/transformations/2d/scaling
+reading math/transformations/3d/scaling
+reading math/transformations/2d/rotation
+reading math/transformations/3d/rotation
+----
+
+// preview::preview[]
+
+[WARNING]
+====
+Note: before you implement this extension, you need to have at least implemented some kind of 2D material _and_ 3D material, otherwise material transformations will be useless.
+====
+
+Material transformers should not be confused with primitive transformers.
+Primitive transformers change the shape of primitives, i.e. they scale, move and rotate 3D objects.
+Material transformers only transform the materials themselves.
+
+== 2D
+
+=== 2D Material Transformer
+
+For this extension, you will implement the ``Material2DTransformer``.
+It is able to perform arbitrary transformations on 2D materials.
+
+[TASK]
+====
+Implement ``Material2DTransformer``.
+
+* A ``Material2DTransformer`` is a subclass of ``MaterialImplementation``.
+  It is parameterized by a child ``Material`` (the one that is being transformed) and a ``Transformation2D``.
+* You will need to override the ``at`` member function.
+  You will have to find out for yourself what should happen here.
+  Testing whether you got it right will only be possible after you implemented one of the 2D transformations (see further below).
+====
+
+=== 2D Scaling
+
+[TASK]
+====
+Use ``MaterialTransformer2D`` to implement 2D material scaling.
+You may have to define extra classes in ``math``.
+
+[TIP]
+=====
+Hint: you'll need ``Matrix3x3`` in order to represent 2D transformations.
+Make sure to take a look around, some useful functionality might already be implemented.
+=====
+====
+
+=== 2D Rotation
+
+[TASK]
+====
+Use ``MaterialTransformer2D`` to implement 2D material rotation.
+You may have to define extra classes in ``math``.
+Hint: you'll need ``Matrix3x3`` in order to represent 2D transformations.
+Make sure to take a look around, some useful functionality might already be implemented.
+====
+
+=== 2D Translation
+
+[TASK]
+====
+Use ``MaterialTransformer2D`` to implement 2D material translation.
+You may have to define extra classes in ``math``.
+Hint: you'll need ``Matrix3x3`` in order to represent 2D transformations.
+Make sure to take a look around, some useful functionality might already be implemented.
+====
+
+== 3D
+
+=== 3D Material Transformer
+
+[TASK]
+====
+Implement ``Material3DTransformer``.
+
+* A ``Material3DTransformer`` is a subclass of ``MaterialImplementation``.
+  It is parameterized by a child ``Material`` (the one that is being transformed) and a ``Transformation3D``.
+* You will need to override the ``at`` member function.
+  You will have to find out for yourself what should happen here.
+====
+
+=== 3D Scaling
+
+[TASK]
+====
+Use ``MaterialTransformer3D`` to implement 3D material scaling.
+You may have to define extra classes in ``math``.
+Hint: you'll need ``Matrix4x4`` in order to represent 3D transformations.
+Make sure to take a look around, some useful functionality might already be implemented.
+====
+
+=== 3D Rotation
+
+[TASK]
+====
+Use ``MaterialTransformer3D`` to implement 3D material rotation around the X, Y and Z axis.
+In other words, you need to define three different rotation transformations.
+You may have to define extra classes in ``math``.
+Hint: you'll need ``Matrix4x4`` in order to represent 3D transformations.
+Make sure to take a look around, some useful functionality might already be implemented.
+====
+
+=== 3D Translation
+
+[TASK]
+====
+Use ``MaterialTransformer3D`` to implement 3D material translation.
+You may have to define extra classes in ``math``.
+Hint: you'll need ``Matrix4x4`` in order to represent 3D transformations.
+Make sure to take a look around, some useful functionality might already be implemented.
+====
