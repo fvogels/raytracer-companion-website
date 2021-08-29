@@ -1,0 +1,211 @@
+= Transformations
+
+[overview]
+----
+difficulty 2
+reading design/transformations
+reading math/transformations/2d/translation
+reading math/transformations/2d/rotation
+reading math/transformations/2d/scaling
+reading math/transformations/3d/translation
+reading math/transformations/3d/rotation
+reading math/transformations/3d/scaling
+----
+
+We consider three kinds of transformation:
+
+* Translation
+* Scaling
+* Rotation
+
+In this extension, you will implement the mathematical part of transformations.
+On top of these, you will be able to build
+
+* <</extensions/primitives/transformations/explanations#,Primitive transformations>>
+* <</extensions/materials/transformations/explanations#,Material transformations>>
+
+Transformations are represented as matrices.
+For example, 2D scaling by a factor stem:[s] is represented by the following 3&times;3 matrix:
+
+[stem]
+++++
+  \begin{bmatrix}
+    s & 0 & 0 \\
+    0 & s & 0 \\
+    0 & 0 & 1 \\
+  \end{bmatrix}
+++++
+
+Transformations can be combined using matrix multiplication.
+For example, translating stem:[(2, 3)] followed by scaling by stem:[5] gives ()
+
+[stem]
+++++
+  \begin{bmatrix}
+    5 & 0 & 0 \\
+    0 & 5 & 0 \\
+    0 & 0 & 1 \\
+  \end{bmatrix}
+  \cdot
+  \begin{bmatrix}
+    1 & 0 & 2 \\
+    0 & 1 & 3 \\
+    0 & 0 & 1 \\
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    5 & 0 & 10 \\
+    0 & 5 & 15 \\
+    0 & 0 & 1 \\
+  \end{bmatrix}
+++++
+
+[IMPORTANT]
+====
+Matrices and functions that create transformation-representing matrices have already been written for you.
+You can find them in `math/transformation-matrices.h`.
+You will need to rely on them for this extension.
+====
+
+During the implementation of the ray tracer you will need transformations _and their inverse_.
+For example, the inverse operation of "rotating something 90&deg; around the X-axis" is "rotating -90&deg; around the X-axis."
+
+While it is possible the compute the inverse of a matrix, doing so can be quite computationally expensive.
+For instance, say you are given
+
+[stem]
+++++
+  \begin{bmatrix}
+    5 & 0 & 10 \\
+    0 & 5 & 15 \\
+    0 & 0 & 1 \\
+  \end{bmatrix}
+++++
+
+Inverting this requires some https://en.wikipedia.org/wiki/Invertible_matrix#Inversion_of_3_%C3%97_3_matrices[tricky calculations]:
+However, because we know from above that this is actually translating and scaling, we can compute the inverse in a much simpler way:
+
+* The inverse of translating by stem:[(2, 3)] is translating by stem:[(-2, -3)].
+* The inverse of scaling by stem:[5] is scaling by stem:[\frac15].
+* Inverting a combined transformation involves changing the order of the transformations.
+
+Knowing this, we can easily compute the inverse matrix:
+
+[stem]
+++++
+  \left(
+    \begin{bmatrix}
+      5 & 0 & 10 \\
+      0 & 5 & 15 \\
+      0 & 0 & 1 \\
+    \end{bmatrix}
+  \right)^{-1} =
+  \begin{bmatrix}
+    1 & 0 & -2 \\
+    0 & 1 & -3 \\
+    0 & 0 & 1 \\
+  \end{bmatrix}
+  \cdot
+  \begin{bmatrix}
+    \frac15 & 0 & 0 \\
+    0 & \frac15 & 0 \\
+    0 & 0 & 1 \\
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    \frac15 & 0 & -2 \\
+    0 & \frac15 & -3 \\
+    0 & 0 & 1 \\
+  \end{bmatrix}
+++++
+
+The moral of the story is that inverting a matrix is much easier if you know which transformations it represents.
+So, whenever we create a matrix, we will immediately create its inverse along with it.
+We will bundle the matrix and its inverse in a separate object of type `Transformation2D` (or `Transformation3D`).
+
+[IMPORTANT]
+====
+Both `Transformation2D` and `Transformation3D` have already been defined for you.
+You can find them in `math/transformation2d.h` and `math/transformation3d.h`, respectively.
+====
+
+== 2D
+
+=== 2D Translation
+
+This transformation has already been defined for you.
+The code can act as a guide for you to implement the two other transformations.
+
+=== 2D Rotation
+
+[TASK]
+====
+In the files `math/transformation2d.h` and `math/transformation2d.cpp`, declare/define a function with signature
+
+[source,language="c++"]
+----
+Transformation2D rotate(Angle angle);
+----
+====
+
+=== 2D Scaling
+
+[TASK]
+====
+In the files `math/transformation2d.h` and `math/transformation2d.cpp`, declare/define a function with signature
+
+[source,language="c++"]
+----
+Transformation2D scale(double sx, double sy);
+----
+====
+
+== 3D
+
+=== 3D Translation
+
+[TASK]
+====
+In the files `math/transformation3d.h` and `math/transformation3d.cpp`, declare/define a function with signature
+
+[source,language="c++"]
+----
+Transformation3D translate(const Vector3D& displacement);
+----
+====
+
+=== 3D Rotation
+
+[TASK]
+====
+In the files `math/transformation3d.h` and `math/transformation3d.cpp`, declare/define functions with signature
+
+[source,language="c++"]
+----
+Transformation3D rotate_x(Angle angle);
+Transformation3D rotate_y(Angle angle);
+Transformation3D rotate_z(Angle angle);
+----
+====
+
+[NOTE]
+====
+The reason we define three separate functions for rotations is because rotations are not commutative.
+====
+
+=== 3D Scaling
+
+[TASK]
+====
+In the files `math/transformation3d.h` and `math/transformation3d.cpp`, declare/define a function with signature
+
+[source,language="c++"]
+----
+Transformation3D scale(double sx, double sy, double sz);
+----
+====
+
+== Bindings
+
+No bindings are necessary: we won't be needing this functionality in our scripting language.
+It will be used in other {cpp} code, though.
