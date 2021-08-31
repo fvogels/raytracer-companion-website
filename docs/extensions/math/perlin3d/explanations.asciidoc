@@ -1,7 +1,0 @@
-= Perlin 3D
-
-[overview]
-----
-difficulty 5
-reading math/perlin
-----
