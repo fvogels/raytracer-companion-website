@@ -1,8 +1,0 @@
-= Marble 2D
-
-[overview]
-----
-difficulty 3
-----
-
-preview::preview[]
