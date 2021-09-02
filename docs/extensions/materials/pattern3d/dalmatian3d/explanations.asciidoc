@@ -1,8 +1,0 @@
-= Dalmatian 3D
-
-[overview]
-----
-difficulty 5
-----
-
-preview::preview[]
