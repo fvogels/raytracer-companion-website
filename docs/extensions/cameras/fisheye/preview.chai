@@ -26,7 +26,8 @@ def scene_at(now)
                                    "transparency": 0,
                                    "refractive_index": 0 ] )
 
-  var checkered = Materials.checkered2d(black, white)
+  var pattern = Patterns.checkered(1, 1)
+  var checkered = Materials.from_pattern(pattern, black, white)
 
   var spheres   = []
 
