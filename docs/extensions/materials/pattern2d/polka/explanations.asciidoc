@@ -1,8 +1,0 @@
-= Polka 2D
-
-[overview]
-----
-difficulty 4
-----
-
-preview::preview[]

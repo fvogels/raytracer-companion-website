@@ -1,8 +1,0 @@
-= Dalmatian 2D
-
-[overview]
-----
-difficulty 5
-----
-
-preview::preview[]
