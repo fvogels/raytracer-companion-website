@@ -1,0 +1,152 @@
+= Basics
+
+[overview]
+----
+difficulty 3
+----
+
+We consider two kinds of patterns: 2D and 3D patterns.
+Let's start with 2D patterns, because those are the easiest to reason about.
+
+== 2D Patterns
+
+A 2D pattern can be seen as a black-and-white image.
+With black and white, we mean literally black and white, not grayscale.
+In code, a 2D pattern is represented as an object that takes 2D coordinates stem:[(x, y)] and returns the corresponding color, i.e., black or white.
+In code, we'll represent these two colors as ``true`` and ``false``.
+
+[NOTE]
+====
+Which boolean value corresponds to which color does not really matter.
+In a later step, we will make this configurable: ``true`` will be associated with one material and ``false`` with another, meaning you can choose black and white, white and black, red and blue, etc.
+
+For now though, we limit ourselves to simply ``true`` and ``false``, which we'll also refer to as black and white, since that makes it easier to visualize.
+====
+
+=== Examples
+
+Below are a few examples of patterns:
+
+[.center,cols="^.^,^5",width="80%"]
+|===
+| Horizontal lines a| image::hlines.png[align="center",width="50%"]
+| Vertical lines a| image::vlines.png[align="center",width="50%"]
+| Checkered a| image::checkered.png[align="center",width="50%"]
+|===
+
+=== Target Syntax
+
+How would we model a 2D pattern in code?
+As explained above, there really is just one operation: we can ask a 2D pattern what color appears at a certain position.
+
+[source,language='c++']
+----
+// Possible implementation
+Pattern2D some_pattern;
+Point2D p(x, y);
+bool color = some_pattern.get_color_at(p);
+----
+
+However, we'd rather see patterns as functions, so instead of calling a `get_color_at` method, we'd rather write
+
+[source,language='c++']
+----
+// Function syntax
+Pattern2D some_pattern;
+Point2D p(x, y);
+bool color = some_pattern(p);
+----
+
+This function-like syntax will be achieved by defining a _class_ `Pattern2D` and overloading the operator `()` on it.
+
+=== Value Semantics
+
+We would like `Pattern2D` objects to be easily usable, i.e., we would prefer having to think about references and pointers and such.
+Ideally, we would use ``Pattern2D``s as if they were ``int``s, ``bool``s or any other simple value type.
+In fact, this kind of types have already been implemented: ``Primitive`` is an example of this.
+
+[TASK]
+====
+Take a good at the types ``Primitive`` and ``PrimitiveImplementation``, as you will want to use it as a guide to implement patterns.
+
+* Note how ``PrimitiveImplementation`` is the actual superclass for all primitives (spheres, planes, etc.)
+* `PrimitiveImplementation` defines all functionality related to primitives.
+  More concretely, it defines all overridable methods.
+* ``Primitive`` internally keeps a `shared_ptr<PrimitiveImplementation>`.
+* ``Primitive`` overloads the `->` operator, which allows you to access the `PrimitiveImplementation` methods.
+  For example, `primitive->method()` actually calls `primitive->implementation->method()`.
+====
+
+=== Implementation
+
+==== Setting Things Up
+
+[TASK]
+====
+* Create a new folder `patterns` on the same level as `primitives`, `materials`, `lights`, etc.
+* Create a file `patterns/pattern.h`.
+  No corresponding `pattern.cpp` will be necessary.
+* Add a namespace declaration `patterns`.
+====
+
+==== Pattern2DImplementation
+
+This class will be fully abstract.
+It acts as a superclass for all 2D patterns and therefore will define all functionality common to 2D patterns.
+
+[TASK]
+====
+Inside `patterns/pattern.h`, define a class ``Pattern2DImplementation``.
+It has one member: a public method `at`.
+
+* `at` takes a `Point2D`.
+  Think about how to pass this parameter along.
+  A `Point2D` is a fairly large object, so don't pass it by value.
+  It also doesn't need to be modified.
+* `at` returns a `bool`.
+* `at` must be overridable.
+* `at` has no body at this level.
+* Calling `at` will not modify the pattern object in any way.
+
+If you're wondering about the `()` syntax: this is an internal class, client code won't come into direct contact with it.
+Let's keep the fancy stuff for where it can actually be seen.
+====
+
+==== Pattern2D
+
+If client code were to have to use `Pattern2DImplementation` directly, it would have to keep track of these objects using pointers, as the object is involved in an object hierarchy.
+To simplify usage, we also provide a wrapper class named ``Pattern2D`` which will allow client code to manipulate pattern objects as if they were values, i.e., pass them by value.
+
+[TASK]
+====
+In `patterns/pattern.h`, add a `Pattern2D` class.
+
+* Have it track of a `Pattern2DImplementation` object using a `shared_ptr`.
+* Define a constructor that receives a `shared_ptr` and uses it to initialize it the field.
+* Overload the `()` operator.
+  The goal is for `pattern2d(point2d)` to mean the same as `pattern2d.implementation->at(point2d)` were `implementation` public.
+====
+
+== 3D Patterns
+
+3D patterns are identical to 2D pattern, except that they take a 3D point instead of a 2D point.
+
+[source,language='c++']
+----
+Pattern3D some_pattern;
+Point3D p(x, y, z);
+bool color = some_pattern(p);
+----
+
+=== Implementation
+
+[TASK]
+====
+Still in `patterns/pattern.h`, add a class `Pattern3DImplementation`.
+It should be identical to `Pattern2DImplementation` except for the `Point2D` parameter of `at`.
+====
+
+[TASK]
+====
+To the same file, define the class `Pattern3D` which again is the same as `Pattern2D` except for the `Point2D`.
+====
