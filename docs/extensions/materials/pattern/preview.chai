@@ -1,0 +1,54 @@
+// movie
+def scene_at(now)
+{
+  var ez = Animations.ease(Animations.animate(15, 9, seconds(5)), Easing.cubic_out())[now]
+  var ey = Animations.ease(Animations.animate(10, 1, seconds(5)), Easing.cubic_out())[now]
+  var lz = Animations.ease(Animations.animate(10, 0, seconds(5)), Easing.cubic_out())[now]
+
+  var camera = Cameras.perspective( [ "eye": pos(0,ey,ez),
+                                      "look_at": pos(0,0,lz) ] )
+
+  var white = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                   "diffuse": Colors.white() * 0.8,
+                                   "specular": Colors.white(),
+                                   "specular_exponent": 20 ] )
+
+  var black = Materials.uniform( [ "ambient": Colors.black(),
+                                   "diffuse": Colors.white() * 0.1,
+                                   "specular": Colors.white(),
+                                   "specular_exponent": 20 ] )
+
+  var checkered_pattern = Patterns.checkered(1, 1)
+  var checkered_material = Materials.from_pattern(checkered_pattern, white, black)
+
+  var lines_pattern = Patterns.lines(.02, .04)
+  var lines_material = Materials.from_pattern(lines_pattern, white, black)
+  var lines_material2 = Materials.from_pattern(Patterns.rotate(degrees(90), lines_pattern), white, black)
+
+  var polka_pattern = Patterns.polka2d(0.05, 0.1)
+  var polka_material = Materials.from_pattern(polka_pattern, white, black)
+
+  var angle = Animations.animate(degrees(0), degrees(360), seconds(5))
+
+  var root = union( [ decorate(checkered_material, translate(vec(0, -1, 0), xz_plane())),
+                      decorate(lines_material, sphere()),
+                      decorate(lines_material2, translate(vec(-3,0,0),sphere())),
+                      decorate(polka_material, translate(vec(3,0,0),sphere()))
+                      ] )
+
+  var lights = [ Lights.omnidirectional( pos(0,2,5), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v6()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                       "height": 500,
+                                       "sampler": Samplers.multijittered(2),
+                                       "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )

@@ -1,0 +1,8 @@
+= Pattern Materials
+
+[overview]
+----
+difficulty 2
+----
+
+preview::preview[]
