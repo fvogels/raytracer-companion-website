@@ -1,0 +1,46 @@
+// movie
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                      "look_at": pos(0,0,0) ] )
+  
+  var box_material = Materials.uniform( [ "ambient": Colors.blue() * 0.2,
+                                          "diffuse": Colors.blue() * 0,
+                                          "light_filtering": Colors.white(),
+                                          "opacity": 0.2 ] )
+
+  var sphere_material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                             "diffuse": Colors.white() * 0.8,
+                                             "specular": Colors.white() * 0.8,
+                                             "specular_exponent": 10,
+                                             "reflectivity": 0.8 ] )
+
+
+  var boxes = []
+  boxes.push_back( box(2, 2, 2) )
+  //boxes.push_back( box(2.1, 2.1, 2.1) )
+  //boxes.push_back( box(2.2, 2.2, 2.2) )
+  //boxes.push_back( box(2.3, 2.3, 2.3) )
+  //boxes.push_back( box(2.4, 2.4, 2.4) )
+  //boxes.push_back( box(2.5, 2.5, 2.5) )
+
+  var root = union( [
+    decorate(box_material, union(boxes)),
+    decorate(sphere_material, sphere())
+  ])
+
+  var lights = [ Lights.omnidirectional( pos(0,0,5), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v7()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.multijittered(1),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(1)),
+          [ Pipeline.animation(1),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )

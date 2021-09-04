@@ -1,0 +1,21 @@
+= Ray Tracer v7
+
+[overview]
+----
+difficulty 3
+requires ray-tracers/v5
+reading refraction
+----
+
+preview::preview[]
+
+== Implementation
+
+This ray tracer version adds a simplified version of transparency.
+A more realistic form will be implemented in <</extensions/ray-tracers/v7/explanations#,the next version>>.
+
+
+[TASK]
+====
+TODO
+====
