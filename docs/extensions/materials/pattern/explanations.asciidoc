@@ -3,6 +3,62 @@
 [overview]
 ----
 difficulty 2
+requires patterns/basics
 ----
 
 preview::preview[]
+
+[IMPORTANT]
+====
+There is no point in making this extension if you don't make at least one pattern extension such as <</extensions/pattern/lines/explanations#,rb>>.
+====
+
+As explained in <</extensions/patterns/basics/explanations#,this extension>>, patterns are in essence nothing more than function that, given a position, return a boolean value.This extension's purpose is to be able to use patterns as materials.
+
+== Examples
+
+Consider this example script:
+
+[source,language='chai']
+----
+var material = Materials.from_pattern(pattern, material1, material2)
+----
+
+This creates a material whose structure is defined by pattern.
+Wherever the pattern returns `true`, `material1` is used, and similarly for `false` and `material2`.
+
+Let's define values for `pattern`, `material1` and `material2`:
+
+[source,language='chai']
+----
+var pattern = Patterns.checkered(1, 1)
+var white = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                 "diffuse": Colors.white() * 0.8 ] )
+var black = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                 "diffuse": Colors.white() * 0.8 ] )
+var material = Materials.from_pattern(pattern, white, black)
+----
+
+Here, `pattern` defines the checkerboard structure, while `white` and `black` determine what materials are associated with every square of the checkerboard.
+
+image::chess.png[align="center"]
+
+Of course, any materials will do:
+
+[source,language='chai']
+----
+var pattern = Patterns.checkered(1, 1)
+var m1 = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                              "diffuse": Colors.white() * 0.8,
+                              "specular": Colors.white(),
+                              "specular_exponent": 20,
+                              "reflectivity": 0.5 ] )
+
+var m2 = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                              "diffuse": Colors.white() * 0.7,
+                              "specular": Colors.white(),
+                              "specular_exponent": 20 ] )
+var material = Materials.from_pattern(pattern, m1, m2)
+----
+
+image::chess2.png[align="center"]
