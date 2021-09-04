@@ -151,8 +151,8 @@ no reflectance properties, etc. It is therefore an error to try to render an und
 
 We can define any kind of materials. Examples are
 
-* <</extensions/materials/marble2d/explanations#,Marble>>
-* <</extensions/materials/pattern2d/dalmatian2d/explanations#,Dalmatian spots>>
+* <</extensions/materials/marble/explanations#,Marble>>
+* <</extensions/pattern/dalmatian2d/explanations#,Dalmatian spots>>
 * <</extensions/materials/texture/explanations#,Textures>>
 
 ==== Example
