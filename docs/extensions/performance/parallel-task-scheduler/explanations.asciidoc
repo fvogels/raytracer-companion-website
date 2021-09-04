@@ -46,7 +46,18 @@ Implement ``ParallelTaskScheduler``. It needs to give the following guarantees:
 * All given tasks must be performed exactly once.
 * The scheduler's ``perform`` method returns only after all tasks have been performed.
 
-Since the tasks are independent, you do not need to perform any synchronization on their behalf.
-A class that might come in handy is <a href="http://en.cppreference.com/w/cpp/atomic/atomic">atomic</a>,
-but many other approaches are possible too.
+Since the tasks are independent, you do not need to perform any synchronization.
+====
+
+[TASK]
+====
+Find out where you can tell the ray tracer to use the parallel scheduler.
+
+If you need to debug, having multiple threads active can make things more difficult.
+Rely on the preprocessor to make the ray tracer us the serial scheduler in debug builds and the parallel scheduler in release builds.
+
+[TIP]
+=====
+The line of code that needs an update currently must mention the serial task scheduler.
+=====
 ====
