@@ -63,3 +63,44 @@ var material = Materials.from_pattern(pattern, m1, m2)
 ----
 
 image::chess2.png[align="center"]
+
+== Implementation
+
+[TASK]
+====
+* Create new files `materials/pattern-material.h` and `materials/pattern-material.cpp`.
+* Update `materials/materials.h`.
+====
+
+=== pattern2d
+
+[TASK]
+====
+Implement a function with signature
+
+[source,language='cpp']
+----
+Material raytracer::materials::pattern2d(Pattern2D pattern,
+                                         Material m1,
+                                         Material m2);
+----
+
+[TIP]
+=====
+The implementation can be kept very short if you rely on `composite` (see `materials/composition-material.h`), which already implements 90% of the required functionality.
+=====
+====
+
+=== pattern3d
+
+[TASK]
+====
+Implement a function with signature
+
+[source,language='cpp']
+----
+Material raytracer::materials::pattern3d(Pattern3D pattern,
+                                         Material m1,
+                                         Material m2);
+----
+====
