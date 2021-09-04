@@ -19,13 +19,22 @@ def scene_at(now)
 
   var ceiling_material = floor_material
 
-  var sphere_material = Materials.uniform( [ "ambient": Colors.blue() * 0.1,
-                                             "diffuse": Colors.blue() * 0.8,
+  var sphere_material = Materials.uniform( [ "ambient": RGB(0.1,0.1,0),
+                                             "diffuse": RGB(0.8,0.8,0),
                                              "specular": Colors.white() * 0.8,
                                              "specular_exponent": 10,
+                                             "light_filtering":  RGB(0.8,0.8,0),
                                              "transparency": 0.7,
                                              "refractive_index": 2.5 ] )
 
+  var sphere_material2 = Materials.uniform( [ "ambient": RGB(0.1,0,0.1),
+                                              "diffuse": RGB(0.8,0,0.8) * 0.8,
+                                              "specular": Colors.white() * 0.8,
+                                              "specular_exponent": 10,
+                                              "light_filtering": RGB(0.8,0,0.8),
+                                              "transparency": 0.7,
+                                              "refractive_index": 2.5 ] )
+                                             
   var small_sphere_material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
                                                    "diffuse": Colors.white() * 0.8,
                                                    "reflectivity": 0.8 ] )
@@ -42,7 +51,12 @@ def scene_at(now)
   var sphere_position = Animations.circular( [ "position": pos(0,0,1),
                                                "around": pos(0,0,0),
                                                "duration": seconds(5) ] )
+  var sphere_position2 = Animations.circular( [ "position": pos(0,1.1,0.5),
+                                                "around": pos(0,0,0),
+                                                "duration": seconds(5),
+                                                "axis": vec(0,-1,0) ] )
   primitives.push_back( decorate( sphere_material, translate(sphere_position[now] - pos(0,0,0), scale(0.5, 0.5, 0.5, sphere())) ) )
+  primitives.push_back( decorate( sphere_material2, translate(sphere_position2[now] - pos(0,0,0), scale(0.25, 0.25, 0.25, sphere())) ) )
   primitives.push_back( decorate( small_sphere_material, scale(0.25, 0.25, 0.25, sphere()) ) )
 
   var root = union(primitives)

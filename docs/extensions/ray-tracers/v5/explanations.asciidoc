@@ -8,171 +8,74 @@ requires ray-tracers/v4
 
 preview::preview[]
 
-== How Reflection Works
+== How It Works
 
-Reflection is conceptually very simple, but implementing it requires some modifications to the ray tracer structure.
-Fortunately, no changes will need to be made to existing ray tracers; all structural changes can be local to v5.
+The <</extensions/ray-tracers/v3/explanations#,previous version of the ray tracer>>, objects were considered 100% opaque: they would block 100% of the light.
+However, we would like objects to be able to be translucent, i.e., that they can only block part of the light.
 
-When a light ray reaches a reflective material, part of it gets reflected in a mirror-like fashion.
+Below we have three disks that each let through certain colors.
+The shadows shows what light "survives".
 
-image::reflection.png[align="center"]
+video::translucency.mp4[align="center"]
 
-As always with ray tracing, we need to work backwards. How does reflection fit into the ray tracing process?
+White light (`FFF`) travels from the top to the plane below.
 
-We start off in our eye stem:[E], from which a ray stem:[R] is cast into the scene. The ray hits the scene
-at some position stem:[P], and the material at that location happens to be reflective.
-The idea behind ray tracing is to find out which photons arriving at stem:[P] bounce back in the direction of stem:[R].
-To find this out, we reflect our own ray stem:[R] at stem:[P] and look which other scene objects it bumps into.
+* If it only encounters the cyan disk (`0FF`), then red (`F00`) gets blocked.
+* If the light beam needs to get through both the cyan disk (`0FF`) and the magenta disk (`F0F`), only blue (`00F`) survives.
+* If light encounters all three disks, all photons are blocked, resulting in a full black shadow.
 
-image::reflection2.png[align="center"]
+[NOTE]
+====
+Admittedly, the disks themselves don't look very translucent.
+This extension focuses solely on the shadows.
+Actually translucent looking disks will be possible in <</extensions/ray-tracers/v7/explanations#,ray tracer v7>>.
 
-Concretely, implementing reflection works as follows:
+video::translucency2.mp4[align="center"]
+====
 
-. We cast, as always, a ray stem:[R] starting in the eye stem:[E].
-. We find out where stem:[R] hits the scene. Call this location stem:[P].
-. Determine the color of stem:[P] as usual.
-. As extra step, we let stem:[R] be reflected at position stem:[P]. The normal vector stem:[\vec n] at stem:[P] will, as with specular highlights, determine
-  the reflection's direction. Let's call the reflected ray stem:[R'].
-. Now, we start the process all over again: we imagine our eye stem:[E] is located at stem:[P], and we trace stem:[R'].
-. stem:[R'] hits the scene in some point stem:[P']. We determine the color. This color will be perceived as a reflection at stem:[P].
+== Implementation
 
-For example, say that stem:[P] is, after computing <%= link 'reference/lighting/ambient', 'ambient' %>,
-<</reference/lighting/diffuse/explanations#,diffuse>> and <</reference/lighting/specular/explanations#,specular>> determined to be blue.
-If the material were nonreflective, we'd stop here. Otherwise, we go for another round of merry ray tracing:
-we follow the reflection of stem:[R], and find that it hits some red sphere. We now know that this red sphere
-will be visible at stem:[P]: we add red to the previously computed blue color, yielding violet.
+The previous ray tracer version operated in a very simple way: to render some position stem:[P], it iterates through all light sources stem:[L] and checks if there is any object between stem:[L] and stem:[P].
+This was achieved by taking the light ray, which travels from stem:[L] through stem:[P] and find an intersection with the scene.
+If there is an intersection where stem:[0 < t < 1], there is something obstructing the light from getting from stem:[L] to stem:[P], causing us to disregard all photons originating from stem:[L], which is how shadows form.
 
-== Recursive Ray Tracing
+We will add some nuance to this approach.
+An updated form of the algorithm goes as follows:
 
-When a ray reaches a reflective material, ray tracing has to start all over again. This means
-that the algorithm will be recursive. Conceptually, it will look like this:
-
-[source,language="python"]
+[source,language='python']
 ----
-def trace(scene, ray):
-  hit = find_intersection(scene, ray)
+hits = scene.find_all_hits(light_ray)
+filter = white
 
-  result = black
-  result += compute_ambient(hit)
-  result += compute_diffuse(hit)
-  result += compute_specular(hit)
-  result += compute_reflection(hit)
+for hit in [ h for h in hits if 0 < h.t < 1 ]:
+    # Determine material properties at hit
+    matprops = ...
 
-  return result
+    # Use color multiplication
+    filter *= mp.light_filtering
 
+# Make new light ray
+surviving_light_ray = LightRay(original_light_ray.ray,
+                               original_light_ray.color * filter)
 
-def compute_reflection(...):
-  if material is reflective
-    ray' = compute reflection of ray
-    return trace(scene, ray')
-  else
-    return black
+# Delegate further work to previous implementation
+return RayTracerV3.process_light_ray(surviving_light_ray)
 ----
 
-There are two details we need to take into account:
+Notice how we rely on `MaterialProperties::light_filtering` to determine how much light a primitive lets through.
 
-* Infinite recursion can occur if a ray gets caught between reflective materials.
-* Materials are not necessarily 100% reflective. As mentioned before,
-  only _part_ of the photons get reflected.
-
-One solution solves both problems: we associate a _reflectivity_ with each material,
-which is a number between ``0`` and ``1`` indicating how many
-photons get reflected. A nonreflective material has reflectivity ``0``.
-
-We update the pseudocode to take into account reflectivity:
-
-[source,language="python"]
-----
-def trace(scene, ray):
-  hit = find_intersection(scene, ray)
-
-  result = black
-  result += compute_ambient(hit)
-  result += compute_diffuse(hit)
-  result += compute_specular(hit)
-  result += compute_reflection(hit)
-
-  return result
-
-
-def compute_reflection(...):
-  if material is reflective
-    ray' = compute reflection of ray
-    return reflectivity * trace(scene, ray')
-  else
-    return black
-----
-
-However, we have not yet solved the problem of infinite recursion.
-Say we create a scene full of objects with reflectivity 0.9.
-We cast our ray beginning in the stem:[E]. It hits the scene at stem:[P].
-Since the material is reflective, we create a new ray
-starting in stem:[P] and trace it. We know that the resulting color
-will be multiplied by stem:[0.9]. The secondary ray hits the scene in stem:[P'].
-Again we reflect the ray, but we know this color will only count for stem:[0.9 \times 0.9 = 0.81].
-As the ray continuous bouncing around, the resulting's color effect will diminish at each step:
-
-[stem]
-++++
-  1 \quad 0.9 \quad 0.81 \quad 0.729 \quad 0.6561 \quad 0.59049 \quad 0.531441 \quad 0.4782969 \quad \dots
-++++
-
-After a number of reflections we will arrive at a point where the next computed color will only matter
-for less than stem:[1\%]. We can easily stop tracing there without it visibly affecting the result.
-The stem:[1\%] threshold is chosen arbitrarily: if you prefer you can choose a higher or lower value.
-Higher values mean tracing will end sooner and hence will reduce rendering times.
-
-image::weight.png[align="center"]
-
-To implement this, we need to pass along the "weight" to the ``trace`` function.
-The weight indicates how much the result of the call will count in the final result.
-``trace`` can then choose to immediately return black if this weight is below stem:[1\%].
-This way, recursion is guaranteed to end, as long as with each recursive call,
-``trace`` passes along an updated version of the weight which is lower than its own.
-
-
-[source,language="python"]
-----
-def trace(scene, ray, weight):
-  if weight > 0.01
-    hit = find_intersection(scene, ray)
-
-    result = black
-    result += compute_ambient(hit)
-    result += compute_diffuse(hit)
-    result += compute_specular(hit)
-    result += compute_reflection(hit)
-
-  return result
-
-
-def compute_reflection(...):
-  if material is reflective
-    ray' = compute reflection of ray
-    return reflectivity * trace(scene, ray', weight * reflectivity)
-  else
-    return black
-----
+* If `light_filtering` equals black, no light gets through.
+  This is the default.
+* If `light_filtering` equals white, all light gets through.
+  Such an object will never cast shadows.
+* If `light_filtering` equals red, only red light will get through.
+  Such an object will cast a red shadow.
 
 [TASK]
 ====
-Implement ``RayTracerV5``. We give you the following hints:
-
-* You will need to add a new ``trace`` overload. It takes the same arguments
-  as the original ``trace`` function and adds a ``double weight`` parameter.
-* ``RayTracerV5`` overrides ``trace``. It calls the new ``trace`` overload,
-  passing it ``1.0`` as ``weight``.
-* The new ``trace`` will behave the same as the old ``trace``, but will,
-  after calling ``compute_ambient`` and ``process_lights``, perform
-  a third call, to ``compute_reflection``.
-* ``compute_reflection`` will need to be able to call ``trace`` recursively.
-  It is important that you call the new overload, and that you always pass along the correct weight.
-  Make sure to pass all necessary data to ``compute_reflection`` using parameters
-  so that it can perform its job.
-* Say the light ray stem:[O + \vec \Delta \cdot t] hits the reflective object at some point stem:[P].
-  You compute the new direction stem:[\Delta'], and you trace the ray's reflection stem:[P + \Delta' \cdot t].
-  When you try to find the intersection of this second ray with the scene,
-  you may very well get stem:[P] as result, which is definitely not what you want. To prevent this from happening, you will
-  have to move the second ray's origin a tiny bit: instead of
-  stem:[P + \Delta' \cdot t], you need to trace stem:[P + 0.00000001 \cdot \Delta' + \Delta' \cdot t].
+* Create new files `raytracers/ray-tracer-v5.cpp` and `raytracers/ray-tracer-v5.h`.
+* Implement a class `RayTracerV5` that inherits from `RayTracerV4`.
+** An autogenerated default constructor will suffice, i.e., you do not need to define any constructors.
+** The class only needs to override ``process_light_ray``.
+   The algorithm is given in Pythonesque code above.
 ====

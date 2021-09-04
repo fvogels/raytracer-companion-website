@@ -1,0 +1,43 @@
+// movie
+def mat(c, n)
+{
+  Materials.uniform( [ "ambient": c * 0.1,
+                       "diffuse": c * 0.8,
+                       "light_filtering":  c * n,
+                       "opacity": 0.25 ] )
+}
+
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0,5,5),
+                                      "look_at": pos(0,0,0) ] )
+
+  var plane_mat = Materials.marble2d(1, 0)
+
+  var t = Animations.ease(Animations.animate(7, 1, seconds(5)), Easing.quintic_out())[now]
+
+  var primitives = []
+  primitives.push_back( translate(vec(-0.8 * t,1,0), decorate(mat(Colors.yellow(), 1), xz_disk(1))) )
+  primitives.push_back( translate(vec(0.8 * t,1.5,0), decorate(mat(Colors.magenta(), 1), xz_disk(1))) )
+  primitives.push_back( translate(vec(0,2,-1*t), decorate(mat(Colors.cyan(), 1), xz_disk(1))) )
+  primitives.push_back( translate(vec(0,-2,0), decorate(plane_mat, xz_plane())) )
+
+
+  var root = union(primitives)
+
+  var lights = [ Lights.omnidirectional( pos(0,50,1), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v7()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.multijittered(2),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
+
