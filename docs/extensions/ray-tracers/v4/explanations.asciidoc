@@ -4,7 +4,6 @@
 ----
 difficulty 2
 requires ray-tracers/v3
-reading lighting/specular
 ----
 
 preview::preview[]
