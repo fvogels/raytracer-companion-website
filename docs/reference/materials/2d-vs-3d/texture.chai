@@ -8,7 +8,7 @@ var black = Materials.uniform( [ "ambient": Colors.white() * 0.1,
 var white = Materials.uniform( [ "ambient": Colors.white(),
                                  "diffuse": Colors.black() ] )
 
-var material = Materials.checkered3d(black, white)
+var material = Materials.from_pattern(Patterns.checkered(1, 1, 1), black, white)
 
 var root = decorate(Materials.scale(0.25, 0.25, 0.25, material), xy_plane())
 
