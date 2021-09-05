@@ -89,7 +89,7 @@ One way to solve this problem is to let ``Sphere`` be smart about the direction 
 While computing hits, the primitive receives a ray whose origin represents the eye of the camera.
 When determining the normal, it can choose its direction is such a way that it points towards this eye.
 
-Mathematically, this can be done using the <%= link 'reference/math/dot-product', 'dot product' %>: given the ray origin stem:[E], the hit position stem:[P]
+Mathematically, this can be done using the <</reference/math/dot-product/explanations#,dot product>>: given the ray origin stem:[E], the hit position stem:[P]
 and a normal stem:[\vec n] at stem:[P], it computes stem:[(E - P) \cdot \vec n]. If it is negative, the normal points towards stem:[E], which is what we want.
 If, however, the dot product turns out to be positive, we need to flip the normal around: stem:[-\vec n] becomes the new normal.
 
