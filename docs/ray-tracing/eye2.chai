@@ -23,9 +23,7 @@ var black = Materials.uniform( [ "ambient": Colors.white() * 0.1,
                                  "transparency": 0,
                                  "refractive_index": 0 ] )
 
-var checkered = Materials.checkered2d( white, black )
-
-
+var checkered = Materials.from_pattern(Patterns.checkered(1, 1), white, black)
 
 var root        = union( [ decorate( checkered, translate(vec(0,-1,0), xz_plane()) ),
                            decorate( white, translate(vec(1,0,0), sphere()) ),
