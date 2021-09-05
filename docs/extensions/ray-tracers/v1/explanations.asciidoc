@@ -106,6 +106,7 @@ TraceResult raytracer::raytracers::_private_::RayTracerV0::trace(const Scene& sc
    We return an "empty" `TraceResult`.
 
 We'll do a slight bit of overengineering so that it becomes easier to build on top of it later.
+Visually, the structure looks as follows:
 
 image::code-structure.svg[align="center"]
 
