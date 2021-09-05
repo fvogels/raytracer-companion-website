@@ -12,8 +12,7 @@ preview::preview[]
 == Implementation
 
 <</extensions/ray-tracers/v1/explanations#,Ray tracer v1>> added support for <</reference/lighting/ambient/explanations#,ambient lighting>>.
-This ray tracer adds another kind of lighting, namely <%= link 'reference/lighting/diffuse', 'diffuse lighting' %>. Take some time to read up on it.
-
+This ray tracer adds another kind of lighting, namely <</reference/lighting/diffuse/explanations#,diffuse lighting>>. Take some time to read up on it.
 
 When ray tracing a scene, our goal is to be able to simulate each photon so that we know which effect it has on
 our final image. Ray tracer v1 only took into consideration a small fraction of these photons,
@@ -28,53 +27,90 @@ are the product of diffuse lighting.
   \end{array}
 ++++
 
-We suggest the following design for v2. It might help to refactor v1 a bit so that you can make v2 a subclass
-of v1 and reuse functionality.
+`RayTracerV2` will be structured as follows:
 
-image::uml.png[align="center",width="600"]
+image::code-structure.svg[align="center"]
 
 We now discuss each of the methods' responsibilities in turn.
 
-== `trace`
+[NOTE]
+====
+Admittedly, this may come across as a lot of unnecessary indirections, but we're simply giving each method one responsibility.
+Future ray tracers will reap the rewards: implementing them will be a matter of overriding the appropriate method.
+====
 
-The algorithm in ``trace``'s body looks as follows: given a scene and a ray,
-
-. Determine the first positive hit between the ray and the scene.
-. If there is no hit, return a ``TraceResult::no_hit``.
-. Initialize a ``Color result`` to ``colors::black()``, i.e. with start with zero photons.
-. Ask the ``hit.material`` for the ``MaterialProperties`` at the hit location.
-. Compute the ambient lighting (as you did in v1) and add the color to ``result``.
-. Call ``process_lights``, which will iterate over all lights. Add the return value (a color) to ``result``.
-. Return a ``TraceResult`` containing all necessary data, with as color ``result``'s final value.
+=== Setting Things Up
 
 [TASK]
 ====
 Create two new files ``raytracers/ray-tracer-v2.cpp`` and ``raytracers/ray-tracer-v2.h``.
-Add the necessary declarations in the header file (let the above UML class diagram guide you).
-
-Add the definition for ``trace`` in the ``.cpp`` file.
+Add a class declaration for `RayTracerV2`.
+The class must inherit from `RayTracerV1`.
 ====
 
-== `process_lights`
-
-This method's sole responsibility is to iterate over each light and return the sum of all colors.
-
-. Start with a fresh ``Color result`` set to black.
-. Iterate over the scene's light sources. Call ``process_light_source`` for each light source
-  and add the return value to ``result``.
-. Return ``result``.
+=== determine_color
 
 [TASK]
 ====
-Implement ``process_lights``.
+`RayTracerV2` must override `determine_color`.
+
+* Add a declaration for `determine_color` in the `.h` file.
+  Remember to add the `override` specifier.
+* Create an empty-bodied definition in the `.cpp` file.
 ====
 
-== `process_light_source`
+The `v1` version of `determine_color` simply returns `compute_ambient`.
+`v2` will add diffuse lighting to this.
+
+[TASK]
+====
+Implement `RayTracerv2::determine_color` using the pseudocode below as guide:
+
+[source,language='python']
+----
+def determine_color(scene, matprops, hit, eye_ray):
+  result = black
+
+  # Call old version of determine_color
+  result += super().determine_color(scene, matprops, hit, eye_ray)
+
+  # Process all lights in the scene
+  result += process_lights(scene, matprops, hit, eye_ray)
+
+  return result
+----
+
+You may have to look up how to call the superclass's version of a method in {cpp}.
+====
+
+=== process_lights
+
+This method's sole responsibility is to iterate over each light and return the sum of all the returned colors.
+
+[TASK]
+====
+Create a declaration (in `.h`) and definition (in `.cpp`) for ``RayTracerV2::process_lights``.
+
+[source,language='python']
+----
+def process_lights(scene, matprops, hit, eye_ray):
+  result = black
+
+  for light_source in scene.light_sources:
+    result += process_light_source(scene, matprops, hit, eye_ray, light_source)
+
+  return result
+----
+
+* Think of const-correctness.
+* Make it overridable.
+====
+
+=== process_light_source
 
 This method asks the given light source to enumerate all light rays it emits in the direction of the hit position
 and passes each to ``process_light_ray``.
 For point lights, there is only one such ray, but area lights can produce many.
-
 
 [%header,.center,cols="^,^"]
 |===
@@ -87,37 +123,46 @@ Note how light sources produce ``LightRay`` objects, not just ``Ray``s. A ``Ligh
 is a ``Ray`` combined with a ``Color``, meaning it specifies not only where the light comes from,
 but also which color it is.
 
-``process_light_source`` operates as follows:
+[TASK]
+====
+Create a declaration (in `.h`) and definition (in `.cpp`) for ``RayTracerV2::process_light_source``.
 
-. Initialize a local variable ``result`` of type ``Color`` to black.
-. Ask the light source to enumerate all light rays that reach ``hit.position``.
-. Iterate over each of these light rays. Give each to ``process_light_ray``.
-  Add the return values to ``result``.
-. Return ``result``.
+[source,language='python']
+----
+def process_light_source(scene, matprops, hit, eye_ray, light_source):
+  result = black
+
+  for light_ray in light_source.lightrays_to(hit.position):
+    result += process_light_ray(scene, matprops, hit, eye_ray, light_ray)
+
+  return result
+----
+
+* Think of const-correctness.
+* Make it overridable.
+====
+
+=== process_light_ray
 
 [TASK]
 ====
-Implement ``process_light_source``.
+Create a declaration (in `.h`) and definition (in `.cpp`) for ``RayTracerV2::process_light_ray``.
+
+[source,language='python']
+----
+def process_light_ray(scene, matprops, hit, eye_ray, light_ray):
+  result = black
+
+  result += compute_diffuse(matprops, hit, eye_ray, light_ray)
+
+  return result
+----
+
+* Think of const-correctness.
+* Make it overridable.
 ====
 
-== `process_light_ray`
-
-In v2, ``process_light_ray`` is very simple:
-
-. Initialize local variable ``result`` to black.
-. Call ``compute_diffuse`` and add its return value to ``result``.
-. Return ``result``.
-
-[TASK]
-====
-Implement ``process_light_ray``.
-====
-
-Admittedly, this method seems like an unnecessary indirection, and at this stage, it is.
-We chose to introduce it here so as to simplify the definition of v3: writing this
-ray tracer will be a matter of overriding this method.
-
-== `compute_diffuse`
+=== compute_diffuse
 
 Finally comes the time to actually compute diffuse lighting.
 The arguments provide you with all necessary data. You need:
@@ -130,11 +175,29 @@ The arguments provide you with all necessary data. You need:
 [TASK]
 ====
 Translate the <</reference/lighting/diffuse/explanations#,mathematical formula for diffuse lighting>> into code.
+
+[source,language='python']
+----
+def compute_diffuse(matprops, hit, eye_ray, light_ray):
+  # First extract all information from arguments
+  n = ...
+  L = ...
+  P = ...
+  CL = ...
+  CS = ...
+
+  cos = compute_cos_of_angle between n and (L-P)
+
+  if cos > 0:
+    return cos * CL * CS
+  else:
+    return black
+----
 ====
 
 [TIP]
 ====
-* You can make use of ``Vector3D::normalized`` to normalize the vector, i.e. you can translate
+* You can make use of ``Vector3D::normalized`` to normalize the vector, i.e., you can translate
 +
 [stem]
 ++++
@@ -145,15 +208,14 @@ to ``(L - P).normalized()``.
   both stem:[a] and stem:[b] are vectors, otherwise you need to use ``*``.
 ====
 
+=== Finishing Touches
+
 [TASK]
 ====
-Put the finishing touches.
-
 * Create the factory method ``raytracer::raytracers::v2()``.
 * Add the appropriate include to ``raytracers/ray-tracers.h``.
 * Update ``scripting/raytracing-module.cpp``.
 ====
-
 
 [TASK]
 ====

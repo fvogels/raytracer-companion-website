@@ -1,0 +1,10 @@
+digraph {
+    node [shape="box"];
+
+    trace -> determine_color;
+    determine_color -> compute_ambient;
+    determine_color -> process_lights;
+    process_lights -> process_light_source [label="  for each light"];
+    process_light_source -> process_light_ray [label="  for each light ray"];
+    process_light_ray -> compute_diffuse;
+}
