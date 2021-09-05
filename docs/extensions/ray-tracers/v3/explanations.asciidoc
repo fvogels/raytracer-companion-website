@@ -9,7 +9,7 @@ reading lighting/specular
 
 preview::preview[]
 
-== Implementation
+== Background Information
 
 Ray tracer v1 gave us <</reference/lighting/ambient/explanations#,ambient lighting>>.
 Ray tracer v2 improved upon this by introducing <</reference/lighting/diffuse/explanations#,diffuse lighting>>.
@@ -25,48 +25,153 @@ which enables us to make objects look metallic.
 \end{array}
 ++++
 
-Ray tracer v3 will build upon v2. In code, this is reflected by the fact
-that ``RayTracerV3`` should be a subclass of ``RayTracerV2``.
+Ray tracer v3 will build upon v2.
+In code, this is reflected by the fact that ``RayTracerV3`` should be a subclass of ``RayTracerV2``.
 
-image::uml.png[align="center",width="100%"]
+image::code-structure.svg[align="center"]
 
-As shown in the UML class diagram above, only two functions need to be implemented.
+== Additional Material Properties
 
-=== `process_light_ray`
-
-Remember ``process_light_ray`` from <</extensions/ray-tracers/v2/explanations#,v2>>:
-it is called once for every light ray emitted by each light source in the scene.
-In the case of v2, it merely called ``compute_diffuse`` and returned that function's result,
-making its existence seem pointless.
-
-In v3, we can override this function so that instead of only returning the diffuse color,
-it adds the specular highlight to this result. The algorithm looks as follows:
-
-. Call the base class's version of ``process_light_ray``. Look online for how to do this in {cpp}.
-  Assign the result to a local variable ``result``.
-. Call ``compute_specular`` and add its return value to ``result``.
-. Return ``result``.
+=== MaterialProperties
 
 [TASK]
 ====
-Implement ``process_light_ray``.
+Open the file `materials/material-properties.h`.
 ====
 
-=== `compute_specular`
+As you can see, the `MaterialProperties` class currently only contains fields for ambient and diffuse lighting.
+We will need to add fields so that materials can also exhibit specular highlights.
+
+[TASK]
+====
+In the class `MaterialProperties`,
+
+* Add a field `specular` of type `Color`.
+* Add a field `specular_exponent` of type `double`.
+
+Add extra parameters for both to the constructor.
+====
+
+=== MaterialPropertiesBuilder
+
+The `MaterialProperties` class will grow large as we develop more ray tracers.
+Having to specify values for each parameter will soon become cumbersome, especially since there will be reasonable default values for them.
+For this reason, a `MaterialPropertiesBuilder` class exists.
+It simplifies the creation of a `MaterialProperties` object:
+
+[source,language='cpp']
+----
+MaterialProperties material_properties(ambient, diffuse, specular, specular_exponent);
+
+// can be written as
+
+auto material_properties =
+  create_material_properties_with().ambient(ambient)
+                                   .diffuse(diffuse)
+                                   .specular(specular, specular_exponent);
+----
+
+The builder provides the following advantages:
+
+* We can specify the arguments in any order we want.
+* We can leave out any of the arguments and they will automatically be initialized to default values.
+* It is much more readable as the field being initialized is being mentioned by name.
+  With the regular constructor syntax, there is no hint whatsoever as to what the nth argument means.
+
+[TASK]
+====
+Extend `MaterialPropertiesBuilder` with an extra method named `specular` so that it can be used to initialize ``MaterialProperties``'s fields `specular` and `specular_exponent` as follows:
+
+[source,language='cpp']
+----
+// specular and specular_exponent belong together,
+// so we initialize them with a single builder method
+auto material_properties =
+  create_material_properties_with().specular(specular, specular_exponent);
+----
+
+You can use the existing code for `ambient` and `diffuse` as a guide.
+====
+
+=== Bindings
+
+[TASK]
+====
+Open `scripting/materials-module.cpp`.
+Update `uniform` and `uniform_by_map` to add support for `specular` and `specular_exponent`.
+Base yourself on the existing code to find out how.
+====
+
+== RayTracerV3
+
+=== process_light_ray
+
+Remember ``process_light_ray`` from <</extensions/ray-tracers/v2/explanations#,v2>>:
+it is called once for every light ray emitted by each light source in the scene.
+In the case of v2, it merely called ``compute_diffuse`` and returned that function's result.
+In v3, we can override this function so that instead of only returning the diffuse color, it adds the specular highlight to this result.
+
+[TASK]
+====
+Implement ``RayTracerV3::process_light_ray`` using the pseudocode below as guide.
+
+[source,language="python"]
+----
+def process_light_ray(scene, matprops, hit, eye_ray, light_ray):
+  result = black
+
+  result += super().process_light_ray(scene, matprops, hit, eye_ray, light_ray)
+  result += compute_specular(matprops, hit, eye_ray, light_ray)
+
+  return result
+----
+====
+
+=== compute_specular
 
 [TASK]
 ====
 Implement the <</reference/lighting/specular/explanations#,specular highlight algorithm>> in ``compute_specular``.
 
-* You can gather all necessary information from the parameter values.
-* To normalize vectors, you can use ``Vector3D::normalized``.
-* Reflection of a vector stem:[\vec v] by a surface with normal stem:[\vec n] is already implemented for you as ``Vector3D::reflect_by``.
-* To compute stem:[a^b], use ``pow(a, b)``.
+[source,language="python"]
+----
+def compute_specular(matprops, hit, eye_ray, light_ray):
+  # Collect data from arguments
+  L = ...
+  P = ...
+  E = ...
+  CL = ...
+  CP = ...
+  e = ...
+
+  # Perform computations
+  i = ...
+  r = ...
+  v = ...
+  cos_alpha = ...
+
+  if cos_alpha > 0:
+    return CL * CP * cos_alpha**e
+  else:
+    return black
+----
+
+[TIP]
+=====
+* Rely on ``Vector3D::normalized`` to normalize vectors.
+* Rely on ``Vector3D::reflect_by`` to compute a reflection of a vector.
 * You can optimize the function a little bit by first checking whether the ``specular`` member of the given ``MaterialProperties``
   is black. If it is, there's no point performing all calculations.
+=====
 ====
+
+=== Bindings
 
 [TASK]
 ====
-Add the finishing touches so that you can make use of specular highlights in your scripts.
+Add the necessary code in `scripting/materials-module.cpp` so as to be able to use specular lighting in scripts.
 ====
+
+== Evaluation
+
+TODO
