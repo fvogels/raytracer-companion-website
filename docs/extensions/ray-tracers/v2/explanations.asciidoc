@@ -35,7 +35,7 @@ We now discuss each of the methods' responsibilities in turn.
 
 [NOTE]
 ====
-Admittedly, this may come across as a lot of unnecessary indirections, but we're simply giving each method one responsibility.
+This may come across as a lot of unnecessary indirections, but we're simply giving each method one responsibility.
 Future ray tracers will reap the rewards: implementing them will be a matter of overriding the appropriate method.
 ====
 
@@ -217,16 +217,16 @@ to ``(L - P).normalized()``.
 * Update ``scripting/raytracing-module.cpp``.
 ====
 
+== Evaluation
+
 [TASK]
 ====
-Check your work extensivily. Render a scene
-where you can see the lit and unlit parts of an object.
-Make sure the results look good.
+TODO
+====
 
-Make sure that, while setting up the scene, you pick a low
-value for the ambient color, such as ``0.1 * colors::white()``. For example, if you were to set
-ambient to ``colors::white()``, the object
-would already be maximally illuminated and the diffuse lighting
-would simply "drown" in the ambient lighting.
+[NOTE]
+====
+Make sure that, while setting up the scene, you pick a low value for the ambient color, such as ``0.1 * colors::white()``.
+For example, if you were to set ambient to ``colors::white()``, the object would already be maximally illuminated and the diffuse lighting would simply "drown" in the ambient lighting.
 It's as if you point a flashlight to the sun.
 ====
