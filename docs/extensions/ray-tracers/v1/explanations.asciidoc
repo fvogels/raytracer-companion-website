@@ -112,7 +112,7 @@ image::code-structure.svg[align="center"]
 
 [TASK]
 ====
-Add a method with signature `Color RayTracerV1::compute_ambient(const MaterialProperties&)`.
+Add a _protected_ method with signature `Color RayTracerV1::compute_ambient(const MaterialProperties&)`.
 It should simply return the `ambient` field of its argument.
 ====
 
@@ -121,7 +121,7 @@ It should simply return the `ambient` field of its argument.
 Add a method `Color RayTracerV1::determine_color(const Scene& scene, const MaterialProperties& properties, const Hit& hit, const math::Ray&) const`.
 As new ray tracer versions add features, this method will often be the one to host them.
 
-* Make sure `determine_color` can be overridden.
+* `determine_color` should not be visible to client code, but do make sure it can still be overridden.
 * Currently, we support only one feature: ambient lighting.
   `determine_color` should call `compute_ambient` and return its result.
 ====
