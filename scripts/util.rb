@@ -170,3 +170,7 @@ def gnuplot_render(source, destination)
     sh "gnuplot -e \"set terminal pngcairo; set output '#{destination.expand_path.to_s}'\" -c #{source}"
   end
 end
+
+def compile_graphviz(source, destination)
+  sh "dot -Tsvg #{source.to_s} -o #{destination.to_s}"
+end

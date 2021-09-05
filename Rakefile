@@ -119,6 +119,23 @@ end.then do |paths|
   task :copy => paths.map(&:to_s)
 end
 
+Rake::FileList.new('docs/**/*.gv').then do |graphviz_files|
+  svg_files = graphviz_files.pathmap('%{^docs/,dist/}X.svg')
+
+  graphviz_files.zip(svg_files).each do |graphviz_file, svg_file|
+    source = Pathname.new graphviz_file
+    target = Pathname.new svg_file
+
+    desc "Compile #{graphviz_file}"
+    file svg_file => graphviz_file do
+      compile_graphviz(source, target)
+    end
+  end
+
+  desc 'Compiles graphviz to svg'
+  task :graphviz => svg_files
+end
+
 desc 'Removed dist and temp directories'
 task :clean do
   FileUtils.rm_rf 'dist'
