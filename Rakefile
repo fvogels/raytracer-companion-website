@@ -127,7 +127,7 @@ Rake::FileList.new('docs/**/*.gv').then do |graphviz_files|
     target = Pathname.new svg_file
 
     desc "Compile #{graphviz_file}"
-    file svg_file => graphviz_file do
+    file svg_file.to_s => graphviz_file.to_s do
       compile_graphviz(source, target)
     end
   end
@@ -154,7 +154,7 @@ task :toc do
 end
 
 desc 'Makes a full build'
-task :default => [ :toc, :html, :chai, :tex, :gnuplot, :copy ]
+task :default => [ :toc, :html, :chai, :tex, :gnuplot, :graphviz, :copy ]
 
 
 # ONLY DO THIS WHEN EVERYTHING IS FINISHED
