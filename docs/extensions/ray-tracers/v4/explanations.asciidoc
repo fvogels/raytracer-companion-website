@@ -8,7 +8,7 @@ requires ray-tracers/v3
 
 preview::preview[]
 
-== Implementation
+== Background Information
 
 Previous versions of the ray tracer added new lighting models (ambient, diffuse, specular highlights), but none
 took shadows into account. Now, to be fair, <</reference/lighting/ambient/explanations#,ambient lighting>>
@@ -30,7 +30,7 @@ However, we have to be careful not to be overzealous: stem:[P] is shadowed only 
 between stem:[L] and stem:[P]. The ray through stem:[L] and stem:[P] also hits the red and green spheres, but these
 have no effect on whether stem:[P] is illuminated or not, as they are not located between stem:[L] and stem:[P].
 
-The easiest way to check if a hit occurs between stem:[L] and stem:[P] is to rely on the stem:[t]-value of the hit.
+The easiest way to check if a hit occurs between stem:[L] and stem:[P] is to rely on the <</reference/math/ray/explanations#,stem:[t]-value>> of the hit.
 Say we want to determine whether photons can get from stem:[L] to stem:[P]. We define a ray
 whose origin lies in stem:[L] and whose direction reaches from stem:[L] to stem:[P], i.e. we do _not_ use
 a unit vector. We then get the following stem:[t]-values:
@@ -50,20 +50,35 @@ So, what do we actually need to do in ray tracer v4? Not much, really: we need o
 intersects the scene at stem:[t] values between stem:[0] and stem:[1]. If not, it can continue
 in the same way as v3 did, otherwise it returns black.
 
+== Implementation
+
+image::code-structure.svg[align="center"]
+
+``RayTracerV3::process_light_ray`` indiscriminately calls `compute_diffuse` and `compute_specular` for each light ray.
+``RayTracerV4`` will override `process_light_ray` so that it becomes a bit more selective: only if there are not objects between the light and the ray-scene intersection stem:[P] will this position be illuminated.
+
 [TASK]
 ====
 Define the class ``RayTracerV4`` in its own set of files (``ray-tracer-v4.cpp`` and ``ray-tracer-v4.h``).
 Override ``process_light_ray``:
 
-* Find the intersection between the light ray and the scene.
-* If there's a hit where stem:[0 \leq t < 1], return black.
-* Call ``RayTracerV3::process_light_ray`` and return its result.
+[source,language='python']
+----
+def process_light_ray(scene, matprops, hit, eye_ray, light_ray):
+    light_hit = scene.find_first_positive_hit(light_ray)
+
+    if light_hit and not (0 <= light_hit.t < 1):
+        return super.process_light_ray(scene, matprops, hit, eye_ray, light_ray)
+    else:
+        return black
+----
 ====
+
+== Bindings
 
 [TASK]
 ====
-Integrate ``RayTracerV4`` with the rest of the ray tracer.
-Show off by creating a scene with shadows.
+Add the necessary bindings to make `v4` available to scripts.
 ====
 
 == Approximation Errors
@@ -82,3 +97,7 @@ video::noise.mp4[align="center"]
 ====
 Remedy this by slightly changing the stem:[0 \leq t < 1] to account for the approximation errors.
 ====
+
+== Evaluation
+
+TODO

@@ -52,7 +52,7 @@ def scene_at(now)
   create_scene(camera, root, lights)
 }
 
-var raytracer   = Raytracers.v7()
+var raytracer   = Raytracers.v8()
 var renderer    = Renderers.standard( [ "width": 500,
                                         "height": 500,
                                         "sampler": Samplers.multijittered(2),

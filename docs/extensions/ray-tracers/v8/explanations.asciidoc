@@ -3,13 +3,15 @@
 [overview]
 ----
 difficulty 4
-requires ray-tracers/v6
+requires ray-tracers/v7
 reading refraction
 ----
 
 preview::preview[]
 
 == Implementation
+
+image::code-structure.svg[align="center"]
 
 First, familiarize yourself with <</reference/refraction/explanations#,refraction>>.
 Also go take a look at ``MaterialProperties``: you'll find you'll need the member variables
@@ -70,7 +72,7 @@ determines the factor by which the resulting color is multiplied.
 
 [TASK]
 ====
-Implement ``RayTracerV7``.
+Implement ``RayTracerV8``.
 
 TODO Update
 

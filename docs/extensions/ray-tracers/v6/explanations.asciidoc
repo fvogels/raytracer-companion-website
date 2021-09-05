@@ -3,7 +3,7 @@
 [overview]
 ----
 difficulty 3
-requires ray-tracers/v4
+requires ray-tracers/v5
 ----
 
 preview::preview[]
@@ -36,7 +36,7 @@ Concretely, implementing reflection works as follows:
 . Now, we start the process all over again: we imagine our eye stem:[E] is located at stem:[P], and we trace stem:[R'].
 . stem:[R'] hits the scene in some point stem:[P']. We determine the color. This color will be perceived as a reflection at stem:[P].
 
-For example, say that stem:[P] is, after computing <%= link 'reference/lighting/ambient', 'ambient' %>,
+For example, say that stem:[P] is, after computing <</reference/lighting/ambient/explanations#,ambient>>,
 <</reference/lighting/diffuse/explanations#,diffuse>> and <</reference/lighting/specular/explanations#,specular>> determined to be blue.
 If the material were nonreflective, we'd stop here. Otherwise, we go for another round of merry ray tracing:
 we follow the reflection of stem:[R], and find that it hits some red sphere. We now know that this red sphere

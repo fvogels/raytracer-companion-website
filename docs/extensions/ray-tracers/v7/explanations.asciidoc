@@ -3,7 +3,7 @@
 [overview]
 ----
 difficulty 3
-requires ray-tracers/v5
+requires ray-tracers/v6
 reading refraction
 ----
 
