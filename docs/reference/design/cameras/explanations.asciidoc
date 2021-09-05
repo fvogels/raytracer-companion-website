@@ -35,7 +35,7 @@ hits the scene. This determines what color the dot should be.
 
 This explanation, however, assumes you are working with a perspective camera. Other cameras correspond
 to small variations on this story. For example, whereas a perspective camera assumes you have
-a rectangular canvas, a <%= link 'extensions/cameras/fisheye', 'fisheye camera' %> uses a spherical canvas.
+a rectangular canvas, a <</extensions/cameras/fisheye/explanations#,fisheye camera>> uses a spherical canvas.
 
 To get a concrete idea of what a camera does, open the file ``cameras/camera.h``.
 ``CameraImplementation`` is the base class for all cameras and in essence
