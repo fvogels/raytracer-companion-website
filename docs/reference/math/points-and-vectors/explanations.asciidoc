@@ -100,7 +100,7 @@ image::point-plus-vector.png[align="center"]
 Notice that you _cannot_ add two points together.
 
 If you need to add points and vectors described in polar or spherical coordinates,
-you have to <%= link 'reference/math/coordinate-systems/conversions', 'convert these into Cartesian coordinates first' %>.
+you have to <</reference/math/coordinate-systems/conversions/explanations#,convert these into Cartesian coordinates first>>.
 
 
 === Subtraction
