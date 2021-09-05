@@ -20,119 +20,127 @@ of actually trying to find out which color the object has. Ray tracer v1 will im
 
 [TASK]
 ====
+Let's first simply make a copy of `RayTracerV0` called `RayTracerV1`.
+In a later step we will make modifications.
+
 Add the following files to the project:
 
 * ``raytracers/ray-tracer-v1.cpp``
 * ``raytracers/ray-tracer-v1.h``
 
-Copy the contents of ``raytracers/ray-tracer-v0.cpp`` and ``raytracers/ray-tracer-v0.h`` into them.
-Update the code for the name change, e.g.
+Change all occurrences of `v0` to `v1`.
 
-* In ``ray-tracer-v1.h``, change the class name from ``RayTracerV0`` to ``RayTracerV1``.
-* In ``ray-tracer-v1.h``, change the factory function's name from ``v0`` to ``v1``.
-* In ``ray-tracer-v1.cpp``, change ``#include "raytracers/ray-tracer-v0.h"`` to ``#include "raytracers/ray-tracer-v1.h"``.
-* And so on.
-
-To check your work,
-
-* Create a new demo file by copying ``basic-sample`` and updating it so as to use ray tracer ``v1`` instead of ``v0``.
-  You may have to take a look into the superclass ``Demo`` to get this done.
-* Don't forget to update ``app.cpp`` so that it makes use of the new demo.
-* Compile.
-* Run. It should produce exactly the same results as before your change.
+Make sure everything compiles.
 ====
 
-== Ambient Lighting
-
-Ray tracer v1 adds support for <%= link 'reference/lighting/ambient', 'ambient lighting' %>. Be sure to read the linked material
-as otherwise you will not understand what you need to implement.
-
-There are multiple ways to introduce ambient lighting to our RayTracer. We chose to associate an ambient lighting
-factor to materials: you can create a sphere with a lot of ambient lighting and one just next to the
-sphere with no ambient lighting at all. This is highly unrealistic, but it's up to the creator of the scene to avoid such pitfalls.
+We want to test this "new" ray tracer by using it in a script.
+However, the scripting language has not yet been informed of ``RayTracerV1``'s existence.
+We need to add a binding.
 
 [TASK]
 ====
-In order to add support for ambient lighting, you need to update ``RayTracerV1::trace`` as follows:
+All script-related functionality resides in the `scripting` subdirectory.
 
-* The function should start with finding the first positive hit between the given ray and the given scene.
-* If a hit is found, the ``hit`` object will contain all necessary information you need to continue.
-  Most noteworthy is the ``hit`` object's ``material`` field, which contains information
-  about the material that's been hit by the ray. For example, if the ray hits a tree, the ``material`` field
-  will contain information about wood.
-* Materials are not necessarily uniform. For example, wood is seldom homogeneously brown but contains lines and rings.
-  This means there is not one single material color. Instead of asking the material "What is your color?",
-  you need to ask "What is your color _at that location_?" This is done using the ``at`` method:
-  it takes a ``Point3D`` and returns a ``MaterialProperties`` object that contains location-specific information.
-* The ``Point3D`` you need to pass to ``Material::at`` is the primitive's _local_ hit position.
-  You can find it in the ``hit`` object (it was initialized by ``find_first_positive_hit``).
-* ``trace`` must return a ``TraceResult``, which has four components. The ``group_id``,
-  ``ray`` and ``hit`` parts can be initialized in the same way is in ``RayTracerV0``.
-  The color component is different though: instead of always using white, you should return the color returned by the material.
-  You can find it in the ``MaterialProperties`` object.
+* Open `raytracing-module.cpp`.
+* Inside the scripting language, a module named `Raytracers` exists whose purpose is to offer all available ray tracers.
+  Right now, only `Raytracers.v0()` is available, but for every new ray tracer you implement, you will need to add a method ``v``n to this module.
+  This `Raytracers` module is represented by `RaytracerLibrary` in C++.
+  Add a method `v1` to `RaytracerLibrary` with the correct body.
+* Adding a `v1` method to `RaytracerLibrary`is not sufficient: you also need to explicitly export the method itself.
+  At the bottom of the file, you'll find a line `BIND(v0)`.
+  This is what actually exposes `v0` to the scripting language.
+  Add a similar line so that `v1` is also made accessible.
+
+As always, check that everything compiles.
+Create a simple script that references `v1` and render it.
+It should produce the exact same result as when using `v0`.
 ====
 
-It is of paramount importance that you _always_ check that your changes work.
+== Implementing Ambient Lighting
+
+Ray tracer v1 adds support for <</reference/lighting/ambient/explanations#,ambient lighting>>.
+Be sure to read the linked material as otherwise you will not understand what you need to implement.
+
+There are multiple ways to introduce ambient lighting to our RayTracer.
+We chose to associate an ambient lighting factor to materials: you can create a sphere with a lot of ambient lighting and one just next to the sphere with no ambient lighting at all.
+This is highly unrealistic, but it's up to the creator of the scene to avoid such pitfalls.
+
+In order to add support for ambient lighting, you need to update ``RayTracerV1::trace``.
+Let's first take a look at its current implementation (i.e., the one you copied from `RayTraacerV0::trace`).
+
+[source,language='c++']
+----
+TraceResult raytracer::raytracers::_private_::RayTracerV0::trace(const Scene& scene, // <1>
+                                                                 const Ray& eye_ray // <2>
+                                                                ) const
+{
+    Hit hit; // <3>
+
+    if (scene.root->find_first_positive_hit(eye_ray, &hit)) // <4>
+    {
+        Color hit_color = colors::white(); // <5>
+        unsigned group_id = hit.group_id; // <6>
+        double t = hit.t; // <7>
+
+        return TraceResult(hit_color, group_id, eye_ray, t); // <8>
+    }
+    else
+    {
+        return TraceResult::no_hit(eye_ray); // <9>
+    }
+}
+----
+1. The `scene` parameter represents the entire scene, i.e., the primitives it contains, the lights and the camera.
+2. The `eye_ray` starts in the camera's eye and travels through the scene.
+   We need to find where it hits the scene and determine how to render that point.
+3. A `Hit` object is allocated on the stack.
+4. `scene.root` represents the entirety of all shapes in the scene as a single root object.
+   `find_first_positive_hit` asks the root object whether the `eye_ray` does intersect with it.
+   If so, `true` is returned and the `hit` object is filled in with extra information.
+5. If there's a hit, `v0` decides to return white as color.
+6. ``group_id``s are required to implement <</extensions/renderers/edge/explanations#,edge rendering>>.
+   You can ignore this line.
+7. `hit.t` tells us where on `eye_ray` the ray/scene intersection occurred.
+8. We construct a `TraceResult` that contains all relevant information about the hit.
+9. Here, we deal with the case where `eye_ray` does not hit the scene anywhere.
+   We return an "empty" `TraceResult`.
+
+We'll do a slight bit of overengineering so that it becomes easier to build on top of it later.
 
 [TASK]
 ====
-Run your project. Everything should look black since instead of returning white you return the material's ambient color, which is black.
-
-Now modify ``basic-sample.cpp`` so that the sphere has a red as ambient color (use ``colors::red()``).
-Compile and run to see if it works.
+Add a method with signature `Color RayTracerV1::compute_ambient(const MaterialProperties&)`.
+It should simply return the `ambient` field of its argument.
 ====
-
-== Scripting
-
-We want to make our new ray tracer available for scripting. For each extension we make, we need to "export" it
-to the scripting language.
 
 [TASK]
 ====
-Open the file ``scripting/raytracing-module.cpp``.
+Add a method `Color RayTracerV1::determine_color(const Scene& scene, const MaterialProperties& properties, const Hit& hit, const math::Ray&) const`.
+As new ray tracer versions add features, this method will often be the one to host them.
+
+* Make sure `determine_color` can be overridden.
+* Currently, we support only one feature: ambient lighting.
+  `determine_color` should call `compute_ambient` and return its result.
 ====
-
-Right now, the scripting language knows only about one ray tracer, namely v0. You can create it within the scripting
-language as follows: ``var raytracer = Raytracers.v0()``. Our goal is to make ``Raytracers.v1()``
-create a v1 ray tracer.
-
-``v0`` and ``v1`` are in essence ray tracer factories. We grouped all ray tracer factories
-into some kind of package named ``Raytracers``. The same thing applies for other kinds of factories,
-for example, all samplers can be created using ``Samplers.<span style="font-style: italic;">name</span>()``,
-such as ``Samplers.single()`` or ``Samplers.nrooks(3)``.
-
-In order to have these factories grouped in a package, we need to create a {cpp} object
-that contains all these factories. If you go take a look in ``scripting/raytracing-module``, you'll
-see that there is a struct called ``RaytracerLibrary`` which contains a member function ``v0()``.
-This member function has the sole responsibility of creating a ``v0`` ray tracer object.
-
-To inform the scripting language of this library object, we undertake the following steps (see
-``raytracer::scripting::_private_::create_raytracing_module`` in ``scripting/raytracing-module``):
-
-. We create the library object.
-. We declare a constant ``Raytracers`` within the scripting language which
-  is then linked with the object. This is done using ``module-&gt;add_global_const``.
-. Next, we must expose each member function in turn. This is achieved
-  with ``module-&gt;add``. Since the syntax is not trivial
-  and this needs to be done for each ray tracer version,
-  we defined a macro ``BIND`` that takes most of the syntactic burden
-  away from us: if ``RaytracerLibrary`` has a member function F,
-  you can expose it using ``BIND(F)``.
-
-We do not put all factories within packages, as it would become too much of a syntactic
-burden for often used factories. For example, primitives can be created
-using top level functions, i.e. you simply write ``sphere()`` instead
-of ``Primitives.sphere()``.
-
-An example of how to export something as a top level function is ``create_scene``.
-In {cpp}, ``create_scene`` is a top level function. ``module-&gt;add`` recognizes
-this fact and mirrors it by exposing ``create_scene`` as a top level function inside the scripting language.
 
 [TASK]
 ====
-Add a binding for ``v1``.
+`determine_color` will need to be called by `trace` in order to, well, determine the color.
+Instead of assigning `colors::white` to `hit_color`, assign ``determine_color``'s result.
+There's a snag though: `determine_color` needs a `MaterialProperties` argument.
 
-Examine the ``v(int)`` function and update it as necessary.
+To find out where to find these `MaterialProperties`, you should keep in mind what we're trying to implement.
+The material's properties must depend on where the `eye_ray` hits the scene, and all information regarding that hit can, unsurprisingly, be found in `hit`.
 
-Check your work by creating a script that uses ray tracer v1 and rendering it.
+`hit` contains a `material` field of type `Material`.
+Clearly we're on the right track.
+The idea is that a `Material` represents the material the object hit by the `eye_ray` is made out of, for example wood.
+However, materials are seldom uniform: wood tends to have lines and circles and shades of brown.
+In other words, we need location-specific material information.
+This is where `Material::at` comes in: it asks a `Material` "what color are you at this specific location?"
+Interestingly, this `at` method returns a `MaterialProperties` object.
+Unfortunately, `at` requires a `HitPosition` as argument&hellip;
+
+Where would we find a `HitPosition`?
+Again, it makes sense to look around in `Hit`.
 ====
