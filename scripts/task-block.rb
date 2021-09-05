@@ -19,11 +19,16 @@ class TaskBlockDocinfoProcessor < Asciidoctor::Extensions::DocinfoProcessor
   def process doc
     <<~END
       <style>
-        .admonitionblock.task td.icon .title::before {
+        .admonitionblock.task > table > tbody > tr > td.icon .title::before {
           content: "🔨";
           color: #871452;
         }
-      </style>'
+
+        .admonitionblock.task > table {
+          border: 1px solid black;
+          box-shadow: gray 5px 5px 5px;
+        }
+      </style>
     END
   end
 end
