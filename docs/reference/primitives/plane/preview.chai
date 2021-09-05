@@ -12,7 +12,7 @@ var black_material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
                                         ] )
 
 
-var checkered_material = Materials.checkered2d(white_material, black_material)
+var checkered_material = Materials.from_pattern(Patterns.checkered(1, 1), white_material, black_material)
 
 var root = decorate(checkered_material, xz_plane())
 
