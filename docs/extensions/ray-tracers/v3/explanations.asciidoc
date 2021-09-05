@@ -113,7 +113,7 @@ In v3, we can override this function so that instead of only returning the diffu
 
 [TASK]
 ====
-Implement ``RayTracerV3::process_light_ray`` using the pseudocode below as guide.
+Override ``RayTracerV3::process_light_ray`` using the pseudocode below as guide.
 
 [source,language="python"]
 ----
@@ -131,7 +131,7 @@ def process_light_ray(scene, matprops, hit, eye_ray, light_ray):
 
 [TASK]
 ====
-Implement the <</reference/lighting/specular/explanations#,specular highlight algorithm>> in ``compute_specular``.
+Implement the <</reference/lighting/specular/explanations#,specular highlight algorithm>> as a new _protected_ method named ``compute_specular``.
 
 [source,language="python"]
 ----
