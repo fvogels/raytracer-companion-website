@@ -25,11 +25,6 @@ which enables us to make objects look metallic.
 \end{array}
 ++++
 
-Ray tracer v3 will build upon v2.
-In code, this is reflected by the fact that ``RayTracerV3`` should be a subclass of ``RayTracerV2``.
-
-image::code-structure.svg[align="center"]
-
 == Additional Material Properties
 
 === MaterialProperties
@@ -103,6 +98,11 @@ Base yourself on the existing code to find out how.
 ====
 
 == RayTracerV3
+
+Ray tracer v3 will build upon v2.
+In code, this is reflected by the fact that ``RayTracerV3`` should be a subclass of ``RayTracerV2``.
+
+image::code-structure.svg[align="center"]
 
 === process_light_ray
 
