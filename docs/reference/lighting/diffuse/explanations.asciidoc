@@ -67,11 +67,11 @@ Written mathematically, we get
 
 [stem]
 ++++
-\textrm{arriving at stem:[E]} = \textrm{produced} \cdot \underbrace{\textrm{arrive at stem:[P]}}_{\in [0,1]} \cdot \underbrace{\textrm{reflected at stem:[P]}}_{\in [0,1]}
+\textrm{arriving at } E = \textrm{produced} \cdot \underbrace{\textrm{arriving at } P}_{\in [0,1]} \cdot \underbrace{\textrm{reflected at } P}_{\in [0,1]}
 ++++
 
 
-=== Number of Photons Arriving at stem:[P]
+=== Number of Photons Arriving at P
 
 Let's briefly switch to 2D to make explanations simpler. Consider the following figure:
 
@@ -111,7 +111,7 @@ All these rules are nice, but how do we put them in such a form that is easily i
 The <</reference/math/dot-product/explanations#,dot product>> comes to the rescue. Examine the following cases: the incoming light ray is represented by a yellow vector stem:[\vec i],
 and the surface normal as a red vector stem:[\vec n]. It is important that both have length 1.
 
-image::dot-product[align="center"]
+image::dot-product.png[align="center"]
 
 The dot product gives us _almost_ exactly the values we need, namely it gives us the exact opposite value each time. We can solve this by simply flipping the sign.
 
@@ -140,8 +140,8 @@ The amount of light reflected in each direction is then
 ++++
 \left\{
 \begin{array}{rr}
-  \cos\alpha \cdot C_\mathrm{L} \cdot C_\mathrm{S} &amp; \qquad \cos\alpha &gt; 0 \\ \\
-  0 &amp; \cos\alpha \leq 0 \\
+  \cos\alpha \cdot C_\mathrm{L} \cdot C_\mathrm{S} & \qquad \cos\alpha > 0 \\ \\
+  0 & \cos\alpha \leq 0 \\
 \end{array}
 \right.
 ++++
