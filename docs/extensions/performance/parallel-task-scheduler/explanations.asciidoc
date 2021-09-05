@@ -23,7 +23,7 @@ A <em>task scheduler</em> takes a list of tasks and performs each of them.
 No guarantees are made about the order in which it performs them.
 
 Task schedulers are modelled by the ``TaskSchedulerImplementation``
-(and <%= link 'reference/design/wrappers', 'wrapped' %> by ``TaskScheduler``s.
+(and <</reference/design/wrappers/explanations#,wrapped>> by ``TaskScheduler``s.
 They only provide one method: ``perform``, which takes a list of tasks.
 
 === Serial Task Scheduler
