@@ -1,0 +1,10 @@
+digraph {
+    node [shape="box"];
+
+    trace [label="trace"];
+    determine_color [label="determine_color"];
+    compute_ambient [label="compute_ambient"];
+
+    trace -> determine_color;
+    determine_color -> compute_ambient;
+}

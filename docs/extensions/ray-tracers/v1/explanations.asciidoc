@@ -107,6 +107,8 @@ TraceResult raytracer::raytracers::_private_::RayTracerV0::trace(const Scene& sc
 
 We'll do a slight bit of overengineering so that it becomes easier to build on top of it later.
 
+image::code-structure.svg[align="center"]
+
 [TASK]
 ====
 Add a method with signature `Color RayTracerV1::compute_ambient(const MaterialProperties&)`.
