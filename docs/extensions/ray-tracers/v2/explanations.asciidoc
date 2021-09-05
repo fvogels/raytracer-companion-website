@@ -27,7 +27,7 @@ are the product of diffuse lighting.
   \end{array}
 ++++
 
-`RayTracerV2` will be structured as follows:
+`RayTracerV2` will be structured as follows (red indicates new additions compared to `v1`):
 
 image::code-structure.svg[align="center"]
 

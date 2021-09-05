@@ -1,10 +1,18 @@
 digraph {
-    node [shape="box"];
+    node [shape="box", style="filled"];
+
+    trace;
+    determine_color;
+    compute_ambient;
+    process_lights [fillcolor="#FFAAAA"];
+    process_light_source [fillcolor="#FFAAAA"];
+    process_light_ray [fillcolor="#FFAAAA"];
+    compute_diffuse [fillcolor="#FFAAAA"];
 
     trace -> determine_color;
     determine_color -> compute_ambient;
-    determine_color -> process_lights;
-    process_lights -> process_light_source [label="  for each light"];
-    process_light_source -> process_light_ray [label="  for each light ray"];
-    process_light_ray -> compute_diffuse;
+    determine_color -> process_lights [color="#FFAAAA"];
+    process_lights -> process_light_source [label="  for each light",color="#FFAAAA"];
+    process_light_source -> process_light_ray [label="  for each light ray",color="#FFAAAA"];
+    process_light_ray -> compute_diffuse [color="#FFAAAA"];
 }
