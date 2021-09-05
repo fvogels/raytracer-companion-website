@@ -102,6 +102,7 @@ def process_lights(scene, matprops, hit, eye_ray):
   return result
 ----
 
+* Set its visibility to `protected`.
 * Think of const-correctness.
 * Make it overridable.
 ====
@@ -138,6 +139,7 @@ def process_light_source(scene, matprops, hit, eye_ray, light_source):
   return result
 ----
 
+* Make it protected.
 * Think of const-correctness.
 * Make it overridable.
 ====
@@ -158,6 +160,7 @@ def process_light_ray(scene, matprops, hit, eye_ray, light_ray):
   return result
 ----
 
+* Make it protected.
 * Think of const-correctness.
 * Make it overridable.
 ====
@@ -174,7 +177,7 @@ The arguments provide you with all necessary data. You need:
 
 [TASK]
 ====
-Translate the <</reference/lighting/diffuse/explanations#,mathematical formula for diffuse lighting>> into code.
+Translate the <</reference/lighting/diffuse/explanations#,mathematical formula for diffuse lighting>> into a protected method `compute_diffuse`.
 
 [source,language='python']
 ----
