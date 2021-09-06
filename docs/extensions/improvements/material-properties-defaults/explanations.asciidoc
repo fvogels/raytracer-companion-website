@@ -1,0 +1,11 @@
+= MaterialProperties Default Values Redundancy
+
+[overview]
+----
+difficulty 1
+----
+
+TODO
+
+Both the builder and the bindings have default values.
+Remove this redundancy.
