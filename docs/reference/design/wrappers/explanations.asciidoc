@@ -37,7 +37,7 @@ easy access to the "real object"'s functionality.
 == Rationale
 
 Wrapper types are used where there are class hierarchies (i.e. inheritance) making use of
-dynamic dispatch (i.e. overriding member functions). Let's say there's a superclass ``S`` with
+dynamic dispatch (i.e. overriding member functions). Let's say there's a base class ``S`` with
 subclasses ``A`` and ``B``. ``S`` defines a virtual method ``m()``,
 which is overriden in both subclasses.
 
