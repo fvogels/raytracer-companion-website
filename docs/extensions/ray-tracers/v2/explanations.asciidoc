@@ -80,7 +80,7 @@ def determine_color(scene, matprops, hit, eye_ray):
   return result
 ----
 
-You may have to look up how to call the superclass's version of a method in {cpp}.
+You may have to look up how to call the base class's version of a method in {cpp}.
 ====
 
 === process_lights
