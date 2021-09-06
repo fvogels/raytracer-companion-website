@@ -344,7 +344,12 @@ def determine_color(...):
 ----
 ====
 
-== Bindings
+=== Finishing Touches
+
+[TASK]
+====
+Create a factory function `v6`.
+====
 
 [TASK]
 ====
