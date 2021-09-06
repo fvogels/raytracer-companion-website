@@ -61,10 +61,12 @@ Update `scripting/materials-module.cpp` so that we can specify `light_filtering`
 The previous ray tracer version operated in a very simple way: to render some position stem:[P], `process_light_ray` checks if there is any object between the light source's position stem:[L] and stem:[P].
 This was achieved by taking the light ray, which travels from stem:[L] through stem:[P] and find an intersection with the scene.
 If there is an intersection where stem:[0 \leq t < 1], there is something obstructing the light from getting from stem:[L] to stem:[P], causing us to disregard all photons originating from stem:[L], creating a shadow.
+We will add some nuance to this approach.
 
 image::code-structure.svg[align="center"]
 
-We will add some nuance to this approach.
+=== process_light_ray
+
 An improved form of the `process_light_ray` algorithm goes as follows:
 
 [source,language='python']
@@ -105,7 +107,12 @@ Notice how we rely on `MaterialProperties::light_filtering` to determine how muc
   The algorithm is given in Pythonesque code above.
 ====
 
-== Binding
+=== Finishing Touches
+
+[TASK]
+====
+Create a factory function `v5`.
+====
 
 [TASK]
 ====
