@@ -1,4 +1,4 @@
-= MaterialProperties Default Values Redundancy
+= Translucency Optimization
 
 [overview]
 ----
