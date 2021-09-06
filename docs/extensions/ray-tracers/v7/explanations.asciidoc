@@ -26,12 +26,10 @@ image::translucency.png[align="center"]
 Of course, the red sphere could also be reflective, in which case we would need to both trace the "penetrating" and the reflected ray and add the results together.
 ====
 
-== Translucency
+== MaterialProperties
 
 First things first: we need a way to express the fact that a material can be translucent.
 Let's add it as an extra field to `MaterialProperties`.
-
-=== MaterialProperties
 
 [TASK]
 ====
@@ -39,15 +37,11 @@ Add an extra field `translucency` of type `double` to `MaterialProperties`.
 Update the constructor accordingly.
 ====
 
-=== MaterialPropertiesBuilder
-
 [TASK]
 ====
 Update `MaterialPropertiesBuilder` so that it supports `translucency`.
 The default value should be `0.0`.
 ====
-
-=== Bindings
 
 [TASK]
 ====
@@ -121,14 +115,12 @@ def determine_color(...):
 ----
 ====
 
-=== Factory Function
+=== Finishing Touches
 
 [TASK]
 ====
 Implement the factory function `v7()`.
 ====
-
-=== Binding
 
 [TASK]
 ====
