@@ -243,7 +243,7 @@ Color RayTracerV6::determine_color(const Scene& scene,
                                    double weight) const
 ----
 
-Right now, it can simply call the superclass's version of `determine_color`.
+Right now, it can simply call the base class's version of `determine_color`.
 ====
 
 ==== trace
@@ -329,7 +329,7 @@ Remember <</extensions/ray-tracers/v4/explanations#approxerrs,this>>.
 
 [TASK]
 ====
-`determine_color` is currently limited to a call to its superclass's version.
+`determine_color` is currently limited to a call to its base class's version.
 We need it to also call `compute_reflection`.
 
 [source,language='python']
