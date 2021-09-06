@@ -69,7 +69,7 @@ In fact, this kind of types have already been implemented: ``Primitive`` is an e
 ====
 Take a good at the types ``Primitive`` and ``PrimitiveImplementation``, as you will want to use it as a guide to implement patterns.
 
-* Note how ``PrimitiveImplementation`` is the actual superclass for all primitives (spheres, planes, etc.)
+* Note how ``PrimitiveImplementation`` is the actual base class for all primitives (spheres, planes, etc.)
 * `PrimitiveImplementation` defines all functionality related to primitives.
   More concretely, it defines all overridable methods.
 * ``Primitive`` internally keeps a `shared_ptr<PrimitiveImplementation>`.
@@ -92,7 +92,7 @@ Take a good at the types ``Primitive`` and ``PrimitiveImplementation``, as you w
 ==== Pattern2DImplementation
 
 This class will be fully abstract.
-It acts as a superclass for all 2D patterns and therefore will define all functionality common to 2D patterns.
+It acts as a base class for all 2D patterns and therefore will define all functionality common to 2D patterns.
 
 [TASK]
 ====
@@ -149,4 +149,21 @@ It should be identical to `Pattern2DImplementation` except for the `Point2D` par
 [TASK]
 ====
 To the same file, define the class `Pattern3D` which again is the same as `Pattern2D` except for the `Point2D`.
+====
+
+== Bindings
+
+As a last step, we need to set up the necessary foundations to expose pattern-related functionality to the scripting language.
+We would like all such functionality to be hosted in a separate module named `Patterns`, just like there is are `Animations`, `Samplers` and `Raytracers` modules.
+
+[TASK]
+====
+Create files `scripting/patterns-module.cpp` and `scripting/patterns-module.h`.
+Copy `scripting/lights-module.cpp` and ``scripting/lights-module.h`` to the corresponding patterns files and make the necessary changes.
+
+* You will need a `PatternLibrary` that will represent the module.
+  If you want a function `Patterns.func()` to be available in the scripting language, you need to add a corresponding `func()` in the `PatternLibrary`.
+* The `PatternLibrary` will be empty for now.
+  Future pattern-related extensions will each add methods.
+* You will need to register the types `Pattern2D` and `Pattern3D`.
 ====
