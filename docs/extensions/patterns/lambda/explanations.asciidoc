@@ -1,0 +1,144 @@
+= Lambda Pattern
+
+[overview]
+----
+difficulty 2
+requires patterns/basics
+----
+
+In order to create a new pattern, we need to define a new subclass of `Pattern2DImplementation` or `Pattern3DImplementation` and define the `at` method.
+Next, we need to create a factory function that creates an instance of the new pattern implementation class and wraps it in a `Pattern2D` or `Pattern3D`.
+
+.Header File
+[source,language='c++']
+----
+#pragma once
+
+#include "patterns/pattern.h"
+
+
+namespace patterns
+{
+    namespace _private_
+    {
+        class SomeNewPatternImplementation : public Pattern2DImplementation
+        {
+        public:
+            SomeNewPatternImplementation(parameters);
+
+            bool at(const math::Point2D& point) const override;
+
+        private:
+            // fields
+        };
+    }
+
+    Pattern2D factory_function(parameters);
+}
+----
+
+.CPP File
+[source,language='c++']
+----
+#include "patterns/some-new-pattern.h"
+
+
+patterns::_private_::SomeNewPatternImplementation::SomeNewPatternImplementation(parameters)
+    : m_fields(parameters)
+{
+    // NOP
+}
+
+bool patterns::_private_::SomeNewPatternImplementation::at(const math::Point2D& point) const
+{
+    /* pattern logic */
+}
+
+Pattern2D patterns::some_new_pattern(parameters)
+{
+    return Pattern2D(std::make_shared<_private_::SomeNewPatternImplementation>(parameters));
+}
+----
+
+This is a lot of boilerplate code to write.
+The only part that distinguishes one pattern from another is ``at``'s body.
+Wouldn't it make more sense to _only_ have to define that part and let the rest be automatically generated for you?
+
+.Ideal syntax
+[source,language='c++']
+----
+Pattern2D patterns::some_new_pattern(parameters)
+{
+    return generate_new_pattern(/* pattern logic */);
+}
+----
+
+Making this possible is exactly the goal of this extension.
+This will save us from having to declare and define a class with fields and a constructor each time.
+
+[TASK]
+====
+Create files `patterns/lambda-pattern.h` and `patterns/lambda-pattern.cpp`.
+====
+
+== 2D Implementation
+
+As mentioned before, the one thing distinguishing one pattern from another is the pattern logic which normally resides within the `at` method.
+This logic is _code_, and code is typically contained within a function.
+A lightweight syntax to define functions is to make use of _lambdas_, hence the name of this extension.
+
+=== LambdaPattern2DImplementation
+
+We will now define a class `LambdaPattern2DImplementation` which takes care of most of the boilerplate.
+Conceptually, it looks like this in pseudocode:
+
+[source,language='python']
+----
+class LambdaPattern2DImplementation:
+    def __init__(self, func): # <1>
+        self.__func = func
+
+    def at(self, point2d):
+        return self.__func(point2d) # <2>
+----
+1. The constructor takes a function and stores it in a field.
+2. The `at` method simply calls this function.
+
+[TASK]
+====
+Define the `LambdaPattern2DImplementation` in {cpp}.
+
+* It will have a field `m_function`.
+  You will need to discover its https://en.cppreference.com/w/cpp/utility/functional/function[type] for yourself.
+  Remember that it needs to have the same parameters and return type as `at`.
+* Note that functions can be passed by value, i.e., no reference or smart pointer trickery is necessary.
+* The constructor will need to initialize this field.
+* The `at` method will call this `m_function`.
+====
+
+=== make_pattern
+
+Next, we need a factory function which we'll name `make_pattern`.
+It takes a function, creates a `LambdaPattern2DImplementation` object with it and wraps it in a `Pattern2D` object.
+
+[TASK]
+====
+Define `make_pattern`.
+It's defined exactly in the same way as other factory functions.
+The function parameter is a parameter just like any other, just with a rather long name.
+====
+
+== 3D Implementation
+
+The 3D variant is nearly identical.
+
+[TASK]
+====
+Create a class `LambdaPattern3DImplementation` class that inherits from `Pattern3DImplementation`.
+Add a field, constructor and `at` method.
+====
+
+[TASK]
+====
+Overload `make_pattern` so that it can also create 3D patterns.
+====
