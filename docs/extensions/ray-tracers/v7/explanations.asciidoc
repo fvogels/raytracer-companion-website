@@ -54,7 +54,7 @@ image::code-structure.svg[align="center"]
 
 [TASK]
 ====
-Create files `ray-tracers/v7.cpp` and `ray-tracers/v7.h`.
+Create files `ray-tracers/ray-tracer-v7.cpp` and `ray-tracers/ray-tracer-v7.h`.
 Define a class `RayTracerV7` that inherits from `RayTracerV6`.
 ====
 
