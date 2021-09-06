@@ -44,7 +44,7 @@ In the class `MaterialProperties`,
 * Add a field `specular` of type `Color`.
 * Add a field `specular_exponent` of type `double`.
 
-Add extra parameters for both to the constructor.
+Add extra parameters to the constructor to be used as initial values for these fields.
 ====
 
 === MaterialPropertiesBuilder
@@ -165,11 +165,16 @@ def compute_specular(matprops, hit, eye_ray, light_ray):
 =====
 ====
 
-=== Bindings
+=== Finishing Touches
 
 [TASK]
 ====
-Add the necessary code in `scripting/materials-module.cpp` so as to be able to use specular lighting in scripts.
+Create the factory function `v3()`.
+====
+
+[TASK]
+====
+Expose this factory function to the scripting language by adding the necessary code in `scripting/materials-module.cpp`.
 ====
 
 == Evaluation
