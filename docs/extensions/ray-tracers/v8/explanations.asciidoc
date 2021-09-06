@@ -4,16 +4,14 @@
 ----
 difficulty 4
 requires ray-tracers/v7
-reading refraction
+reading physics/refraction
 ----
 
 preview::preview[]
 
-== Implementation
+== Background Information
 
-image::code-structure.svg[align="center"]
-
-First, familiarize yourself with <</reference/refraction/explanations#,refraction>>.
+First, familiarize yourself with <</reference/physics/refraction/explanations#,refraction>>.
 Also go take a look at ``MaterialProperties``: you'll find you'll need the member variables
 ``refractive_index`` and ``transparency`` for this extension.
 
@@ -25,14 +23,84 @@ Correctly implementing refraction is not an easy task. We choose to introduce th
   the next intersection brings us back to the outside world (i.e. stem:[n = 1]).
   In reality, it can happen that upon exiting the stem:[n_1]-material, we immediately enter a new stem:[n_2]-material,
   but we ignore this possibility.
-* We ignore total internal reflection. Whenever it arises, we simply return black.
+* We ignore total internal reflection.
+  Whenever it arises, we simply return black.
 
 image::refraction.png[align="center"]
+
+== Implementation
+
+Refraction is a new feature that will take its place next to `compute_ambient`, `compute_reflection` and `compute_translucency`.
+
+image::code-structure.svg[align="center"]
+
+=== MaterialProperties
+
+We need a way to express some materials let light through.
+We already used `translucency`, so let's settle for `transparency`.
+
+[NOTE,caption='disclaimer']
+=====
+Technically, _transparent_ means "lets most of the light through" and _translucent_ means "lets some of the light through".
+Here, however, we simply use these terms to refer to two different ways of computing "light going through stuff".
+There is nothing conventional about this usage: don't expect anyone else to use the terms this way.
+=====
+
+[TASK]
+====
+Add extra fields to `MaterialProperties` and update the constructor accordingly:
+
+* `transparency` of type `double`
+* `refractive_index` of type `double`
+====
+
+[TASK]
+====
+Add an extra method `transparent` to the `MaterialPropertiesBuilder`.
+We wish to specify `transparency` and `refractive_index` together as they go hand in hand.
+
+[source,language='c++']
+----
+MaterialProperties matprops = create_material_properties_with()
+  .transparency(transparency, refractive_index);
+----
+
+The default values are `0.0` for `transparency` and `1.0` for `refractive_index`.
+====
+
+[TASK]
+====
+Update `scripting/materials-module.cpp` to add support for the newly added fields.
+====
+
+=== RayTracerV8
+
+==== Setting Things Up
+
+[TASK]
+====
+Create files `ray-tracers/ray-tracer-v8.cpp` and `ray-tracers/ray-tracer-v8.h`.
+Add a class `RayTracerV8` that inherits from `RayTracerV7`.
+====
+
+==== compute_refraction
 
 The algorithm for refraction then looks as follows:
 
 [source,language="python"]
 ----
+def refract(i, n, n1, n2):
+  ox = ...
+
+  if internal_refraction:
+    return None
+
+  oy = ...
+  o = ...
+
+  return o
+
+
 def compute_refraction(scene, material_properties, hit, ray, weight):
   transparency = material_properties.transparency
 
@@ -41,55 +109,76 @@ def compute_refraction(scene, material_properties, hit, ray, weight):
     n2 = material_properties.refractive_index
 
     # Ray enters transparent object, compute how it is bent at point P1
-    P1 = hit.location
-    refracted_ray = compute_refraction(ray, P1, n1, n2)
-
-    if total internal reflection occurred:
+    P1 = ...
+    normal_at_P1 = ...
+    refracted_direction = refract(ray.direction, normal_at_P1, n1, n2)
+    if not refract_direction:
       return black
+    refracted_ray = Ray(P1, refracted_direction)
 
     # Find exit point P2
     exit_hit = find_hit(scene, refracted_ray)
 
     if not exit_hit:
-      # Apparently there is no exit point
-      # This should not occur, but rounding errors might make it happen
+      # There is no exit point <1>
       return black
 
     P2 = exit_hit.location
-    exit_ray = compute_refraction(refracted_ray, P2, n2, n1)
+    normal_at_P2 = ... # <2>
+    refracted_direction = refract(refracted_ray.direction, normal_at_P2, n2, n1)
+    if refracted_direction is None:
+      return black
+    exit_ray = Ray(P2, refracted_direction)
 
     # Continue tracing ray after it left the transparent object
     # Don't forget to decrease weight
     return trace(scene, exit_ray, weight * transparency) * transparency
 ----
-
-Note that, as with <</extensions/ray-tracers/v5/explanations#,reflection>>,
-only part of the photons gets refracted. How much is specified by
-the material's transparency: a value of 0 means none of the photons
-get refracted (i.e. the material is not transparent), a value of 1
-means all photons get through. In our ray tracer, like reflectivity, the transparency
-determines the factor by which the resulting color is multiplied.
+1. This can occur if we're dealing with a plane: a ray will not go through the same plane twice.
+2. Make sure to check that the normal points in the opposite direction of `refracted_ray.direction`
 
 [TASK]
 ====
-Implement ``RayTracerV8``.
+Implement `compute_refraction`, which has signature
 
-TODO Update
-
-* ``RayTracerV6`` has two ``trace`` methods: one with and one without ``weight`` parameter.
-  For ``RayTracerV7``, you'll need to override the one with the ``weight`` parameter.
-* ``RayTracerV6::trace`` calls ``compute_ambient``, ``process_lights`` and
-  ``compute_reflection`` and adds their results. ``RayTracerV6::trace`` is identical,
-  but should also call the new member function ``compute_refraction``.
-* ``compute_refraction`` computes two refractions of the light ray: once
-  at the entry point, once at the exit point.
-* ``compute_refraction`` is in essence quite similar to ``compute_reflection``:
-  where ``compute_reflection`` simply bounces the ray off of the surface of the shape and then
-  calls ``trace`` recursively, ``compute_refraction`` lets the ray
-  pass through the shape and calls ``trace`` recursively on the exiting light ray.
-* You might have to give the ray small "nudges" here and there. Say the ray enters the transparent
-  object at stem:[P_1]. You compute the direction of the refracted ray and then determine where
-  this new ray exits the object. If you let the ray start at stem:[P_1], ``find_first_positive_hit``
-  will quite probably return stem:[P_1]. In order to prevent this, you'll have to move the origin of the refracted
-  ray a tiny bit.
+[source,language='c++']
+----
+Color compute_refraction(const Scene&, const MaterialProperties&, const Hit&, const math::Ray&, double) const
+----
 ====
+
+==== determine_color
+
+Let's not forget to update `determine_color`.
+
+[TASK]
+====
+Override `determine_color`.
+
+[source,language='python']
+----
+def determine_color(...):
+  result = black
+
+  result += super().determine_color(...)
+  result += compute_refraction(...)
+
+  return result
+----
+====
+
+==== Finishing Touches
+
+[TASK]
+====
+Create a factory function `v8()`.
+====
+
+[TASK]
+====
+Expose `v8` to the scripting language.
+====
+
+== Evaluation
+
+TODO
