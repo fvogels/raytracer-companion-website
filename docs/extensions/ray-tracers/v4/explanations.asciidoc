@@ -57,6 +57,8 @@ image::code-structure.svg[align="center"]
 ``RayTracerV3::process_light_ray`` indiscriminately calls `compute_diffuse` and `compute_specular` for each light ray.
 ``RayTracerV4`` will override `process_light_ray` so that it becomes a bit more selective: only if there are not objects between the light and the ray-scene intersection stem:[P] will this position be illuminated.
 
+=== process_light_ray
+
 [TASK]
 ====
 Define the class ``RayTracerV4`` in its own set of files (``ray-tracer-v4.cpp`` and ``ray-tracer-v4.h``).
@@ -74,13 +76,20 @@ def process_light_ray(scene, matprops, hit, eye_ray, light_ray):
 ----
 ====
 
-== Bindings
+=== Finishing Touches
+
+[TASK]
+====
+Create a factory function `v4()`.
+====
 
 [TASK]
 ====
 Add the necessary bindings to make `v4` available to scripts.
 ====
 
+// Referred to from external page
+[#approxerrs]
 == Approximation Errors
 
 Note that if there's no shadow, the ray will hit the scene at stem:[t = 1].
