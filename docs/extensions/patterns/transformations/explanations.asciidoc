@@ -1,0 +1,111 @@
+= Pattern Transformations
+
+[overview]
+----
+difficulty 2
+reading design/transformations
+requires patterns/basics
+----
+
+In this extension, we define the usual transformations on patterns:
+
+[.center,cols="^.^,^",width="80%"]
+|===
+| Translation
+a| video::translation.mp4[]
+| Scaling
+a| video::scaling.mp4[]
+| Rotation
+a| video::rotation.mp4[]
+|===
+
+// TODO More specialized reading material
+
+== 2D Implementation
+
+Let's start by creating the files that will host the new code.
+
+[TASK]
+====
+Create files `patterns/pattern-transformations.cpp` and `patterns/pattern-transformations.h`.
+Prepare a namespace declarations named `patterns`.
+====
+
+=== transform
+
+We'll start with a very general `transform` function.
+The more specific transformations (translation, scaling, rotation) will be able to rely on this function, making their implementation very short and simple.
+
+[TASK]
+====
+Implement a function with signature
+
+[source,language='c++']
+----
+Pattern2D patterns::transform(const Transformation2D& transformation,
+                              Pattern2D pattern)
+----
+
+[TIP]
+=====
+* To simplify the implementation, you can rely on <</extensions/patterns/lambda/explanations#,make_pattern>>.
+* You will need to call `pattern->at(p)` with some position `p`.
+  Think carefully about what this `p` should be.
+=====
+====
+
+=== Transformations
+
+Once you defined the `transform` function, it's trivial to define the others.
+
+[TASK]
+====
+Define
+
+[source,language='c++']
+----
+Pattern2D translate(math::Vector2D displacement, Pattern2D pattern)
+Pattern2D rotate(math::Angle angle, Pattern2D pattern)
+Pattern2D scale(double sx, double sy, Pattern2D pattern)
+----
+
+[TIP]
+=====
+Rely on the transformations defined in `math/transformation2d.h`.
+=====
+====
+
+
+
+== 3D Implementation
+
+The 3D variants of the transformations are nearly identical.
+
+[TASK]
+====
+Define the following functions:
+
+[source,language='c++']
+----
+Pattern3D transform(const Transformation3D& transformation, Pattern3D pattern);
+
+Pattern3D translate(Vector3D displacement, Pattern3D pattern);
+
+Pattern3D rotate_x(Angle angle, Pattern3D pattern);
+Pattern3D rotate_y(Angle angle, Pattern3D pattern);
+Pattern3D rotate_z(Angle angle, Pattern3D pattern);
+
+Pattern3D scale(double sx, double sy, double sz, Pattern3D pattern);
+----
+====
+
+== Bindings
+
+[TASK]
+====
+Expose all functions (except the `transform` overloads) to the scripting world.
+====
+
+== Evaluation
+
+TODO

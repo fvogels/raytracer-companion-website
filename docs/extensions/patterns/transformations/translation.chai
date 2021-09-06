@@ -1,0 +1,49 @@
+// movie
+def material(color)
+{
+  Materials.uniform( [ "ambient": color * 0.1,
+                       "diffuse": color * 0.8,
+                       "specular": Colors.white(),
+                       "specular_exponent": 10 ] )
+}
+
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0, 5, 8),
+                                      "look_at": pos(0,0,0) ] )
+
+
+  var t = Animations.animate(0, 1, seconds(5))[now]
+
+  var white = material(Colors.white())
+  var black = material(Colors.black())
+  var pattern = Patterns.translate(vec(t, 0), Patterns.checkered(1.0 / 16, .5))
+  var pattern2 = Patterns.translate(vec(t, 0), Patterns.checkered(1, 1))
+  var mat = Materials.from_pattern(pattern, white, black)
+  var mat2 = Materials.from_pattern(pattern2, white, black)
+  var cyl = crop_along_y(cylinder_along_y(), interval(-1.0, 1.0))
+  var cone = crop_along_y(cone_along_y(), interval(-1.0, 1.0))
+  
+  var root = union( [
+  	decorate(mat, cyl),
+  	decorate(mat, translate(vec(-3, 0, 0), sphere())),
+  	decorate(mat, translate(vec(3, 0, 0), cone)),
+  	decorate(mat2, translate(vec(0, -2, 0), xz_plane()))
+  ] )
+
+  var lights = [ Lights.omnidirectional( pos(0,5,2), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+
+var raytracer   = Raytracers.v6()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.multijittered(2),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
