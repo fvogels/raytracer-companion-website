@@ -1,15 +1,12 @@
 = Refraction
 
-When a light ray reaches a transparent material, part of it penetrates the material, at which
-point the light ray is bent in another direction. The following explanation is not very exact, but it helps
-to understand refraction intuitively.
+When a light ray reaches a transparent material, part of it penetrates the material, at which point the light ray is bent in another direction.
+The following explanation is not very exact, but it helps to understand refraction intuitively.
 
 A light ray travels through a medium, for example air, water, glass, diamond, &hellip;
-Air is quite thin and photons can move through it mostly unhindered, meaning
-that a light beam travels through air at almost the speed of light.
+Air is quite thin and photons can move through it mostly unhindered, meaning that a light beam travels through air at almost the speed of light.
 Diamonds, however, are very dense, making photons bump into carbon atoms all the time.
-As a consequence, a light beam is slowed down considerably, i.e. 2.42&times; slower than
-the "regular" speed of light.
+As a consequence, a light beam is slowed down considerably, i.e. 2.42&times; slower than the "regular" speed of light.
 
 You can imagine a light ray as photons flying next to each other:
 
@@ -48,7 +45,7 @@ through the material. Examples of refractive indices are
 |===
 
 To determine how a light ray is bent when it changes from a medium with refractive
-index stem:[n_1] to a medium with refractive index stem:[n_2], we use <a href="https://en.wikipedia.org/wiki/Snell%27s_law">Snell's law</a>.
+index stem:[n_1] to a medium with refractive index stem:[n_2], we use https://en.wikipedia.org/wiki/Snell%27s_law[Snell's law].
 
 [stem]
 ++++
@@ -89,9 +86,9 @@ The outgoing direction of the ray can be found using the following formula:
 [stem]
 ++++
   \begin{array}{rcl}
-    \vec{o}_\mathrm{x} &amp; = &amp; \frac{n_1}{n_2} \cdot (\vec i - (\vec i \cdot \vec n) \cdot \vec n) \\
-    \vec{o}_\mathrm{y} &amp; = &amp; -\sqrt{1-|\vec{o}_\mathrm{x}|^2} \cdot \vec n \\
-    \vec{o} &amp; = &amp; \vec{o}_\mathrm{x} + \vec{o}_\mathrm{y} \\
+    \vec{o}_\mathrm{x} & = & \frac{n_1}{n_2} \cdot (\vec i - (\vec i \cdot \vec n) \cdot \vec n) \\
+    \vec{o}_\mathrm{y} & = & -\sqrt{1-|\vec{o}_\mathrm{x}|^2} \cdot \vec n \\
+    \vec{o} & = & \vec{o}_\mathrm{x} + \vec{o}_\mathrm{y} \\
   \end{array}
 ++++
 
