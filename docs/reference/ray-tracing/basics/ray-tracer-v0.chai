@@ -1,0 +1,9 @@
+// movie
+global ray_tracer_version = 0
+
+use("ray-tracer-shared.chai")
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
