@@ -27,6 +27,7 @@ class TaskBlockDocinfoProcessor < Asciidoctor::Extensions::DocinfoProcessor
         .admonitionblock.task > table {
           border: 1px solid black;
           box-shadow: gray 5px 5px 5px;
+          background: #DDF;
         }
       </style>
     END
