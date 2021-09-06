@@ -371,7 +371,7 @@ whole truth, but instead explain in steps how the design has evolved. Hopefully,
 of the final design.
 
 We've been talking incessantly about primitives that it should come as no surprise
-that there is a superclass representing this concept. So, let's start with an abstract superclass ``Primitive``.
+that there is a base class representing this concept. So, let's start with an abstract base class ``Primitive``.
 Methods are not important for now, so there's nothing else to say for the moment about ``Primitive`` itself.
 
 The basic shapes such as sphere, plane, cone, and cylinder are as you would expect subclasses of ``Primitive``.
@@ -528,7 +528,7 @@ which supports all transformations. This seemingly violates the single responsib
 but rest assured, it does not.
 
 What happened is that we traded in inheritance for composition. Compare it to creating a ``Person`` class,
-where each ``Person`` has an age. While it is certainly possible to have a ``Person`` superclass
+where each ``Person`` has an age. While it is certainly possible to have a ``Person`` base class
 with subclasses ``PersonAged1``, ``PersonAged2``, ``PersonAged3``, etc. you would
 probably prefer to just use a single ``Person`` class with a member variable ``age``.
 
@@ -572,7 +572,7 @@ image::scale-objects.png[align="center"]
 == Functionality
 
 We've discussed what the primitive class hierarchy looks like, but we ignored what member functions were
-necessary. In other words, given that ``PrimitiveImplementation`` is the superclass of all
+necessary. In other words, given that ``PrimitiveImplementation`` is the base class of all
 primitives, what are its member functions?
 
 You'll be happy to learn that for each primitive, you only need to implement a grand total of two member functions:
