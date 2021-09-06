@@ -75,8 +75,6 @@ Rely on the transformations defined in `math/transformation2d.h`.
 =====
 ====
 
-
-
 == 3D Implementation
 
 The 3D variants of the transformations are nearly identical.
@@ -87,15 +85,15 @@ Define the following functions:
 
 [source,language='c++']
 ----
-Pattern3D transform(const Transformation3D& transformation, Pattern3D pattern);
+Pattern3D transform(const Transformation3D& transformation, Pattern3D pattern)
 
-Pattern3D translate(Vector3D displacement, Pattern3D pattern);
+Pattern3D translate(Vector3D displacement, Pattern3D pattern)
 
-Pattern3D rotate_x(Angle angle, Pattern3D pattern);
-Pattern3D rotate_y(Angle angle, Pattern3D pattern);
-Pattern3D rotate_z(Angle angle, Pattern3D pattern);
+Pattern3D rotate_x(Angle angle, Pattern3D pattern)
+Pattern3D rotate_y(Angle angle, Pattern3D pattern)
+Pattern3D rotate_z(Angle angle, Pattern3D pattern)
 
-Pattern3D scale(double sx, double sy, double sz, Pattern3D pattern);
+Pattern3D scale(double sx, double sy, double sz, Pattern3D pattern)
 ----
 ====
 
@@ -108,4 +106,6 @@ Expose all functions (except the `transform` overloads) to the scripting world.
 
 == Evaluation
 
-TODO
+* Write tests for each of the transformations.
+* Make use of a simple ``Pattern2D``/``Pattern3D`` that makes checking your transformations easy.
+* Make sure that translation and scaling work in the correct direction, i.e., that `scale(2, 2, p)` enlarges the pattern and not shrink it.
