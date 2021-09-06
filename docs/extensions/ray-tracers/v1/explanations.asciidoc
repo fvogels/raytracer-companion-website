@@ -46,7 +46,7 @@ All script-related functionality resides in the `scripting` subdirectory.
   Right now, only `Raytracers.v0()` is available, but for every new ray tracer you implement, you will need to add a method ``v``n to this module.
   This `Raytracers` module is represented by `RaytracerLibrary` in C++.
   Add a method `v1` to `RaytracerLibrary` with the correct body.
-* Adding a `v1` method to `RaytracerLibrary`is not sufficient: you also need to explicitly export the method itself.
+* Adding a `v1` method to `RaytracerLibrary` is not sufficient: you also need to explicitly export the method itself.
   At the bottom of the file, you'll find a line `BIND(v0)`.
   This is what actually exposes `v0` to the scripting language.
   Add a similar line so that `v1` is also made accessible.
@@ -110,11 +110,15 @@ Visually, the structure looks as follows:
 
 image::code-structure.svg[align="center"]
 
+=== compute_ambient
+
 [TASK]
 ====
 Add a _protected_ method with signature `Color RayTracerV1::compute_ambient(const MaterialProperties&)`.
 It should simply return the `ambient` field of its argument.
 ====
+
+=== determine_color
 
 [TASK]
 ====
@@ -126,8 +130,8 @@ As new ray tracer versions add features, this method will often be the one to ho
   `determine_color` should call `compute_ambient` and return its result.
 ====
 
-[TASK]
-====
+=== trace
+
 `determine_color` will need to be called by `trace` in order to, well, determine the color.
 Instead of assigning `colors::white` to `hit_color`, assign ``determine_color``'s result.
 There's a snag though: `determine_color` needs a `MaterialProperties` argument.
@@ -146,4 +150,8 @@ Unfortunately, `at` requires a `HitPosition` as argument&hellip;
 
 Where would we find a `HitPosition`?
 Again, it makes sense to look around in `Hit`.
+
+[TASK]
+====
+Adapt `RayTracerV1::trace` so that it calls `determine_color` instead of assuming everything is white.
 ====
