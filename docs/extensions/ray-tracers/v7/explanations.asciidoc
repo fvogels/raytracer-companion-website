@@ -4,18 +4,137 @@
 ----
 difficulty 3
 requires ray-tracers/v6
-reading refraction
 ----
 
 preview::preview[]
 
-== Implementation
+== Background Information
 
 This ray tracer version adds a simplified version of transparency.
-A more realistic form will be implemented in <</extensions/ray-tracers/v7/explanations#,the next version>>.
+A more realistic form will be implemented in <</extensions/ray-tracers/v8/explanations#,the next version>>.
 
+The idea behind this ray tracer is very simple: if a ray hits a translucent object, the ray passes through and we simply continue tracing the same `eye_ray` to the next object in the scene.
+
+[EXAMPLE]
+====
+In the image below, the ray hits the red sphere at stem:[P_1].
+The red sphere is translucent, however, so the ray goes through it, exists the sphere at stem:[P_2] and then bumps into the blue sphere at stem:[P_3].
+This blue sphere is not translucent, so tracing stops there.
+
+image::translucency.png[align="center"]
+
+Of course, the red sphere could also be reflective, in which case we would need to both trace the "penetrating" and the reflected ray and add the results together.
+====
+
+== Translucency
+
+First things first: we need a way to express the fact that a material can be translucent.
+Let's add it as an extra field to `MaterialProperties`.
+
+=== MaterialProperties
 
 [TASK]
 ====
-TODO
+Add an extra field `translucency` of type `double` to `MaterialProperties`.
+Update the constructor accordingly.
 ====
+
+=== MaterialPropertiesBuilder
+
+[TASK]
+====
+Update `MaterialPropertiesBuilder` so that it supports `translucency`.
+The default value should be `0.0`.
+====
+
+=== Bindings
+
+[TASK]
+====
+Update `scripting/materials-module.cpp` so that `translucency` can be specified in scripts.
+====
+
+== RayTracerV7
+
+image::code-structure.svg[align="center"]
+
+[TASK]
+====
+Create files `ray-tracers/v7.cpp` and `ray-tracers/v7.h`.
+Define a class `RayTracerV7` that inherits from `RayTracerV6`.
+====
+
+=== compute_translucency
+
+Let's give `compute_ambient` and `compute_reflection` a little brother who will be responsible for dealing with translucent objects.
+
+[TASK]
+====
+Add a _protected_ method with signature
+
+[source,language='c++']
+----
+Color compute_translucency(const Scene& scene,
+                           const MaterialProperties& material_properties,
+                           const Hit& hit,
+                           const math::Ray& eye_ray,
+                           double weight) const;
+----
+
+Implement it based on the following pseudocode:
+
+[source,language='python']
+----
+def compute_translucency(scene, matprops, hit, eye_ray, weight):
+    translucency = matprops.translucency
+
+    if translucency > 0:
+        new_origin = ...
+        new_direction = ...
+        new_ray = Ray(new_origin, new_direction)
+        new_weight = ...
+        color = trace(scene, new_ray, new_weight).color
+
+        return ...
+    else:
+        return black
+----
+====
+
+=== determine_color
+
+We need to update `determine_color` so that is takes into account `compute_translucency`.
+
+[TASK]
+====
+Override `determine_color`.
+
+[source,language='python']
+----
+def determine_color(...):
+    result = black
+
+    result += super().determine_color(...)
+    result += compute_translucency(...)
+
+    return result
+----
+====
+
+=== Factory Function
+
+[TASK]
+====
+Implement the factory function `v7()`.
+====
+
+=== Binding
+
+[TASK]
+====
+Expose `v7` to the scripting language.
+====
+
+== Evaluation
+
+TODO
