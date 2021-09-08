@@ -7,6 +7,7 @@
 ----
 difficulty 3
 requires patterns/basics
+requires patterns/lambda
 ----
 
 Patterns are functions that associate a boolean value (typically interpreted as black and white) with every point.
@@ -72,6 +73,8 @@ It implements the following table:
 | {true} | {false} | {false}
 | {true} | {true} | {true}
 |===
+
+Make use of `make_pattern` from <</extensions/patterns/lambda/explanations#,lambda pattern extension>>.
 ====
 
 ==== Disjunction
@@ -94,6 +97,8 @@ It implements the following table:
 | {true} | {false} | {true}
 | {true} | {true} | {true}
 |===
+
+Make use of `make_pattern` from <</extensions/patterns/lambda/explanations#,lambda pattern extension>>.
 ====
 
 ==== Exclusive Disjunction
@@ -116,6 +121,8 @@ It implements the following table:
 | {true} | {false} | {true}
 | {true} | {true} | {false}
 |===
+
+Make use of `make_pattern` from <</extensions/patterns/lambda/explanations#,lambda pattern extension>>.
 ====
 
 ==== Negation
@@ -136,6 +143,8 @@ It implements the following table:
 | {false} | {true}
 | {true} | {false}
 |===
+
+Make use of `make_pattern` from <</extensions/patterns/lambda/explanations#,lambda pattern extension>>.
 ====
 
 === 3D
@@ -151,6 +160,8 @@ Pattern3D disjunction(Pattern3D pattern1, Pattern3D pattern2)
 Pattern3D exclusive_disjunction(Pattern3D pattern1, Pattern3D pattern2)
 Pattern3D negation(Pattern3D pattern)
 ----
+
+Make use of `make_pattern` from <</extensions/patterns/lambda/explanations#,lambda pattern extension>>.
 ====
 
 == Finishing Touches
@@ -159,3 +170,9 @@ Pattern3D negation(Pattern3D pattern)
 ====
 Expose all these operations to the scripting language.
 ====
+
+== Evaluation
+
+TODO
+
+* Show that your implementations make use of the lambda pattern.
