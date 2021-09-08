@@ -1,8 +1,11 @@
+:true: &squ;
+:false: &#9632;
+
 = Logic Operations
 
 [overview]
 ----
-difficulty 2
+difficulty 3
 requires patterns/basics
 ----
 
@@ -49,14 +52,110 @@ Create files `patterns/pattern-logic-operations.cpp` and `patterns/pattern-logic
 
 === 2D
 
-Pattern2D conjunction(Pattern2D pattern1, Pattern2D pattern2);
-Pattern2D disjunction(Pattern2D pattern1, Pattern2D pattern2);
-Pattern2D exclusive_disjunction(Pattern2D pattern1, Pattern2D pattern2);
-Pattern2D negation(Pattern2D pattern);
+==== Conjunction
+
+[TASK]
+====
+Write a function
+[source,language='c++']
+----
+Pattern2D conjunction(Pattern2D pattern1, Pattern2D pattern2)
+----
+
+It implements the following table:
+
+[.center,options='header',cols="^,^,^",width="50%"]
+|===
+| 1st pattern | 2nd pattern | result
+| {false} | {false} | {false}
+| {false} | {true} | {false}
+| {true} | {false} | {false}
+| {true} | {true} | {true}
+|===
+====
+
+==== Disjunction
+
+[TASK]
+====
+Write a function
+[source,language='c++']
+----
+Pattern2D disjunction(Pattern2D pattern1, Pattern2D pattern2)
+----
+
+It implements the following table:
+
+[.center,options='header',cols="^,^,^",width="50%"]
+|===
+| 1st pattern | 2nd pattern | result
+| {false} | {false} | {false}
+| {false} | {true} | {true}
+| {true} | {false} | {true}
+| {true} | {true} | {true}
+|===
+====
+
+==== Exclusive Disjunction
+
+[TASK]
+====
+Write a function
+[source,language='c++']
+----
+Pattern2D exclusive_disjunction(Pattern2D pattern1, Pattern2D pattern2)
+----
+
+It implements the following table:
+
+[.center,options='header',cols="^,^,^",width="50%"]
+|===
+| 1st pattern | 2nd pattern | result
+| {false} | {false} | {false}
+| {false} | {true} | {true}
+| {true} | {false} | {true}
+| {true} | {true} | {false}
+|===
+====
+
+==== Negation
+
+[TASK]
+====
+Write a function
+[source,language='c++']
+----
+Pattern2D negation(Pattern2D pattern)
+----
+
+It implements the following table:
+
+[.center,options='header',cols="^,^",width="50%"]
+|===
+| 1st pattern | result
+| {false} | {true}
+| {true} | {false}
+|===
+====
 
 === 3D
 
-Pattern3D conjunction(Pattern3D pattern1, Pattern3D pattern2);
-Pattern3D disjunction(Pattern3D pattern1, Pattern3D pattern2);
-Pattern3D exclusive_disjunction(Pattern3D pattern1, Pattern3D pattern2);
-Pattern3D negation(Pattern3D pattern);
+[TASK]
+====
+Implement the same logical operations, but now on 3D patterns.
+
+[source,language='c++']
+----
+Pattern3D conjunction(Pattern3D pattern1, Pattern3D pattern2)
+Pattern3D disjunction(Pattern3D pattern1, Pattern3D pattern2)
+Pattern3D exclusive_disjunction(Pattern3D pattern1, Pattern3D pattern2)
+Pattern3D negation(Pattern3D pattern)
+----
+====
+
+== Finishing Touches
+
+[TASK]
+====
+Expose all these operations to the scripting language.
+====
