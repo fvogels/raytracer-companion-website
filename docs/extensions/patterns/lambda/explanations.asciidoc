@@ -10,7 +10,7 @@ requires materials/pattern
 In order to create a new pattern, we need to define a new subclass of `Pattern2DImplementation` or `Pattern3DImplementation` and define the `at` method.
 Next, we need to create a factory function that creates an instance of the new pattern implementation class and wraps it in a `Pattern2D` or `Pattern3D`.
 
-.Header File
+.some-new-pattern.h
 [source,language='c++']
 ----
 #pragma once
@@ -38,7 +38,7 @@ namespace patterns
 }
 ----
 
-.CPP File
+.some-new-pattern.cpp
 [source,language='c++']
 ----
 #include "patterns/some-new-pattern.h"
