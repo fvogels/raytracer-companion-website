@@ -1,0 +1,62 @@
+= Logic Operations
+
+[overview]
+----
+difficulty 2
+requires patterns/basics
+----
+
+Patterns are functions that associate a boolean value (typically interpreted as black and white) with every point.
+
+[source,language='c++']
+----
+bool pattern_function(const Point2D& point) // 2D
+bool pattern_function(const Point3D& point) // 3D
+----
+
+We also know there exist operations on boolean values:
+
+* Conjunction `b1 && b2`.
+* Disjunction `b1 || b2`.
+* Negation `!b`.
+
+In this extension, we find out what happens if we apply those logic operators on patterns.
+
+[EXAMPLE]
+====
+Say we have two patterns `p1` and `p2`.
+
+[options="header",cols="^,^"]
+|===
+| p1 | p2
+a| image::hlines.png[width="25%"]
+a| image::vlines.png[width="25%"]
+|===
+
+If we combine them using disjunction, we get
+
+image::combined.png[align="center",width="25%"]
+
+Notice how in the resulting image, a pixel is white if either one of the images above has a white pixel in the same spot.
+====
+
+== Implementation
+
+[TASK]
+====
+Create files `patterns/pattern-logic-operations.cpp` and `patterns/pattern-logic-operations.h`.
+====
+
+=== 2D
+
+Pattern2D conjunction(Pattern2D pattern1, Pattern2D pattern2);
+Pattern2D disjunction(Pattern2D pattern1, Pattern2D pattern2);
+Pattern2D exclusive_disjunction(Pattern2D pattern1, Pattern2D pattern2);
+Pattern2D negation(Pattern2D pattern);
+
+=== 3D
+
+Pattern3D conjunction(Pattern3D pattern1, Pattern3D pattern2);
+Pattern3D disjunction(Pattern3D pattern1, Pattern3D pattern2);
+Pattern3D exclusive_disjunction(Pattern3D pattern1, Pattern3D pattern2);
+Pattern3D negation(Pattern3D pattern);
