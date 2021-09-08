@@ -4,13 +4,11 @@ def scene_at(now)
   var camera = Cameras.perspective( [ "eye": pos(0,0,5),
                                       "look_at": pos(0,0,0) ] )
 
-  var white = Materials.uniform( [ "ambient": Colors.white() * 0.1,
-                                   "diffuse": Colors.white() * 0.5 ] )
+  var white = Materials.uniform( [ "ambient": Colors.white() ] )
 
-  var black = Materials.uniform( [ "ambient": Colors.black(),
-                                   "diffuse": Colors.black() ] )
+  var black = Materials.uniform( [ "ambient": Colors.black() ] )
 
-  var t = Animations.animate(-5, 5, seconds(5))[now]
+  var t = Animations.animate(-2.5, 2.5, seconds(5))[now]
 
   var pattern = Patterns.xsplit(t)
   var mat = Materials.from_pattern(pattern, white, black)
@@ -22,9 +20,9 @@ def scene_at(now)
   var scene = create_scene(camera, root, lights)
 }
 
-var raytracer   = Raytracers.v2()
-var renderer    = Renderers.standard( [ "width": 500,
-                                        "height": 500,
+var raytracer   = Raytracers.v1()
+var renderer    = Renderers.standard( [ "width": 200,
+                                        "height": 200,
                                         "sampler": Samplers.single(),
                                         "ray_tracer": raytracer ] )
 
@@ -34,5 +32,3 @@ pipeline( scene_animation(scene_at, seconds(5)),
             Pipeline.wif(),
             Pipeline.base64(),
             Pipeline.stdout() ] )
-
-
