@@ -29,6 +29,8 @@ Let's start by creating the files that will host the new code.
 ====
 Create files `patterns/pattern-transformations.cpp` and `patterns/pattern-transformations.h`.
 Prepare a namespace declarations named `patterns`.
+
+Include `patterns/pattern-transformation.h` in `patterns/patterns.h`.
 ====
 
 === transform
@@ -97,7 +99,7 @@ Pattern3D scale(double sx, double sy, double sz, Pattern3D pattern)
 ----
 ====
 
-== Bindings
+== Finishing Touches
 
 [TASK]
 ====
