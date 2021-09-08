@@ -87,6 +87,8 @@ Take a good at the types ``Primitive`` and ``PrimitiveImplementation``, as you w
 * Create a file `patterns/pattern.h`.
   No corresponding `pattern.cpp` will be necessary.
 * Add a namespace declaration `patterns`.
+* Also create an empty file `patterns/patterns.h`.
+  When you later add patterns, you will add an `#include` directive here so that client code can include all patterns in one go.
 ====
 
 ==== Pattern2DImplementation
@@ -167,3 +169,9 @@ Copy `scripting/lights-module.cpp` and ``scripting/lights-module.h`` to the corr
   Future pattern-related extensions will each add methods.
 * You will need to register the types `Pattern2D` and `Pattern3D`.
 ====
+
+== Evaluation
+
+// Note: Materials.from_pattern has not yet been made at this point!
+
+TODO
