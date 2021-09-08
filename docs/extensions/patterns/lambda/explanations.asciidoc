@@ -146,52 +146,16 @@ Overload `make_pattern` so that it can also create 3D patterns.
 
 == Evaluation
 
-
 [TASK]
 ====
 Create a pattern named `xsplit(boundary)` that assigns white (`true`) to all points whose x-coordinate is less than `boundary`.
 
-[source,language='chai']
-----
-// movie
-def scene_at(now)
-{
-  var camera = Cameras.perspective( [ "eye": pos(0,0,5),
-                                      "look_at": pos(0,0,0) ] )
+preview::xsplit[noheader]
+====
 
-  var white = Materials.uniform( [ "ambient": Colors.white() * 0.1,
-                                   "diffuse": Colors.white() * 0.5 ] )
+[TASK]
+====
+Create a pattern named `ysplit(boundary)` that assigns white (`true`) to all points whose y-coordinate is less than `boundary`.
 
-  var black = Materials.uniform( [ "ambient": Colors.black(),
-                                   "diffuse": Colors.black() ] )
-
-  var t = Animations.animate(-5, 5, seconds(5))[now]
-
-  var pattern = Patterns.xsplit(t)
-  var mat = Materials.from_pattern(pattern, white, black)
-
-  var root = decorate(mat, xy_plane())
-
-  var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
-
-  var scene = create_scene(camera, root, lights)
-}
-
-var raytracer   = Raytracers.v2()
-var renderer    = Renderers.standard( [ "width": 500,
-                                        "height": 500,
-                                        "sampler": Samplers.single(),
-                                        "ray_tracer": raytracer ] )
-
-pipeline( scene_animation(scene_at, seconds(5)),
-          [ Pipeline.animation(30),
-            Pipeline.renderer(renderer),
-            Pipeline.wif(),
-            Pipeline.base64(),
-            Pipeline.stdout() ] )
-----
-
-should yield
-
-video::xsplit.mp4[align="center"]
+preview::ysplit[noheader]
 ====
