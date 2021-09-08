@@ -11,7 +11,7 @@ But not just any black and white image, but rather an infinitely large one.
 For any position stem:[(x, y)] or stem:[(x, y, z)], the pattern must decide whether that spot is black or white.
 
 In order to fill up this infinite space, we generally rely on repetition: one simple patterns gets copied an infinite number of times.
-In this extension, you will have to create the "for loop" of patterns: the `tessellate` operation takes a pattern, a width and a height and will then copy this ad infinitum.
+In this extension, you will have to create the "for loop" of patterns: the `tessellate` operation takes a "child pattern", a width and a height and will then copy this ad infinitum.
 
 [EXAMPLE]
 ====
@@ -35,6 +35,11 @@ Also add the header file to `patterns/patterns.h`.
 
 === tessellate
 
+Given a point stem:[(x, y)], you need to "remap" it to stem:[[0,0\] \times [w, h\]].
+This remapped point can then be fed to the child pattern.
+
+image::remapping.png[align="center",width="50%"]
+
 [TASK]
 ====
 Implement tessellation as a function
@@ -46,8 +51,28 @@ Pattern2D tessellate(Pattern2D pattern, double width, double height)
 
 [TIP]
 =====
+The remapping can be done by an operation known to you that does this in a single step, i.e., don't use loops.
+=====
+
+[TIP]
+=====
 You can avoid having to define an entire class if you rely on <</extensions/patterns/lambda/explanations#,make_pattern>>.
 =====
+====
+
+[IMPORTANT]
+====
+You might have some trouble to get the area around stem:[(0,0)] right.
+Say you are copying this pattern:
+
+image::checker.png[align="center",width="10%"]
+
+[.center,options="header",cols="^,^"]
+|===
+| Correct | Wrong
+a| image::right.png[]
+a| image::wrong.png[]
+|===
 ====
 
 === tessellate_x, tessellate_y
@@ -94,3 +119,6 @@ Add bindings to expose this new functionality to the scripting language.
 == Evaluation
 
 TODO
+
+* Pattern should not be mirrored around stem:[(0, 0)].
+* Efficiency: show code to make sure no loops were utilized
