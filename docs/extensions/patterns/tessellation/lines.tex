@@ -1,0 +1,19 @@
+\documentclass{standalone}
+\usepackage{tikz,tikz-3dplot}
+
+\usetikzlibrary{math,shapes.geometric}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \path[fill=black] (0,0) rectangle (5,-1);
+  \draw[fill=white] (0,0) rectangle (5,1);
+  \path[fill=black] (0,1) rectangle (5,3);
+  \draw[fill=white] (0,3) rectangle (5,4);
+  \path[fill=black] (0,4) rectangle (5,5);
+
+  \draw[latex-latex] (5.5,0) -- (5.5,1) node[right,midway,font=\small] { thickness };
+  \draw[latex-latex] (5.5,1) -- (5.5,3) node[right,midway,font=\small] { spacing };
+\end{tikzpicture}
+
+\end{document}

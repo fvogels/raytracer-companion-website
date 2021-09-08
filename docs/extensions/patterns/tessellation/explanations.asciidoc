@@ -3,6 +3,7 @@
 [overview]
 ----
 difficulty 3
+requires ray-tracers/v1
 requires patterns/basics
 requires patterns/lambda
 ----
@@ -121,6 +122,18 @@ Add bindings to expose this new functionality to the scripting language.
 == Evaluation
 
 TODO
+
+[TASK]
+====
+Use `tessellation_y` to create a pattern `lines(thickness, spacing)` for horizontal lines.
+
+* `thickness` represents the thickness of each line.
+* `spacing` represents the space between lines.
+
+image::lines.png[align="center",width="25%"]
+
+preview::hlines[]
+====
 
 * Pattern should not be mirrored around stem:[(0, 0)].
 * Efficiency: show code to make sure no loops were utilized
