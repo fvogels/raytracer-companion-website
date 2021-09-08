@@ -5,6 +5,7 @@
 difficulty 2
 reading design/transformations
 requires patterns/basics
+requires patterns/lambda
 ----
 
 In this extension, we define the usual transformations on patterns:
@@ -50,7 +51,7 @@ Pattern2D patterns::transform(const Transformation2D& transformation,
 
 [TIP]
 =====
-* To simplify the implementation, you can rely on <</extensions/patterns/lambda/explanations#,make_pattern>>.
+* To simplify the implementation, rely on <</extensions/patterns/lambda/explanations#,make_pattern>>.
 * You will need to call `pattern->at(p)` with some position `p`.
   Think carefully about what this `p` should be.
 =====
@@ -71,10 +72,7 @@ Pattern2D rotate(math::Angle angle, Pattern2D pattern)
 Pattern2D scale(double sx, double sy, Pattern2D pattern)
 ----
 
-[TIP]
-=====
 Rely on the transformations defined in `math/transformation2d.h`.
-=====
 ====
 
 == 3D Implementation
@@ -108,6 +106,7 @@ Expose all functions (except the `transform` overloads) to the scripting world.
 
 == Evaluation
 
+* Show that `transform` is implemented using a lambda pattern.
 * Write tests for each of the transformations.
 * Make use of a simple ``Pattern2D``/``Pattern3D`` that makes checking your transformations easy.
 * Make sure that translation and scaling work in the correct direction, i.e., that `scale(2, 2, p)` enlarges the pattern and not shrink it.
