@@ -1,0 +1,93 @@
+= Tessellation
+
+[overview]
+----
+difficulty 3
+requires patterns/basics
+----
+
+As mentioned before, a pattern can be seen as a black and white image.
+But not just any black and white image, but rather an infinitely large one.
+For any position stem:[(x, y)] or stem:[(x, y, z)], the pattern must decide whether that spot is black or white.
+
+In order to fill up this infinite space, we generally rely on repetition: one simple patterns gets copied an infinite number of times.
+In this extension, you will have to create the "for loop" of patterns: the `tessellate` operation takes a pattern, a width and a height and will then copy this ad infinitum.
+
+[EXAMPLE]
+====
+We start off we with simple pattern:
+
+image::single.png[align="center",width="25%"]
+
+Tessellation will lead to this:
+
+image::tessellation.png[align="center",width="25%"]
+====
+
+== Implementation
+
+[TASK]
+====
+Create files `patterns/pattern-tessellation.cpp` and `patterns/pattern-tessellation.h`.
+
+Also add the header file to `patterns/patterns.h`.
+====
+
+=== tessellate
+
+[TASK]
+====
+Implement tessellation as a function
+
+[source,language='c++']
+----
+Pattern2D tessellate(Pattern2D pattern, double width, double height)
+----
+
+You can avoid having to define an entire class if you rely on <</extensions/patterns/lambda/explanations#,make_pattern>>.
+====
+
+=== tessellate_x, tessellate_y
+
+`tessellation` takes a rectangular pattern and copies it both horizontally and vertically.
+What if we already have an infinitely wide pattern and only need to copy it vertically, or vice versa?
+
+[TASK]
+====
+Implement horizontal and vertical tessellation as two functions
+
+[source,language='c++']
+----
+Pattern2D tessellate_x(Pattern2D pattern, double width)
+Pattern2D tessellate_y(Pattern2D pattern, double height)
+----
+====
+
+=== tessellate in 3D
+
+The same trick can be applied in 3D.
+We get a "pattern box" which is copied along all three axes.
+
+[TASK]
+====
+Implement 3D tessellation as
+
+[source,language='c++']
+----
+Pattern3D tessellate(Pattern3D pattern,
+                     double x_size,
+                     double y_size,
+                     double z_size)
+----
+====
+
+=== Finishing Touches
+
+[TASK]
+====
+Add bindings to expose this new functionality to the scripting language.
+====
+
+== Evaluation
+
+TODO
