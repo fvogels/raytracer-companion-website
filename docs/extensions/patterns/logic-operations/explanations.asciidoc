@@ -6,8 +6,8 @@
 [overview]
 ----
 difficulty 3
-requires patterns/basics
-requires patterns/lambda
+order 5
+requires patterns/transformations
 ----
 
 Patterns are functions that associate a boolean value (typically interpreted as black and white) with every point.
@@ -173,6 +173,11 @@ Expose all these operations to the scripting language.
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render the following scene:
+
+preview::challenge[]
+====
 
 * Show that your implementations make use of the lambda pattern.

@@ -1,0 +1,53 @@
+// image
+global white = Materials.uniform([ "ambient": Colors.white() ])
+global black = Materials.uniform([ "ambient": Colors.black() ])
+
+def material(pattern)
+{
+  Materials.from_pattern(pattern, white, black)
+}
+
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0, 0, 8),
+                                      "look_at": pos(0,0,0) ] )
+
+  var hlines = Patterns.lines(0.1, 0.1)
+  var vlines = Patterns.rotate(degrees(90), hlines)
+
+  var conjunction = Patterns.conjunction(hlines, vlines)
+  var disjunction = Patterns.disjunction(hlines, vlines)
+  var xdisjunction = Patterns.exclusive_disjunction(hlines, vlines)
+  var negation = Patterns.negation(hlines)
+
+  var root = union( [
+  	decorate(
+          material(conjunction),
+          translate(vec(-1.5, 1.5, 0), sphere())),
+  	decorate(
+          material(disjunction),
+          translate(vec(1.5, 1.5, 0), sphere())),
+  	decorate(
+          material(xdisjunction),
+          translate(vec(-1.5, -1.5, 0), sphere())),
+        decorate(
+          material(negation),
+          translate(vec(1.5, -1.5, 0), sphere()))
+  ] )
+
+  var lights = [ Lights.omnidirectional( pos(0,5,2), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+
+var raytracer   = Raytracers.v1()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.single(),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(1)),
+          [ Pipeline.animation(1),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
