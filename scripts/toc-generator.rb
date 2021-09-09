@@ -92,7 +92,7 @@ module TOCGeneration
 
       entries.sort_by do |entry|
         if is_extension
-          [ entry.order || 0, entry.name ]
+          [ entry.order || entries.size, entry.name ]
         else
           entry.name
         end
