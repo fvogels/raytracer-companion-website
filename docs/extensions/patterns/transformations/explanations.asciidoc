@@ -4,8 +4,7 @@
 ----
 difficulty 2
 reading design/transformations
-requires patterns/basics
-requires patterns/lambda
+requires patterns/tessellation
 ----
 
 In this extension, we define the usual transformations on patterns:
@@ -105,6 +104,13 @@ Expose all functions (except the `transform` overloads) to the scripting world.
 ====
 
 == Evaluation
+
+[TASK]
+====
+Render the following script:
+
+preview::challenge[]
+====
 
 * Show that `transform` is implemented using a lambda pattern.
 * Write tests for each of the transformations.
