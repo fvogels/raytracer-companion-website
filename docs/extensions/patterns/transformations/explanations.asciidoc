@@ -3,8 +3,9 @@
 [overview]
 ----
 difficulty 2
+order 4
 reading design/transformations
-requires patterns/tessellation
+requires patterns/tiling
 ----
 
 In this extension, we define the usual transformations on patterns:

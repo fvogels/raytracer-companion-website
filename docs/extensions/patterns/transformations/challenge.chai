@@ -1,5 +1,4 @@
 // movie
-
 global white = Materials.uniform([ "ambient": Colors.white() ])
 global black = Materials.uniform([ "ambient": Colors.black() ])
 
