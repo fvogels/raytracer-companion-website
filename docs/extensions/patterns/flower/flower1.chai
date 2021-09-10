@@ -1,0 +1,8 @@
+// image
+use("shared.chai")
+
+pipeline( scene(1),
+          [ Pipeline.renderer(renderer),
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )

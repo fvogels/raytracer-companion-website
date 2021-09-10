@@ -1,0 +1,27 @@
+// skip
+def scene(i)
+{
+	var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+	                                    "look_at": pos(0,0,0) ] )
+
+	var white = Materials.uniform( [ "ambient": Colors.white() ] )
+	var black = Materials.uniform( [ "ambient": Colors.black() ] )
+
+	var pattern = Patterns.flower(i)
+	var mat = Materials.from_pattern(pattern, white, black)
+
+	var root = decorate(mat, xy_plane())
+
+	var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
+
+	create_scene(camera, root, lights)
+}
+
+var raytracer = Raytracers.v1()
+
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.single(),
+                                     "ray_tracer": raytracer ] )
+
+
