@@ -1,8 +1,9 @@
-= Tessellation
+= Tiling
 
 [overview]
 ----
 difficulty 3
+order 3
 requires ray-tracers/v1
 requires patterns/basics
 requires patterns/lambda
@@ -13,7 +14,7 @@ But not just any black and white image, but rather an infinitely large one.
 For any position stem:[(x, y)] or stem:[(x, y, z)], the pattern must decide whether that spot is black or white.
 
 In order to fill up this infinite space, we generally rely on repetition: one simple patterns gets copied an infinite number of times.
-In this extension, you will have to create the "for loop" of patterns: the `tessellate` operation takes a "child pattern", a width and a height and will then copy this ad infinitum.
+In this extension, you will have to create the "for loop" of patterns: the `tiling` operation takes a "child pattern", a width and a height and will then copy this ad infinitum.
 
 [EXAMPLE]
 ====
@@ -21,21 +22,21 @@ We start off we with simple pattern:
 
 image::single.png[align="center",width="25%"]
 
-Tessellation will lead to this:
+Tiling will lead to this:
 
-image::tessellation.png[align="center",width="25%"]
+image::tiling.png[align="center",width="25%"]
 ====
 
 == Implementation
 
 [TASK]
 ====
-Create files `patterns/pattern-tessellation.cpp` and `patterns/pattern-tessellation.h`.
+Create files `patterns/pattern-tiling.cpp` and `patterns/pattern-tiling.h`.
 
 Also add the header file to `patterns/patterns.h`.
 ====
 
-=== tessellate
+=== tiling
 
 Given a point stem:[(x, y)], you need to "remap" it to stem:[[0,0\] \times [w, h\]].
 This remapped point can then be fed to the child pattern.
@@ -44,11 +45,11 @@ image::remapping.png[align="center",width="50%"]
 
 [TASK]
 ====
-Implement tessellation as a function
+Implement tiling as a function
 
 [source,language='c++']
 ----
-Pattern2D tessellate(Pattern2D pattern, double width, double height)
+Pattern2D tiling(Pattern2D pattern, double width, double height)
 ----
 
 Rely on `make_pattern` from the <</extensions/patterns/lambda/explanations#,lambda pattern extension>>.
@@ -74,39 +75,39 @@ a| image::wrong.png[]
 |===
 ====
 
-=== tessellate_x, tessellate_y
+=== tiling_x, tiling_y
 
-`tessellation` takes a rectangular pattern and copies it both horizontally and vertically.
+`tiling` takes a rectangular pattern and copies it both horizontally and vertically.
 What if we already have an infinitely wide pattern and only need to copy it vertically, or vice versa?
 
 [TASK]
 ====
-Implement horizontal and vertical tessellation as two functions
+Implement horizontal and vertical tiling as two functions
 
 [source,language='c++']
 ----
-Pattern2D tessellate_x(Pattern2D pattern, double width)
-Pattern2D tessellate_y(Pattern2D pattern, double height)
+Pattern2D tiling_x(Pattern2D pattern, double width)
+Pattern2D tiling_y(Pattern2D pattern, double height)
 ----
 
 Rely on `make_pattern` from the <</extensions/patterns/lambda/explanations#,lambda pattern extension>>.
 ====
 
-=== tessellate in 3D
+=== tiling in 3D
 
 The same trick can be applied in 3D.
 We get a "pattern box" which is copied along all three axes.
 
 [TASK]
 ====
-Implement 3D tessellation as
+Implement 3D tiling as
 
 [source,language='c++']
 ----
-Pattern3D tessellate(Pattern3D pattern,
-                     double x_size,
-                     double y_size,
-                     double z_size)
+Pattern3D tiling(Pattern3D pattern,
+                 double x_size,
+                 double y_size,
+                 double z_size)
 ----
 
 Rely on `make_pattern` from the <</extensions/patterns/lambda/explanations#,lambda pattern extension>>.
@@ -125,16 +126,18 @@ TODO
 
 [TASK]
 ====
-Use `tessellation_y` to create a pattern `lines(thickness, spacing)` for horizontal lines.
+Use `tiling_y` to create a pattern `lines(thickness, spacing)` for horizontal lines.
 
 * `thickness` represents the thickness of each line.
 * `spacing` represents the space between lines.
 
 image::lines.png[align="center",width="25%"]
 
+Rely on `xsplit` or `ysplit` from <</extensions/patterns/lambda/explanations#,
+
 preview::hlines[]
 ====
 
 * Pattern should not be mirrored around stem:[(0, 0)].
 * Efficiency: show code to make sure no loops were utilized
-* Show that lambda pattern has been used to implement these patterns.
+* Show how `lines` is defined in terms of one of the `split` extensions and `tiling`.
