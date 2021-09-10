@@ -3,6 +3,7 @@
 [overview]
 ----
 difficulty 2
+order 2
 requires ray-tracers/v1
 requires patterns/basics
 requires materials/pattern
