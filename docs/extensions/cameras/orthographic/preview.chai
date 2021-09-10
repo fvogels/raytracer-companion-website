@@ -25,7 +25,7 @@ def scene_at(now)
                                    "transparency": 0,
                                    "refractive_index": 0 ] )
 
-  var checkered = Materials.checkered2d(black, white)
+  var checkered = Materials.from_pattern(Patterns.checkered(1, 1), black, white)
 
   var spheres   = []
 
@@ -54,7 +54,6 @@ var renderer    = Renderers.standard( [ "width": 500,
                                         "height": 500,
                                         "sampler": Samplers.multijittered(2),
                                         "ray_tracer": raytracer ] )
-
 
 pipeline( anim,
           [ Pipeline.animation(30),
