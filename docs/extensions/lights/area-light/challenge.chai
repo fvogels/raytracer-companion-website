@@ -1,26 +1,28 @@
-// image
-var camera = Cameras.perspective( [ "eye": pos(0,4,8),
-                                  "look_at": pos(0,0,0) ] )
+// movie
+def scene_at(now)
+{
+    var camera = Cameras.perspective( [ "eye": pos(0,4,8),
+                                    "look_at": pos(0,0,0) ] )
 
-var sphere_material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
-                                         "diffuse": Colors.white() * 0.8,
-                                         "specular": Colors.white(),
-                                         "specular_exponent": 100 ] )
+    var sphere_material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                               "diffuse": Colors.white() * 0.8,
+                                               "specular": Colors.white(),
+                                               "specular_exponent": 100 ] )
 
-var plane_material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
-                                        "diffuse": Colors.white() * 0.8,
-                                        "specular": Colors.black(),
-                                        "specular_exponent": 0 ] )
-
-
-var root = union([ decorate(plane_material, translate(vec(0,0,-1), xy_plane())),
-                 decorate(sphere_material, sphere()) ])
+    var plane_material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                              "diffuse": Colors.white() * 0.8,
+                                              "specular": Colors.black(),
+                                              "specular_exponent": 0 ] )
 
 
-var lights = [ Lights.area( rect3d(pos(-3, 3, 2), vec(0.5,0,0), vec(0,0.5,0)), Samplers.random(100), Colors.white() ) ]
+    var root = union([ decorate(plane_material, translate(vec(0,0,-1), xy_plane())),
+                       decorate(sphere_material, sphere()) ])
 
-var scene = create_scene(camera, root, lights)
+    var t = Animations.animate(0, 1, seconds(5))[now]
+    var lights = [ Lights.area( rect3d(pos(-3 + 0.25 - 0.25*t, 3 + 0.25 - 0.25*t, 2), vec(0.5 * t,0,0), vec(0,0.5 * t,0)), Samplers.random(100), Colors.white() ) ]
 
+    create_scene(camera, root, lights)
+}
 
 
 var raytracer   = Raytracers.v4()
@@ -29,8 +31,9 @@ var renderer    = Renderers.standard( [ "width": 500,
                                         "sampler": Samplers.single(),
                                         "ray_tracer": raytracer ] )
 
-pipeline( scene,
-          [ Pipeline.renderer(renderer),
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
             Pipeline.wif(),
             Pipeline.base64(),
             Pipeline.stdout() ] )

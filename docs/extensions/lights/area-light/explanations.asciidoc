@@ -36,4 +36,6 @@ Implement area lights.
 Render the following scene:
 
 preview::challenge[]
+
+Notice the soft shadow.
 ====
