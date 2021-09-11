@@ -1,0 +1,29 @@
+// skip
+def scene(arms)
+{
+	var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+	                                    "look_at": pos(0,0,0) ] )
+
+	var white = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+	                                 "diffuse": Colors.white() * 0.8,
+									 "specular": Colors.white() * 0.8,
+									 "specular_exponent": 10 ] )
+
+	var black = Materials.uniform( [ "ambient": Colors.black() ] )
+
+	var pattern = Patterns.spiral(["thickness": 0.1, "arms": arms])
+	var mat = Materials.from_pattern(pattern, white, black)
+
+	var root = decorate(mat, xy_plane())
+
+	var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
+
+	create_scene(camera, root, lights)
+}
+
+var raytracer = Raytracers.latest()
+
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.multijittered(2),
+                                     "ray_tracer": raytracer ] )

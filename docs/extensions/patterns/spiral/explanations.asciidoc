@@ -1,0 +1,74 @@
+= Spiral Pattern
+
+[overview]
+----
+difficulty 3
+requires patterns/lambda
+----
+
+The goal of this extension is to replicate these results (a spiral pattern) without help.
+You can try to solve this extension partially of partial rewards.
+
+== Spiral Thickness
+
+The thickness of the spiraling arm must be settable.
+
+[source,language='chai']
+----
+var t = Animations.animate(0.1, 0.4, seconds(3))[now]
+spiral([ "thickness": t ])
+----
+
+video::thickness.mp4[align="center"]
+
+== Arm Count
+
+We should be able to choose the number of arms.
+
+[source,language='chai']
+----
+spiral([ "thickness": 0.1, "arms": arms ])
+----
+
+[.center,options="header",cols="^.^,^5",width="50%"]
+|===
+| `arms` | Result
+| 1 a| image::arms1.png[width="50%"]
+| 2 a| image::arms2.png[width="50%"]
+| 3 a| image::arms3.png[width="50%"]
+| 4 a| image::arms4.png[width="50%"]
+|===
+
+== Spacing
+
+The spacing between arms must be a parameter too.
+
+[source,language='chai']
+----
+spiral([ "thickness": 0.1, "spacing": spacing ])
+----
+
+video::spacing.mp4[align="center"]
+
+== Evaluation
+
+[TASK]
+====
+Render the following scene:
+
+preview::challenge[]
+====
+
+[TASK]
+====
+Render the following scene:
+
+preview::challenge2[]
+====
+
+[TASK]
+====
+Render the following scene:
+
+preview::challenge3[]
+====
