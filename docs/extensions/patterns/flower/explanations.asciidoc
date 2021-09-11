@@ -1,4 +1,4 @@
-= Flower Patterns
+= Flower Pattern
 
 [overview]
 ----
@@ -9,14 +9,14 @@ requires patterns/lambda
 For this extension, we only give examples of what the pattern should look like given certain parameters.
 How to implement this is up to you.
 
-[options="header",cols="^.^,^"]
+[.center,options="header",cols="^.^,^",width="60%"]
 |===
 | Pattern | Result
-| `flower(1)` a| image::flower1.png[width="25%"]
-| `flower(2)` a| image::flower2.png[width="25%"]
-| `flower(3)` a| image::flower3.png[width="25%"]
-| `flower(4)` a| image::flower4.png[width="25%"]
-| `flower(8)` a| image::flower8.png[width="25%"]
+| `flower(1)` a| image::flower1.png[width="50%"]
+| `flower(2)` a| image::flower2.png[width="50%"]
+| `flower(3)` a| image::flower3.png[width="50%"]
+| `flower(4)` a| image::flower4.png[width="50%"]
+| `flower(8)` a| image::flower8.png[width="50%"]
 |===
 
 [TASK]
