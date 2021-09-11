@@ -3,7 +3,7 @@
 [overview]
 ----
 difficulty 2
-requires ray-tracers/v2
+requires ray-tracers/v4
 requires samplers/random
 reading lights/area
 ----
@@ -27,4 +27,13 @@ Note that it is important that the ray has to be created in such a way that stem
 [TASK]
 ====
 Implement area lights.
+====
+
+== Evaluation
+
+[TASK]
+====
+Render the following scene:
+
+preview::challenge[]
 ====
