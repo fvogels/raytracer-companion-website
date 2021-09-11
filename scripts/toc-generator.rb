@@ -52,6 +52,7 @@ module TOCGeneration
       generate_line '# Overview'
       generate_line ''
 
+      generate_category(top_level_categories.children['first-steps'], false)
       generate_category(top_level_categories.children['extensions'], true)
       generate_category(top_level_categories.children['reference'], false)
 
@@ -65,7 +66,7 @@ module TOCGeneration
     end
 
     def generate_header(title, level)
-      generate_line "#{"#" * level} #{title.capitalize}"
+      generate_line "#{"#" * level} #{title.split('-').map(&:capitalize).join(' ')}"
       generate_line ""
     end
 
