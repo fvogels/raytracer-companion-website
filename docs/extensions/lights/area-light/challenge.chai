@@ -19,7 +19,10 @@ def scene_at(now)
                        decorate(sphere_material, sphere()) ])
 
     var t = Animations.animate(0, 1, seconds(5))[now]
-    var lights = [ Lights.area( rect3d(pos(-3 + 0.25 - 0.25*t, 3 + 0.25 - 0.25*t, 2), vec(0.5 * t,0,0), vec(0,0.5 * t,0)), Samplers.random(100), Colors.white() ) ]
+    var rect = rect3d(pos(-3 + 0.25 - 0.25*t, 3 + 0.25 - 0.25*t, 2),
+                      vec(0.5 * t,0,0),
+                      vec(0,0.5 * t,0))
+    var lights = [ Lights.area( rect, Samplers.random(100), Colors.white() ) ]
 
     create_scene(camera, root, lights)
 }
