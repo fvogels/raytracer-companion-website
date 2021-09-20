@@ -3,6 +3,4 @@ use("shared.chai")
 
 pipeline( scene(3),
           [ Pipeline.renderer(renderer),
-            Pipeline.wif(),
-            Pipeline.base64(),
-            Pipeline.stdout() ] )
+            Pipeline.studio() ] )
