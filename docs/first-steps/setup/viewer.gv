@@ -1,0 +1,12 @@
+digraph {
+    node [shape="box"];
+
+    raytracer [label="ray tracer"];
+    wif [label="WIF"];
+    dotnet [label="WPF Viewer"];
+    python [label="Python Viewer"];
+
+    raytracer -> wif;
+    wif -> dotnet;
+    wif -> python;
+}

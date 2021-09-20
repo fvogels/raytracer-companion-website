@@ -1,0 +1,49 @@
+:experimental:
+
+= Setting Things Up
+
+== Cloning the Repository
+
+* Go to the GitHub classroom link (see Toledo).
+* Create a team or pick an existing team.
+* Clone the repository `git clone URL`.
+
+== Setting Up Visual Studio
+
+* Open the solution file `raytrace/raytracer.sln`.
+* In the Solution Explorer, click on "Show All Files".
+  Instead of only seeing "Header files", "Resource files" and "Source files" you should get a long list of folders.
+* In the toolbar, pick `Release` build.
+* Build the project (kbd:[Ctrl+Shift+B]).
+  This creates an executable file `raytracer.exe`.
+  Locate it; it should be somewhere under a `raytracer\raytracer\x64\Release` directory.
+
+[IMPORTANT]
+====
+Do not dare open the project as a folder in Visual Studio.
+====
+
+== WIF Viewer
+
+The project (a ray tracer) you will develop during this course outputs graphical data (images and movies.)
+We _could_ output this data as PNG, JPG, MP4, &hellip; but in order to keep things simple, we will use a custom file format named WIF.
+Since regular graphics software will not be able to open WIF files, we provide you with two options: a WPF-based viewer and a Python one.
+
+=== WPF-Based WIF Viewer
+
+This viewer will only work on Windows.
+
+* Clone https://github.com/ucll-3dcg/wif.net[this repository].
+* Open the solution.
+* Open `Configuration.cs`.
+* Change `RAYTRACER_PATH` so that it refers to the `raytracer.exe` file you just build.
+* Change to Release build.
+* Build (kbd:[Ctrl+Shift+B]).
+* Run (kbd:[Ctrl+F5]).
+* Optional but recommended: pin the application to the task bar so that you can easily launch it.
+
+=== Python WIF Viewer
+
+This viewer should work on all platforms.
+
+* Run `pip install `pip install git+https://github.com/ucll-3dcg/wif.git`
