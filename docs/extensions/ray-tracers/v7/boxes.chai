@@ -3,11 +3,11 @@ def scene_at(now)
 {
   var camera = Cameras.perspective( [ "eye": pos(0,0,5),
                                       "look_at": pos(0,0,0) ] )
-  
+
   var box_material = Materials.uniform( [ "ambient": Colors.blue() * 0.2,
                                           "diffuse": Colors.blue() * 0,
                                           "light_filtering": Colors.white(),
-                                          "opacity": 0.2 ] )
+                                          "translucency": 0.8 ] )
 
   var sphere_material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
                                              "diffuse": Colors.white() * 0.8,
