@@ -24,8 +24,11 @@ How to implement this is up to you.
 Implement the new pattern.
 ====
 
-=== Evaluation
+== Evaluation
 
-You must be able to render the script below and get the same results.
+[TASK]
+====
+Render the script below and get the same results.
 
 preview::flowers[]
+====
