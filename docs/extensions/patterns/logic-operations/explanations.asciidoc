@@ -1,3 +1,4 @@
+// order 5
 :true: &squ;
 :false: &#9632;
 
@@ -6,7 +7,6 @@
 [overview]
 ----
 difficulty 3
-order 5
 requires patterns/transformations
 ----
 
