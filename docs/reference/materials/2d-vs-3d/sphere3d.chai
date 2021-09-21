@@ -10,7 +10,7 @@ def scene_at(now)
   var white = Materials.uniform( [ "ambient": Colors.white(),
                                    "diffuse": Colors.black() ] )
 
-  var material = Materials.scale(0.2, 0.2, 0.2, Materials.checkered3d(black, white))
+  var material = Materials.scale(0.2, 0.2, 0.2, Materials.from_pattern(Patterns.checkered(1, 1, 1), black, white))
 
   var angle = Animations.animate(degrees(0), degrees(360), seconds(5))
 
