@@ -45,13 +45,12 @@ segments that is only a consumer, not a producer.
 All functionality related to pipelines can be found in the ``pipeline`` module.
 Examples of other pipeline segments are
 
-* The animation pipeline segment belongs in front of the pipeline:
-  its purpose is to produce a sequence of scenes, each of which
-  represents a frame of an animation. Each scene then gets passed on to the renderer,
-  which produces a series of bitmaps. Stringing those bitmaps together produces a movie.
-* <</extensions/pipeline/motion-blur/explanations#Motion blur>> comes after the renderer and adds bitmaps together, thereby creating
-  a motion blur effect.
-* <</extensions/pipeline/inverter/explanations#,Inverter>> inverts the bitmaps produced by the renderer.
+* The animation pipeline segment belongs in front of the pipeline: its purpose is to create a series of `Scene` objects, each representing the state of the scene at some specific time.
+* The `renderer()` segment takes a scene and converts it into an image.
+* The `wif()` segment converts images into the WIF file format.
+* The `base64()` segment takes binary data and encodes it using base64.
+* The `stdout()` segment prints out all data it receives to STDOUT.
+* <</extensions/pipeline/motion-blur/explanations#,Motion blur>> comes after the renderer and adds bitmaps together, thereby creating a motion blur effect.
 
 === Scene
 
@@ -83,7 +82,7 @@ which performs no fancy tricks. Other renderers are
 
 * The <</extensions/renderers/cartoon/explanations#,Cartoon Renderer>> gives the scene a cartoony look.
 * The <</extensions/renderers/edge/explanations#,Edge Renderer>> only draws the edges of objects.
-* The <</extensions/renderers/split-depth/explanations#,Split Depth Renderer>> produces <a href="https://www.reddit.com/r/SplitDepthGIFS/">split depth animations</a>.
+// * The <</extensions/renderers/split-depth/explanations#,Split Depth Renderer>> produces <a href="https://www.reddit.com/r/SplitDepthGIFS/">split depth animations</a>.
 
 Different types of renderers have different components, so for now we will
 pretend only the standard renderer exists.
@@ -103,7 +102,7 @@ Task scheduler:: Like samplers, this is more advanced stuff. A _task_ is a unit 
 to be performed. Ray tracing involves many such units of work. The _task scheduler_
 will, given a list of tasks, perform them. So, in essence, it's just an object faking a loop.
 What makes it interesting is that a
-<</extensions/performance/parallel-task-scheduler#,more advanced scheduler>>
+<</extensions/performance/parallel-task-scheduler/explanations#,more advanced scheduler>>
 will be able to assign tasks to different threads, thereby performing the tasks in parallel,
 resulting in a large performance boost.
 
@@ -142,19 +141,19 @@ in 3D space. The root is built out of primitives.
 The primitives are the building blocks for scenes. Examples are
 
 * Spheres
-* <</extensions/primitives/plane-xz/explanations#,Planes>>
-* <</extensions/primitives/cylinder-along-x/explanations#,Cylinders>>
-* <</extensions/primitives/cone-along-x/explanations#,Cones>>
+* <</extensions/primitives/plane/explanations#,Planes>>
+* <</extensions/primitives/cylinder/explanations#,Cylinders>>
+* <</extensions/primitives/cone/explanations#,Cones>>
 * <</extensions/primitives/triangle/explanations#,Triangles>>
 * <</extensions/primitives/disk/explanations#,Disks>>
-* <</extensions/primitives/square-xy/explanations#,Squares>>
+* <</extensions/primitives/box/explanations#,Squares>>
 * <</extensions/primitives/box/explanations#,Boxes>>
 
-You can also combine primitives, yielding new primitives:
+You can also <</extensions/primitives/csg/explanations#,combine primitives>>, yielding new primitives.
 
-* <</extensions/primitives/union/explanations#,Unions>>
-* <</extensions/primitives/intersection/explanations#,Intersections>>
-* <</extensions/primitives/difference/explanations#,Difference>>
+* Unions
+* Intersections
+* Differences
 
 A more abstract kind of primitive is the bounding box accelerator, which
 is invisible but allows to dramatically speed up ray tracing,
