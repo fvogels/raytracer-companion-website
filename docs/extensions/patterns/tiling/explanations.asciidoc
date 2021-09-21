@@ -1,9 +1,9 @@
+// order 3
 = Tiling
 
 [overview]
 ----
 difficulty 3
-order 3
 requires ray-tracers/v1
 requires patterns/basics
 requires patterns/lambda
