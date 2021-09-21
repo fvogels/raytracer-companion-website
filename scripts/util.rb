@@ -146,13 +146,6 @@ def extension_difficulty(extension)
 end
 
 
-def extension_order(extension)
-  overview = extract_overview(extension)
-  data = parse_explanations_overview(overview)
-  data[:order]
-end
-
-
 def explanations_title(extension)
   lines = read_explanations_as_lines(extension)
   line = lines.find { |line| line.start_with? '= ' }

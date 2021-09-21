@@ -24,6 +24,7 @@ module TOCGeneration
     end
   end
 
+
   class Entry
     def initialize(name, path)
       @name = name
@@ -37,9 +38,18 @@ module TOCGeneration
     end
 
     def order
-      @order ||= extension_order(@path)
+      unless @order
+        if %r{^// order (\d+)$} =~ @path.read
+          @order = $1.to_i
+        else
+          @order = Float::INFINITY
+        end
+      end
+
+      @order
     end
   end
+
 
   class Generator
     def initialize
@@ -88,15 +98,11 @@ module TOCGeneration
       generate_line('|===')
 
       if is_extension
-        generate_line('| Difficulty | Extension ')
+        generate_line('| Difficulty | Extension')
       end
 
       entries.sort_by do |entry|
-        if is_extension
-          [ entry.order || entries.size, entry.name ]
-        else
-          entry.name
-        end
+        [ entry.order || entries.size, entry.name ]
       end.each do |entry|
         generate_entry(entry, is_extension)
       end
