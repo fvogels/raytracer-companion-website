@@ -13,7 +13,6 @@ https://en.wikipedia.org/wiki/Composite_pattern[Composite design pattern].
 For those unfamiliar with the concept, we will first explore a different class hierarchy
 that you should already have experience with.
 
-
 === Examples
 
 ==== Design of GUI Libraries
@@ -70,12 +69,12 @@ is also much more efficient than to have to work with thousands of tiny triangle
 So, what will our basic shapes be? Well, any shape that have a simple enough mathematical formula. Examples are:
 
 * Spheres
-* <</extensions/primitives/plane-xz/explanations#,Planes>>
-* <</extensions/primitives/cylinder-along-x/explanations#,Cylinders>>
-* <</extensions/primitives/cone-along-x/explanations#,Cones>>
+* <</extensions/primitives/plane/explanations#,Planes>>
+* <</extensions/primitives/cylinder/explanations#,Cylinders>>
+* <</extensions/primitives/cone/explanations#,Cones>>
 * <</extensions/primitives/triangle/explanations#,Triangles>>
 * <</extensions/primitives/disk/explanations#,Disks>>
-* <</extensions/primitives/square-xy/explanations#,Squares>>
+* <</extensions/primitives/box/explanations#,Rectangle>>
 * <</extensions/primitives/box/explanations#,Boxes>>
 
 These basic shapes are so primitive that (in our design) you cannot even change their size or position in space (except for triangles.)
@@ -84,11 +83,11 @@ For example, you can only create spheres with radius 1 that are centered at stem
 ==== Transformations
 
 This brings us to the operations we can apply on these primitives. There are actually many types of operations available,
-some more abstract than others. The most straightforward operations are transformations:
+some more abstract than others. The most straightforward operations are <</extensions/primitives/transformations/explanations#,transformations>>:
 
 * Translation
-* <</extensions/primitives/scaling/explanations#,Scaling>>
-* <</extensions/primitives/rotation-around-x/explanations#,Rotation>>
+* Scaling
+* Rotation
 
 So, even though spheres themselves only come in size 1, you can use scaling to make them as big or as small as you want.
 This approach has the advantage that it makes the implementation much simpler. It is certainly possible to
@@ -152,7 +151,7 @@ no reflectance properties, etc. It is therefore an error to try to render an und
 We can define any kind of materials. Examples are
 
 * <</extensions/materials/marble/explanations#,Marble>>
-* <</extensions/pattern/dalmatian2d/explanations#,Dalmatian spots>>
+* <</extensions/patterns/dalmatian/explanations#,Dalmatian spots>>
 * <</extensions/materials/texture/explanations#,Textures>>
 
 ==== Example
