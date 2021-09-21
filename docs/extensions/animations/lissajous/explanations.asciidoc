@@ -3,7 +3,7 @@
 [overview]
 ----
 difficulty 2
-reading math/animations
+reading animations/basics
 reading design/animations/basics
 reading animations/lissajous
 ----
