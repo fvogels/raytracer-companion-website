@@ -1,0 +1,127 @@
+// order 2
+:experimental:
+
+= Git Workflow
+
+For this project, we expect you to follow a certain Git workflow.
+This involves making use of Git branches, merges, rebases but also of GitHub's features.
+
+
+The project consists of adding extensions (e.g., parallel scheduler, triangle, random sampler) to a given ray tracer.
+
+image::workflow.svg[align="center"]
+
+The following rules must be adhered to:
+
+* Commit often.
+  Use descriptive commit messages.
+* Every extension must be developed in its own branch.
+* The master branch must remain "clean" and contain only one commit per extension.
+  Note: this does not mean you have to implement extensions as a single commit: you can squash multiple commits together when merging with `master`.
+  Details follow below.
+* Make use of GitHub's automated kanban features.
+
+== Starting New Extension
+
+* On GitHub, go to the project.
+* Move the issue from the To Do column to the In Progress column.
+  If the issue for that extension does not exist (maybe extensions were added later on), create it yourself.
+* Assign yourself to the issue.
+
+Next, in a shell:
+
+[source,language='bash']
+----
+# From the master branch, create a new branch named after the extension:
+(master) $ git checkout -b extension-branch
+
+# Link the new local branch with a remote branch of the same name
+(extension-branch) $ git branch --set-upstream-to=origin/extension-branch
+----
+
+[IMPORTANT]
+====
+Only the creator of the branch should make commits to this branch.
+If multiple authors start committing to this branch, you could be in for a lot of trouble later on.
+====
+
+== Updating Extension Branch
+
+While you are working on an extension on a separate branch, another team mate might have finished one of their extensions and merged it with `master`.
+
+image::master-update.svg[align="center"]
+
+For example, in the diagram above, you started working on the <</extensions/cameras/fisheye/explanations#,Fisheye Camera extension>> while <</extensions/primitives/triangle/explanations#,Triangle>> was the last extension on `master`.
+You made two commits while working on `fisheye`, but in the meantime someone finished <</extensions/samplers/random/explanations#,Random Sampler>>.
+This can cause conflicts to occur when you try to merge `fisheye` into `master` later on.
+To prevent this from happening, you will first import all Random Sampler related changes into `fisheye` by _rebasing_ `fisheye`.
+
+image::rebase.svg[align="center"]
+
+[source,language='bash']
+----
+# From the master branch, create a new branch named after the extension:
+(extension-branch) $ git rebase master
+
+# Pushing requires a little force because rebase rewrites history
+(extension-branch) $ git push --force-with-lease
+----
+
+[IMPORTANT]
+====
+If rebasing causes trouble and you'd rather wait for help, you can abort the rebase operation:
+
+[source,language="bash"]
+----
+(extension-branch) $ git rebase --abort
+----
+====
+
+[IMPORTANT]
+====
+Never use `rebase` on `master`! `rebase` changes the Git history and will cause issues on your team mates' machines.
+====
+
+== Finishing Extension
+
+[IMPORTANT]
+====
+Make sure to only merge with master when you have successfully rebased the extension branch.
+====
+
+[source,language='bash']
+----
+# Go back to master branch
+(extension-branch) $ git checkout master
+
+# Merge, squashing all commits
+(master) $ git merge --squash --ff-only extension-branch
+
+# Commit with the correct issue number
+# This will automatically close the issue and move it to the Done column of the kanban board.
+(master) $ git commit -m "Closes #5"
+
+# Push to GitHub
+(master) $ git push
+----
+
+[NOTE]
+====
+If merging fails with a message of not being able to fast forward, this means you have not rebased your extension branch correctly.
+====
+
+[IMPORTANT]
+====
+Do not delete the extension branch.
+====
+
+== Fixing an Extension
+
+In case you find a bug in an extension after its branch has been merged with `master`, you need to create a new branch.
+
+[source,language='bash']
+----
+(master) $ git checkout -b extension-fix
+----
+
+Treat it like a regular extension branch: rebase, merge squash, etc.

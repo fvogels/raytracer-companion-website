@@ -1,0 +1,28 @@
+digraph {
+    rankdir="LR";
+
+    subgraph cluster_0 {
+        label="master";
+        style=filled;
+        color=lightgreen;
+        node [shape="box",style=filled,fill=white];
+
+        init [label="initial commit"];
+        ext1 [label="parallel scheduler"];
+        ext2 [label="triangle"];
+        ext3 [label="random sampler"];
+    };
+
+    subgraph cluster_1 {
+        rankdir="LR";
+        label="fisheye";
+        style=filled;
+        node [shape="box"];
+
+        fe1 [label="..."];
+        fe2 [label="..."];
+    };
+
+    init -> ext1 -> ext2 -> ext3;
+    ext2 -> fe1 -> fe2;
+}

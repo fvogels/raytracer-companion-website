@@ -1,0 +1,52 @@
+digraph {
+    rankdir="LR";
+
+    subgraph cluster_0 {
+        label="master";
+        style=filled;
+        color=lightgreen;
+        node [shape="box",style=filled,fill=white];
+
+        init [label="initial commit"];
+        ext1 [label="parallel scheduler"];
+        ext2 [label="triangle"];
+        ext3 [label="random sampler"];
+    };
+
+    subgraph cluster_1 {
+        rankdir="LR";
+        label="parallel-scheduler";
+        style=filled;
+        node [shape="box"];
+
+        pts1 [label="..."];
+        pts2 [label="..."];
+    };
+
+    subgraph cluster_2 {
+        rankdir="LR";
+        label="triangle";
+        style=filled;
+        node [shape="box"];
+
+        triangle1 [label="..."];
+        triangle2 [label="..."];
+        triangle3 [label="..."];
+    };
+
+    subgraph cluster_3 {
+        rankdir="LR";
+        label="random-sampler";
+        style=filled;
+        node [shape="box"];
+
+        rs1 [label="..."];
+        rs2 [label="..."];
+        rs3 [label="..."];
+    };
+
+    init -> ext1 -> ext2 -> ext3;
+    init -> pts1 -> pts2 -> ext1;
+    ext1 -> triangle1 -> triangle2 -> triangle3 -> ext2;
+    ext2 -> rs1 -> rs2 -> rs3 -> ext3;
+}
