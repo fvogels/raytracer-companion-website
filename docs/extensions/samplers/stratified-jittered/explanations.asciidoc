@@ -1,9 +1,9 @@
+// order 3
 = Stratified - Jittered Sampler
 
 [overview]
 ----
 difficulty 2
-order 3
 requires samplers/stratified
 reading samplers/jittered
 ----
