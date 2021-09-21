@@ -4,7 +4,7 @@
 ----
 difficulty 2
 requires math/quaternions
-reading math/animations
+reading animations/basics
 reading design/animations/basics
 ----
 
