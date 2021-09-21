@@ -1,0 +1,231 @@
+// order 3
+= History of 3D Computer Graphics
+
+Computer Graphics is a relatively young field and, as is typical
+of things that are still in their early developmental stages,
+many different approaches are explored. This was very much the case
+with computer games during the 1990s.
+
+Below are a series of games, each with their unique approach to computer graphics.
+
+== Wolfenstein 3D
+
+video::NdcnQISuF_Y[youtube,align="center",width="600",height="400"]
+
+[.center,cols="^,^",width="80%"]
+|===
+| Game | Wolfenstein 3D
+| Year | 1992
+| CPU  | https://en.wikipedia.org/wiki/Intel_80286[80286]
+| RAM  | 528KiB
+| GPU  | Didn't exist
+| Technique | Ray casting + sprites
+| Place in history | First FPS
+| Extras | https://fabiensanglard.net/gebbwolf3d/[Game Engine Black Book Wolfenstein 3D]
+| | http://playdosgamesonline.com/wolfenstein-3d.html[Play it online]
+|===
+
+The world was represented internally as a 2D grid, meaning walls could only be placed at 90&deg; angles; e.g. a wall making a 45&deg; angle was not supported by the game engine.
+Floors and ceilings had fixed heights: there were no stairs, no huge halls, no holes in the ground.
+The world was truly flat.
+This engine could only be used to render indoor game worlds convincingly.
+
+image::wolfenstein-world.png[align="center", width="50%"]
+
+Enemies were represented using sprites, i.e. flat bitmaps that were drawn where the enemy was.
+The closer the enemy was, the more stretched out the bitmap had to be, leading to serious pixelation when you got up close to an enemy.
+
+== Alone in the Dark
+
+video::iSwYY2eoKhQ[youtube,align="center",width="600",height="400"]
+
+[.center,cols="^,^",width="80%"]
+|===
+| Game | Alone in the Dark
+| Year | 1992
+| CPU  | https://en.wikipedia.org/wiki/Intel_80286[80286]
+| RAM  | 640 KiB
+| GPU  | Didn't exist
+| Technique | Drawn backgrounds + triangle rasterization
+| Place in history | Survival Horror (Resident Evil, Silent Hill, ...)
+| Extras | http://playdosgamesonline.com/Alone-in-the-dark.html[Play it online]
+| | https://www.imdb.com/title/tt0369226/?ref_=fn_al_tt_2[Truly excellent movie]
+|===
+
+The game world itself was rendered in a fully 2D fashion (backgrounds were just bitmaps), but the creatures roaming about were three-dimensional, i.e., they were built out of triangles.
+When a creature needs to be rendered, the triangles are first transformed in 3D space (depending on the creature's orientation in the game world and the camera position) after which they are projected onto the screen.
+These triangles were flat shaded, meaning that each triangle was drawn using exactly one color (i.e. no textures or lighting.)
+
+== Comanche
+
+video::snWmPWfeS6Y[youtube,align="center",width="600",height="400"]
+
+[.center,cols="^,^",width="80%"]
+|===
+| Game | Comanche
+| Year | 1992
+| CPU  | https://en.wikipedia.org/wiki/Intel_80386[80386]
+| RAM  | 4 MiB
+| GPU  | Didn't exist
+| Technique | Voxels
+|===
+
+Comanche sported a fully 3D world which it rendered using voxels (volumetric pixels).
+This is similar to Minecraft, but with much smaller 'boxes'.
+This approach allowed it to produce convincing outside worlds with great detail.
+
+== Doom
+
+video::8mEP4cflrd4[youtube,align="center",width="600",height="400"]
+
+[.center,cols="^,^",width="80%"]
+|===
+| Game | Doom
+| Year | 1993
+| CPU  | https://en.wikipedia.org/wiki/Intel_80386[80386]
+| RAM  | 4 MiB
+| GPU  | Didn't exist
+| Technique | Ray casting + sprites
+| Extra | https://fabiensanglard.net/gebbdoom/index.html[Game Engine Black Book Doom]
+| | https://www.amazon.com/Masters-Doom-Created-Transformed-Culture/dp/0812972155[Masters of Doom]
+| | https://classicreload.com/ultimate-doom.html[Play it online]
+|===
+
+The game world was internally represented by 2D polygons, meaning this game was still not truly 3D.
+Each 2D polygon was allowed to have its own floor and ceiling height.
+For example, stairs could be modelled using many such small polygons.
+
+image::doom-world.png[align="center",width="50%"]
+
+The world was still "flat" in a way: these 2D polygons could not overlap, so you could not have a bridge for which
+it was possible both to walk on and under. You could not have a building with several floors on top of each other.
+(Actually, that's a bit of a lie: floors that were supposedly one above the other were internally modelled
+as areas placed adjacent to each other. An elevator that pretended moving you up and down would actually teleport you
+horizontally.) Like Wolfenstein 3D, this approach is mostly limited to rendering indoor gaming worlds.
+
+Enemies were represented using sprites, just like in Wolfenstein 3D.
+
+== The 7th Guest
+
+video::45Z-Q5KVTyI[youtube,align="center",width="600",height="400"]
+
+[.center,cols="^,^",width="80%"]
+|===
+| Game | The 7th Guest
+| Year | 1993
+| CPU  | https://en.wikipedia.org/wiki/Intel_80386[80386]
+| RAM  | 2 MiB
+| GPU  | Didn't exist
+| Technique | Prerendered, ray tracing + full-motion video
+| Extra | http://playdosgamesonline.com/the-7th-guest.html[Play it online]
+|===
+
+The 7th Guest was one of the first PC game to appear on CD-ROM.
+The game took place in a mansion which the player had to explore.
+The mansion was fully modelled in 3D. However, everything was prerendered.
+For each movement within the mansion, there was a separate movie clip that played showing the camera going from one location to the next.
+
+The same was true for puzzles in the game.
+At some point the player had to solve a puzzle involving chess pieces.
+These were rendered in 3D, but again everything was prerendered. If you moved a piece from position A to position B,
+there was a short movie clip that showed specifically that move. A different movie existed if you moved from A to C, and yet
+another for when you moved from B to C. It is clear that the game had to contain _many_ such short movie clips,
+thus requiring a gigantic amount of storage, especially for that time.
+
+Since everything was prerendered, the graphics looked far better than those of any other game at the time.
+
+== Ecstatica
+
+video::9SsR5fPjGu4[youtube,align="center",width="600",height="400"]
+
+[.center,cols="^,^",width="80%"]
+|===
+| Game | Ecstatica
+| Year | 1994
+| CPU  | https://en.wikipedia.org/wiki/Intel_80486[80486]
+| RAM  | 4 MiB
+| GPU  | Didn't exist
+| Technique | Static backgrounds + ellipsoids
+| Extra | http://playdosgamesonline.com/ecstatica.html[Play it online]
+|===
+
+Ecstatica used the same approach as Alone in the Dark, namely prerendered backgrounds with 3D characters.
+Instead of relying on 3D triangles, spheres and ellipsoids were used, resulting, somewhat unsurprisingly,
+in a less pointy look.
+
+== Robinson's Requiem
+
+video::RllFvqrMlcY[youtube,align="center",width="600",height="400"]
+
+[.center,cols="^,^",width="80%"]
+|===
+| Game | Ecstatica
+| Year | 1994
+| GPU  | Didn't exist
+| Technique | Voxels
+| Extra | http://playdosgamesonline.com/robinsons-requiem.html[Play it online]
+|===
+
+In Robinson's Requiem is a survival simulation in which you played a man stranded on an unknown planet.
+Like Comanche, Robinson's Requiem made use of voxels to render its world. This technique
+allowed for large, detailed outside worlds with few restrictions.
+
+== Quake
+
+video::21d5_Ub9YLE[youtube,align="center",width="600",height="400"]
+
+[.center,cols="^,^",width="80%"]
+|===
+| Game | Quake
+| Year | 1996
+| CPU  | Pentium 75MHz
+| RAM  | 8 MiB
+| GPU  | Didn't exist
+| Technique | Rasterization
+| Extra | http://playdosgamesonline.com/quake.html[Play it online]
+|===
+
+Quake required a Pentium 75Mhz with 8MB of memory. Contrary to Wolfenstein 3D and Doom, this game
+was truly 3D and did not rely on trickery to make 2D look like 3D. Whereas Alone in the Dark
+used triangles to model its creatures, Quake used triangles to render everything, i.e. both the game world
+and its inhabitants.
+
+== Unreal
+
+video::Op-tys_98Ek[youtube,align="center",width="600",height="400"]
+
+[.center,cols="^,^",width="80%"]
+|===
+| Game | Unreal
+| Year | 1998
+| CPU  | Pentium 75MHz
+| RAM  | 8 MiB
+| Technique | Rasterization
+|===
+
+Like Quake, Unreal fully relied on rasterization to render its graphics.
+It was one of the first games that was able to make use of a GPU.
+
+== Outcast
+
+video::U6XR7-eEHgE[youtube,align="center",width="600",height="400"]
+
+[.center,cols="^,^",width="80%"]
+|===
+| Game | Outcast
+| Year | 1999
+| CPU  | Pentium 200MHz
+| RAM  | 32 MiB
+| Technique | Voxels + rasterization
+|===
+
+Outcast (a Belgian game) made use of a voxel-like technology to render its landscapes but rasterization for the characters.
+
+== Current Technoligy
+
+video::SeY-ousiCPg[youtube,align="center",width="600",height="400"]
+
+Until recently, rasterization was the clear winner.
+However, nowadays, GPUs also have support for ray tracing.
+
+video::F4HkXEzzcRw[youtube,align="center",width="600",height="400"]
