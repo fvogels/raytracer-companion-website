@@ -1,8 +1,8 @@
+// order 1
 = Easing Library
 
 [overview]
 ----
-order 1
 difficulty 2
 reading animations/basics
 ----
