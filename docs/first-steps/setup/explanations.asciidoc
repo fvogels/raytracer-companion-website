@@ -1,12 +1,25 @@
+// order 1
 :experimental:
 
 = Setting Things Up
 
 == Cloning the Repository
 
+[IMPORTANT]
+====
+Due to GitHub issues, the repo does not come with the starter code.
+This combined with the fact that it's a group project slightly complicates the setup process.
+====
+
 * Go to the GitHub classroom link (see Toledo).
 * Create a team or pick an existing team.
 * Clone the repository `git clone URL`.
+* Add the original repo as remote: `git remote add upstream https://github.com/ucll-3dcg/student`
+
+If the repo is empty, it means you are the first one of your team to perform these steps and the starter code still needs to be added.
+
+* Pull in the starter code: `git pull upstream master`.
+* Push it to your repo: `git push`.
 
 == Setting Up Visual Studio
 
