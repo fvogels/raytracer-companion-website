@@ -2,7 +2,7 @@
 
 == Explanation
 
-A fisheye camera is similar to a <</ray-tracing/explanations#,perspective camera>>, except for the fact that instead of having a rectangular canvas, you paint on a spherical one.
+A fisheye camera is similar to a <<reference/ray-tracing/explanations#,perspective camera>>, except for the fact that instead of having a rectangular canvas, you paint on a spherical one.
 
 [.center,cols="^,^"]
 |===
