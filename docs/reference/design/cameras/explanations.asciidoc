@@ -27,7 +27,7 @@ from the burden of having to take into account all of the above parameters (i.e.
 
 A camera's duty is to determine which rays need to be cast.
 
-We have <</ray-tracing/explanations#,likened ray tracing>> to an odd approach to painting:
+We have <<reference/ray-tracing/explanations#,likened ray tracing>> to an odd approach to painting:
 first, you position your canvas. Then you start painting small dots of paints all over it.
 The color of each dot is determined by shooting a laser beam originating in the eye towards
 the dot on the canvas. You then remove the canvas and look for the location where the laser beam
