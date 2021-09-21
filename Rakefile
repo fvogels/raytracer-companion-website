@@ -27,7 +27,6 @@ Rake::FileList.new('docs/**/*.asciidoc').map do |path|
   absolute_target_path = dist_path(absolute_source_path).sub_ext('.html')
   relative_target_path = absolute_target_path.relative_path_from(Pathname.pwd)
 
-  desc "Convert #{absolute_source_path}"
   file relative_target_path.to_s => absolute_source_path.to_s do |task|
     compile_asciidoc_file(absolute_source_path, absolute_target_path)
   end
@@ -46,7 +45,6 @@ Rake::FileList.new('docs/**/*.chai').map do |path|
     absolute_target_path = dist_path(absolute_source_path).sub_ext('.mp4')
     relative_target_path = absolute_target_path.relative_path_from(Pathname.pwd)
 
-    desc "Render #{absolute_source_path}"
     file relative_target_path.to_s => absolute_source_path.to_s do |task|
       render_movie(absolute_source_path, absolute_target_path)
     end
@@ -54,7 +52,6 @@ Rake::FileList.new('docs/**/*.chai').map do |path|
     absolute_target_path = dist_path(absolute_source_path).sub_ext('.png')
     relative_target_path = absolute_target_path.relative_path_from(Pathname.pwd)
 
-    desc "Render #{absolute_source_path}"
     file relative_target_path.to_s => absolute_source_path.to_s do |task|
       render_image(absolute_source_path, absolute_target_path)
     end
@@ -76,7 +73,6 @@ Rake::FileList.new('docs/**/*.tex').map do |path|
   absolute_target_path = dist_path(absolute_source_path).sub_ext('.png')
   relative_target_path = absolute_target_path.relative_path_from(Pathname.pwd)
 
-  desc "Compile #{absolute_source_path}"
   file relative_target_path.to_s => absolute_source_path.to_s do |task|
     latex_to_png(absolute_source_path, absolute_target_path)
   end
@@ -92,7 +88,6 @@ Rake::FileList.new('docs/**/*.gp').map do |path|
   absolute_target_path = dist_path(absolute_source_path).sub_ext('.png')
   relative_target_path = absolute_target_path.relative_path_from(Pathname.pwd)
 
-  desc "Render #{absolute_source_path}"
   file relative_target_path.to_s => absolute_source_path.to_s do |task|
     gnuplot_render(absolute_source_path, absolute_target_path)
   end
@@ -126,7 +121,6 @@ Rake::FileList.new('docs/**/*.gv').then do |graphviz_files|
     source = Pathname.new graphviz_file
     target = Pathname.new svg_file
 
-    desc "Compile #{graphviz_file}"
     file svg_file.to_s => graphviz_file.to_s do
       compile_graphviz(source, target)
     end
@@ -156,7 +150,7 @@ end
 desc 'Makes a full build'
 task :default => [ :toc, :html, :chai, :tex, :gnuplot, :graphviz, :copy ]
 
-
+desc 'Clean upload to Leone'
 task :upload do
   Dir.chdir 'dist' do
     sh "ssh -p 22345 -l upload leone.ucll.be rm -rf /home/frederic/courses/3dcg/volume/*"
@@ -164,6 +158,7 @@ task :upload do
   end
 end
 
+desc 'Smart upload to Leone (use WSL2)'
 task :sync do
   sh "rsync -avz -e 'ssh -p 22345' --progress dist/ upload@leone.ucll.be:/home/frederic/courses/3dcg/volume"
 end
