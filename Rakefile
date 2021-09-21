@@ -157,11 +157,13 @@ desc 'Makes a full build'
 task :default => [ :toc, :html, :chai, :tex, :gnuplot, :graphviz, :copy ]
 
 
-# ONLY DO THIS WHEN EVERYTHING IS FINISHED
-# MAKE BACKUP OF OLD MATERIAL FIRST
-# task :upload do
-#   Dir.chdir 'dist' do
-#     `ssh -p 22345 -l upload leone.ucll.be rm -rf /home/frederic/courses/3dcg/volume/*`
-#     puts `scp -P 22345 -r * upload@leone.ucll.be:/home/frederic/courses/3dcg/volume`
-#   end
-# end
+task :upload do
+  Dir.chdir 'dist' do
+    sh "ssh -p 22345 -l upload leone.ucll.be rm -rf /home/frederic/courses/3dcg/volume/*"
+    sh "scp -P 22345 -r * upload@leone.ucll.be:/home/frederic/courses/3dcg/volume"
+  end
+end
+
+task :sync do
+  sh "rsync -avz -e 'ssh -p 22345' --progress dist/ upload@leone.ucll.be:/home/frederic/courses/3dcg/volume"
+end
