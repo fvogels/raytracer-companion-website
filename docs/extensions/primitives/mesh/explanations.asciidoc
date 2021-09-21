@@ -25,13 +25,12 @@ These steps are independent of the ray tracer. You should implement them as a se
 you should store the code in a separate directory in your repository.
 You are also free to pick any programming language you wish to implement this extension.
 
-In order to read a mesh, you need to have a mesh. For simplicity, you can use
-link:/meshes[any one of these meshes]. The format
-in which they're stored is described in the reading material.
-If you feel like it, you can pick any other mesh you want. An online
-source of freely downloadable meshes is http://archive3d.net/[Archive3D].
-You will have to find out how to read in these files for yourself. The .ply and .obj formats
-should be easy enough to process.
+In order to read a mesh, you need to have a mesh. For simplicity, you can use link:/meshes[any one of these meshes].
+The format in which they're stored is described in the reading material.
+If you feel like it, you can pick any other mesh you want.
+An online source of freely downloadable meshes is http://archive3d.net/[Archive3D].
+You will have to find out how to read in these files for yourself.
+The `.ply` and `.obj` formats should be easy enough to process.
 
 Once you've managed to read all triangles from the mesh, you can
 start the optimization phase. We suggest working with a bounding box hierarchy,
