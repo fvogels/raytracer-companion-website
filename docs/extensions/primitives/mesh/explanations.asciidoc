@@ -12,6 +12,14 @@ preview::preview[]
 
 == Implementation
 
+// TODO
+
+[WARNING]
+====
+This page needs to be updated.
+The mesh extension will be slightly different this year.
+====
+
 This extension should be made by all team members, as each member can implement a different algorithm for building
 bounding box hierarchies.
 
