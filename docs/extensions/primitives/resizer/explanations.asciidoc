@@ -3,9 +3,58 @@
 [overview]
 ----
 difficulty 2
-requires primitives/transformer
+requires primitives/transformations
 ----
 
-preview::preview[]
+== Resizing
+
+Say you have a primitive and want to resize it along the X-axis so that its total width is 0.2.
+You can of course use the `scale` function, but this requires you to determine the original width of the primitive and then compute the factor by which to multiply so that its size ends up at `0.2`.
+We can make a smarter scaling function, one which instead of expecting a scaling factor gets a target size.
+
+[source,language='chai']
+----
+var scaled = scale(some_factor, 1, 1, primitive)
+
+// becomes
+
+var scaled = resize_x(0.2, primitive)
+----
+
+[TASK]
+====
+Create new files `primitives/resizer-primitive.cpp` and `primitives/resizer-primitive.cpp`.
+Implement functions with signature
+
+[source,language='c++']
+----
+Primitive resize_x(Primitive child, double size);
+Primitive resize_y(Primitive child, double size);
+Primitive resize_z(Primitive child, double size);
+----
+
+`resize_D(child, target)` scales `child` so that its size in the `D` dimension equals `target`.
+====
+
+== Uniform Resizing
+
+`resize_x(primitive, target_width)` lets you easily create a primitive of width `target_width`, but it does so by squashing the primitive.
+Perhaps you want the height and depth to be scaled alongside its width, i.e., scaling uniformly along all three dimensions, so that the primitive maintains its propertions.
+
+[TASK]
+====
+Implement functions with signature
+
+[source,language='c++']
+----
+Primitive resize_x_uniform(Primitive child, double size);
+Primitive resize_y_uniform(Primitive child, double size);
+Primitive resize_z_uniform(Primitive child, double size);
+----
+
+`resize_D_uniform(child, target)` scales `child` with the same factor along all three dimensions so that its size in dimension `D` equals `target`.
+====
+
+== Evaluation
 
 TODO
