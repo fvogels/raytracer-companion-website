@@ -1,9 +1,9 @@
+// order 6
 = Multijittered Sampler
 
 [overview]
 ----
 difficulty 3
-order 6
 requires samplers/nrooks
 reading samplers/multijittered
 ----
