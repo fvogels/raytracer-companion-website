@@ -1,5 +1,4 @@
 // image
-
 def material(c, t)
 {
   Materials.uniform( [ "ambient": Colors.white() * 0.1,
@@ -8,7 +7,7 @@ def material(c, t)
                        "specular_exponent": 10,
                        "light_filtering": Colors.white(),
                        "reflectivity": 0.0,
-                       "opacity": 1-t ] )
+                       "translucency": t ] )
 }
 
 var camera = Cameras.perspective( [ "eye": pos(2,2,5),
