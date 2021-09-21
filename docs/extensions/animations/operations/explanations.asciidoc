@@ -4,7 +4,7 @@
 ----
 difficulty 3
 requires animations/easing-library
-reading math/animations
+reading animations/basics
 reading design/animations/basics
 ----
 
