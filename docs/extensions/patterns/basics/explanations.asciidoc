@@ -1,9 +1,9 @@
+// order 1
 = Basics
 
 [overview]
 ----
 difficulty 3
-order 1
 ----
 
 We consider two kinds of patterns: 2D and 3D patterns.
