@@ -321,7 +321,7 @@ Both bits of information can be found in the parameters.
 [TIP]
 =====
 You may need to give `reflected_ray` a little nudge.
-Remember <</extensions/ray-tracers/v4/explanations#approxerrs,this>>.
+Remember <</extensions/ray-tracers/v4/explanations.asciidoc#approxerrs,this>>.
 =====
 ====
 
