@@ -5,4 +5,7 @@
 difficulty 5
 ----
 
-preview::preview[]
+* Invent simple image format
+* Create reader for said image format in {cpp}
+* Create converter from png/jpg/bmp/... to said image format in any language (e.g., Python)
+* Implement a Texture material
