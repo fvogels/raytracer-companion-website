@@ -1,5 +1,13 @@
 = Mesh
 
+// TODO
+
+[WARNING]
+====
+This page still needs to change.
+You should wait until this message has disappeared to avoid doing unnecessary work.
+====
+
 == Rendering Complex Shapes
 
 A mesh is a large collection of triangles forming a complex shape. Any shape can be built out of triangles,
