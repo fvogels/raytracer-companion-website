@@ -2,8 +2,9 @@
 
 [overview]
 ----
+order 1
 difficulty 2
-reading math/animations
+reading animations/basics
 ----
 
 == Implementation
@@ -72,7 +73,7 @@ Define the `Animations.ease` function.
   This `ease` function is defined in `animation/ease-animation.h`.
 * Find the function `raytracer::scripting::_private_::create_animation_module()`.
 * The scripting language itself does not support templates, so we will need to expose `ease_animation` repeatedly, once for each animatable type `T`.
-  By default, your ray tracer can only animate `double`s, but you can also add support for <</extensions/animations/point-animation/explanations#,point animations>> and <</extensions/animations/angle-animation/explanations#,angle animations>>.
-  For each type `T` you defined animations for, use the `BIND_AS` macro to expose `ease_animation<T>` as `ease` (e.g. `BIND_AS(ease_animation<double>, ease)`).
+  By our ray tracer can animate ``double``s, ``Angle``s and ``Point3D``s.
+  For each "animatable" type `T`, use the `BIND_AS` macro to expose `ease_animation<T>` as `ease` (e.g. `BIND_AS(ease_animation<double>, ease)`).
   You can reuse the same name `ease` for each `T`: the scripting language supports overloading and will automatically pick the right binding for you.
 ====
