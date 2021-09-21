@@ -37,7 +37,7 @@ Both points and vectors can be specified using coordinates. There are multiple d
 
 * Two dimensions
 ** <</reference/math/coordinate-systems/cartesian2d/explanations#,2D Cartesian>>
-* <</reference/math/coordinate-systems/polar2d/explanations#,Polar>>
+* <</reference/math/coordinate-systems/polar/explanations#,Polar>>
 * Three dimensions
 ** <</reference/math/coordinate-systems/cartesian3d/explanations#,3D Cartesian>>
 ** <</reference/math/coordinate-systems/spherical/explanations#,Spherical>>
