@@ -1,0 +1,13 @@
+= Dalmatian Pattern
+
+[overview]
+----
+difficulty 5
+requires patterns/lambda
+----
+
+preview::preview[]
+
+== Evaluation
+
+TODO
