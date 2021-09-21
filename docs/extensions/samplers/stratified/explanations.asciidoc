@@ -1,9 +1,9 @@
+// order 2
 = Stratified Sampler
 
 [overview]
 ----
 difficulty 2
-order 2
 reading samplers/stratified
 ----
 
