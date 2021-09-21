@@ -3,26 +3,59 @@
 
 = Setting Things Up
 
-== Cloning the Repository
+Follow the steps below carefully.
+If you're in trouble and I see you haven't followed these steps, I'll simply refer you back to this page.
 
 [IMPORTANT]
 ====
-Due to GitHub issues, the repo does not come with the starter code.
-This combined with the fact that it's a group project slightly complicates the setup process.
+Note that some steps need to be taken by each team member while others should only happen once per team.
 ====
 
+== Cloning the Repository
+
+Due to GitHub issues, the repo does not come with the starter code.
+This combined with the fact that it's a group project slightly complicates the setup process.
+
+[NOTE,caption="each team member"]
+====
 * Go to the GitHub classroom link (see Toledo).
-* Create a team or pick an existing team.
+* Create a new team or pick an existing team.
 * Clone the repository `git clone URL`.
 * Add the original repo as remote: `git remote add upstream https://github.com/ucll-3dcg/student`
+====
 
+[NOTE,caption="once per team"]
+====
 If the repo is empty, it means you are the first one of your team to perform these steps and the starter code still needs to be added.
 
 * Pull in the starter code: `git pull upstream master`.
 * Push it to your repo: `git push`.
+====
+
+== GitHub
+
+[NOTE,caption="once per team"]
+====
+* Go to your repo's website.
+* Go to the Projects tab.
+* Create a new project.
+* Name it 'raytracer' (the name is important).
+* As template, use Automated kanban.
+====
+
+== Issues
+
+[NOTE,caption="once per team"]
+====
+Look for a directory named `github` in your repo's root.
+There should be a script named `create-issues.sh`.
+Running it will create an issue for each extension on GitHub.
+====
 
 == Setting Up Visual Studio
 
+[NOTE,caption="each team member"]
+====
 * Open the solution file `raytrace/raytracer.sln`.
 * In the Solution Explorer, click on "Show All Files".
   Instead of only seeing "Header files", "Resource files" and "Source files" you should get a long list of folders.
@@ -30,6 +63,7 @@ If the repo is empty, it means you are the first one of your team to perform the
 * Build the project (kbd:[Ctrl+Shift+B]).
   This creates an executable file `raytracer.exe`.
   Locate it; it should be somewhere under a `raytracer\raytracer\x64\Release` directory.
+====
 
 [IMPORTANT]
 ====
@@ -42,10 +76,14 @@ The project (a ray tracer) you will develop during this course outputs graphical
 We _could_ output this data as PNG, JPG, MP4, &hellip; but in order to keep things simple, we will use a custom file format named WIF.
 Since regular graphics software will not be able to open WIF files, we provide you with two options: a WPF-based viewer and a Python one.
 
+image::viewer.svg[align="center"]
+
 === WPF-Based WIF Viewer
 
 This viewer will only work on Windows.
 
+[NOTE,caption="each team member"]
+====
 * Clone https://github.com/ucll-3dcg/wif.net[this repository].
 * Open the solution.
 * Open `Configuration.cs`.
@@ -54,9 +92,13 @@ This viewer will only work on Windows.
 * Build (kbd:[Ctrl+Shift+B]).
 * Run (kbd:[Ctrl+F5]).
 * Optional but recommended: pin the application to the task bar so that you can easily launch it.
+====
 
 === Python WIF Viewer
 
-This viewer should work on all platforms.
+This viewer should work on all platforms, but it's still very much untested.
 
-* Run `pip install `pip install git+https://github.com/ucll-3dcg/wif.git`
+[NOTE,caption="each team member"]
+====
+* Run `pip install git+https://github.com/ucll-3dcg/wif.git`
+====
