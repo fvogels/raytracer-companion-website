@@ -1,4 +1,4 @@
-// order 3
+// order 1
 = History of 3D Computer Graphics
 
 Computer Graphics is a relatively young field and, as is typical
