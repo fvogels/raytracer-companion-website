@@ -9,6 +9,7 @@ require_relative './scripts/challenge-block-macro'
 require_relative './scripts/util'
 require_relative './scripts/verify'
 require_relative './scripts/toc-generator'
+require_relative './scripts/github-issues'
 
 
 Asciidoctor::Extensions.register do
@@ -161,4 +162,10 @@ end
 desc 'Smart upload to Leone (use WSL2)'
 task :sync do
   sh "rsync -avz -e 'ssh -p 22345' --progress dist/ upload@leone.ucll.be:/home/frederic/courses/3dcg/volume"
+end
+
+
+desc 'Create issue creation script'
+task :issues do
+  create_issue_script
 end
