@@ -1,4 +1,4 @@
-// order 1
+// order 2
 :experimental:
 
 = Setting Things Up
@@ -102,3 +102,13 @@ This viewer should work on all platforms, but it's still very much untested.
 ====
 * Run `pip install git+https://github.com/ucll-3dcg/wif.git`
 ====
+
+== Where to Start
+
+* <</reference/ray-tracing/basics/explanations#,How Ray Tracing Works>>
+* Important mathematical concepts
+** <</reference/math/points-and-vectors/explanations#,Points and Vectors>>
+** <</reference/math/dot-product/explanations#,Dot Product>>
+** <</reference/math/cross-product/explanations#,Cross Product>>
+** <</reference/math/ray/explanations#,Ray>>
+* <</extensions/introduction/scripting/explanations#,First Extension>>
