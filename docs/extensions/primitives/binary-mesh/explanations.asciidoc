@@ -1,0 +1,13 @@
+= Binary Mesh
+
+[overview]
+----
+difficulty 3
+requires primitives/mesh
+----
+
+TODO
+
+* Create tool (in language of choice) that converts a mesh from text to binary format.
+* Add a binary reader to C++
+* Measure difference in loading times
