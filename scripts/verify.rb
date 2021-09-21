@@ -12,7 +12,7 @@ module Verification
   end
 
   def self.collect_absolute_links(html_pathname)
-    html_pathname.read.scan(%r{<a href="(/[^"]+)"}).map do |urls|
+    html_pathname.read.scan(%r{<a href="(/[^"#]+)(#[^"]+)?"}).map do |urls|
       url = urls.first
       Pathname.new ".#{url}"
     end
