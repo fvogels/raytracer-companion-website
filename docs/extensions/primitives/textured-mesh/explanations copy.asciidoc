@@ -1,0 +1,14 @@
+= Binary Mesh
+
+[overview]
+----
+difficulty 3
+requires primitives/mesh
+----
+
+TODO
+
+* ``TexturedTriangle`` class with parameterizable `vt`
+* Add support for texture coordinates in mesh file format.
+* Find mesh with texture coordinates.
+* Render mesh with material (does not have to be texture)
