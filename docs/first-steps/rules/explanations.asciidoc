@@ -1,0 +1,13 @@
+// order 4
+:experimental:
+
+= Rules
+
+[IMPORTANT]
+====
+This page is subject to change.
+====
+
+* Your project should compile without warnings.
+  I activated the "Treat Warnings As Errors" option of the compiler.
+  You are not allowed to change this.
