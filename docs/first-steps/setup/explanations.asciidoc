@@ -94,6 +94,13 @@ This viewer will only work on Windows.
 * Optional but recommended: pin the application to the task bar so that you can easily launch it.
 ====
 
+[IMPORTANT]
+====
+Some students think they that, in order to run this viewer, they need to open Visual Studio and launch it from there.
+Please stop this foolishness: compiling C# produces an `.exe` file, so you can simply launch that.
+Feel free to copy this file to your desktop, or create a shortcut to it (better), or simply pin it to your taskbar (best).
+====
+
 === Python WIF Viewer
 
 This viewer should work on all platforms, but it's still very much untested.
