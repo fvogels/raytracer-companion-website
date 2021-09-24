@@ -1,0 +1,19 @@
+// order 4
+
+= Change Log
+
+Welcome to my change log!
+This is my very first one, so you _should_ feel honored.
+Since many changes still need to be made, I decided to keep a log.
+
+[NOTE,CAPTION="24/9/21"]
+====
+Updated Wif.Net viewer so that it uses a more recent version of AvalonEdit.
+
+If you want to be able to enjoy whatever benefits it offers, do a `git pull` and recompile.
+====
+
+[NOTE,CAPTION="24/9/21"]
+====
+Created this super fancy change log!
+====
