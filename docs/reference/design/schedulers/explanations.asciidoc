@@ -1,0 +1,43 @@
+= Schedulers
+
+== Tasks
+
+In order to facilitate the implementation of a multithreaded ray tracer, we introduced the concept of _tasks_.
+A task is an independent unit of work.
+Two tasks should be able to be performed in any order without it affecting the results.
+This very property allows us to distribute tasks among CPU cores without worries.
+
+.Task Class
+[source]
+----
+// In tasks/tasks.h
+
+class Task
+{
+public:
+    virtual void perform() = 0;
+};
+----
+
+[NOTE]
+====
+In the case of our ray tracer, a task corresponds to one row of pixels.
+You can find the code responsible for creating tasks in `renderers/renderer-base.h`.
+====
+
+== Task Schedulers
+
+A _task scheduler_ takes a list of tasks and performs each of them.
+No guarantees are made about the order in which it performs them.
+
+.TaskScheduler Implementation
+[source]
+----
+// In tasks/task-scheduler.h
+
+class TaskSchedulerImplementation
+{
+public:
+    virtual void perform(std::vector<std::shared_ptr<Task>> tasks) const = 0;
+};
+----
