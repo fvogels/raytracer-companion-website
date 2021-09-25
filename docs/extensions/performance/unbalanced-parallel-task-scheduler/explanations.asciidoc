@@ -1,0 +1,39 @@
+// order 2
+= Unbalanced Parallel Task Scheduler
+
+[overview]
+----
+difficulty 3
+reading design/schedulers
+----
+
+Create a task scheduler that is parameterized in the number of threads to use.
+Let's call this parameter `thread_count`.
+
+The scheduler should divide the given lists of tasks in `thread_count` sublists of (approximately) equal size.
+Next, it should fire up `thread_count` threads and give each thread one of these sublists.
+
+We say this scheduler is unbalanced because, although the tasks are distributed evenly, it is possible that some tasks involve more work than others.
+For example, there could be an unlucky thread that gets 10&times; the work of the others: it would have to trudge on alone.
+A balanced scheduler would have the other threads come to its aid.
+
+[TASK]
+====
+Implement the task scheduler described above.
+Make it available through a factory function
+
+[source,language='c++']
+----
+TaskScheduler unbalanced_parallel(unsigned thread_count);
+----
+====
+
+== Evaluation
+
+[TASK]
+====
+* Create a script that takes at least 20 seconds to render.
+* Render it using the unbalanced parallel scheduler, using 1..N threads, where N is the number of logical cores your machine has.
+  Keep track of the rendering times.
+* Make a little graph (e.g., in Excel) that shows how rendering times change with the number of threads.
+====
