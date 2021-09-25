@@ -4,7 +4,7 @@
 ----
 difficulty 2
 reading animations/basics
-reading design/animations/basics
+reading design/animations
 reading animations/lissajous
 ----
 
