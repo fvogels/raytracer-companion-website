@@ -1,0 +1,45 @@
+// order 3
+= Balanced Parallel Task Scheduler
+
+[overview]
+----
+difficulty 4
+reading design/schedulers
+----
+
+Create a task scheduler that is parameterized in the number of threads to use.
+Let's call this parameter `thread_count`.
+
+The scheduler should create `thread_count` threads.
+Each thread should follow the same simple algorithm:
+
+[source,language='python']
+----
+while unclaimed_tasks:
+    task = claim task
+    task.perform()
+----
+
+The difficulty lies in the fact that the worker threads have shared state, which needs to be synchronized.
+This means that if threads read/write to the same variable, special precautions have to be taken.
+
+[TASK]
+====
+Implement the task scheduler described above.
+Make it available through a factory function
+
+[source,language='c++']
+----
+TaskScheduler balanced_parallel(unsigned thread_count);
+----
+====
+
+== Evaluation
+
+[TASK]
+====
+* Create a script that takes at least 20 seconds to render.
+* Render it using the balanced parallel scheduler, using 1..N threads, where N is the number of logical cores your machine has.
+  Keep track of the rendering times.
+* Make a little graph (e.g., in Excel) that shows how rendering times change with the number of threads.
+====
