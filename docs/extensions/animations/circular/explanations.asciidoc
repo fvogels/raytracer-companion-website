@@ -5,7 +5,7 @@
 difficulty 2
 requires math/quaternions
 reading animations/basics
-reading design/animations/basics
+reading design/animations
 ----
 
 preview::preview[]
