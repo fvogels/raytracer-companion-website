@@ -79,3 +79,7 @@ Use `linear-easing-function.h/.cpp` as a guide.
 
 Don't forget to add a binding for the scripting language.
 ====
+
+== Evaluation
+
+TODO

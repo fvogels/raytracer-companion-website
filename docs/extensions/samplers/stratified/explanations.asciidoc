@@ -19,3 +19,7 @@ Implement the <</reference/samplers/stratified/explanations#,stratified sampler.
 =====
 You can use the ``math::Rasterizer`` class to subdivide the rectangle into subrectangles.
 =====
+
+== Evaluation
+
+TODO

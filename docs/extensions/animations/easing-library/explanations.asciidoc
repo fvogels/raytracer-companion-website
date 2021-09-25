@@ -77,3 +77,7 @@ Define the `Animations.ease` function.
   For each "animatable" type `T`, use the `BIND_AS` macro to expose `ease_animation<T>` as `ease` (e.g. `BIND_AS(ease_animation<double>, ease)`).
   You can reuse the same name `ease` for each `T`: the scripting language supports overloading and will automatically pick the right binding for you.
 ====
+
+== Evaluation
+
+TODO

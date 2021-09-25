@@ -35,3 +35,7 @@ Put the implementation in separate files `math/functions/easing/cubic-function.c
 Do the same for the <</reference/animations/quintic/explanations#,quintic easing function>>.
 Put the implementation in separate files `math/functions/easing/quintic-function.cpp/.h`.
 ====
+
+== Evaluation
+
+TODO

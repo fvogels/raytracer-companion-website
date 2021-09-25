@@ -30,3 +30,7 @@ Following things might prove useful for implementing fisheye cameras are
 * ``math::Interval`` and ``math::IntervalMapper`` to translate stem:[[0, 1]] to stem:[[\alpha, \beta]].
 * ``Point3D::spherical`` to create a point given spherical coordinates.
 ====
+
+== Evaluation
+
+TODO

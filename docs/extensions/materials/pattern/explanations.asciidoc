@@ -104,3 +104,7 @@ Material raytracer::materials::pattern3d(Pattern3D pattern,
                                          Material m2);
 ----
 ====
+
+== Evaluation
+
+TODO

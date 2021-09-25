@@ -61,3 +61,7 @@ Rely on the preprocessor to make the ray tracer us the serial scheduler in debug
 The line of code that needs an update currently must mention the serial task scheduler.
 =====
 ====
+
+== Evaluation
+
+TODO

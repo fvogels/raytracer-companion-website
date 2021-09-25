@@ -14,3 +14,7 @@ preview::preview[]
 ====
 Implement the <</reference/samplers/multijittered/explanations#,multijittering sampler>>.
 ====
+
+== Evaluation
+
+TODO

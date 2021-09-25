@@ -36,3 +36,7 @@ Define a new sampler class (let the existing ``single-sampler`` guide you.)
   Use a <a href="http://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution">uniform distribution</a>.
   You might want to rely on ``Rectangle2D::from_relative`` to easily find points inside the rectangle.
 ====
+
+== Evaluation
+
+TODO

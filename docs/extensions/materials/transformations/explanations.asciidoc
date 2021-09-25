@@ -141,3 +141,7 @@ Material raytracer::materials::rotate_around_z(math::Angle angle,
                                                Material material)
 ----
 ====
+
+== Evaluation
+
+TODO

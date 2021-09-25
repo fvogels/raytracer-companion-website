@@ -41,3 +41,7 @@ intersection and difference can limit themselves to exactly two children.
 * Provide a factory function with signature `Primitive csg_difference(Primitive, Primitive)`.
 * Expose this operation as `csg_intersection` to the scripting language.
 ====
+
+== Evaluation
+
+TODO

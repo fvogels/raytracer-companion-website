@@ -19,3 +19,7 @@ preview::preview[]
 * Define a factory function ``triangle``. It takes three ``Point3D`` objects representing the triangle's three vertices.
 * Add a binding for the scripting language.
 ====
+
+== Evaluation
+
+TODO

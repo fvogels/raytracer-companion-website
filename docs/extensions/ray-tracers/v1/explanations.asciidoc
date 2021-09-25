@@ -155,3 +155,7 @@ Again, it makes sense to look around in `Hit`.
 ====
 Adapt `RayTracerV1::trace` so that it calls `determine_color` instead of assuming everything is white.
 ====
+
+== Evaluation
+
+TODO

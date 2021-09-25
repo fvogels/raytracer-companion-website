@@ -7,3 +7,7 @@ reading design/primitives/ray-intersections
 ----
 
 preview::preview[]
+
+== Evaluation
+
+TODO

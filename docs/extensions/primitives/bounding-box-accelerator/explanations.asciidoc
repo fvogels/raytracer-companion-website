@@ -23,7 +23,7 @@ You don't want to repeatedly recompute the child's bounding box.
 Have the ``BoundingBoxAccelerator``'s constructor compute it once and cache it in a field.
 ====
 
-== Checking Your Work
+== Evaluation
 
 Visually, a bounding box accelerator should have no effect.
 Its sole purpose is to speed up rendering.

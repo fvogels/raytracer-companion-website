@@ -14,3 +14,7 @@ preview::preview[]
 ====
 Implement the <</reference/samplers/nrooks/explanations#,n-rooks sampler>>.
 ====
+
+== Evaluation
+
+TODO

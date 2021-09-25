@@ -29,3 +29,7 @@ Implement a class ``Voronoi3D`` that provides the following functionality.
 The class should not restrict itself to a particular part of the 3D space.
 Instead, it should fill the entire "universe" with an infinite number of points, thereby creating an infinitely large Voronoi diagram.
 ====
+
+== Evaluation
+
+TODO

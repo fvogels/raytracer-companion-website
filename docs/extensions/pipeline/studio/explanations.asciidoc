@@ -40,3 +40,7 @@ Create a new pipeline segment so that you can replace the
 ``Pipeline.wif(), Pipeline.base64(), Pipeline.stdout()``
 by a single segment ``Pipeline.studio()``.
 ====
+
+== Evaluation
+
+TODO

@@ -8,3 +8,7 @@ difficulty 1
 TODO
 
 Better way to deal with translucency by relying on find all hits instead of creating new rays
+
+== Evaluation
+
+TODO

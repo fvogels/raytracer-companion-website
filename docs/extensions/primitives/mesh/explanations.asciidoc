@@ -56,3 +56,7 @@ the ray tracer itself needs only be extended with one mesh loader.
 ====
 Create a tool that builds bounding box hierarchies for meshes.
 ====
+
+== Evaluation
+
+TODO

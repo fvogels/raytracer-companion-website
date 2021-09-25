@@ -9,3 +9,7 @@ difficulty 5
 * Create reader for said image format in {cpp}
 * Create converter from png/jpg/bmp/... to said image format in any language (e.g., Python)
 * Implement a Texture material
+
+== Evaluation
+
+TODO

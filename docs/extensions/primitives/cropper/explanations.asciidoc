@@ -35,3 +35,7 @@ Create a new `Cropper` primitive.
 ====
 One class (featuring the necessary parameters) will suffice for this extension.
 ====
+
+== Evaluation
+
+TODO

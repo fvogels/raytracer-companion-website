@@ -17,3 +17,7 @@ Implement the disc primitive.
 * Make three variants: `xy_disk(radius)`, `xz_disk(radius)` and `yz_disk(radius)`.
 ** The disks should have center stem:[(0, 0, 0)].
 ====
+
+== Evaluation
+
+TODO

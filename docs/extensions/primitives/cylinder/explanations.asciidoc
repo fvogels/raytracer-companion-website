@@ -19,7 +19,6 @@ For this extension, you will implement three cylinders:
 
 All three are infinitely long, have a radius of 1 and go through stem:[(0, 0, 0)].
 
-
 [TASK]
 ====
 * Create new files `primitives/cylinder-primitive.cpp` and `primitives/cylinder-primitive.h`.
@@ -37,3 +36,7 @@ You are given a class `QuadraticEquation` which can come in handy.
 ====
 You can start off with copying the `Sphere` primitive code and change the code so that it models a cylinder.
 ====
+
+== Evaluation
+
+TODO

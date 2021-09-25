@@ -12,3 +12,7 @@ TODO
 * Add support for vertex normals in mesh file format.
 * Find mesh with vertex normals.
 * Render mesh with and without vertex normals.
+
+== Evaluation
+
+TODO

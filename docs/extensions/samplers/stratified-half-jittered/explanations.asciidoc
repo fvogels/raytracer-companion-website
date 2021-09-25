@@ -15,3 +15,7 @@ preview::preview[]
 ====
 Implement the <</reference/samplers/half-jittered/explanations#,half-jittering sampler>>.
 ====
+
+== Evaluation
+
+TODO

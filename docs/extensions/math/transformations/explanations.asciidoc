@@ -209,3 +209,7 @@ Transformation3D scale(double sx, double sy, double sz);
 
 No bindings are necessary: we won't be needing this functionality in our scripting language.
 It will be used in other {cpp} code, though.
+
+== Evaluation
+
+TODO

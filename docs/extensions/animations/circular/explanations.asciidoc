@@ -24,3 +24,7 @@ define a factory function named ``circular`` returning a ``Animation&lt;math::Po
 * ``const Duration& duration``: how long the animation takes.
 * Use ``animation/interval-animation.h`` as inspiration for how to go about implementing the animation. Don't forget to add a binding for the scripting language.
 ====
+
+== Evaluation
+
+TODO

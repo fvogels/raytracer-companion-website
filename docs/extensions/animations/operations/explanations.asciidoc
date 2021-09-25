@@ -160,3 +160,7 @@ Animation<T> cycle(Animation<T> a)
 }
 ----
 ====
+
+== Evaluation
+
+TODO

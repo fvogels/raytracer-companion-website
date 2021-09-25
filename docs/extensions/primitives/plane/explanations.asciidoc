@@ -24,3 +24,7 @@ Implement XZ- and YZ planes.
   Moving the plane around can be done separately using translations.
 * Make these available as `xz_plane()` and `yz_plane()` in the scripting language.
 ====
+
+== Evaluation
+
+TODO

@@ -105,3 +105,7 @@ Add the finishing touches.
 * In the same file, try to create ``depth_of_field_by_map`` and bind it.
   This would allow you to create a depth of field camera using the keyword parameter syntax (i.e. ``Cameras.depth_of_field( [ "eye": pos(0,0,0), ... ] )``).
 ====
+
+== Evaluation
+
+TODO

@@ -38,3 +38,7 @@ Create a ``lights/directional-light.cpp`` and ``lights/directional-light.h``.
   Add an extra binding in ``create_lights_module``.
 * As always, check your work by rendering a scene using the directional light.
 ====
+
+== Evaluation
+
+TODO
