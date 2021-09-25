@@ -9,7 +9,7 @@ where a given ray intersects with it. Two functions exist that provide this func
 * ``find_first_positive_hit``
 
 ``find_all_hits`` covers all ray-intersection related functionality:
-it returns a list of <em>all</em> intersections. However, in practice,
+it returns a list of _all_ intersections. However, in practice,
 we're often only interested in the "first positive hit", that is, the
 hit with the lowest positive ``t``-value, which
 corresponds to the hit that's closest to the eye and in front of it.
