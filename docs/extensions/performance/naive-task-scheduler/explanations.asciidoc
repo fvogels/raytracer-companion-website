@@ -20,7 +20,7 @@ Other schedulers will use a more sensible approach.
 
 [TASK]
 ====
-Create files `tasks/naive-parallel-task-scheduler.cpp` and `tasks/naive-parallel-task-scheduler.h`.
+Create files `tasks/naive-parallel-task-scheduler.cpp` and `tasks/naive-parallel-task-scheduler.h` and update `tasks/task-schedulers.h`.
 Implement the naive scheduler.
 Make it accessible through a factory function
 
