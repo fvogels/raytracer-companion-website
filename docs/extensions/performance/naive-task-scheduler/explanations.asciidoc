@@ -1,0 +1,73 @@
+// order 1
+= Naive Parallel Task Scheduler
+
+[overview]
+----
+difficulty 2
+reading design/schedulers
+----
+
+This extension will have you create a task scheduler that runs tasks in parallel.
+More specifically, you want to create exactly one thread per task.
+
+[IMPORTANT]
+====
+This is actually a very bad approach to multithreading, since threads are slow to create and require relatively many resources (a stack, constant context switching).
+Creating as many threads as there are tasks (i.e., probably hundreds) is rather foolish since your machine very probably has much fewer cores.
+A good rule of thumb is not to create more threads than you have cores.
+Other schedulers will use a more sensible approach.
+====
+
+[TASK]
+====
+Create files `tasks/naive-parallel-task-scheduler.cpp` and `tasks/naive-parallel-task-scheduler.h`.
+Implement the naive scheduler.
+Make it accessible through a factory function
+
+[source,language='c++']
+----
+TaskScheduler naive_parallel();
+----
+
+Use the provided serial scheduler's implementation as a guide.
+
+[IMPORTANT]
+=====
+Make sure the scheduler's `perform` method only returns after all the task-performing threads have finished.
+=====
+====
+
+[TASK]
+====
+Find out how to make your ray tracer use your new scheduler.
+
+[TIP]
+=====
+The line of code that needs an update currently must mention the serial task scheduler.
+=====
+====
+
+[TASK]
+====
+Debugging multithreaded code is no fun.
+Make it so that debug build always uses the serial task scheduler whereas release build will use your newly made parallel scheduler.
+====
+
+== Evaluation
+
+[TASK]
+====
+Show the code that lets the ray tracer use the serial/parallel scheduler in debug/release build, respectively.
+====
+
+[TASK]
+====
+* Have the ray tracer use the serial scheduler again (in release build).
+* Render something that takes at least 30 seconds to render on your machine.
+  You can set the resolution high, render many frames, render in high quality (i.e., a good sampler), use a complicated scene...
+* Move back to the new scheduler.
+* Render the same scene and show that the rendering times have been cut down.
+
+How many (logical) cores does your machine have?
+By what factor have rendering times been lowered?
+====
