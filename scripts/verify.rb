@@ -47,3 +47,13 @@ end
 def verify_links_in_dist
   Verification.verify
 end
+
+def verify_evaluation
+  Find.find('docs/extensions').select do |filename|
+    filename.end_with? 'explanations.asciidoc'
+  end.each do |filename|
+    unless /== Evaluation/ =~ IO.read(filename)
+      puts "#{filename} is missing evaluation"
+    end
+  end
+end

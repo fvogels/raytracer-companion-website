@@ -137,9 +137,16 @@ task :clean do
   FileUtils.rm_rf 'temp'
 end
 
-desc 'Verifies links in dist'
-task :verify do
-  verify_links_in_dist
+desc 'Performs verifications'
+task :verify, [:what] do |task, args|
+  case what = args[:what]
+  when 'links'
+    verify_links_in_dist
+  when 'evaluation'
+    verify_evaluation
+  else
+    puts "Don't know how to verify #{what}"
+  end
 end
 
 desc 'Generates table of contents'
