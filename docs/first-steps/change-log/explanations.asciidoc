@@ -8,12 +8,29 @@ Since many changes still need to be made, I decided to keep a log.
 No one's ever really going to read this, so let's experiment...
 The first one to send me the secret passphrase ``pepersaus > * uitroepteken`` by email wins a free cake point!
 
+[NOTE,caption="27/9/21"]
+====
+Added note regarding GitHub issues.
+====
+
 [NOTE,caption="25/9/21"]
 ====
-* Added <</extensions/performance/balanced-parallel-task-scheduler/explanations#,Balanced Parallel Task Scheduler>>.
-* Added <</extensions/performance/unbalanced-parallel-task-scheduler/explanations#,Unbalanced Parallel Task Scheduler>>.
-* Added <</extensions/performance/naive-task-scheduler/explanations#,Naive Parallel Task Scheduler>>.
-* Added <</reference/design/schedulers/explanations#,explanation of schedulers>>.
+Added <</extensions/performance/balanced-parallel-task-scheduler/explanations#,Balanced Parallel Task Scheduler>>.
+====
+
+[NOTE,caption="25/9/21"]
+====
+Added <</extensions/performance/unbalanced-parallel-task-scheduler/explanations#,Unbalanced Parallel Task Scheduler>>.
+====
+
+[NOTE,caption="25/9/21"]
+====
+Added <</extensions/performance/naive-task-scheduler/explanations#,Naive Parallel Task Scheduler>>.
+====
+
+[NOTE,caption="25/9/21"]
+====
+Added <</reference/design/schedulers/explanations#,explanation of schedulers>>.
 ====
 
 [NOTE,caption="24/9/21"]
