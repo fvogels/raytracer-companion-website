@@ -45,6 +45,13 @@ If the repo is empty, it means you are the first one of your team to perform the
 
 == Issues
 
+[WARNING]
+====
+A student reported problems with the next student.
+I haven't been able to replicate it on my machine, so I'll have to experiment on a student's machine during the next session.
+If you run into trouble, just skip it for now and keep an eye out for updates.
+====
+
 [NOTE,caption="once per team"]
 ====
 Look for a directory named `github` in your repo's root.
