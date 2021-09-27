@@ -41,3 +41,8 @@ public:
     virtual void perform(std::vector<std::shared_ptr<Task>> tasks) const = 0;
 };
 ----
+
+== Serial Task Scheduler
+
+The start codes comes with ``SerialTaskScheduler``, a task scheduler that performs the tasks in sequential order.
+Take a look at the code in ``tasks/serial-task-scheduler.cpp``: you'll see that it is nothing but a loop.
