@@ -44,6 +44,7 @@ def asciidoc_attributes
     'toc' => 'left',
     'toclevels' => 4,
     'cpp' => 'C++',
+    'sectnums' => true,
   }
 end
 
