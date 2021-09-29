@@ -3,6 +3,14 @@ require 'find'
 
 class IssueScriptGenerator
   def generate
+    puts <<~END
+    URL=`git remote -v | grep origin | grep push | awk '{print($2)}'`
+    ORG=`echo $URL | cut -d/ -f4`
+    REPONAME=`echo $URL | cut -d/ -f5`
+    REPO="$ORG/$REPONAME"
+    
+    END
+
     Find.find('docs/extensions').map do |filename|
       Pathname.new(filename).expand_path
     end.select do |pathname|
@@ -15,7 +23,7 @@ class IssueScriptGenerator
       url = "http://3dcg.leone.ucll.be/#{relative_path}/explanations.html"
       [title, url]
     end.each do |extension_name, url|
-      puts "gh issue create --title \"#{extension_name}\" --label enhancement --body #{url} --project raytracer"
+      puts "gh issue create --title \"#{extension_name}\" --label enhancement --body #{url} --project raytracer -R $REPO"
     end
   end
 end
