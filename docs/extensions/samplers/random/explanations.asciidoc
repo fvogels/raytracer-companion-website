@@ -33,7 +33,7 @@ Define a new sampler class (let the existing ``single-sampler`` guide you.)
   and use it to create a new ``RandomSampler``.
 * For this extension, you need only override the ``sample`` overload that returns a list of points.
   Implement it so that it picks ``m_sample_count`` random points inside the rectangle.
-  Use a <a href="http://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution">uniform distribution</a>.
+  Use a http://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution[uniform distribution].
   You might want to rely on ``Rectangle2D::from_relative`` to easily find points inside the rectangle.
 ====
 
