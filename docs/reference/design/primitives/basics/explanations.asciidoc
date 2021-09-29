@@ -298,7 +298,7 @@ void render()
 }
 ----
 
-The ray tracer is also equipped with a <a href="http://chaiscript.com/">scripting language</a>.
+The ray tracer is also equipped with a http://chaiscript.com/[scripting language].
 Using this language is much more practical: if you were to create each scene in C++,
 you'd have both to deal with C++'s complexity and long compilation times.
 Using the scripting language avoids all of C++'s pitfalls, plus it requires no compilation.

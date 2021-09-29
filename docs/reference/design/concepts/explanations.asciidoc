@@ -82,7 +82,7 @@ which performs no fancy tricks. Other renderers are
 
 * The <</extensions/renderers/cartoon/explanations#,Cartoon Renderer>> gives the scene a cartoony look.
 * The <</extensions/renderers/edge/explanations#,Edge Renderer>> only draws the edges of objects.
-// * The <</extensions/renderers/split-depth/explanations#,Split Depth Renderer>> produces <a href="https://www.reddit.com/r/SplitDepthGIFS/">split depth animations</a>.
+// * The <</extensions/renderers/split-depth/explanations#,Split Depth Renderer>> produces https://www.reddit.com/r/SplitDepthGIFS/[split depth animations].
 
 Different types of renderers have different components, so for now we will
 pretend only the standard renderer exists.
