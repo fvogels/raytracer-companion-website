@@ -8,7 +8,7 @@ image::spherical.png[align="center"]
 Spherical coordinates consist of three components:
 
 * The _azimuth angle_ indicates in which direction on the horizontal plane the point lies.
-  This angle varies from 0&deg; and 360&deg (or -180&deg; and +180&deg;, which is exactly the same, since -90&deg; equals 270&deg; etc.) The angle is measured counterclockwise.
+  This angle varies from 0&deg; and 360&deg; (or -180&deg; and +180&deg;, which is exactly the same, since -90&deg; equals 270&deg; etc.) The angle is measured counterclockwise.
   On the above figure, ROQ is the azimuth angle and should be approximately -60&deg;.
 * The _elevation angle_ corresponds to the angle between OP and the vertical plane. It varies between -90&deg; and +90&deg;.
   On the figure, QOP is the elevation angle and is about +60&deg;.
