@@ -1,6 +1,6 @@
 = Dot Product
 
-The <a href="https://en.wikipedia.org/wiki/Dot_product">dot product</a> of two vectors yields a scalar, which is computed as follows:
+The https://en.wikipedia.org/wiki/Dot_product[dot product] of two vectors yields a scalar, which is computed as follows:
 [stem]
 ++++
 (x_1, y_1, z_1) \cdot (x_2, y_2, z_2) = x_1 x_2 + y_1 y_2 + z_1 z_2
