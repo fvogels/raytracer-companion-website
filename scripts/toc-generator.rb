@@ -102,7 +102,7 @@ module TOCGeneration
       end
 
       entries.sort_by do |entry|
-        [ entry.order || entries.size, entry.name ]
+        [ entry.order, entry.name ]
       end.each do |entry|
         generate_entry(entry, is_extension)
       end
