@@ -8,6 +8,18 @@ Since many changes still need to be made, I decided to keep a log.
 No one's ever really going to read this, so let's experiment...
 The first one to send me the secret passphrase ``pepersaus > * uitroepteken`` by email wins a free cake point!
 
+[NOTE,caption="29/9/21"]
+====
+Fixed some bugs in the ray tracer starter code.
+Get updates using `git pull upstream master`.
+====
+
+[NOTE,caption="29/9/21"]
+====
+Fixed GitHub issues script.
+More or less.
+====
+
 [NOTE,caption="27/9/21"]
 ====
 Added note regarding GitHub issues.
