@@ -4,6 +4,7 @@
 [overview]
 ----
 difficulty 2
+reading samplers/basics
 reading samplers/random
 ----
 
