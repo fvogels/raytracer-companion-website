@@ -13,7 +13,7 @@ A plane can be uniquely defined in many ways:
 To solve the ray-plane intersection problem, using a point stem:[P] and normal vector stem:[\vec n] is the most practical approach.
 
 Some point stem:[Q] lies in the plane if the segment stem:[PQ] is perpendicular on stem:[\vec n]. Determining perpendicularity is
-easy using the <</reference/math/dot-product/explanations#,dot product>>:
+easy using the <</reference/math/linear-algebra/dot-product/explanations#,dot product>>:
 
 [stem]
 ++++
