@@ -13,7 +13,7 @@ class PreviewBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
     document_directory = Pathname.new parent.document.attributes['docdir']
     target_absolute_path = document_directory.join("#{target}.chai")
 
-    create_section(parent, 'Preview', {}).tap do |open_block|
+    create_open_block(parent, nil, {}).tap do |open_block|
       open_block.role = 'preview'
       attrs = { **attrs, "align" => "center" }
 
