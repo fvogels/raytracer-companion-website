@@ -10,6 +10,11 @@ The first one to send me the secret passphrase ``pepersaus > * uitroepteken`` by
 
 [NOTE,caption="1/10/21"]
 ====
+Updated <</extensions/cameras/depth-of-field/explanations#,Depth of Field Perspective Camera>>.
+====
+
+[NOTE,caption="1/10/21"]
+====
 Added GCC instructions.
 ====
 
