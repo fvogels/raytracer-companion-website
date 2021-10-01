@@ -1,6 +1,6 @@
 = Homogeneous Coordinates
 
-Homogenoous coordinates blur the distinction between points and vectors and
+Homogenous coordinates blur the distinction between points and vectors and
 provide a unified mathematical framework. The basic idea is to see vectors
 as being points at infinity. However, if we were to simply
 use stem:[(\infty, \infty, \infty)] as the coordinates for a vector,
