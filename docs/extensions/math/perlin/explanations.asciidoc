@@ -3,7 +3,7 @@
 [overview]
 ----
 difficulty 5
-reading math/perlin
+reading math/misc/perlin
 ----
 
 == Evaluation
