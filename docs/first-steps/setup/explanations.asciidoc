@@ -59,7 +59,11 @@ There should be a script named `create-issues.sh`.
 Running it will create an issue for each extension on GitHub.
 ====
 
-== Setting Up Visual Studio
+== Development Environment
+
+=== Visual C++
+
+Here, we assume you use Visual Studio together with the Visual C++ compiler (this is the name of the {cpp} compiler that Visual Studio comes with).
 
 [NOTE,caption="each team member"]
 ====
@@ -75,6 +79,37 @@ Running it will create an issue for each extension on GitHub.
 [IMPORTANT]
 ====
 Do not dare open the project as a folder in Visual Studio.
+
+[IMPORTANT]
+=====
+Really, don't.
+We mean it.
+
+[IMPORTANT]
+======
+You _will_ regret it if you do.
+We'll make sure of it.
+======
+=====
+====
+
+=== GCC
+
+If you wish, you can also use GCC as your compiler.
+People working on Linux and Mac might prefer this.
+Realize though that this path requires a bit more technical expertise from you.
+
+[NOTE,caption="each team member"]
+====
+* Run the script named `run-cmake.sh`.
+* Depending on which build you are interested in, enter the `debug`, `release` or `testing` subdirectory.
+* Run `cmake --build .`.
+====
+
+[IMPORTANT]
+====
+The `run-cmake.sh` script creates a Makefile based on what `.cpp` files exist at time of execution.
+If you add more `.cpp` files (which you most assuredly will), you will have to rerun this script so that it adds the new files in the Makefile.
 ====
 
 == WIF Viewer
