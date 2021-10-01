@@ -156,8 +156,8 @@ This viewer should work on all platforms, but it's still very much untested.
 
 * <</reference/ray-tracing/basics/explanations#,How Ray Tracing Works>>
 * Important mathematical concepts
-** <</reference/math/points-and-vectors/explanations#,Points and Vectors>>
-** <</reference/math/dot-product/explanations#,Dot Product>>
-** <</reference/math/cross-product/explanations#,Cross Product>>
-** <</reference/math/ray/explanations#,Ray>>
+** <</reference/math/linear-algebra/points-and-vectors/explanations#,Points and Vectors>>
+** <</reference/math/linear-algebra/dot-product/explanations#,Dot Product>>
+** <</reference/math/linear-algebra/cross-product/explanations#,Cross Product>>
+** <</reference/math/misc/ray/explanations#,Ray>>
 * <</extensions/introduction/scripting/explanations#,First Extension>>
