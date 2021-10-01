@@ -108,7 +108,7 @@ you have to take the _direction_ into account, not just the orientation. At A, t
 go in opposite directions, while at D, they point in the same direction.
 
 All these rules are nice, but how do we put them in such a form that is easily implemented?
-The <</reference/math/dot-product/explanations#,dot product>> comes to the rescue. Examine the following cases: the incoming light ray is represented by a yellow vector stem:[\vec i],
+The <</reference/math/linear-algebra/dot-product/explanations#,dot product>> comes to the rescue. Examine the following cases: the incoming light ray is represented by a yellow vector stem:[\vec i],
 and the surface normal as a red vector stem:[\vec n]. It is important that both have length 1.
 
 image::dot-product.png[align="center"]
