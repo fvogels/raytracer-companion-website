@@ -1,4 +1,4 @@
-= Points and Vectors
+= Spherical Coordinates
 
 Spherical coordinates are similar to <</reference/math/coordinate-systems/polar/explanations#,polar coordinates>>,
 except for the fact that these are used in 3D space.
