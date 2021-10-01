@@ -168,7 +168,7 @@ end
 
 desc 'Smart upload to Leone (use WSL2)'
 task :sync do
-  sh "rsync -rvz -e 'ssh -p 22345' --progress dist/ upload@leone.ucll.be:/home/frederic/courses/3dcg/volume"
+  sh "rsync -rvzh -e 'ssh -p 22345' --delete --progress dist/ upload@leone.ucll.be:/home/frederic/courses/3dcg/volume"
 end
 
 
