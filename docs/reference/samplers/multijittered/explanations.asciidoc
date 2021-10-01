@@ -1,3 +1,4 @@
+// order 7
 = Multijittered Sampler
 
 == Definition
