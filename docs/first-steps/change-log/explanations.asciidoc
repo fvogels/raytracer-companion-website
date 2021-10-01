@@ -52,7 +52,7 @@ Added <</extensions/performance/unbalanced-parallel-task-scheduler/explanations#
 
 [NOTE,caption="25/9/21"]
 ====
-Added <</extensions/performance/naive-task-scheduler/explanations#,Naive Parallel Task Scheduler>>.
+Added <</extensions/performance/naive-parallel-task-scheduler/explanations#,Naive Parallel Task Scheduler>>.
 ====
 
 [NOTE,caption="25/9/21"]
