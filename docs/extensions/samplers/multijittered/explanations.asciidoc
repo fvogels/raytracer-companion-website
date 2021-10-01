@@ -5,6 +5,7 @@
 ----
 difficulty 3
 requires samplers/nrooks
+reading samplers/basics
 reading samplers/multijittered
 ----
 
