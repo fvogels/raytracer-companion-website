@@ -576,7 +576,7 @@ primitives, what are its member functions?
 
 You'll be happy to learn that for each primitive, you only need to implement a grand total of two member functions:
 
-* ``std::vector&lt;std::shared_ptr&lt;Hit&gt;&gt; find_all_hits(const Ray&amp; ray) const`` computes where the <</reference/math/ray/explanations#,ray>> hits the primitive.
+* ``std::vector&lt;std::shared_ptr&lt;Hit&gt;&gt; find_all_hits(const Ray&amp; ray) const`` computes where the <</reference/math/misc/ray/explanations#,ray>> hits the primitive.
 * ``Box bounding_box() const`` returns a 3D box that should be barely large enough to contain the whole primitive.
 
 A third member function, ``find_first_positive_hit``, can optionally be overridden for optimization purposes.
@@ -591,14 +591,14 @@ a bit of math. Fortunately for you, you will not have to derive the necessary fo
 It will be up to you to translate a mathematical expression into C++ code.
 
 ==== find_all_hits for spheres
-As mentioned above, ``find_all_hits``'s job is to determine where a <</reference/math/ray/explanations#,ray>> hits the primitive.
+As mentioned above, ``find_all_hits``'s job is to determine where a <</reference/math/misc/ray/explanations#,ray>> hits the primitive.
 Let's consider the case of a sphere:
 
 image::find-all-hits.png[align="center"]
 
 The ray (yellow) hits the sphere in two locations stem:[H_1] and stem:[H_2]. For each hit, the following information has to be computed:
 
-* The <</reference/math/ray/explanations#,stem:[t]-value>> indicating where on the ray the intersection is positioned. If stem:[t < 0],
+* The <</reference/math/misc/ray/explanations#,stem:[t]-value>> indicating where on the ray the intersection is positioned. If stem:[t < 0],
   the hit is located in front of the ray's origin, which is generally the intersection we are interested in.
 * The local position: where on the sphere the hit is located, expressed in the sphere's own coordinate system.
 * The (global) position: where the hit is located, expressed in the world's coordinate system.
