@@ -10,7 +10,7 @@ You should be familiar with natural numbers: 0, 1, 2, 3, &hellip;
 The trouble with natural numbers is that some subtractions have no solution: there is no natural number equal to stem:[3-5].
 Negative numbers had to be invented, resulting in integers: 0, 1, -1, 2, -2, &hellip;
 However, we ran into trouble again with division: stem:[5/3] has no solution, a problem which the introduction of fractions solved.
-This trend went on: real numbers allowed to take square roots of positive values and <</reference/math/complex-numbers/explanations#,complex numbers>> also allow you to take roots of negative numbers.
+This trend went on: real numbers allowed to take square roots of positive values and <</reference/math/misc/complex-numbers/explanations#,complex numbers>> also allow you to take roots of negative numbers.
 
 Quaternions are a further generalization.
 Natural numbers, integers, fractions and real numbers can be laid out on a single line and can be seen as one dimensional.
@@ -86,7 +86,7 @@ The _conjugate_ of a quaternion stem:[q], written stem:[q^*], is defined as
 
 == Usage
 
-On the <</reference/math/complex-numbers/explanations#,page about complex numbers>> we briefly mentioned
+On the <</reference/math/misc/complex-numbers/explanations#,page about complex numbers>> we briefly mentioned
 multiplication corresponded to rotation in 2D. Similarly, quaternion multiplication
 can be used to perform 3D rotations.
 
