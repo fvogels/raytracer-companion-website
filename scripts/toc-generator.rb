@@ -46,6 +46,7 @@ module TOCGeneration
         end
       end
 
+      # puts "#{@path} has order #{@order}"
       @order
     end
   end
