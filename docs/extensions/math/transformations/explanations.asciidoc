@@ -4,12 +4,12 @@
 ----
 difficulty 2
 reading design/transformations
-reading math/transformations/2d/translation
-reading math/transformations/2d/rotation
-reading math/transformations/2d/scaling
-reading math/transformations/3d/translation
-reading math/transformations/3d/rotation
-reading math/transformations/3d/scaling
+reading math/linear-algebra/2d-translation
+reading math/linear-algebra/2d-rotation
+reading math/linear-algebra/2d-scaling
+reading math/linear-algebra/3d-translation
+reading math/linear-algebra/3d-rotation
+reading math/linear-algebra/3d-scaling
 ----
 
 We consider three kinds of transformation:
