@@ -102,7 +102,7 @@ Task scheduler:: Like samplers, this is more advanced stuff. A _task_ is a unit 
 to be performed. Ray tracing involves many such units of work. The _task scheduler_
 will, given a list of tasks, perform them. So, in essence, it's just an object faking a loop.
 What makes it interesting is that a
-<</extensions/performance/parallel-task-scheduler/explanations#,more advanced scheduler>>
+<</reference/design/schedulers/explanations#,more advanced scheduler>>
 will be able to assign tasks to different threads, thereby performing the tasks in parallel,
 resulting in a large performance boost.
 
