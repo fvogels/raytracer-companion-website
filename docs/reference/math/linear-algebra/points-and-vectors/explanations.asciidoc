@@ -153,8 +153,8 @@ two points together, which is undefined.
 
 Multiplication is a bit more complex than addition and subtraction, as there are more possibilities.
 Vectors can both be multiplied by scalars (numbers) and other vectors. When multiplying vectors,
-there are two different ways of multiplying: the <</reference/math/dot-product/explanations#,dot product>> with symbol stem:[\cdot]
-and the <</reference/math/cross-product/explanations#,cross product>> with symbol stem:[\times].
+there are two different ways of multiplying: the <</reference/math/linear-algebra/dot-product/explanations#,dot product>> with symbol stem:[\cdot]
+and the <</reference/math/linear-algebra/cross-product/explanations#,cross product>> with symbol stem:[\times].
 
 [.center,width="75%",%header,cols="^,^,^,^,^"]
 |===
@@ -201,8 +201,8 @@ In other words, dividing a vector by 2 is the same as multiplying it by 1/2.
 As mentioned above, there are two ways to multiply two vectors: stem:[\vec u \cdot \vec v] and stem:[\vec u \times \vec v].
 Both these multiplications are important enough to deserve having their own page.
 
-* <</reference/math/dot-product/explanations#,Dot product>>
-* <</reference/math/cross-product/explanations#,Cross product>>
+* <</reference/math/linear-algebra/dot-product/explanations#,Dot product>>
+* <</reference/math/linear-algebra/cross-product/explanations#,Cross product>>
 
 ==== Norm of a Vector
 

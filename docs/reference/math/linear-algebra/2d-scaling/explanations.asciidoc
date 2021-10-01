@@ -1,6 +1,6 @@
 = 2D Scaling
 
-Scaling a point with <</reference/math/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, w)] by a factor stem:[s_\mathrm{x}] along the X-axis and a factor stem:[s_\mathrm{y}] along the Z-axis
+Scaling a point with <</reference/math/coordinate-systems/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, w)] by a factor stem:[s_\mathrm{x}] along the X-axis and a factor stem:[s_\mathrm{y}] along the Z-axis
 is achieved by the following matrix multiplication:
 
 [stem]

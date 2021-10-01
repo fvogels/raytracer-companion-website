@@ -1,6 +1,6 @@
 = Cross Product
 
-Contrary to the <</reference/math/dot-product/explanations#,dot product>> which
+Contrary to the <</reference/math/linear-algebra/dot-product/explanations#,dot product>> which
 resulted in a scalar, the cross product yields a _vector_, which can be found using the following formula:
 
 [stem]

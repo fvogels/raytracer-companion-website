@@ -1,6 +1,6 @@
 = 2D Rotation
 
-Rotating a point with <</reference/math/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, w)] around the origin by an angle stem:[\alpha] can be achieved using
+Rotating a point with <</reference/math/coordinate-systems/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, w)] around the origin by an angle stem:[\alpha] can be achieved using
 
 [stem]
 ++++

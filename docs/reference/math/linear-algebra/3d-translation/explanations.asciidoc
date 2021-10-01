@@ -1,6 +1,6 @@
 = 3D Translation
 
-Translating a point with <</reference/math/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, z, w)] by a vector stem:[(\Delta x, \Delta y, \Delta z, 0)]
+Translating a point with <</reference/math/coordinate-systems/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, z, w)] by a vector stem:[(\Delta x, \Delta y, \Delta z, 0)]
 can be computed using the following matrix multiplication:
 
 [stem]

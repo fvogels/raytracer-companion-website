@@ -2,7 +2,7 @@
 
 == Rotation Around the X-Axis
 
-Rotating a point with <</reference/math/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, z, w)] around the X-axis by an angle stem:[\alpha] can be achieved using
+Rotating a point with <</reference/math/coordinate-systems/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, z, w)] around the X-axis by an angle stem:[\alpha] can be achieved using
 
 [stem]
 ++++
@@ -23,7 +23,7 @@ Rotating a point with <</reference/math/homogeneous-coordinates/explanations#,ho
 
 == Rotation Around the Y-Axis
 
-Rotating a point with <</reference/math/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, z, w)] around the Y-axis by an angle stem:[\alpha] can be computed as follows:
+Rotating a point with <</reference/math/coordinate-systems/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, z, w)] around the Y-axis by an angle stem:[\alpha] can be computed as follows:
 
 [stem]
 ++++
@@ -44,7 +44,7 @@ Rotating a point with <</reference/math/homogeneous-coordinates/explanations#,ho
 
 == Rotation Around the Z-Axis
 
-Rotating a point with <</reference/math/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, z, w)] around the Z-axis by an angle stem:[\alpha]:
+Rotating a point with <</reference/math/coordinate-systems/homogeneous-coordinates/explanations#,homogeneous coordinates>> stem:[(x, y, z, w)] around the Z-axis by an angle stem:[\alpha]:
 
 [stem]
 ++++
