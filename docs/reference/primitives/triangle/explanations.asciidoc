@@ -93,7 +93,7 @@ More specifically, in each point stem:[P] we draw the vector stem:[\vec v \times
 image::cross-product.png[align="center"]
 
 The result is quite interesting: the vectors to the left of stem:[\vec v] point upwards and those to the right downwards.
-This makes sense: remember that with the <</reference/math/cross-product/explanations#,cross product>>,
+This makes sense: remember that with the <</reference/math/linear-algebra/cross-product/explanations#,cross product>>,
 the direction of the result depends on whether the angle between the operands goes clockwise or counterclockwise.
 
 Consider the following figures:
