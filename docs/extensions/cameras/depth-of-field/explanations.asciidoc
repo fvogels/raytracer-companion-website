@@ -41,7 +41,7 @@ hopefully approximating the ideal case.
 
 The eye's size is determined by the eye size parameter.
 The larger the eye, the more blurry out-of-focus objects will appear.
-We suggest a starting value of 0.5.
+We suggest a value of 0.5.
 The choice of points within the eye area is left to the eye sampler.
 
 == Implementation
@@ -50,62 +50,114 @@ Let's start off with the definition of a ``DepthOfFieldPerspectiveCamera`` class
 
 [TASK]
 ====
-* Create new files ``cameras/depth-of-field-perspective-camera.cpp`` and ``cameras/depth-of-field-perspective-camera.h``.
-* Define the class ``DepthOfFieldPerspectiveCamera`` in an anonymous namespace (i.e. a namespace with no name, see ``primitives/sphere-primitive.cpp`` for an example.)
-  ``DepthOfFieldPerspectiveCamera`` should be a subclass of ``DisplaceableCamera``.
-* ``DepthOfFieldPerspectiveCamera`` has one member variable: a list of ``Camera`` objects.
-  These will be a bunch of perspective cameras with slightly different eyes.
-* ``DepthOfFieldPerspectiveCamera``'s constructor takes two parameters: a ``Matrix4x4`` transformation matrix, and a list of ``Camera``s.
-  The transformation matrix is passed along to the base class's constructor.
-  The list of ``Camera``s is used to initialize the member variable you declared earlier.
-* ``DepthOfFieldPerspectiveCamera`` overrides one member function: ``enumerate_untransformed_rays`` (from ``DisplaceableCamera``.)
-** It takes two parameters: ``point`` and ``callback``.
-** Add sanity checks: write assertions (``assert``) that verify that ``point``'s ``x`` and ``y``-coordinates are indeed between ``0`` and ``1``.
-** Next, iterate over the ``Camera`` list and call ``enumerate_rays`` on each of them, passing along ``point`` and ``callback`` as arguments.
-+
-The ``callback`` parameter is a function that ``enumerate_untransformed_rays`` must call for each ray it produces.
-  Working this way should be more efficient than accumulating ``Ray`` objects in lists (less memory needed, no heap allocation necessary.)
+Create new files ``cameras/depth-of-field-perspective-camera.cpp`` and ``cameras/depth-of-field-perspective-camera.h``.
+Use perspective camera's implementation as a guide.
+
+[source,language="python"]
+----
+class DepthOfFieldPerspectiveCamera(DisplaceableCamera):
+  def __initialize__(self, transformation, cameras):
+    super().__init__(transformation)
+    self.__cameras = cameras
+
+  def _enumerate_untransformed_rays(point, callback):
+    assert 0 <= point.x <= 1
+    assert 0 <= point.y <= 1
+
+    for camera in self.__cameras:
+      camera.enumerate_rays(point, callback)
+----
 ====
 
-The factory function is where most complexity lies. The function will first create a series of
-"almost-canonical" perspective cameras, i.e. cameras located around stem:[(0,0,0)], looking
-straight in front of them in the direction of positive Z-axis, and with up vector stem:[(0,1,0)].
-A separate transformation step will position the camera at the right spot.
+The factory function is where most complexity lies.
+The function will create a series of "almost-canonical" perspective cameras:
+
+* The eye of each perspective camera is located around stem:[(0,0,0)].
+  They are randomly picked by the `eye_sampler`.
+* The cameras are looking straight in front of them in the direction of positive Z-axis.
+* Each camera is standing straight up, i.e., not tilted in any direction.
+  Up is up.
+
+Placing each of the cameras in the correct position is done in a separate step using a transformation.
+Applying this transformation is already implemented in `DisplaceableCamera`.
 
 [TASK]
 ====
 Declare the factory function ``depth_of_field_perspective`` in the header file.
 It should be a member of the ``raytracers::cameras`` namespace.
-See other header files for help.
-Its parameters were enumerated earlier on this page.
+Use the implementation of the perspective camera as a guide to translate the code below.
 
-* Define the factory function in the ``cpp`` file.
-* Sanity check: ``up`` must be a unit vector.
-* Create the transformation matrix using ``create_transformation``.
-  This function expects an ``eye``, a ``look_at`` and an ``up`` vector.
-* Define a ``canonical_look_at`` point. It should lie on the Z-axis and as far away from stem:[(0,0,0)] as the ``eye`` point is from the ``look_at`` point.
-* Initialize an empty list of ``Camera``s named ``cameras``.
-* Create the ``eye_area``, which is a ``Rectangle2D``.
-  Derive from the figures above where this ``Rectangle2D`` should be positioned.
-* Ask the ``sampler`` to pick points from the ``eye_area``.
-* Create a new ``PerspectiveCamera`` for each such point stem:[P], where you use stem:[P] as the camera's eye.
-  All cameras should share ``relative_look_at``, and have stem:[(0,1,0)] as ``up``-vector. ``distance`` and ``aspect_ratio`` should also be the same for each camera.
-* Put each ``PerspectiveCamera`` in the list ``cameras``.
-* Finally, create a ``DepthOfFieldPerspectiveCamera``, initializing it with the transformation matrix and the list of ``Camera``s.
-  Wrap it inside a ``Camera`` (same as in ``cameras/perspective-camera.cpp``.)
+[source,language="python"]
+----
+# Factory function
+def depth_of_field_perspective(eye,
+                               look_at,
+                               up,
+                               distance,
+                               aspect_ratio,
+                               eye_size,
+                               eye_sampler):
+  assert up is a unit vector
+
+  transformation = create_transformation(...)
+
+  # We pretend that the camera looks straight ahead along the Z axis
+  canonical_look_at = ...
+  assert canonical_look_at.x == 0
+  assert canonical_look_at.y == 0
+  assert canonical_look_at.z == distance(eye, look_at)
+
+  # We pretend that the camera stands straight up
+  canonical_up = ...
+
+  # Create empty camera list
+  cameras = []
+
+  # Create square around eye in XY place
+  eye_area = Rectangle2D(...)
+  assert eye_area.width() == eye_area.height() == eye_size
+  assert eye.center == (0,0,0)
+
+  # Use lambda in C++
+  def add_camera(eye_in_xy_plane):
+    # eye_in_xy_plane is a 2D point, we need to give it a Z-coordinate
+    # Pick it so that it is in the XY-plane
+    canonical_eye = ...
+    camera = create_perspective_camera(canonical_eye,
+                                       canonical_look_at,
+                                       canonical_up,
+                                       distance,
+                                       aspect_ration)
+    cameras.append(camera)
+
+  # Ask for samples in eye_area and create a camera for each
+  eye_sampler.sample(eye_area, add_camera)
+
+  return DepthOfFieldPerspectiveCamera(transformation, cameras)
+----
 ====
 
 [TASK]
 ====
-Add the finishing touches.
+Make the finishing touches.
 
-* Add the camera to the list of cameras in ``cameras/cameras.h``.
-* Open ``scripting/cameras-module.cpp``. Add an extra member function ``depth_of_field``.
-  Add a binding in ``create_cameras_module``.
-* In the same file, try to create ``depth_of_field_by_map`` and bind it.
-  This would allow you to create a depth of field camera using the keyword parameter syntax (i.e. ``Cameras.depth_of_field( [ "eye": pos(0,0,0), ... ] )``).
+* Update ``cameras/cameras.h``.
+* Expose the camera to the scripting language.
+  Use `perspective_by_map` as guide.
 ====
 
 == Evaluation
 
-TODO
+[TASK]
+====
+What happens if you use a deterministic sampler (e.g., <</extensions/samplers/stratified/explanations#,stratified sampler>>) vs a nondeterministic one (e.g., <</extensions/samplers/random/explanations#,random sampler>>)?
+
+By deterministic sampler we mean a sampler that always returns the same samples when given the same rectangle.
+====
+
+[TASK]
+====
+Render the script below:
+
+preview::challenge[]
+====
