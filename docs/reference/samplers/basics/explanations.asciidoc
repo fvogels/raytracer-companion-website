@@ -1,0 +1,69 @@
+// order 1
+= Sampler Basics
+
+The idea behind samplers is very simple: a sampler takes a rectangle and returns a number of points inside that rectangle.
+That's all there is to it.
+
+[source,language="c++"]
+----
+// Note: not actual implementation in our ray tracer
+
+class Sampler
+{
+public:
+    virtual std::vector<Point2D> sample(const Rectangle2D& rectangle) const = 0;
+}
+----
+
+== Real World Example Application
+
+Say we want to determine the average height of Belgians.
+Technically, we should hunt down _every_ Belgian and ask for their height.
+This is hardly practical.
+
+Instead, we can take a number of Belgians that will act as "representatives" of the entire Belgian population.
+The idea is that their average height will be equal to the average height of all Belgians.
+This raises the questions: how many representatives should we pick, and who exactly should we be picking?
+
+=== Sample Size
+
+The fewer Belgians we pick, the less work we have.
+In other words, we have an incentive to keep the number low.
+So why not pick just one?
+
+It should be clear that if we were to pick just one Belgian, the odds are quite low that this Belgian's height would be equal to the average of the entire populace.
+The more Belgians we pick, the more accurate our average will be.
+
+It appears we have a dilemma on our hands...
+
+=== Sampling Method
+
+Let's say we decided to pick stem:[N] people.
+We still have to decide which stem:[N] people to pick.
+
+We could go to one spot in Leuven and measure stem:[N] people there.
+However, this assumes that people's heights are perfectly distributed.
+What if Leuven people are taller than people from other cities?
+
+So, ideally we should pick people from all over Belgium.
+This approach will have greater chances of yielding a more accurate average.
+
+Again, more effort means better results.
+
+== Ray Tracer Application
+
+Our actual situation is slightly different: our samplers need to pick points from a rectangle, not Belgians.
+Also:
+
+* A larger sample size will slow us ray tracing considerable.
+  Double the number of samples means double the amount of work.
+  We do want to keep the sample size small.
+* Which points we sample does not affect performance however.
+  In the case of the average height example, we would have to travel all over Belgium.
+  Here however, picking one point is not cheaper or more expensive than picking any other point.
+
+So, if we pick the _right_ samples, maybe we can get away with fewer samples.
+
+Different samplers each have their own approach on how to pick samples.
+For example, we expect the <</reference/samplers/random/explanations#,random sampler>> to perform the worst, while the <</reference/samplers/multijittered/explanations#,multijittered sampler>> is the most sophisticated one.
+We expect the former to require more samples than the latter in order to produce the same quality.
