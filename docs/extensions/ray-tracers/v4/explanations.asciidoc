@@ -30,7 +30,7 @@ However, we have to be careful not to be overzealous: stem:[P] is shadowed only 
 between stem:[L] and stem:[P]. The ray through stem:[L] and stem:[P] also hits the red and green spheres, but these
 have no effect on whether stem:[P] is illuminated or not, as they are not located between stem:[L] and stem:[P].
 
-The easiest way to check if a hit occurs between stem:[L] and stem:[P] is to rely on the <</reference/math/ray/explanations#,stem:[t]-value>> of the hit.
+The easiest way to check if a hit occurs between stem:[L] and stem:[P] is to rely on the <</reference/math/misc/ray/explanations#,stem:[t]-value>> of the hit.
 Say we want to determine whether photons can get from stem:[L] to stem:[P]. We define a ray
 whose origin lies in stem:[L] and whose direction reaches from stem:[L] to stem:[P], i.e. we do _not_ use
 a unit vector. We then get the following stem:[t]-values:
