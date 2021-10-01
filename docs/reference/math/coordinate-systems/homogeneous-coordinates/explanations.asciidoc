@@ -39,7 +39,7 @@ further in the crazy abstract worlds that homogeneous coordinates produce.
 
 == Operations
 
-As explained on <</reference/math/points-and-vectors/explanations#,points and vectors>>,
+As explained on <</reference/math/linear-algebra/points-and-vectors/explanations#,points and vectors>>,
 addition and subtraction is only allowed on certain combinations of operands:
 we can add two vectors together, but not two points, etc.
 
