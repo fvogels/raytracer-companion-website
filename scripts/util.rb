@@ -81,8 +81,7 @@ def latex_to_png(source, destination)
   puts "Converting #{source.to_s} -> #{destination}"
 
   Dir.chdir(source.dirname) do
-    puts `pdflatex -output-directory #{temp_root.to_s} #{source.to_s}`
-    puts `pdflatex -output-directory #{temp_root.to_s} #{source.to_s}`
+    puts `pdflatex -interaction=nonstopmode -output-directory #{temp_root.to_s} #{source.to_s}`
     puts `#{conversion_command}`
   end
 end
