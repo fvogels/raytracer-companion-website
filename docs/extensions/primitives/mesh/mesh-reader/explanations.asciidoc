@@ -45,7 +45,7 @@ Simply read in the file and recreate the exact same hierarchy.
 
 [TASK]
 ====
-Recreate this scene using meshes:
+Recreate this scene using a mesh:
 
 video::challenge.mp4[align="center"]
 
