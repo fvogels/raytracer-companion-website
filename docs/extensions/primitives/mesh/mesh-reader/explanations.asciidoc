@@ -1,0 +1,53 @@
+// order 1
+= Mesh Reader
+
+[overview]
+----
+difficulty 2
+requires primitives/triangle
+requires primitives/bounding-box-accelerator
+requires ray-tracers/v2
+reading primitives/mesh/basics
+reading primitives/mesh/optimization
+reading primitives/mesh/library
+reading primitives/mesh/file-format
+reading primitives/mesh/mesh-reader
+----
+
+== Implementation
+
+Your ray tracer comes with code that is able to <</reference/primitives/mesh/mesh-reader/explanations#,read mesh files>>.
+However, it does not translate the file data into an actual `Primitive`: you still need to write code yourself that creates the necessary ``Triangle``s and ``BoundingBoxAccelerator``s.
+
+[TASK]
+====
+Create files `primitives/mesh/mesh-primitive.cpp` and `primitives/mesh/mesh-primitive.h`.
+Implement a factory function in the `raytracer::primitives` namespace:
+
+[source,language="c++"]
+----
+Primitive mesh(const std::string& path);
+----
+
+[TIP]
+=====
+You will want to write a `MeshReceiver` subclass that collects all data from the file and builds a hierarchy.
+=====
+
+[NOTE]
+=====
+No mesh optimization needs to be done here.
+Simply read in the file and recreate the exact same hierarchy.
+=====
+====
+
+== Evaluation
+
+[TASK]
+====
+Recreate this scene using meshes:
+
+video::challenge.mp4[align="center"]
+
+You will have to manually create a mesh file to represent this pyramid.
+====

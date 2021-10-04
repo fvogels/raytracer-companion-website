@@ -1,0 +1,33 @@
+// movie
+def material(c)
+{
+  Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                       "diffuse": c * 0.8 ] )
+}
+
+global pyramid = decorate(material(Colors.white()), center( pos(0, 0, 0), mesh("pyramid.mesh")))
+
+def scene_at(now)
+{
+  var eye_x = Animations.animate(-5, 5, seconds(5))[now]
+  var camera = Cameras.perspective( [ "eye": pos(eye_x,-5,10),
+                                      "look_at": pos(0,0,0) ] )
+
+  var root = pyramid
+
+  var lights = [ Lights.omnidirectional( pos(5, 5, 5), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v2()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                       "height": 500,
+                                       "sampler": Samplers.single(),
+                                       "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
