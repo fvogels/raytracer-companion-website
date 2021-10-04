@@ -1,0 +1,15 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+\usetikzlibrary{calc,math}
+
+
+\begin{document}
+
+\begin{tikzpicture}
+  \foreach[evaluate={\i + 10} as \j] \i in {0,10,...,350} {
+    \draw (0,0) -- (\i:1) -- (\j:1) -- cycle;
+  }
+\end{tikzpicture}
+
+\end{document}
