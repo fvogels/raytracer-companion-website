@@ -72,8 +72,8 @@ module TOCGeneration
 
     def generate_category(category, is_extension)
       generate_header(category.name, category.depth + 1)
-      generate_subcategories(category.subcategories, is_extension)
       generate_entries(category.child_entries, is_extension)
+      generate_subcategories(category.subcategories, is_extension)
     end
 
     def generate_header(title, level)
