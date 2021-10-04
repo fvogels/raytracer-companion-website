@@ -1,0 +1,8 @@
+digraph {
+    unoptimized [label="Unoptimized Mesh",shape="box"];
+    optimized [label="Optimized Mesh",shape="box"];
+    rendering [label="Rendered Result",shape="box"]
+
+    unoptimized -> optimized [label="  mesh optimizer (any language)"];
+    optimized -> rendering [label="  ray tracer (C++)"];
+}
