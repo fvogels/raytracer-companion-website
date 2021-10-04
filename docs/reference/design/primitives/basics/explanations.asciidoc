@@ -1,10 +1,11 @@
 = Primitives
 
-== Disclaimer
-
+[NOTE,caption="Disclaimer"]
+====
 This page delves into the technical details of how primitives are designed.
 Since the final design has some complexity to it, we will build up to it and not tell you the whole truth right away.
 Instead, we start off with a simple design that we will modify as we go on.
+====
 
 == The Composite Design Pattern
 
