@@ -1,6 +1,8 @@
 // order 5
 = Mesh Reader
 
+== Implementation
+
 We have provided a {cpp} class to read this mesh format.
 It is available under `primitives/mesh/mesh-text-reader.h`.
 
