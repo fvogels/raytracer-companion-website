@@ -448,4 +448,9 @@ video::spheres-animated-camera.mp4[align="center"]
 Don't overcomplicate things: scripting-wise, achieving this is not more difficult than the previous tasks.
 ====
 
+== What Comes Next
+
+You're now free to choose which extension to make next.
+Keep in mind that some extension build on others: these dependencies are listed at the top of the extension's page.
+
 // == Evaluation
