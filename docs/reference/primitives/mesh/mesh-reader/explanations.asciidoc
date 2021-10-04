@@ -1,0 +1,84 @@
+// order 5
+= Mesh Reader
+
+We have provided a {cpp} class to read this mesh format.
+It is available under `primitives/mesh/mesh-text-reader.h`.
+
+[source,language="c++"]
+----
+class MeshReceiver
+{
+public:
+    virtual void vertex(double x, double y, double z) = 0;
+    virtual void normal(double x, double y, double z) = 0;
+    virtual void triangle(unsigned vertex1, unsigned vertex2, unsigned vertex3) = 0;
+    virtual void box(unsigned n_children) = 0;
+};
+
+void read_text_mesh(std::istream& input_stream, MeshReceiver& receiver);
+----
+
+A mesh file essentially has four types of lines.
+A line represents either
+
+* a vertex;
+* a vertex normal;
+* a triangle;
+* a box.
+
+`read_text_mesh` will go through the mesh file: for every line it will call the corresponding ``MeshReceiver``s methods.
+
+== Example: `MeshReceiver` calls
+
+[source]
+----
+5 0
+0 0 0
+1 0 0
+0 1 0
+0 0 1
+1 1 1
+t 0 1 2
+t 1 2 3
+t 2 3 4
+b 3
+----
+
+This file contains 5 vertices, 0 vertex normals and 3 triangles, which are all grouped into one box.
+Calling `read_text_mesh` on this file will cause the following calls on the `MeshReceiver`:
+
+* `vertex(0, 0, 0)`
+* `vertex(1, 0, 0)`
+* `vertex(0, 1, 0)`
+* `vertex(0, 0, 1)`
+* `vertex(1, 1, 1)`
+* `triangle(0, 1, 2)`
+* `triangle(1, 2, 3)`
+* `triangle(2, 3, 4)`
+* `box(3)`
+
+== Example: Counting Triangles
+
+[source,language="c++"]
+----
+class TriangleCounter : public MeshReceiver
+{
+public:
+    void vertex(double x, double y, double z) { }
+
+    virtual void normal(double x, double y, double z) { }
+
+    virtual void triangle(unsigned vertex1, unsigned vertex2, unsigned vertex3)
+    {
+        m_triangle_count++;
+    }
+
+    virtual void box(unsigned n_children) { }
+
+    unsigned triangle_count;
+};
+
+TriangleCounter counter;
+read_text_mesh(file, counter);
+LOG(INFO) << "Found " << counter.triangle_count << " triangles" << std::endl;
+----
