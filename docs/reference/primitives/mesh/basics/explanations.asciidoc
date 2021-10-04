@@ -1,14 +1,6 @@
 // order 1
 = Basics
 
-// TODO
-
-[WARNING]
-====
-This page still needs to change.
-You should wait until this message has disappeared to avoid doing unnecessary work.
-====
-
 == Linear Approximations in 2D
 
 Let's say you're making a 2D game on very old hardware.
