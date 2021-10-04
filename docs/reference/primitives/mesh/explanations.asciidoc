@@ -169,10 +169,13 @@ Instead, we can just pick a mesh:
 
 [.center,cols="^.^,^.^,^",options="header",width="60%"]
 |===
-| Name | #Triangles | Preview
-| Bunny       | 69451      a| video::bunny.mp4[width="100%"]
-| Iron Man    | 217038     a| video::ironman.mp4[width="100%"]
-| Buddha      | 1087716    a| video::buddha.mp4[width="100%"]
+| Name        | #Triangles    | Preview
+| Bunny       | 69,451       a| video::bunny.mp4[width="100%"]
+| Iron Man    | 217,038      a| video::ironman.mp4[width="100%"]
+| Buddha      | 1,087,716    a| video::buddha.mp4[width="100%"]
+| Nefertiti   | 2,018,232    a| video::nefertiti.mp4[width="100%"]
+| Dragon      | 7,219,045    a| video::dragon.mp4[width="100%"]
+| Lucy        | 28,055,742   a| video::lucy.mp4[width="100%"]
 |===
 
 === Unoptimized Mesh Format
@@ -282,124 +285,121 @@ The entire file thus becomes
 Using our file format, we can only specify triangles.
 It's great for unoptimized meshes, but as discussed above, we also want to be able to encode bounding box hierarchies.
 
+image::boxes.png[align="center",width="50%"]
+
+Consider the "mesh" above.
+It consists of 7 triangles which we've labeled A to G.
+The optimizer has grouped A, B and C in a box (drawn in red).
+Similary, D and E are grouped in the green box, and F and G in the blue box.
+Finally, all three boxes are put into an all-encompassing black box.
+
+The file format looks as follows:
+
+* First part: we list all the vertices, like in the previous section.
+* Second part: we encode the hierarchy.
+  We distinguish between triangles and boxes.
+** A triangle is encoded by a line formatted as `t` _i_ _j_ _k_, where _i_, _j_ and _k_ are vertex indices.
+   In other words, the only difference with the previous format is that triangles have an extra `t` at the beginning of the line.
+** A box is encoded by a line formatted as `b` _n_`, where _n_ represents the number of children in the box.
+   The previous _n_ items that were read are to be used as children.
+
+Our mesh above is encoded as
+
+[source,language='python']
+----
+21            # Vertex count
+...           # Vertices omitted
+t 0 1 2       # Triangle A
+t 3 4 5       # Triangle B
+t 6 7 8       # Triangle C
+b 3           # Red box
+t 9 10 11     # Triangle D
+t 12 13 14    # Triangle E
+b 2           # Green box
+t 15 16 17    # Triangle F
+t 18 19 20    # Triangle G
+b 2           # Blue box
+b 3           # Black box
+----
+
+In order to read this, we need to keep a stack.
+
+* Reading a triangle means adding the triangle to the stack.
+* Reading a box means taking the last _n_ items on the stack, putting them in a box, and pushing the box back on the stack.
+
+Below is the code for a mesh reader:
+
+[source,language='python']
+----
+def read_mesh(file):
+  """
+  Reads a mesh from file.
+  """
+  vertices = read_vertices(file)
+  return read_hierarchy(file, vertices)
 
 
-// === Step One: Finding Meshes
+def read_hierarchy(file, vertices):
+  # Create empty stack
+  stack = []
 
-// First, you need to find a mesh to render.
-// You can build one yourself using a 3D modelling tool such as https://www.blender.org[Blender], or you could just look for a premade one online.
-// We've provided you with a few meshes link:/meshes[meshes].
+  while True:
+    line = file.readline()
 
-// Just like there are many different graphics formats (png, jpeg, bmp, &hellip;), there exists a diversity of mesh formats such as ply, obj, etc.
+    if line.startswith('t'):  # Current line represents a triangle
+      vertices = [vertex[int[i]] for i in line.split(' ')[1:]]
+      stack.append(Triangle(vertices))
+
+    elif line.starswith('b'):  # Current line represents a box
+      nchildren = int(line.split(' ')[1])
+
+      # Take last nchildren items off the stack
+      children = stack[-nchildren:]
+      stack = stack[:-nchildren]
+
+      stack.append(Box(children))
+
+    elif line.startswith('end'):
+      # Last line in file
+      return stack[-1]
 
 
-// If you want to make use of one of these formats, it is your responsibility to find out how to read them.
+def read_vertices(file):
+  """
+  Reads vertices from file and returns them as an array.
+  """
+  # Read number of vertices
+  nvertices = int(file.readline())
 
-// Since reading in a mesh file is not our focus, the <%= raw_link('meshes', 'meshes we provide', check: false) %>
-// are stored in a very simple file format. In order to understand it, you must know what it's meant to contain:
-// triangles. The most straightforward format would be to store one triangle per line: ``x1 y1 z1 x2 y2 z2 x3 y3 z3``.
-// However, since some meshes are composed of millions of triangles, mesh files would quickly grow very large, literally GBs in size.
+  # Read all vertices
+  return [read_vertex(file) for _ in range(nvertices)]
 
-// There is a rather easy way to reduce a mesh's storage requirements: a vertex is generally shared by multiple triangles.
 
-// image::vertices.svg[align="center"]
+def read_vertex(file):
+  """
+  Reads in a single line and interprets it as XYZ coordinates.
+  """
+  return tuple(float(c) for c in file.readline().split(' '))
+----
 
-// In the picture above, the centered vertex is shared by four triangles, while all others
+[NOTE,caption="Example"]
+====
+We go through reading the mesh line by line.
 
-// * The first line contains an integer V representing the number of vertices.
-// * The next V lines contain three floating point numbers. These represent the XYZ coordinates of V vertices.
-// * The next line contains a single integer T. This represents the number of triangles.
-// * Lastly, T lines containing three integers i, j and k follow. Each line represents a triangle whose vertices are denoted by their indices.
-
-// For example, the following file encodes a mesh consisting of a single triangle:
-
-// [source,language=text]
-// ----
-// 3
-// 0 0 0
-// 1.5 2.1 3.2
-// -1.2 1.1 5.6
-// 1
-// 0 1 2
-// ----
-
-// === Step Two: Creating the Bounding Box Hierarchy
-
-// This step involves creating a separate tool that
-
-// * reads in the mesh found in step one,
-// * builds the bounding box hierarchy, and
-// * stores the result in a file.
-
-// There are <</reference/primitives/mesh/optimization/explanations#,many ways>> to build a hierarchy:
-// you can work top down (starting with a large box and dividing it into smaller boxes) or bottom
-// up (starting with small boxes and combining them into large boxes). There is no single right way
-// to build the hierarchy. To compare algoritmhs, we can measure
-
-// * The time it takes to build a hierarchy.
-// * The time it takes to render the mesh.
-
-// Since the first part (building the hierarchy) needs only occur once, the rendering
-// times are by far the most important aspect.
-
-// Storing the bounding box hierarchy in a file can again be done in many ways.
-// First, you'll have to choose between text or binary format. Using text format
-// is a bit easier, but much slower.
-
-// Next, you have to encode the vertices, triangles and bounding boxes.
-// Let's focus solely on the latter two. Say you have the following hierarchy:
-
-// image::hierarchy.svg[align="center"]
-
-// One way would be to work with a stack based format: you start off with an empty stack.
-// Whenever a triangle is added, it is added to this stack. Whenever a box is defined,
-// the last two items on the stack are popped of, put in a box, which in turn
-// is again pushed on the stack. For the diagram shown above, this results in:
-
-// [source,language=text]
-// ----
-// triangle i1 j1 k1       # Vertex-indices of T1
-// triangle i2 j2 k2       # Vertex-indices of T2
-// box                     # Groups last two triangles together
-// triangle i3 j3 k3
-// triangle i4 j4 k4
-// box
-// box                     # Groups last two boxes together
-// triangle i5 j5 k5
-// triangle i6 j6 k6
-// box
-// triangle i7 j7 k7
-// triangle i8 j8 k8
-// box
-// box
-// box
-// ----
-
-// Another possibility is to work with indices, similarly to how triangles and vertices work:
-// triangles and boxes are numbered, and a box refers to what it contains using indices.
-// This yields
-
-// [source,language=text]
-// ----
-// triangle i1 j1 k1       # Index 0
-// triangle i2 j2 k2       # Index 1
-// box 0 1                 # Index 2
-// triangle i3 j3 k3       #       3
-// triangle i4 j4 k4       #       4
-// box 3 4                 #       5
-// box 2 5                 #       6
-// triangle i5 j5 k5       #       7
-// triangle i6 j6 k6       #       8
-// box 7 8                 #       9
-// triangle i7 j7 k7       #       10
-// triangle i8 j8 k8       #       11
-// box 10 11               #       12
-// box 9 12                #       13
-// box 6 13                #       14
-// ----
-
-// === Step Three: Rendering the Mesh
-
-// The last step consists of extending the ray tracer with an extra type of primitive, i.e., the mesh.
-// This involves reading the file produced in step 2 and using it to create triangles
-// and bounding box accelerators based on its contents.
+* We begin with an empty stack.
+* `t 0 1 2`: we encountered triangle A.
+  We add it to the stack, which now contains `[A]`.
+* `t 3 4 5`: triangle B, which has to be pushed on the stack: `[A, B]`.
+* `t 6 7 8`: triangle C, which has to be pushed on the stack: `[A, B, C]`.
+* `b 3`: the red box. We pop the 3 last items from the stack (`A`, `B` and `C`), put them in a box, and we push the box back onto the stack: `[Box(ABC)]`.
+* `t 9 10 11`: triangle D, push it on the stack, which now contains `[Box(ABC), D]`
+* `t 12 13 14`: triangle E, push it on the stack, which now contains `[Box(ABC), D, E]`
+* `b 2`: pop last 2, put in box, push on stack. Result: `[Box(ABC), Box(DE)]`.
+* `t 15 16 17`: stack becomes `[Box(ABC), Box(DE), F]`.
+* `t 18 19 20`: stack becomes `[Box(ABC) Box(DE), F, G]`.
+* `b 2`: stack becomes `[Box(ABC), Box(DE), Box(FG)]`.
+* `b 3`: stack becomes `[Box(Box(ABC), Box(DE), Box(FG))]`.
+  Note how this box contains other boxes instead of triangles.
+* `end`: we reached the end.
+  The top of the stack `Box(Box(ABC), Box(DE), Box(FG))` corresponds to the root of the hierarchy.
+====
