@@ -1,7 +1,5 @@
 = Bounding Box Accelerator
 
-== Explanation
-
 There are different kinds of primitives. The most basic primitives are those modelling shapes,
 such as ``Sphere``, ``Triangle`` and the plane primitives.
 A more abstract kind of primitives model operations on primitives: ``Decorator``s
@@ -27,5 +25,5 @@ also miss the mesh, thereby sparing us the need to iterate over all triangles in
 
 image::bounding-box.png[align="center"]
 
-By building a <</reference/primitives/mesh/optimization/explanations#,hierarchy>>,
+By building a <</reference/primitives/mesh/optimizing/explanations#,hierarchy>>,
 you can even speed up rendering more.
