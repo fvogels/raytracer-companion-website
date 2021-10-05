@@ -1,0 +1,28 @@
+= Smooth Triangle
+
+[overview]
+----
+difficulty 2
+requires primitives/shapes/triangle
+reading design/primitives/ray-intersections
+reading primitives/triangle
+----
+
+TODO
+
+// preview::preview[]
+
+// == Implementation
+
+// [TASK]
+// ====
+// * Create new files ``primitives/triangle-primitive.h`` and ``primitives/triangle-primitive.cpp``.
+// * Define the class ``TriangleImplementation``.
+// * Implement ``find_all_hits``.
+// * Define a factory function ``triangle``. It takes three ``Point3D`` objects representing the triangle's three vertices.
+// * Add a binding for the scripting language.
+// ====
+
+== Evaluation
+
+TODO
