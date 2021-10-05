@@ -59,7 +59,7 @@ So, how do we apply the same principles on primitives? Let's first try to find o
 and then which operations can be performed on them.
 
 The basic building blocks are geometric shapes. Games, for example, use only one such shape as building, namely the triangle.
-Technically, this is enough to build even the <</reference/primitives/mesh/explanations#,most complex of shapes>>: you just have to make the triangles very tiny
+Technically, this is enough to build even the <</reference/primitives/mesh/basics/explanations#,most complex of shapes>>: you just have to make the triangles very tiny
 and have enough of them. While it may seem simpler to only have to implement one shape, you have to remember
 that you'll still have to find a way to produce all the right triangles, so you're just shifting the complexity elsewhere.
 
@@ -70,13 +70,13 @@ is also much more efficient than to have to work with thousands of tiny triangle
 So, what will our basic shapes be? Well, any shape that have a simple enough mathematical formula. Examples are:
 
 * Spheres
-* <</extensions/primitives/plane/explanations#,Planes>>
-* <</extensions/primitives/cylinder/explanations#,Cylinders>>
-* <</extensions/primitives/cone/explanations#,Cones>>
-* <</extensions/primitives/triangle/explanations#,Triangles>>
-* <</extensions/primitives/disk/explanations#,Disks>>
-* <</extensions/primitives/box/explanations#,Rectangle>>
-* <</extensions/primitives/box/explanations#,Boxes>>
+* <</extensions/primitives/shapes/plane/explanations#,Planes>>
+* <</extensions/primitives/shapes/cylinder/explanations#,Cylinders>>
+* <</extensions/primitives/shapes/cone/explanations#,Cones>>
+* <</extensions/primitives/shapes/triangle/explanations#,Triangles>>
+* <</extensions/primitives/shapes/disk/explanations#,Disks>>
+* <</extensions/primitives/shapes/box/explanations#,Rectangle>>
+* <</extensions/primitives/shapes/box/explanations#,Boxes>>
 
 These basic shapes are so primitive that (in our design) you cannot even change their size or position in space (except for triangles.)
 For example, you can only create spheres with radius 1 that are centered at stem:[(0, 0, 0)].
@@ -84,7 +84,7 @@ For example, you can only create spheres with radius 1 that are centered at stem
 ==== Transformations
 
 This brings us to the operations we can apply on these primitives. There are actually many types of operations available,
-some more abstract than others. The most straightforward operations are <</extensions/primitives/transformations/explanations#,transformations>>:
+some more abstract than others. The most straightforward operations are <</extensions/primitives/modifiers/transformations/explanations#,transformations>>:
 
 * Translation
 * Scaling
@@ -734,4 +734,4 @@ This can be solved as follows:
 * First check whether the bounding box is infinite, and if so, turn to a specialized algorithm. The safest
   way is to return a box with corners stem:[(-\infty, -\infty, -\infty)] and stem:[(\infty, \infty, \infty)].
   Technically, this box is always correct, but will slow down the rendering.
-* Make the infinite primitive finite, for example using a <</extensions/primitives/cropper/explanations#,cropper>>.
+* Make the infinite primitive finite, for example using a <</extensions/primitives/modifiers/cropper/explanations#,cropper>>.
