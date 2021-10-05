@@ -1,0 +1,32 @@
+// order 2
+= Mesh Optimizer
+
+[overview]
+----
+difficulty 5
+requires primitives/triangle
+requires primitives/bounding-box-accelerator
+reading primitives/mesh/basics
+reading primitives/mesh/optimization
+reading primitives/mesh/library
+reading primitives/mesh/file-format
+reading primitives/mesh/mesh-reader
+----
+
+preview::preview[]
+
+== Implementation
+
+For this extension, you will need
+
+
+
+
+[TASK]
+====
+Create a tool that builds bounding box hierarchies for meshes.
+====
+
+== Evaluation
+
+TODO
