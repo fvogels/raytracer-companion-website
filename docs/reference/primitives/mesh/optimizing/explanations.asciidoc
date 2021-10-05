@@ -2,9 +2,10 @@
 = Mesh Optimization
 
 Meshes made out of triangles can be used to model any shape: we simply need more triangles.
-
 The problem with having meshes consisting of millions of triangles is obvious: rendering times go through the roof.
 We need to find a way to speed it up quite a bit if we want to be able to admire the results within our lifetime.
+
+== Bounding Box Hierarchy
 
 There are many ways to speed things up.
 You are free to implement any approach you wish, but in these pages, we will discuss one particular technique, namely bounding boxes.
@@ -87,323 +88,41 @@ The building of this bounding box hierarchy takes time.
 Fortunately, this needs to be done only once per mesh: once done, we can write the box hierarchy to file and read it whenever the mesh pops up in a scene.
 This means, however, that we need to build a tool separate from the ray tracer, one that reads in all triangles, builds the bounding box hierarchy and stores it into a file.
 
-== Implementation
-
-Let's take a step back and review what we need to do.
-
-* First, we need a mesh.
-  This mesh will be unoptimized and be nothing more than a large collection of triangles.
-* This data will have to be stored in a file.
-  We'd like an easy to read file format.
-  Let's use the extension `.unoptimized.mesh` for now.
-* The mesh needs to be optimized, i.e., we need to arrange the triangles in some bounding box hierarchy.
-  This should be done by a separate tool, which can be implemented in any language.
-* The new optimized mesh must also be stored in a file.
-  This file format will need to be able to encode bounding box hierarchies.
-  We can use the `.optimized.mesh` extension.
-* Finally, we will need to be able to read this `.optimized.mesh` file in our ray tracer so as to be able to actually render the mesh.
-
-image::process.svg[align="center",width="40%"]
-
-
-
-
-=== Unoptimized Mesh Format
-
-There are multiple ways to store meshes:
-
-* https://en.wikipedia.org/wiki/STL_(file_format)[.stl file format]
-* https://en.wikipedia.org/wiki/Wavefront_.obj_file[Wavefront .obj file format]
-* https://en.wikipedia.org/wiki/PLY_(file_format)[.ply file format]
-
-However, we can be smart about our file format choice.
-An unoptimized mesh can be seen as a bunch of triangles grouped in a single box, whereas an optimized mesh adds more depth to the hierarchy (boxes of boxes of boxes of ... of triangles).
-This would allow us to use the same format for both unoptimized and optimized meshes.
-
-=== Mesh Format
-
-As discussed in the previous section, we only really need a single format for both unoptimized and optimized meshes.
-We can therefore use a single extension `.mesh`.
-
-There's more good news: we have already defined the format for you.
-Added to this, you are also provided with a {cpp} class that parses it.
-However, you still need to know what the format looks like though: your mesh optimizer needs to be able both to read and write a mesh file.
-
-==== Working Example
-
-First, a bit of explanation so that the mesh format makes more sense.
-As you know, a mesh consists of many triangles.
-If we were to construct a disk out of triangles, it would look like this:
-
-image::disk.png[align="center",width="25%"]
-
-This disk is made out of 36 triangles.
-For the sake of clarity, we simplify this disk to just 4 triangles:
-
-image::vertex-sharing.png[align="center",width="50%"]
-
-==== Naive File Format
-
-Our simplified disk is built out of 4 triangles, each having 3 vertices, each of which have 3 coordinates (x, y, z), each of which are ``double``s which are 8 bytes long, meaning we need to store 4 &times; 3 &times; 3 &times; 8 = 288 bytes.
-We could encode this disk as follows:
-
-[source,language="python"]
-----
-0 0 0    1  0 0    0  1 0      # Triangle 0
-0 0 0    0  1 0   -1  0 0      # Triangle 1
-0 0 0   -1  0 0    0 -1 0      # Triangle 2
-0 0 0    0 -1 0    1  0 0      # Triangle 3
-----
-
-==== Improved File Format
-
-Notice, however, that the middle vertex is shared by all triangles, and that all other vertices are shared by two triangles.
-In total, there are only 5 unique vertices.
-We can make use of this to save on storage.
-First, we list all the vertices:
-
-[source,language="python"]
-----
- 0  0  0   # #0: Central vertex
- 1  0  0   # #1: East vertex
- 0  1  0   # #2: North vertex
--1  0  0   # #3: West vertex
- 0 -1  0   # #4: South vertex
-----
-
-Next, we specify the triangles by simply listing their vertices using their index.
-
-[source,language="python"]
-----
-0 1 2    # Triangle 0 connects vertex 0, vertex 1 and vertex 2
-0 2 3    # Triangle 1 connects vertex 0, vertex 2 and vertex 3
-0 3 4    # Triangle 2 connects vertex 0, vertex 3 and vertex 4
-0 4 1    # Triangle 3 connects vertex 0, vertex 4 and vertex 1
-----
-
-Let's count how many bytes of storage we need now.
-
-* First, we listed all 5 vertices, each requiring 3 &times; 8 bytes, which amount to 120 bytes.
-* Next, we defined 4 triangles, each using 3 vertex indices.
-  These indices are regular ``int``s, so 4 bytes each.
-  This means the triangles themselves take up 4 &times; 3 &times; 4 = 48 bytes.
-* Total: 120 + 48 = 168 bytes.
-  This is much less than the original 288 bytes.
-
-If we were to make the same calculation for the original disk that we built out of 36 triangles, we get 2592 bytes vs 1320 bytes.
-
-[IMPORTANT]
-====
-The above calculation is not entirely correct: it assumes we store the data in binary form.
-Instead, we will choose to use a text-based format instead, which is easier to work with.
-
-For example, if we need to store the integer zero, a binary format would store 4 bytes `0x00000000`.
-A text format would simply store `0` using ASCII.
-In this case, the text format is more efficient, but that's not generally the case.
-====
-
-There's one problem though: how is a file reader supposed to know where the vertices end and where the triangles start?
-Luckily, the solution is simple: we simply add an integer at the very top of the file that tells the reader how many vertices there are.
-The entire file thus becomes
-
-[source,language="python"]
-----
-5            # Number of vertices
- 0  0  0     # #0: Central vertex
- 1  0  0     # #1: East vertex
- 0  1  0     # #2: North vertex
--1  0  0     # #3: West vertex
- 0 -1  0     # #4: South vertex
-0 1 2        # Triangle 0 connects vertex 0, vertex 1 and vertex 2
-0 2 3        # Triangle 1 connects vertex 0, vertex 2 and vertex 3
-0 3 4        # Triangle 2 connects vertex 0, vertex 3 and vertex 4
-0 4 1        # Triangle 3 connects vertex 0, vertex 4 and vertex 1
-----
-
-==== Adding Boxes
-
-Using our file format, we can only specify triangles.
-It's great for unoptimized meshes, but as discussed above, we also want to be able to encode bounding box hierarchies.
-
-image::boxes.png[align="center",width="50%"]
-
-Consider the "mesh" above.
-It consists of 7 triangles which we've labeled A to G.
-The optimizer has grouped A, B and C in a box (drawn in red).
-Similary, D and E are grouped in the green box, and F and G in the blue box.
-Finally, all three boxes are put into an all-encompassing black box.
-
-The file format looks as follows:
-
-* First part: we list all the vertices, like in the previous section.
-* Second part: we encode the hierarchy.
-  We distinguish between triangles and boxes.
-** A triangle is encoded by a line formatted as `t` _i_ _j_ _k_, where _i_, _j_ and _k_ are vertex indices.
-   In other words, the only difference with the previous format is that triangles have an extra `t` at the beginning of the line.
-** A box is encoded by a line formatted as `b` _n_`, where _n_ represents the number of children in the box.
-   The previous _n_ items that were read are to be used as children.
-
-Our mesh above is encoded as
-
-[source,language='python']
-----
-21            # Vertex count
-...           # Vertices omitted
-t 0 1 2       # Triangle A
-t 3 4 5       # Triangle B
-t 6 7 8       # Triangle C
-b 3           # Red box
-t 9 10 11     # Triangle D
-t 12 13 14    # Triangle E
-b 2           # Green box
-t 15 16 17    # Triangle F
-t 18 19 20    # Triangle G
-b 2           # Blue box
-b 3           # Black box
-----
-
-In order to read this, we need to keep a stack.
-
-* Reading a triangle means adding the triangle to the stack.
-* Reading a box means taking the last _n_ items on the stack, putting them in a box, and pushing the box back on the stack.
-
-Below is the code for a mesh reader:
-
-[source,language='python']
-----
-def read_mesh(file):
-  """
-  Reads a mesh from file.
-  """
-  vertices = read_vertices(file)
-  return read_hierarchy(file, vertices)
-
-
-def read_hierarchy(file, vertices):
-  # Create empty stack
-  stack = []
-
-  while True:
-    line = file.readline()
-
-    if line.startswith('t'):  # Current line represents a triangle
-      vertices = [vertex[int[i]] for i in line.split(' ')[1:]]
-      stack.append(Triangle(vertices))
-
-    elif line.starswith('b'):  # Current line represents a box
-      nchildren = int(line.split(' ')[1])
-
-      # Take last nchildren items off the stack
-      children = stack[-nchildren:]
-      stack = stack[:-nchildren]
-
-      stack.append(Box(children))
-
-    elif line.startswith('end'):
-      # Last line in file
-      return stack[-1]
-
-
-def read_vertices(file):
-  """
-  Reads vertices from file and returns them as an array.
-  """
-  # Read number of vertices
-  nvertices = int(file.readline())
-
-  # Read all vertices
-  return [read_vertex(file) for _ in range(nvertices)]
-
-
-def read_vertex(file):
-  """
-  Reads in a single line and interprets it as XYZ coordinates.
-  """
-  return tuple(float(c) for c in file.readline().split(' '))
-----
-
-[NOTE,caption="Example"]
-====
-We go through reading the mesh line by line.
-
-* We begin with an empty stack.
-* `t 0 1 2`: we encountered triangle A.
-  We add it to the stack, which now contains `[A]`.
-* `t 3 4 5`: triangle B, which has to be pushed on the stack: `[A, B]`.
-* `t 6 7 8`: triangle C, which has to be pushed on the stack: `[A, B, C]`.
-* `b 3`: the red box. We pop the 3 last items from the stack (`A`, `B` and `C`), put them in a box, and we push the box back onto the stack: `[Box(ABC)]`.
-* `t 9 10 11`: triangle D, push it on the stack, which now contains `[Box(ABC), D]`
-* `t 12 13 14`: triangle E, push it on the stack, which now contains `[Box(ABC), D, E]`
-* `b 2`: pop last 2, put in box, push on stack. Result: `[Box(ABC), Box(DE)]`.
-* `t 15 16 17`: stack becomes `[Box(ABC), Box(DE), F]`.
-* `t 18 19 20`: stack becomes `[Box(ABC) Box(DE), F, G]`.
-* `b 2`: stack becomes `[Box(ABC), Box(DE), Box(FG)]`.
-* `b 3`: stack becomes `[Box(Box(ABC), Box(DE), Box(FG))]`.
-  Note how this box contains other boxes instead of triangles.
-* `end`: we reached the end.
-  The top of the stack `Box(Box(ABC), Box(DE), Box(FG))` corresponds to the root of the hierarchy.
-====
-
-==== Unoptimized Mesh
-
-An unoptimized mesh can easily be represented in this new format.
-Originally, we had
-
-[source,language="python"]
-----
-5            # Number of vertices
- 0  0  0     # #0: Central vertex
- 1  0  0     # #1: East vertex
- 0  1  0     # #2: North vertex
--1  0  0     # #3: West vertex
- 0 -1  0     # #4: South vertex
-0 1 2        # Triangle 0 connects vertex 0, vertex 1 and vertex 2
-0 2 3        # Triangle 1 connects vertex 0, vertex 2 and vertex 3
-0 3 4        # Triangle 2 connects vertex 0, vertex 3 and vertex 4
-0 4 1        # Triangle 3 connects vertex 0, vertex 4 and vertex 1
-----
-
-This becomes
-
-[source,language="python"]
-----
-5            # Number of vertices
- 0  0  0     # #0: Central vertex
- 1  0  0     # #1: East vertex
- 0  1  0     # #2: North vertex
--1  0  0     # #3: West vertex
- 0 -1  0     # #4: South vertex
-t 0 1 2      # Triangle 0 connects vertex 0, vertex 1 and vertex 2
-t 0 2 3      # Triangle 1 connects vertex 0, vertex 2 and vertex 3
-t 0 3 4      # Triangle 2 connects vertex 0, vertex 3 and vertex 4
-t 0 4 1      # Triangle 3 connects vertex 0, vertex 4 and vertex 1
-b 4
-end
-----
-
-In other words
-
-* we add ``t``s in front of every triangle line;
-* we add one big box at the end that contains all triangles;
-* we end the file with `end`.
-
-==== Vertex Normals
-
-The format also supports vertex normals.
-We won't bother explaining what those are here; instead we refer you to the <</extensions/primitives/mesh/binary-mesh/explanations#,Smooth Mesh extension>>.
-Suffice it to say that the file format is actually structured as follows:
-
-* The first line contains _two_ integers: the number of vertices `n_vertices` and the number of vertex normals `n_normals`.
-* The following `n_vertices` lines contain vertex data.
-* The following `n_normals` lines contain vertex normal data.
-* All following lines are either triangle or box lines, until `end` is reached.
-
-For now, you can simply ignore vertex normals:
-
-* When writing a mesh file, pick `n_normals = 0`.
-* When reading a mesh file, skip the vertex normal lines.
-
-==== Reading Meshes in {cpp}
-
-We have provided a {cpp} class to read this mesh format.
-Look under `primitives/mesh/mesh-text-reader.cpp`.
+== Approaches
+
+How does one build a bounding box hierarchy?
+There are many ways and none of them is the One True Way.
+This is where you get creative, try out things and measure the rendering times to found out how well your algorithm is performing.
+Dare to experiment and think of how you could improve performance.
+
+=== Bottom Up Approaches
+
+One way to create a bounding box hierarchy is to start at the bottom (i.e., the triangles) and group them together into boxes.
+Then, in a second phase, you group those boxes together in bigger boxes.
+You continue like this until you're left with only a single box.
+
+* How many triangles/boxes you bundle together is up to you.
+  You might go for 10, for 2, or for some other number that might be decided upon dynamically.
+* Which triangles/boxes you team up is also up to you.
+  Perhaps you simply group them randomly, or you try to find the two that are closest together.
+* "Closest together" is also ill-defined.
+  How does one decide how far two triangles are from each other?
+  Again, up to you.
+  Perhaps you measure the distance between the centers, or simply of the first vertex of each.
+
+=== Top Down Approaches
+
+You could also start by building a large box that fits all triangles.
+Next, you divide this box into N subboxes.
+These boxes you also subdivide.
+After a number of subdivisions, you determine in which of these boxes a triangle fits.
+
+* There are many ways to subdivide a box into subboxes.
+** You can choose a random dimension and halve it along that dimension.
+** You can determine the longest dimension and halve along that dimension.
+** You can cut the box in two equal halves, or you can cut it so that you will have an equal amount of triangles in each subbox.
+** You can use an octree approach and subdivide each box in eight subboxes.
+* How long will you subdivide boxes?
+** You could go for a fixed amount.
+** You could subdivide until the box has a certain size.
+** You could subdivide until only K triangles fit in the box.
