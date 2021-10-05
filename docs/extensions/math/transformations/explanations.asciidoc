@@ -21,7 +21,7 @@ We consider three kinds of transformation:
 In this extension, you will implement the mathematical part of transformations.
 On top of these, you will be able to build
 
-* <</extensions/primitives/transformations/explanations#,Primitive transformations>>
+* <</extensions/primitives/modifiers/transformations/explanations#,Primitive transformations>>
 * <</extensions/materials/transformations/explanations#,Material transformations>>
 
 Transformations are represented as matrices.
