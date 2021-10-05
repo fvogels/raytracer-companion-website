@@ -4,11 +4,11 @@
 [overview]
 ----
 difficulty 5
-requires primitives/triangle
+requires primitives/shapes/triangle
 requires primitives/bounding-box-accelerator
 requires ray-tracers/v2
 reading primitives/mesh/basics
-reading primitives/mesh/optimization
+reading primitives/mesh/optimizing
 reading primitives/mesh/library
 reading primitives/mesh/file-format
 reading primitives/mesh/mesh-reader
