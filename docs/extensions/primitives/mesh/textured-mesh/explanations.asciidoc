@@ -3,12 +3,12 @@
 [overview]
 ----
 difficulty 3
-requires primitives/mesh
+requires primitives/shapes/smooth-triangle
+requires primitives/mesh/mesh-reader
 ----
 
 TODO
 
-* ``SmoothTriangle`` class that interpolates normals.
 * Add support for vertex normals in mesh file format.
 * Find mesh with vertex normals.
 * Render mesh with and without vertex normals.
