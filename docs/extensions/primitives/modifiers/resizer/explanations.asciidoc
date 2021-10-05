@@ -3,7 +3,7 @@
 [overview]
 ----
 difficulty 2
-requires primitives/transformations
+requires primitives/modifiers/transformations
 ----
 
 == Resizing
