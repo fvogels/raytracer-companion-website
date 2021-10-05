@@ -3,7 +3,7 @@
 [overview]
 ----
 difficulty 3
-requires primitives/mesh
+requires primitives/mesh/mesh-reader
 ----
 
 TODO
