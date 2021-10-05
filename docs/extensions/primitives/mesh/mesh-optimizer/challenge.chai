@@ -1,0 +1,43 @@
+// movie
+
+def material(c)
+{
+  Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                       "diffuse": c * 0.8,
+                       "specular": Colors.white() * 0.5,
+                       "specular_exponent": 10,
+                       "reflectivity": 0.0,
+                       "transparency": 0,
+                       "refractive_index": 0 ] )
+}
+
+global m = mesh("G:/repos/ucll/3dcg/raytracer/meshes-v3/meshes/optimized-buddha.bmesh")
+
+def scene_at(now)
+{
+  var t = Animations.animate(0.0, 1.0, seconds(3))[now]
+  var x = cos(degrees(360*t))
+  var y = sin(degrees(360*t))
+
+  var camera = Cameras.perspective( [ "eye": pos(3 * y, 0, 3 * x),
+                                      "look_at": pos(0,0,0) ] )
+
+
+  var root = decorate( material(Colors.white()), m )
+
+  var lights = [ Lights.omnidirectional( pos(3 * y, 5, 3 * x), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v2()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.single(),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(3)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )

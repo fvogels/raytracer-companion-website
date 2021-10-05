@@ -6,6 +6,7 @@
 difficulty 5
 requires primitives/triangle
 requires primitives/bounding-box-accelerator
+requires ray-tracers/v2
 reading primitives/mesh/basics
 reading primitives/mesh/optimization
 reading primitives/mesh/library
@@ -17,16 +18,20 @@ preview::preview[]
 
 == Implementation
 
-For this extension, you will need
-
-
-
+For this extension, you will have to optimize a mesh.
+More concretely, given a file containing an unoptimized mesh (i.e., a mesh with all its triangles in a single box) and will have to create a bounding box hierarchy and store the results in a new file.
 
 [TASK]
 ====
 Create a tool that builds bounding box hierarchies for meshes.
+You can implement it in any language you want.
 ====
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render the following scene in under 2 minutes.
+
+preview::challenge[]
+====
