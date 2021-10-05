@@ -141,15 +141,15 @@ in 3D space. The root is built out of primitives.
 The primitives are the building blocks for scenes. Examples are
 
 * Spheres
-* <</extensions/primitives/plane/explanations#,Planes>>
-* <</extensions/primitives/cylinder/explanations#,Cylinders>>
-* <</extensions/primitives/cone/explanations#,Cones>>
-* <</extensions/primitives/triangle/explanations#,Triangles>>
-* <</extensions/primitives/disk/explanations#,Disks>>
-* <</extensions/primitives/box/explanations#,Squares>>
-* <</extensions/primitives/box/explanations#,Boxes>>
+* <</extensions/primitives/shapes/plane/explanations#,Planes>>
+* <</extensions/primitives/shapes/cylinder/explanations#,Cylinders>>
+* <</extensions/primitives/shapes/cone/explanations#,Cones>>
+* <</extensions/primitives/shapes/triangle/explanations#,Triangles>>
+* <</extensions/primitives/shapes/disk/explanations#,Disks>>
+* <</extensions/primitives/shapes/box/explanations#,Squares>>
+* <</extensions/primitives/shapes/box/explanations#,Boxes>>
 
-You can also <</extensions/primitives/csg/explanations#,combine primitives>>, yielding new primitives.
+You can also <</extensions/primitives/modifiers/csg/explanations#,combine primitives>>, yielding new primitives.
 
 * Unions
 * Intersections
@@ -157,7 +157,7 @@ You can also <</extensions/primitives/csg/explanations#,combine primitives>>, yi
 
 A more abstract kind of primitive is the bounding box accelerator, which
 is invisible but allows to dramatically speed up ray tracing,
-enabling the rendering of scenes involving <</extensions/primitives/mesh/explanations#,millions of primitives>>.
+enabling the rendering of scenes involving <</reference/primitives/mesh/basics/explanations#,millions of primitives>>.
 
 === Light Sources
 
