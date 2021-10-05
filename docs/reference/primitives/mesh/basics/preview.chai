@@ -11,7 +11,7 @@ def material(c)
                        "refractive_index": 0 ] )
 }
 
-global statuette = mesh("buddha.omesh")
+global statuette = mesh("G:/repos/ucll/3dcg/raytracer/meshes-v3/meshes/optimized-buddha.bmesh")
 
 def scene_at(now)
 {
