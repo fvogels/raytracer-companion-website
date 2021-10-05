@@ -8,6 +8,19 @@ Since many changes still need to be made, I decided to keep a log.
 No one's ever really going to read this, so let's experiment...
 The first one to send me the secret passphrase ``pepersaus > * uitroepteken`` by email wins a free cake point!
 
+[NOTE,caption="5/10/21"]
+====
+Updated mesh related pages.
+
+* <</extensions/primitives/mesh/mesh-reader/explanations#,Mesh Primitive Extension>>
+* <</extensions/primitives/mesh/mesh-optimizer/explanations#,Mesh Optimization Extension>>
+* <</reference/primitives/mesh/basics/explanations#,Mesh Basics Explanations>>
+* <</reference/primitives/mesh/optimizing/explanations#,Mesh Optimization Explanations>>
+* <</reference/primitives/mesh/library/explanations#,Mesh Library>>
+* <</reference/primitives/mesh/file-format/explanations#,Mesh File Format>>
+* <</reference/primitives/mesh/mesh-reader/explanations#,Mesh Reader>>
+====
+
 [NOTE,caption="1/10/21"]
 ====
 Updated <</extensions/cameras/depth-of-field/explanations#,Depth of Field Perspective Camera>>.
