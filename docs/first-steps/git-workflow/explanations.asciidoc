@@ -36,7 +36,7 @@ Next, in a shell:
 (master) $ git checkout -b extension-branch
 
 # Link the new local branch with a remote branch of the same name
-(extension-branch) $ git branch --set-upstream-to=origin/extension-branch
+(extension-branch) $ git push -u origin extension-branch
 ----
 
 [IMPORTANT]
