@@ -51,7 +51,7 @@ While you are working on an extension on a separate branch, another team mate mi
 
 image::master-update.svg[align="center"]
 
-For example, in the diagram above, you started working on the <</extensions/cameras/fisheye/explanations#,Fisheye Camera extension>> while <</extensions/primitives/triangle/explanations#,Triangle>> was the last extension on `master`.
+For example, in the diagram above, you started working on the <</extensions/cameras/fisheye/explanations#,Fisheye Camera extension>> while <</extensions/primitives/shapes/triangle/explanations#,Triangle>> was the last extension on `master`.
 You made two commits while working on `fisheye`, but in the meantime someone finished <</extensions/samplers/random/explanations#,Random Sampler>>.
 This can cause conflicts to occur when you try to merge `fisheye` into `master` later on.
 To prevent this from happening, you will first import all Random Sampler related changes into `fisheye` by _rebasing_ `fisheye`.
