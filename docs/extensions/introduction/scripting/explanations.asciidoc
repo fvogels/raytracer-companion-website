@@ -453,4 +453,7 @@ Don't overcomplicate things: scripting-wise, achieving this is not more difficul
 You're now free to choose which extension to make next.
 Keep in mind that some extension build on others: these dependencies are listed at the top of the extension's page.
 
-// == Evaluation
+== Evaluation
+
+There is no evaluation for this extension, meaning there is no need to save anything.
+No questions will be asked about this step during the defense.
