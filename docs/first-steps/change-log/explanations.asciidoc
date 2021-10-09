@@ -10,6 +10,11 @@ The first one to send me the secret passphrase ``pepersaus > * uitroepteken`` by
 
 [NOTE,caption="5/10/21"]
 ====
+Added <</extensions/animations/wobble-easing/explanations#,wobble easing function>>.
+====
+
+[NOTE,caption="5/10/21"]
+====
 Updated mesh related pages.
 
 * <</extensions/primitives/mesh/mesh-reader/explanations#,Mesh Primitive Extension>>
