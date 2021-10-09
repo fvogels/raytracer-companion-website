@@ -158,4 +158,9 @@ Adapt `RayTracerV1::trace` so that it calls `determine_color` instead of assumin
 
 == Evaluation
 
-TODO
+[TODO]
+====
+Reproduce the scene below.
+
+image::challenge.png[align="center"]
+====

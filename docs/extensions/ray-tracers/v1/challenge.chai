@@ -1,0 +1,37 @@
+// image
+def mat(c)
+{
+  return Materials.uniform([ "ambient": c ])
+}
+
+def sph(c)
+{
+  return decorate( mat(c), sphere() )
+}
+
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                      "look_at": pos(0,0,0) ] )
+
+  var primitives = []
+  primitives.push_back(translate(vec(0,3,-5), sph(Colors.red())))
+  primitives.push_back(translate(vec(0,0,-5), sph(Colors.red() + Colors.green() * 0.5)))
+  primitives.push_back(translate(vec(0,-3,-5), sph(Colors.green())))
+
+  var root = union(primitives)
+
+  var lights = [ ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v1()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.single(),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_at(0),
+          [ Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
