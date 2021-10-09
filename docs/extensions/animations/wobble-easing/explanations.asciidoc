@@ -1,0 +1,51 @@
+= Wobble Easing Animation
+
+[overview]
+----
+difficulty 3
+requires animations/easing-library
+reading animations/basics
+reading design/animations
+----
+
+== Wobble Wobble
+
+The `wobble` easing has two parameters:
+
+* The number of wobbles.
+* The amplitude of the wobbles.
+
+[TASK]
+====
+Create files `math/functions/easing/wobble-easing-function.cpp/.h`.
+Define a `wobble` factory function
+
+[source,language="c++"]
+----
+EasingFunction wobble(unsigned nwobbles, double wobble_amplitude);
+----
+
+Implement `wobble` such that you get the results shown below.
+
+[TIP]
+=====
+Use `linear-easing-function.h/.cpp` as a guide.
+=====
+====
+
+== Evaluation
+
+[TASK]
+====
+preview::challenge1[]
+====
+
+[TASK]
+====
+preview::challenge2[]
+====
+
+[TASK]
+====
+preview::challenge3[]
+====
