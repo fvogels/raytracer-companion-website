@@ -21,8 +21,8 @@ def scene_at(now)
   var primitives = []
 
 
-  primitives.push_back( translate(vec(-1.5,0,0), sph(Colors.red() * 0.8)) )
-  primitives.push_back( translate(vec(1.5,0,0), sph(Colors.green() * 0.8)) )
+  primitives.push_back( translate(vec(-1.5,0,0), sph(Colors.red())) )
+  primitives.push_back( translate(vec(1.5,0,0), sph(Colors.green())) )
 
   var root = union(primitives)
 
