@@ -1,0 +1,49 @@
+// movie
+def mat(c)
+{
+  return Materials.uniform([ "ambient": c * 0.1,
+                             "diffuse": c * 0.8,
+                             "light_filtering": c ])
+}
+
+def sph(c)
+{
+  return decorate( mat(c), sphere() )
+}
+
+def scene_at(now)
+{
+  var t = Animations.animate(0, 1, seconds(5))[now]
+
+  var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                      "look_at": pos(0,0,0) ] )
+
+  var primitives = []
+
+
+  primitives.push_back( translate(vec(-2,0,0), sph(Colors.red())) )
+  primitives.push_back( translate(vec(2,0,0), sph(Colors.blue())) )
+
+  var planemat = Materials.uniform([ "ambient": Colors.white() * 0.1,
+                                     "diffuse": Colors.white() * 0.8 ])
+
+  primitives.push_back(decorate(planemat, translate(vec(0,0,-5-20*t), xy_plane())))
+
+  var root = union(primitives)
+
+  var lights = [ Lights.omnidirectional( pos(-2,0,6), Colors.white() * 0.5 ), Lights.omnidirectional( pos(2,0,6), Colors.white() * 0.5 ) ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v5()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.single(),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
+

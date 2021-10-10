@@ -121,4 +121,9 @@ Add bindings so that `v5` becomes accessible from the scripting language.
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Reproduce the scene below.
+
+video::challenge.mp4[align="center"]
+====
