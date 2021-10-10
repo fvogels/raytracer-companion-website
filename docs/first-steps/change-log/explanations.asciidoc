@@ -8,7 +8,12 @@ Since many changes still need to be made, I decided to keep a log.
 No one's ever really going to read this, so let's experiment...
 The first one to send me the secret passphrase ``pepersaus > * uitroepteken`` by email wins a free cake point!
 
-[NOTE,caption="5/10/21"]
+[NOTE,caption="10/10/21"]
+====
+Added evaluation sections to ray tracer extensions.
+====
+
+[NOTE,caption="9/10/21"]
 ====
 Added <</extensions/animations/wobble-easing/explanations#,wobble easing function>>.
 ====
