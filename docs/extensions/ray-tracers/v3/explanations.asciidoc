@@ -179,4 +179,11 @@ Expose this factory function to the scripting language by adding the necessary c
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Reproduce the scene below.
+
+video::challenge.mp4[align="center"]
+
+Make sure to pay attention to the size of the specular highlights.
+====
