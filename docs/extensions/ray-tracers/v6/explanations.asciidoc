@@ -358,6 +358,9 @@ Expose `v6` to the scripting language.
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Reproduce the scene below.
 
-* Nudging of ray
+video::challenge.mp4[align="center"]
+====
