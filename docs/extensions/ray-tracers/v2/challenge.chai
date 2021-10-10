@@ -16,9 +16,17 @@ def scene_at(now)
                                       "look_at": pos(0,0,0) ] )
 
   var primitives = []
+  primitives.push_back(translate(vec(-3,3,-5), sph(Colors.red())))
+  primitives.push_back(translate(vec(-3,0,-5), sph(Colors.blue())))
+  primitives.push_back(translate(vec(-3,-3,-5), sph(Colors.green())))
+
   primitives.push_back(translate(vec(0,3,-5), sph(Colors.red())))
-  primitives.push_back(translate(vec(0,0,-5), sph(Colors.red() + Colors.green() * 0.5)))
+  primitives.push_back(translate(vec(0,0,-5), sph(Colors.blue())))
   primitives.push_back(translate(vec(0,-3,-5), sph(Colors.green())))
+
+  primitives.push_back(translate(vec(3,3,-5), sph(Colors.red())))
+  primitives.push_back(translate(vec(3,0,-5), sph(Colors.blue())))
+  primitives.push_back(translate(vec(3,-3,-5), sph(Colors.green())))
 
   var root = union(primitives)
 
