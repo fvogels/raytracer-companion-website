@@ -1,0 +1,57 @@
+// movie
+def mat(c)
+{
+  Materials.uniform([ "ambient": c * 0.1,
+                      "diffuse": c * 0.8,
+                      "specular": Colors.white() * 0.8,
+                      "specular_exponent": 10 ])
+}
+
+def sph(c)
+{
+  decorate( mat(c), sphere() )
+}
+
+def color(i)
+{
+  [ Colors.red(), Colors.green(), Colors.blue() ][(i + 100) % 3]
+}
+
+def scene_at(now)
+{
+  var t = Animations.animate(0, 1, seconds(5))[now]
+
+  var camera = Cameras.perspective( [ "eye": pos(0,0,2),
+                                      "look_at": pos(0,0,0) ] )
+
+  var primitives = []
+
+  for_each([-10..10], bind(fun (i, primitives) {
+    for_each([-10..10], bind(fun (j, i, primitives) {
+      primitives.push_back(translate(vec(2*i, 2*j, -10), sph(color(i + j))))
+    }, _, i, primitives))
+  }, _, primitives))
+
+  var m = Materials.uniform([ "light_filtering": Colors.white(),
+                              "transparency": 1,
+                              "refractive_index": 1+2*t ])
+  primitives.push_back(decorate(m, sphere()))
+
+  var root = union(primitives)
+
+  var lights = [ Lights.omnidirectional( pos(0,0,5), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v8()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.single(),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
+
