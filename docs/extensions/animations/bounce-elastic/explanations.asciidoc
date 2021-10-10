@@ -1,4 +1,4 @@
-= Bouncy and Elastic Animation
+= Bouncy and Elastic Easing Animation
 
 [overview]
 ----
