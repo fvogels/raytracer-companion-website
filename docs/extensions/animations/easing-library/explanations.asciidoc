@@ -32,7 +32,7 @@ This is where you'll need to perform the following steps.
 
 * Define a new empty `struct` `EasingLibrary`.
   Put it inside the anonymous namespace that already exists within the file.
-You can take a look at `SamplerLibrary` in `scripting/samplers-module.cpp` or `RaytracerLibrary` in `scripting/raytracing-module.cpp` for guidance.
+  You can take a look at `SamplerLibrary` in `scripting/samplers-module.cpp` or `RaytracerLibrary` in `scripting/raytracing-module.cpp` for guidance.
 * Find the function `raytracer::scripting::_private_::create_math_module()`.
   Its responsibility is to add all math-related bindings.
   You can see it delegates this work to auxiliary functions such as `add_points_and_vectors` to add all `Point2D`, `Point3D`, `Vector2D` and `Vector3D` related functionality to the scripting language.
@@ -80,4 +80,12 @@ Define the `Animations.ease` function.
 
 == Evaluation
 
-TODO
+The only way to show your implementation of this extension is correct is for someone to build something on top of it.
+
+[TASK]
+====
+Create one of the easing functions, e.g.,
+
+* <</extensions/animations/polynomial-easing/explanations#,Polynomial Easing Function>>
+* <</extensions/animations/bounce-elastic/explanations#,Bounce and Elastic>>
+====
