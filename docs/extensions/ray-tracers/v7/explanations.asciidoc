@@ -129,4 +129,9 @@ Expose `v7` to the scripting language.
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Reproduce the scene below.
+
+video::challenge.mp4[align="center"]
+====
