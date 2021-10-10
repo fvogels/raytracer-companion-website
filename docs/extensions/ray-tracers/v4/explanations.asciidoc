@@ -109,4 +109,9 @@ Remedy this by slightly changing the stem:[0 \leq t < 1] to account for the appr
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Reproduce the scene below.
+
+video::challenge.mp4[align="center"]
+====
