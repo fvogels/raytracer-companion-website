@@ -3,6 +3,8 @@
 [overview]
 ----
 difficulty 3
+requires renderers/cartoon
+requires renderers/edge
 ----
 
 preview::preview[]
