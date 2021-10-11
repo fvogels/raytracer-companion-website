@@ -1,0 +1,111 @@
+= Grouper
+
+[overview]
+----
+difficulty 2
+reading design/primitives/ray-intersections
+----
+
+[IMPORTANT]
+====
+Making this extension only makes sense if you also make the <</extensions/renderers/edge/explanations#,Edge Renderer>> (which in itself leads to the <</extensions/renderers/masking/explanations#,Masking Renderer>>).
+====
+
+== Goal
+
+The purpose of the `Grouper` primitive can better understood in the context of <</extensions/renderers/masking/explanations#,Masking Renderer>>.
+Here's a video:
+
+video::edge.mp4[align="center"]
+
+As you can see, there are black contours to the image.
+In this case, we can simply add a contour around every primitive.
+
+However, sometimes a single "entity" is made out of multiple primitives, such as a mesh.
+If we were to draw a contour around every primitive, every triangle in the mesh would have one.
+
+image::bunny-edges.png[align="center"]
+
+Instead, we want to see the bunny as a whole and have only one contour:
+
+image::bunny-edge.png[align="center"]
+
+== Grouper Primitive
+
+In order to tell the ray tracer which primitives form a whole, we need to put them in the same _group_.
+For example, to produce the image of the first bunny (with contours around every triangle), each triangle resided in its own separate group, whereas the second bunny had all triangles placed in the same group.
+
+For this extension, it is not important how to draw the contour.
+We are only interested in defining groups.
+
+[TASK]
+====
+Go find the code of `Hit`.
+You'll find there's a field `group_id` which is initialized to `MISSING_ID` by default.
+It is this field that the `Grouper` primitive will need to set.
+====
+
+=== Skeleton
+
+[TASK]
+====
+Create files `primitives/group-primitive.cpp` and `primitives/group-primitive.h`.
+The factory function is
+
+[source,language="c++"]
+----
+Primitive raytracer::primitives::group(unsigned id, Primitive child);
+----
+
+* As with other primitives, you need a private `GrouperImplementation`, subclass of `PrimitiveImplementation`.
+* Define fields and a constructor.
+* Add (as of yet) empty `find_all_hits` and `bounding_box` methods.
+====
+
+=== bounding_box
+
+Let's start with the easiest part: `bounding_box`.
+Its implementation should be obvious.
+
+[TASK]
+====
+Implement `GrouperImplementation::bounding_box`.
+====
+
+=== find_all_hits
+
+`find_all_hits` should ask the child primitive for all hits and overwrite all `group_id` fields with the ``Grouper``'s id.
+
+[TASK]
+====
+Implement `GrouperImplementation::find_all_hits`.
+====
+
+== Evaluation
+
+[TASK]
+====
+There are two ways to implement `find_all_hits`:
+
+* It could indiscriminately overwrite all ``group_id``s.
+* It could only overwrite them if they're set to `MISSING_ID`.
+
+What difference does this cause?
+Can you relate this to CSS?
+====
+
+[TASK]
+====
+Write tests that check the following:
+
+* Look for a hit-sphere intersection without `Grouper`.
+  Check that `group_id` equals `MISSING_ID`.
+* Place a single sphere inside a group with id `1`.
+  Check that `group_id` is set to `1`.
+* Place two spheres inside a group with id `1`.
+  Hit one sphere, check that the `group_id` is set to `1`.
+  Hit the other sphere, check that the `group_id` is also set to `1`.
+* Place two spheres inside two separate groups.
+  Hit one sphere, check that the `group_id` is set correctly.
+  Hit the other sphere, check that the `group_id` is again set correctly.
+====
