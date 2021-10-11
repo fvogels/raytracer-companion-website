@@ -17,7 +17,7 @@ Create new files `renderers/cartoon-renderer.cpp` and `renderers/cartoon-rendere
 Copy the code of `StandardRenderer` and make the necessary renames.
 ====
 
-=== Shades
+== Shades
 
 We represent colors using RGB values.
 Our ray tracer uses ``double``s to represent each component, but let's pretend we use one byte for each component, as is typically the case.
@@ -45,7 +45,7 @@ The `StandardRenderer` has a number of parameters (`horizontal_size`, `vertical_
 == Implementation
 
 The only thing left to do is make the change to `CartoonRenderer` that achieves the effect shown above.
-Examine ``CartoonRenderer``'s source code and make play around with it to check whether your understanding is correct.
+Examine ``CartoonRenderer``'s current source code and make play around with it to check whether your understanding is correct.
 
 [TASK]
 ====
