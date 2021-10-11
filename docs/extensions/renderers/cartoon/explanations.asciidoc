@@ -42,6 +42,22 @@ The `StandardRenderer` has a number of parameters (`horizontal_size`, `vertical_
 `CartoonRenderer` has an extra parameter `shade_count` of type `unsigned`.
 ====
 
+== Implementation
+
+The only thing left to do is make the change to `CartoonRenderer` that achieves the effect shown above.
+Examine ``CartoonRenderer``'s source code and make play around with it to check whether your understanding is correct.
+
+[TASK]
+====
+Modify `CartoonRenderer` so that it produces results as shown on this page.
+
+[TIP]
+=====
+You only need an extra method call somewhere.
+The math part has already been implemented for you somewhere.
+=====
+====
+
 == Evaluation
 
 [TASK]
