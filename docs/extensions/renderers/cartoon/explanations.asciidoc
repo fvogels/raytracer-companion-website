@@ -3,10 +3,56 @@
 [overview]
 ----
 difficulty 3
+requires ray-tracers/v2
 ----
 
 preview::preview[]
 
+Achieving this effect is a matter of creating a custom `Renderer`.
+The implementation is actually very simple, but it requires you to examine existing code, understand how it works and find out which line you need to update.
+
+[TASK]
+====
+Create new files `renderers/cartoon-renderer.cpp` and `renderers/cartoon-renderer.h`.
+Copy the code of `StandardRenderer` and make the necessary renames.
+====
+
+=== Shades
+
+We represent colors using RGB values.
+Our ray tracer uses ``double``s to represent each component, but let's pretend we use one byte for each component, as is typically the case.
+This means each component has 256 shades: 256 shades of red &times; 256 shades of green &times; 256 shades of blue results in 16,777,216 different colors.
+
+We can reduce this number of shades, yielding a cartoonty effect.
+
+[.center,options="header",cols="^.^,^5",width="50%"]
+|===
+| #shades | Result
+| 256 a| image::shades256.png[width="80%"]
+| 64 a| image::shades64.png[width="80%"]
+| 16 a| image::shades16.png[width="80%"]
+| 8 a| image::shades8.png[width="80%"]
+| 4 a| image::shades4.png[width="80%"]
+| 2 a| image::shades2.png[width="80%"]
+|===
+
+[TASK]
+====
+The `StandardRenderer` has a number of parameters (`horizontal_size`, `vertical_size`, `sampler`, etc.)
+`CartoonRenderer` has an extra parameter `shade_count` of type `unsigned`.
+====
+
 == Evaluation
 
-TODO
+[TASK]
+====
+Reproduce the following animation:
+
+video::challenge.mp4[align="center"]
+
+[TIP]
+=====
+The `shade_count` parameter remains constant.
+It's something else that varies.
+=====
+====

@@ -1,0 +1,39 @@
+// movie
+def material(color) {
+  Materials.uniform( [ "ambient": color * 0.1,
+                       "diffuse": color * 0.8 ] )
+}
+
+
+def scene_at(now)
+{
+  var t = Animations.animate(0, 1, seconds(5))[now]
+
+  var camera = Cameras.perspective( [ "eye": pos(0, 5, 5),
+                                      "look_at": pos(0, 0, 0) ] )
+
+  var primitives = []
+
+  primitives.push_back(decorate(material(Colors.red() * t), translate(vec(-3,0,0), sphere())))
+  primitives.push_back(decorate(material(Colors.green() * t), translate(vec(0,0,0), sphere())))
+  primitives.push_back(decorate(material(Colors.blue() * t), translate(vec(3,0,0), sphere())))
+  primitives.push_back(decorate(material(Colors.white()), translate(vec(0,0,-5), xy_plane())))
+
+  var root        = union(primitives)
+  var lights      = [ Lights.omnidirectional( pos(0, 5, 0), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+
+var raytracer   = Raytracers.v2()
+var renderer    = Renderers.cartoon( [ "width": 500,
+                                       "height": 500,
+                                       "sampler": Samplers.single(),
+                                       "ray_tracer": raytracer,
+                                       "shade_count": 8 ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
