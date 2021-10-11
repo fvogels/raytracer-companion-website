@@ -8,6 +8,16 @@ Since many changes still need to be made, I decided to keep a log.
 No one's ever really going to read this, so let's experiment...
 The first one to send me the secret passphrase ``pepersaus > * uitroepteken`` by email wins a free cake point!
 
+[NOTE,caption="11/10/21"]
+====
+Finished <</extensions/primitives/modifiers/grouper/explanations#,Grouper>>.
+====
+
+[NOTE,caption="11/10/21"]
+====
+Finished <</extensions/renderers/cartoon/explanations#,Cartoon Renderer>>.
+====
+
 [NOTE,caption="10/10/21"]
 ====
 Added evaluation sections to ray tracer extensions.
