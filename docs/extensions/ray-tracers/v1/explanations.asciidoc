@@ -163,4 +163,17 @@ Adapt `RayTracerV1::trace` so that it calls `determine_color` instead of assumin
 Reproduce the scene below.
 
 image::challenge.png[align="center"]
+
+[TIP]
+=====
+Ray tracer v0 did not need primitives to be assigned materials.
+However, v1 does (as should be apparent from your code).
+So, don't forget to decorate your shapes with a material:
+
+[source,language="chai"]
+----
+var material = Materials.uniform( [ "ambient": Colors.red() ])
+var decorated_sphere = decorate(material, sphere())
+----
+=====
 ====
