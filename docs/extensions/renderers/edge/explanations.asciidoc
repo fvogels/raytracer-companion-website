@@ -118,7 +118,7 @@ How do you determine the "edge percentage"?
 
 [TASK]
 ====
-Replicate the scene below using your `EdgeRenderer`.
+Render the scene below:
 
 preview::challenge[]
 ====
