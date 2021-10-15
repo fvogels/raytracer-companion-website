@@ -2,11 +2,123 @@
 
 [overview]
 ----
-difficulty 4
+difficulty 5
+requires primitives/modifiers/grouper
 ----
+
+[IMPORTANT]
+====
+This extension requires a samples that is able to generate _multiple_ sampling positions, i.e., the default single sampler does not suffice.
+====
 
 preview::preview[]
 
+Would you look at that magnificent outline!
+For those not at all impressed, this extension should be made together with the <</extensions/renderers/cartoon/explanations#,Cartoon Renderer>> so that it can be combined by <</extensions/renderers/masking/explanations#,Masking Renderer>>.
+There's no way you're not excited to start working on this extension now.
+
+== Getting Started
+
+This extension needs to be implemented as a renderer.
+So, an _excellent_ first step would be to copy an existing renderer and modify it.
+
+[TASK]
+====
+Create new files `renderers/edge-renderer.cpp` and `renderers/edge-renderer.h`.
+Copy the code of `StandardRenderer` and make the necessary renames.
+====
+
+== Parameters
+
+The `StandardRenderer` takes a number of parameters: `horizontal_size`, `vertical_size`, etc.
+Our new `EdgeRenderer` takes the same parameters, plus some others:
+
+* `double stroke_thickness`
+* `Color stroke_color`
+* `Color background_color`
+
+[TASK]
+====
+Update the code so as to accomodate these three parameters:
+
+* Update the factory function.
+* Update the ``EdgeRenderer``'s fields.
+* Update the ``EdgeRenderer``'s constructor.
+====
+
+== Making it Work
+
+First, make sure you know about <</extensions/primitives/modifiers/grouper/explanations#,groups>>.
+Here's a simple scene with a bunny and three spheres, each in their own group, making 4 groups in total.
+
+image::regular.png[align="center",width="25%"]
+
+=== Groups
+
+The standard renderer shoots a ray through each pixel of the bitmap (we ignore samplers for now) and asks the ray tracer to follow this ray around the scene.
+The result of this tracing operation is returned as a `TraceResult` object.
+This object contains the color the pixel is supposed to have.
+It shouldn't come as a surprise that the standard renderer uses this as the color of the pixel it is trying to render.
+
+The `TraceResult` object also contains a `group_id` field: this represents the group to which whatever primitive was hit belongs.
+Instead of a grid of colors, we could create a grid of ``group_id``s instead.
+If we assign a separate color to each group, we would get
+
+image::groups.png[align="center",width="25%"]
+
+=== Edges
+
+The goal is to get
+
+image::edge.png[align="center",width="25%"]
+
+The basic idea is simple: pixels can be either black or white.
+Only pixels on an "edge" are black.
+This raises the question: what is an edge?
+
+Fortunately, this is easy to answer: consider two adjacent pixels and look at which group they belong to.
+If the groups are different, we can say they're both on an edge.
+To get thicker edges, we simply need to look further than just the adjacent pixels.
+
+=== Samplers
+
+Samplers complicate things a bit: these cause you to have to shoot multiple rays through pixels, each potentially hitting a different group.
+You will have to decide what it now means to be on an edge.
+
+Also, rather than a pixel being either on an edge (black) or not on an edge (white), you get to deal with percentages now: it is possible that a pixel is half on an edge, half off an edge, causing you to have to assign a level of gray to the pixel.
+
+=== Implementation
+
+In order to implement it, you'll have to experiment a bit until you get acceptable results.
+
+* Create a grid the same size as the intended result bitmap.
+* For each pixel, collect the `group_id` and sample position for each sample.
+  Store these in the grid.
+* In a second phase, compare pixels with their neighbors.
+  Don't restrict yourself to the immediate neighbors: depending on the `stroke_thickness`, you might need to compare pixels farther away from each other.
+* Use some logic to determine what fraction of the pixel is on an edge and assign a color based on that.
+
+[TASK]
+====
+Make the `EdgeRenderer` work as intended.
+
+[TIP]
+=====
+The `Grid<T>` class (see `data/grid.h`) might come in handy.
+=====
+====
+
 == Evaluation
 
-TODO
+[TASK]
+====
+Explain your implementation in detail.
+How do you determine the "edge percentage"?
+====
+
+[TASK]
+====
+Replicate the scene below using your `EdgeRenderer`.
+
+preview::challenge[]
+====

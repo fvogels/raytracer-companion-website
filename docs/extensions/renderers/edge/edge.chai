@@ -1,4 +1,4 @@
-// movie
+// image
 def material(c)
 {
   Materials.uniform( [ "ambient": Colors.white() * 0.1,
@@ -12,7 +12,7 @@ global m = mesh("G:/repos/ucll/3dcg/raytracer/meshes-v3/meshes/optimized-bunny.m
 
 def scene_at(now)
 {
-  var camera = Cameras.perspective( [ "eye": pos(0,0,3),
+  var camera = Cameras.perspective( [ "eye": pos(0,0,2),
                                       "look_at": pos(0,0,0) ] )
 
 
@@ -21,7 +21,9 @@ def scene_at(now)
 
   var root = union([
   	group(0, bunny),
-  	translate(vec(0,0,-5), decorate(material(Colors.white()), xy_plane()))
+  	translate(vec(-1,0,-2), group(1, decorate(material(Colors.white()), sphere()))),
+  	translate(vec(0,0,-2), group(2, decorate(material(Colors.white()), sphere()))),
+  	translate(vec(1,0,-2), group(3, decorate(material(Colors.white()), sphere())))
   ])
 
   var lights = [ Lights.omnidirectional( pos(5, 5, 5), Colors.white() ) ]
@@ -39,7 +41,6 @@ var renderer   = Renderers.edge( [ "width": 500,
                                    "stroke_color": Colors.black(),
                                    "background_color": Colors.white() ] )
 
-pipeline( scene_animation(scene_at, seconds(5)),
-          [ Pipeline.animation(30),
-            Pipeline.renderer(renderer),
+pipeline( scene_at(epoch()),
+          [ Pipeline.renderer(renderer),
             Pipeline.studio() ] )

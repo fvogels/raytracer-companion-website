@@ -1,0 +1,42 @@
+// image
+def material(c)
+{
+  Materials.uniform( [ "ambient": Colors.white() ] )
+}
+
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0,0,4),
+                                      "look_at": pos(0,0,0) ] )
+
+  var s = sphere()
+
+  var root = union([
+    group(0, union([
+      translate(vec(-1,1.5,-2), s),
+  	  translate(vec(0,1.5,-2), s),
+  	  translate(vec(1,1.5,-2), s)
+    ])),
+  	translate(vec(-1,-1.5,-2), group(1, s)),
+  	translate(vec(0,-1.5,-2), group(2, s)),
+  	translate(vec(1,-1.5,-2), group(3, s))
+  ])
+
+  var lights = [ ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v0()
+
+var renderer   = Renderers.edge( [ "width": 500,
+                                   "height": 500,
+                                   "sampler": Samplers.random(10),
+                                   "ray_tracer": raytracer,
+                                   "stroke_thickness": 0.0075,
+                                   "stroke_color": Colors.white(),
+                                   "background_color": Colors.black() ] )
+
+pipeline( scene_at(epoch()),
+          [ Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
