@@ -18,7 +18,7 @@ var renderer = Renderers.standard( [ "width": 100,
                                      "sampler": Samplers.random(1),
                                      "ray_tracer": raytracer ] )
 
-pipeline( scene_animation(scene_at, seconds(5)),
+pipeline( scene_animation(scene_at, seconds(1)),
           [ Pipeline.animation(30),
             Pipeline.renderer(renderer),
             Pipeline.wif(),

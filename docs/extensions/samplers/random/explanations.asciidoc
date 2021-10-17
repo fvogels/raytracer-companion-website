@@ -73,6 +73,11 @@ Do not dare use `const_cast` though, as this would lead to undefined behavior.
 =====
 ====
 
+[TASK]
+====
+Expose the sampler to the scripting language by updating `scripting/samplers-module.cpp`.
+====
+
 == Evaluation
 
 [TASK]
