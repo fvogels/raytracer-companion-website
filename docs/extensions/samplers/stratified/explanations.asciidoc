@@ -10,17 +10,33 @@ reading samplers/stratified
 
 preview::preview[]
 
-
 [TASK]
 ====
-Implement the <</reference/samplers/stratified/explanations#,stratified sampler.
-====
+Implement the <</reference/samplers/stratified/explanations#,stratified sampler>>.
+Make it public through a factory function
+
+[source,language="c++"]
+----
+Sampler raytracer::samplers::stratified_fixed(unsigned rows, unsigned columns);
+----
 
 [TIP]
 =====
 You can use the ``math::Rasterizer`` class to subdivide the rectangle into subrectangles.
 =====
+====
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Write at least 10 tests that check cases easy to compute manually, such as
+
+* Given a rectangle stem:[[0,1\]\times[0,1\]] and stem:[1 \times 1] samples, the returned sample should be stem:[\{ (0, 0) \}].
+* Given a rectangle stem:[[0,2\]\times[0,2\]] and stem:[1 \times 1] samples, the returned sample should be stem:[\{ (1, 1) \}].
+* Given a rectangle stem:[[0,4\]\times[0,2\]] and stem:[2 \times 1] samples, the returned samples should be stem:[\{ (1, 1), (3, 1) \}].
+* Given a rectangle stem:[[0,2\]\times[0,4\]] and stem:[1 \times 2] samples, the returned samples should be stem:[\{ (1, 1), (1, 3) \}].
+* Given a rectangle stem:[[0,4\]\times[0,4\]] and stem:[4 \times 4] samples, the returned samples should be stem:[\{ (i + 0.5, j + 0.5) \;|\; i = 0\dots3, j=0\dots3 \}].
+
+Note that the tests should not expect the samples to be returned in a certain order.
+====
