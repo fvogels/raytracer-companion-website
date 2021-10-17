@@ -30,6 +30,20 @@ You can use the ``math::Rasterizer`` class to subdivide the rectangle into subre
 
 [TASK]
 ====
+Render the scene below:
+
+preview::challenge1[width="50%"]
+====
+
+[TASK]
+====
+Render the scene below:
+
+preview::challenge2[width="50%"]
+====
+
+[TASK]
+====
 Write at least 10 tests that check cases easy to compute manually, such as
 
 * Given a rectangle stem:[[0,1\]\times[0,1\]] and stem:[1 \times 1] samples, the returned sample should be stem:[\{ (0, 0) \}].
