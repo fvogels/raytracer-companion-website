@@ -75,7 +75,7 @@ def (scene, matprops, hit, eye_ray, light_ray):
   hits = scene.find_all_hits(light_ray)
   color_filter = white
 
-  for hit in [ h for h in hits if 0 < h.t < 1 ]:
+  for hit in [h for h in hits if 0 < h.t < 1]:
       # Determine material properties at hit
       matprops = ...
 
@@ -86,8 +86,8 @@ def (scene, matprops, hit, eye_ray, light_ray):
   surviving_light_ray = LightRay(original_light_ray.ray,
                                  original_light_ray.color * color_filter)
 
-  # Delegate further work to previous implementation
-  return super().process_light_ray(scene, matprops, hit, eye_ray, surviving_light_ray)
+  # Delegate further work to v3 implementation
+  return RayTracerV3.process_light_ray(self, scene, matprops, hit, eye_ray, surviving_light_ray)
 ----
 
 Notice how we rely on `MaterialProperties::light_filtering` to determine how much light a primitive lets through.
