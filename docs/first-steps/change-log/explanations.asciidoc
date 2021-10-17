@@ -5,8 +5,11 @@
 Welcome to my change log!
 This is my very first one, so you _should_ feel honored.
 Since many changes still need to be made, I decided to keep a log.
-No one's ever really going to read this, so let's experiment...
-The first one to send me the secret passphrase ``pepersaus > * uitroepteken`` by email wins a free cake point!
+
+[NOTE,caption="17/10/21"]
+====
+Added evaluation sections to sampler extensions.
+====
 
 [NOTE,caption="15/10/21"]
 ====
