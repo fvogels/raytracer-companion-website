@@ -1,0 +1,32 @@
+// movie
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0, 10, 15),
+                                      "look_at": pos(0, 0, 0) ] )
+
+  var spheres   = []
+
+  for_each([-10..10], bind(fun (i, spheres) {
+    for_each([-10..10], bind(fun (j, i, spheres) {
+      spheres.push_back(translate(vec(5*i, 0, 5*j), sphere()))
+    }, _, i, spheres))
+  }, _, spheres))
+
+  var root      = union(spheres)
+
+  var lights    = [ ]
+
+  return create_scene(camera, root, lights)
+}
+
+var renderer = Renderers.standard( [ "width": 100,
+                                     "height": 100,
+                                     "sampler": Samplers.nrooks(8),
+                                     "ray_tracer": Raytracers.v0() ] )
+
+pipeline( scene_animation(scene_at, seconds(1)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )
