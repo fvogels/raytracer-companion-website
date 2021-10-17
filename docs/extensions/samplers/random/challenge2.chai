@@ -1,0 +1,26 @@
+// movie
+def scene_at(now)
+{
+    var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                        "look_at": pos(0,0,0) ] )
+
+    var root = sphere()
+
+    var lights = [ ]
+
+    create_scene(camera, root, lights)
+}
+
+var raytracer = Raytracers.v0()
+
+var renderer = Renderers.standard( [ "width": 100,
+                                     "height": 100,
+                                     "sampler": Samplers.random(10),
+                                     "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )

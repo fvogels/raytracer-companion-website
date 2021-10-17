@@ -27,17 +27,55 @@ When asked to sample a rectangle, it will return ``n`` random points in this rec
 [TASK]
 ====
 Create new files ``samplers/random-sampler.h`` and ``samplers/random-sampler.cpp``.
-Define a new sampler class (let the existing ``single-sampler`` guide you.)
+Define a new sampler class.
+Let the existing ``single-sampler`` guide you.
 
-* ``RandomSampler`` should have a field ``m_sample_count`` which can be initialized using the constructor.
-* The factory function ``raytracer::samplers::random`` should accept a single integer parameter ``sample_count``
-  and use it to create a new ``RandomSampler``.
-* For this extension, you need only override the ``sample`` overload that returns a list of points.
-  Implement it so that it picks ``m_sample_count`` random points inside the rectangle.
-  Use a http://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution[uniform distribution].
-  You might want to rely on ``Rectangle2D::from_relative`` to easily find points inside the rectangle.
+[source,language="python"]
+----
+class RandomSampler(SamplerImplementation):
+  # Constructor initializes fields
+  def __init__(self, sample_count):
+    self.__sample_count = sample_count
+    # Create RNG once in constructor
+    self.__random = Random()
+
+  def sample(rectangle, callback):
+    for _ in range(self.__sample_count):
+      x = self.__random() # double between 0 and 1
+      y = self.__random() # double between 0 and 1
+      sample = rectangle.from_relative(x, y)
+
+      callback(sample)
+
+
+# Factory function takes a single parameter
+def random_sampler(sample_count):
+  return RandomSampler(sample_count)
+----
+
+[TIP]
+=====
+Use ``Rectangle2D::from_relative`` to easily find points inside the rectangle.
+=====
 ====
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render the following scene:
+
+preview::challenge1[width="50%"]
+
+Explain why there is such noise on the circumference of the circle.
+====
+
+[TASK]
+====
+Render the following scene:
+
+preview::challenge2[width="50%"]
+
+Explain the change in noise.
+What would you do to get rid of the noise altogether?
+====
