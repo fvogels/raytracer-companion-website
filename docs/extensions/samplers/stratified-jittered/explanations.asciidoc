@@ -14,8 +14,40 @@ preview::preview[]
 [TASK]
 ====
 Implement the <</reference/samplers/jittered/explanations#,jittering sampler>>.
+Make it public through a factory function
+
+[source,language="c++"]
+----
+Sampler raytracer::samplers::stratified_jittered(unsigned rows,
+                                                 unsigned columns);
+----
 ====
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render the scene below:
+
+preview::challenge1[width="50%"]
+====
+
+[TASK]
+====
+Render the scene below:
+
+preview::challenge2[width="50%"]
+====
+
+[TASK]
+====
+Write at least 10 tests that check cases easy to compute manually, such as
+
+* Given a rectangle stem:[[0,1\]\times[0,1\]] and stem:[1 \times 1] samples, the returned sample should inside stem:[[0,1\]\times[0,1\]].
+* Given a rectangle stem:[[0,2\]\times[0,1\]] and stem:[1 \times 1] samples, the returned sample should inside stem:[[0,2\]\times[0,1\]].
+* Given a rectangle stem:[[0,1\]\times[0,2\]] and stem:[1 \times 1] samples, the returned sample should inside stem:[[0,1\]\times[0,2\]].
+* Given a rectangle stem:[[5,7\]\times[3,8\]] and stem:[1 \times 1] samples, the returned sample should inside stem:[[5,7\]\times[3,8\]].
+* Given a rectangle stem:[[0,2\]\times[0,2\]] and stem:[2 \times 2] samples, the returned samples should inside stem:[[0,1\]\times[0,1\]], stem:[[1,2\]\times[0,1\]], stem:[[0,1\]\times[1,2\]] and stem:[[1,2\]\times[1,2\]].
+
+Note that the tests should not expect the samples to be returned in a certain order.
+====
