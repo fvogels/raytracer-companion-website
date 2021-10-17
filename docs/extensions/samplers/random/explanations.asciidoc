@@ -57,6 +57,20 @@ def random_sampler(sample_count):
 =====
 Use ``Rectangle2D::from_relative`` to easily find points inside the rectangle.
 =====
+
+[TIP]
+=====
+The `sample` method is `const`.
+However, making use of the RNG changes its state.
+In other words, your `const` method `sample` tries to change the state of one of the object's members, which is forbidden.
+Luckily it's possible to https://en.cppreference.com/w/cpp/language/cv[circumvent the constness safely].
+Do not dare use `const_cast` though, as this would lead to undefined behavior.
+=====
+
+[NOTE,caption="confession"]
+=====
+`sample` might actually be better off being a non``const`` method, but changing this at the time of writing would break students' code.
+=====
 ====
 
 == Evaluation
