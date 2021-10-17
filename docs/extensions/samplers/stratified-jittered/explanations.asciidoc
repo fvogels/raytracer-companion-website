@@ -23,6 +23,11 @@ Sampler raytracer::samplers::stratified_jittered(unsigned rows,
 ----
 ====
 
+[TASK]
+====
+Expose the sampler to the scripting language by updating `scripting/samplers-module.cpp`.
+====
+
 == Evaluation
 
 [TASK]
