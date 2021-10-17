@@ -11,12 +11,10 @@ def scene_at(now)
     create_scene(camera, root, lights)
 }
 
-var raytracer = Raytracers.v0()
-
 var renderer = Renderers.standard( [ "width": 100,
                                      "height": 100,
                                      "sampler": Samplers.random(10),
-                                     "ray_tracer": raytracer ] )
+                                     "ray_tracer": Raytracers.v0() ] )
 
 pipeline( scene_animation(scene_at, seconds(1)),
           [ Pipeline.animation(30),
