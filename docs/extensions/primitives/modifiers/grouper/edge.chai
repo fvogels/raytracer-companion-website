@@ -1,73 +1,43 @@
 // movie
-def material(color) {
-  Materials.uniform( [ "ambient": color * 0.1,
-                       "diffuse": color * 0.8,
-                       "specular": Colors.black(),
-                       "specular_exponent": 0,
-                       "reflectivity": 0,
+def material(c)
+{
+  Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                       "diffuse": c * 0.8,
+                       "reflectivity": 0.0,
                        "transparency": 0,
                        "refractive_index": 0 ] )
 }
 
+global m = mesh("G:/repos/ucll/3dcg/raytracer/meshes-v3/meshes/optimized-bunny.mesh")
 
 def scene_at(now)
 {
-  var camera = Cameras.perspective( [ "eye": pos(0, 5, 5),
-                                      "look_at": pos(0, 0, 0),
-                                      "up": vec(0, 1, 0),
-                                      "distance": 1,
-                                      "aspect_ratio": 1 ] )
+  var camera = Cameras.perspective( [ "eye": pos(0,0,3),
+                                      "look_at": pos(0,0,0) ] )
 
-  var primitives = []
 
-  primitives.push_back(group(1, decorate(material(Colors.red()),
-                                                  translate(Animations.circular(pos(0,0,2),
-                                                                                pos(0,0,0),
-                                                                                vec(0,1,0),
-                                                                                interval(degrees(0), degrees(360)),
-                                                                                seconds(5))[now] - pos(0,0,0),
-                                                            sphere()))))
-  primitives.push_back(group(2, decorate(material(Colors.green()),
-                                                  translate(Animations.circular(pos(0,0,2),
-                                                                                pos(0,0,0),
-                                                                                vec(0,1,0),
-                                                                                interval(degrees(120), degrees(480)),
-                                                                                seconds(5))[now] - pos(0,0,0),
-                                                            sphere()))))
-  primitives.push_back(group(3, decorate(material(Colors.blue()),
-                                                  translate(Animations.circular(pos(0,0,2),
-                                                                                pos(0,0,0),
-                                                                                vec(0,1,0),
-                                                                                interval(degrees(240), degrees(360+240)),
-                                                                                seconds(5))[now] - pos(0,0,0),
-                                                            sphere()))))
+  var angle = Animations.animate(degrees(0), degrees(360), seconds(5))
+  var bunny = rotate_around_y( angle[now], decorate( material(Colors.white()), center( pos(0, 0, 0), m ) ) )
 
-  primitives.push_back(decorate(material(Colors.white()), translate(vec(0,-5,0), xz_plane())))
+  var root = union([
+  	group(0, bunny),
+  	translate(vec(0,0,-5), decorate(material(Colors.white()), xy_plane()))
+  ])
 
-  var root        = union(primitives)
-  var lights      = [ Lights.omnidirectional( pos(0, 5, 0), Colors.white() ) ]
+  var lights = [ Lights.omnidirectional( pos(5, 5, 5), Colors.white() ) ]
 
   create_scene(camera, root, lights)
 }
 
+var raytracer   = Raytracers.latest()
 
-var raytracer   = Raytracers.v6()
-
-var renderer1   = Renderers.cartoon( [ "width": 500,
-                                       "height": 500,
-                                       "sampler": Samplers.multijittered(2),
-                                       "ray_tracer": raytracer,
-                                       "shade_count": 5 ] )
-
-var renderer2   = Renderers.edge( [ "width": 500,
-                                    "height": 500,
-                                    "sampler": Samplers.multijittered(2),
-                                    "ray_tracer": raytracer,
-                                    "stroke_thickness": 0.0075,
-                                    "stroke_color": Colors.black(),
-                                    "background_color": Colors.white() ] )
-
-var renderer = Renderers.masking(renderer1, renderer2);
+var renderer   = Renderers.edge( [ "width": 500,
+                                   "height": 500,
+                                   "sampler": Samplers.multijittered(2),
+                                   "ray_tracer": raytracer,
+                                   "stroke_thickness": 0.0075,
+                                   "stroke_color": Colors.black(),
+                                   "background_color": Colors.white() ] )
 
 pipeline( scene_animation(scene_at, seconds(5)),
           [ Pipeline.animation(30),
