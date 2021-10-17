@@ -14,8 +14,47 @@ preview::preview[]
 [TASK]
 ====
 Implement the <</reference/samplers/multijittered/explanations#,multijittering sampler>>.
+Make it public through a factory function
+
+[source,language="c++"]
+----
+Sampler raytracer::samplers::multi_jittered(unsigned n);
+----
+====
+
+[TASK]
+====
+Expose the sampler to the scripting language by updating `scripting/samplers-module.cpp`.
 ====
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render the scene below:
+
+preview::challenge1[width="50%"]
+====
+
+[TASK]
+====
+Render the scene below:
+
+preview::challenge2[width="50%"]
+====
+
+[TASK]
+====
+Write at least 5 tests that check cases easy to compute manually, such as
+
+* Given a rectangle stem:[[0,1\]\times[0,1\]] and 1 sample, the returned sample should inside stem:[[0,1\]\times[0,1\]].
+* Given a rectangle stem:[[4,8\]\times[6,7\]] and 1 sample, the returned sample should inside stem:[[4,8\]\times[6,7\]].
+* Given a rectangle stem:[[0,2\]\times[0,2\]] and stem:[2\times2] samples,
+** 4 samples should be returned.
+** Two samples should have their x-coordinate in stem:[[0, 1\]].
+** Two samples should have their x-coordinate in stem:[[1, 2\]].
+** Two samples should have their y-coordinate in stem:[[0, 1\]].
+** Two samples should have their y-coordinate in stem:[[1, 2\]].
+
+Note that the tests should not expect the samples to be returned in a certain order.
+====
