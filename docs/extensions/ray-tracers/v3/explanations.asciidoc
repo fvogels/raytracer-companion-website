@@ -174,7 +174,7 @@ Create the factory function `v3()`.
 
 [TASK]
 ====
-Expose this factory function to the scripting language by adding the necessary code in `scripting/materials-module.cpp`.
+Expose this factory function to the scripting language by adding the necessary code in `scripting/raytracing-module.cpp`.
 ====
 
 == Evaluation
