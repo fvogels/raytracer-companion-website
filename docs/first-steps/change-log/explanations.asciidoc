@@ -8,6 +8,11 @@ Since many changes still need to be made, I decided to keep a log.
 
 [NOTE,caption="17/10/21"]
 ====
+Added the <</extensions/samplers/comparison/explanations#,Sampler Comparison Extension>>.
+====
+
+[NOTE,caption="17/10/21"]
+====
 Added evaluation sections to sampler extensions.
 ====
 
