@@ -1,0 +1,131 @@
+// order 7
+= Sampler Comparison
+
+[overview]
+----
+difficulty 4
+requires samplers/random
+requires samplers/stratified
+requires samplers/stratified-jittered
+requires samplers/stratified-half-jittered
+requires samplers/stratified-nrooks
+requires samplers/multijittered
+----
+
+The goal of this extension is to compare the different samplers.
+We proceed as follows:
+
+* We choose a scene and render this in high quality.
+  This becomes our reference image, our "holy grail" that we try to approximate as well as possible.
+* Next, we render the same scene using the different samplers using different parameters.
+  We store both the result and the time it took to render.
+* Next, we determine the "quality" of each image by measuring the "distance" between a sampler-image and the reference image.
+* Finally, we compare the quality with the rendering time necessary to achieve it.
+  For example, the single sampler could be fast, but low quality, whereas nrooks could be slow but good.
+
+== Choosing a Scene
+
+First, we need a scene to render.
+Choose whatever scene you want.
+
+[TASK]
+====
+Create a scene that will be used to compare the rendering results of different samplers.
+====
+
+== Reference Image
+
+How do we create our reference image?
+Let's simply render the scene using a sampler with many samples.
+This will take a long time rendering, but that does not matter.
+
+[TASK]
+====
+Render the scene using a sampler parameterized to use many samples (at least 25 per pixel).
+Save the result as a WIF file.
+====
+
+== Samplers
+
+Next, we render approximations of this "ideal image".
+
+[TASK]
+====
+Render the same scene using each sampler, using multiple different parameters.
+For example,
+
+* `single()`
+* `random(1)`
+* `random(2)`
+* `random(10)`
+* `stratified(1, 1)`
+* `stratified(2, 2)`
+* `stratified(3, 3)`
+* and so on.
+
+Store all results.
+====
+
+== Quality Metric
+
+Now we need to be able to compute how much each of the approximations differs from the reference image.
+There is no single best way of doing this.
+
+* You could count how many pixels differ.
+* Probably better would be to measure the distance between corresponding pixels.
+  You can see the R, G, B values as (x, y, z) coordinates and use Euclidian distance
++
+[stem]
+++++
+\sqrt{(r_1-r_2)^2+(g_1-g_2)^2+(b_1-b_2)^2}
+++++
+
+[TASK]
+====
+Write a script that, given two WIF files, can compute the "distance" between them.
+Use any language you want.
+
+[TIP]
+=====
+The Python WIF viewer contains code to read WIF files, so you can rely on that.
+=====
+====
+
+== Comparing
+
+Now compare every approximating image with the reference image.
+The smaller the distance, the better an approximation it is.
+
+[TASK]
+====
+Use your script to measure the distance between each sampler produced image and the reference image.
+====
+
+== Drawing Conclusions
+
+In a last step, we want to compare rendering times to quality.
+
+[NOTE,caption='Example']
+====
+Say you have the following data:
+
+[.center,cols="^,^,^",options="header",width="60%"]
+|====
+| Sampler | Rendering Time | Quality
+| `random(1)` | 1s | 0.2
+| `random(2)` | 2s | 0.3
+| `random(25)` | 25s | 0.9
+| `jittered(1,1)` | 1s | 0.2
+| `jittered(2,2)` | 4s | 0.4
+| `jittered(5,5)` | 25s | 0.94
+| `mulijittered(3)` | 12s | 0.91
+|====
+
+In this case, `multijittered(3)` seems like the best trade off: it has a 91% quality rating and achieves this in only 12 seconds.
+====
+
+[TASK]
+====
+Make a graph (e.g., using Excel) that visualizes the relation between rendering times and quality for each sampler.
+See if you can identify a sampler that clearly performs better than others (lower rendering times for same level of quality).
+====
