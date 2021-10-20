@@ -172,7 +172,7 @@ So, don't forget to decorate your shapes with a material:
 
 [source,language="chai"]
 ----
-var material = Materials.uniform( [ "ambient": Colors.red() ])
+var material = Materials.uniform([ "ambient": Colors.red() ])
 var decorated_sphere = decorate(material, sphere())
 ----
 =====
