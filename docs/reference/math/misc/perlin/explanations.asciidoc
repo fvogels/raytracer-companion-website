@@ -69,7 +69,7 @@ image::interpolation.png[align="center"]
 Interpolation goes in three steps:
 
 * Find a function stem:[f] with stem:[f(0) = z_1] and stem:[f(1) = z_4]. Compute stem:[f(x)].
-* Find a function stem:[f] with stem:[g(0) = z_2] and stem:[f(1) = z_3]. Compute stem:[g(x)].
+* Find a function stem:[g] with stem:[g(0) = z_2] and stem:[g(1) = z_3]. Compute stem:[g(x)].
 * Find a function stem:[h] with stem:[h(0) = f(x)] and stem:[h(1) = g(x)]. Compute stem:[h(y)].
 
 The functions stem:[f], stem:[g] and stem:[h] can be linear or, for better results, an <</reference/animations/easing-functions/explanations#,easing functions>>.

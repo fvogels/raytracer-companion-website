@@ -172,8 +172,14 @@ So, don't forget to decorate your shapes with a material:
 
 [source,language="chai"]
 ----
-var material = Materials.uniform( [ "ambient": Colors.red() ])
+var material = Materials.uniform([ "ambient": Colors.red() ])
 var decorated_sphere = decorate(material, sphere())
 ----
+=====
+
+[TIP]
+=====
+In the scripting language, you can add colors together using `+`.
+There's also the `RGB` function that allows you to specify colors using their R, G, B components as floating point values between 0 and 1, e.g., `RGB(0.1, 0.2, 0.3)`.
 =====
 ====
