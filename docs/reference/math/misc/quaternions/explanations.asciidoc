@@ -91,7 +91,7 @@ multiplication corresponded to rotation in 2D. Similarly, quaternion multiplicat
 can be used to perform 3D rotations.
 
 Using quaternions, you can rotate a point around an arbitrary axis _that goes through the origin_.
-To rotate around an axis that does no go through the origin, some extra effort is needed (see later.)
+To rotate around an axis that does not go through the origin, some extra effort is needed (see later.)
 
 If you want to rotate point stem:[P(x, y, z)] an angle stem:[\theta] around the axis whose direction is represented by the _unit vector_ stem:[\vec v(r_\mathrm{x}, r_\mathrm{y}, r_\mathrm{z})], follow
 these steps:
@@ -115,6 +115,14 @@ these steps:
   p' = q \cdot p \cdot q^*
 ++++
 * stem:[p'] will have the form stem:[x' i+y' j+z' k]. The rotation of stem:[P] is stem:[P'(x', y', z')].
+
+[NOTE,caption="IMPORTANT"]
+====
+Do not confuse stem:[P] and stem:[p] in the formulae above.
+
+* stem:[P] stands for the point stem:[(x, y, z)].
+* stem:[p] stands for the quaternion stem:[xi+yj+zk].
+====
 
 == Example
 
