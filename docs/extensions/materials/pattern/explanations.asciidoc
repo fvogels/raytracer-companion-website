@@ -8,11 +8,6 @@ requires patterns/basics
 
 preview::preview[]
 
-[IMPORTANT]
-====
-There is no point in making this extension if you haven't implemented at least one pattern such as <</extensions/patterns/tiling/explanations#,lines>>.
-====
-
 As explained in <</extensions/patterns/basics/explanations#,this extension>>, patterns are in essence nothing more than function that, given a position, return a boolean value.This extension's purpose is to be able to use patterns as materials.
 
 == Examples
