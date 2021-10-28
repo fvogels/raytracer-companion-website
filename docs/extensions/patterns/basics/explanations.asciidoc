@@ -175,4 +175,24 @@ Copy `scripting/lights-module.cpp` and ``scripting/lights-module.h`` to the corr
 
 // Note: Materials.from_pattern has not yet been made at this point!
 
-TODO
+[TASK]
+====
+Create two patterns (2D and 3D) that (rather boringly) always returns the same value.
+Place the code in files named `patterns/constant-pattern.h`
+
+[source,language='c++']
+----
+namespace patterns
+{
+    Pattern2D constant2d(bool);
+    Pattern3D constant3d(bool);
+}
+----
+
+For example, `constant2d(true)` should return `true` for all stem:[(x, y)].
+====
+
+[TASK]
+====
+Write tests to ensure that both `constant2d` and `constant3d` work as intended.
+====
