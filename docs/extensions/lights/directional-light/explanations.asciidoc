@@ -3,42 +3,86 @@
 [overview]
 ----
 difficulty 2
-requires ray-tracers/v2
+requires ray-tracers/v4
 reading lights/directional
 ----
 
-preview::preview[]
+== Directional vs Omnidirectional
+
+The provided light (omnidirectional) is like a tiny lamp that sends light in _all_ directions.
+Imagine that you put this lamp "infinitely" far away, like the sun.
+All light rays will appear to arrive in the same direction.
+
+Below you can compare both types of light:
+
+[.center,cols="^.^,^5",width="80%"]
+|===
+| Omnidirectional a| video::omnidirectional.mp4[width="50%"]
+| Directional a| video::directional.mp4[width="50%"]
+|===
+
+Notice that since, in the case of omnidirectional light, all light comes from a single point, shadows "fan out" from this point.
+Directional light, however, produces shadows that are perfectly parallel.
 
 == Implementation
-
-A directional light has the following parameters:
-
-* A direction (``Vector3D``) indicating where the light comes from.
-* A color.
 
 [TASK]
 ====
 Create a ``lights/directional-light.cpp`` and ``lights/directional-light.h``.
+Its factory function is
 
-* Write the class ``DirectionalLight`` in ``directional-light.cpp`` in an <</reference/cpp/anonymous-namespace,anonymous namespace>>.
-* The class should subclass ``LightSourceImplementation``.
-* It has two member variables: ``direction`` and ``color``.
-* The constructor should take a ``direction`` and ``color`` parameter and use them to initialize the member variables.
-* The class needs to override the method ``lightrays_to``.
-  This method receives a ``Point3D p`` for which it is asked which light rays it shines onto that point.
-  A directional light need only produce a single light ray per such point.
-  Find out for yourself which light ray it needs to generate.
-* Add a declaration for the factory function named ``directional`` in the header file.
-  Put it in the namespace ``raytracers::lights``.
-* Add the definition for the factory function in the ``cpp`` file.
-  Take a look at the factory function for omnidirectional point lights for inspiration.
-* Add the directional light to ``lights/lights.h``.
-* Open ``scripting/lights-module.cpp``.
-  Add an extra member function ``directional`` to ``LightLibrary``.
-  Add an extra binding in ``create_lights_module``.
-* As always, check your work by rendering a scene using the directional light.
+[source,language='c++']
+----
+LightSource directional(const math::Vector3D& direction,
+                        const imaging::Color& color);
+----
+
+The implementation is very short:
+
+[source,language='python']
+----
+class DirectionalLight(LightSourceImplementation):
+  def __init__(self, direction, color):
+    self.__direction = direction
+    self.__color = color
+
+  def lightrays_to(point):
+    fake_origin = ???
+    ray = Ray(fake_origin, point)
+    lightray = LightRay(ray, self.__color)
+
+    assert ray.direction.normalized() == self.__direction.normalized()
+    assert lightray.ray.at(1) == point
+
+    return [lightray]
+----
+
+[TIP]
+=====
+A directional light is the same as an omnidirectional light that's located very far away in a specific direction.
+`fake_origin` can be computed by moving away from `point` in the opposite direction given by `__direction`.
+=====
+
+[IMPORTANT]
+=====
+Remember that the light ray you return must obey the following rule in order for shadows to work:
+
+* `lightray.ray.at(0)` must be the origin of the light source (i.e., far away).
+* `lightray.ray.at(1)` must be equal to `point`.
+=====
+====
+
+[TASK]
+====
+* Update ``scripting/lights-module.cpp``.
+* Add bindings for directional light in `scripting/lights-module.cpp`.
 ====
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render the scene below:
+
+preview::challenge[]
+====

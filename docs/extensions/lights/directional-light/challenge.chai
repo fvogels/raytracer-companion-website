@@ -1,0 +1,43 @@
+// movie
+def scene_at(now)
+{
+  var t = Animations.animate(0, 1, seconds(5))[now]
+
+  var camera = Cameras.perspective( [ "eye": pos(10*t,20-15*t,10-5*t),
+                                      "look_at": pos(0,0,10*t) ] )
+
+  var material = Materials.uniform( [ "ambient": Colors.black(),
+                                      "diffuse": Colors.white() ] )
+
+  var primitives = []
+
+  for ( var x = -3*10; x <= 3*10; x += 3 )
+  {
+    for ( var y = 0; y <= 10; y += 2 )
+    {
+      primitives.push_back( translate(vec(x,y,0), sphere()) )
+    }
+
+    primitives.push_back( translate(vec(x,0,10), sphere()) )
+  }
+
+  var root = decorate(material, union([ translate(vec(0,-1,0),xz_plane()), union( primitives ) ]))
+
+
+
+  var p = Animations.animate(-1,1,seconds(5))
+  var lights = [ Lights.directional( vec(p[now],-1,1).normalized(), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v6()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.single(),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
