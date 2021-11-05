@@ -11,15 +11,100 @@ preview::preview[]
 
 == Implementation
 
+=== Setting Things Up
+
 [TASK]
 ====
-* Create new files ``primitives/triangle-primitive.h`` and ``primitives/triangle-primitive.cpp``.
-* Define the class ``TriangleImplementation``.
-* Implement ``find_all_hits``.
-* Define a factory function ``triangle``. It takes three ``Point3D`` objects representing the triangle's three vertices.
-* Add a binding for the scripting language.
+Create new files ``primitives/triangle-primitive.h`` and ``primitives/triangle-primitive.cpp``.
+Introduce a factory function
+
+[source,language='c++']
+----
+Primitive triangle(const math::Point3D& vertex1,
+                   const math::Point3D& vertex2,
+                   const math::Point3D& vertex3);
+----
+
+Since you have no `TriangleImplementation` class yet, you can't implement this factory function yet.
+====
+
+=== TriangleImplementation
+
+[TASK]
+====
+In ``primitives/triangle-primitive.cpp``, create a new class `TriangleImplementation` in an anonymous namespace.
+Look at `primitives/sphere-primitive.cpp` for inspiration.
+
+[source,language='python']
+----
+class TriangleImplementation(PrimitiveImplementation):
+    def __init__(self, a, b, c):
+        self.__a = a
+        self.__b = b
+        self.__c = c
+        self.__n = compute_normal(a, b, c)
+----
+====
+
+Now that we have a class `TriangleImplementation` with a constructor, we can finish our factory function.
+
+[TASK]
+====
+Give the factory function its body.
+====
+
+=== find_all_hits
+
+In order to be able to render triangles, we need to implement the ray intersection algorithm.
+
+[TASK]
+====
+Implement the method `find_all_hits`.
+
+Optionally, for better performance (which will make a big difference when used in the context of meshes), implement `find_first_positive_hit` too.
+====
+
+=== bounding_box
+
+The `bounding_box` method will be crucial when implementing meshes as the <</extensions/primitives/bounding-box-accelerator/explanations#,bounding box accelerator>> depends on it.
+As a reminder: this method should compute a minimally sized `math::Box` that still fully contains the triangle.
+
+image::bb.png[align="center",width="25%"]
+
+The box must be axis aligned, which means its edges must be horizontal or vertical.
+Given a triangle, you need to find
+
+* The x-coordinate of the left side.
+* The x-coordinate of the right side.
+* This forms the box's x-interval.
+* The same needs to be done for the y- and z-dimension.
+
+[NOTE]
+====
+Don't confuse `math::Box` with the primitive `box`:
+
+* The box primitive is a shape (elongated cube) that can be added to a scene.
+* `math::Box` is merely a mathematical entity, like `Rectangle3D`.
+  It unambiguously specifies the location and size of the box, but does not contain logic of how to render a box.
+====
+
+[TASK]
+====
+Implement the method `bounding_box`.
+====
+
+=== Finishing Touches
+
+[TASK]
+====
+Add a binding for the scripting language.
 ====
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render the scene below:
+
+preview::challenge[]
+====
