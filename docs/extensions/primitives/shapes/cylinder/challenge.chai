@@ -1,0 +1,47 @@
+// movie
+def scene_at(now)
+{
+  var t = Animations.animate( 0, 1, seconds(5))[now]
+
+  var camera = Cameras.perspective( [ "eye": pos(5+50*t,5+50*t,5+50*t),
+                                      "look_at": pos(0,0,0) ] )
+
+  var r = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                               "diffuse": Colors.red() * 0.8 ] )
+  var g = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                               "diffuse": Colors.green() * 0.8 ] )
+  var b = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                               "diffuse": Colors.blue() * 0.8 ] )
+  var w = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                               "diffuse": Colors.white() * 0.8 ] )
+
+  var primitives = [];
+
+  for ( var i = 0; i <= 50; i += 5 )
+  {
+    primitives.push_back(decorate(r, translate(vec(0,0,i), cylinder_along_y())))
+    primitives.push_back(decorate(b, translate(vec(0,i,0), cylinder_along_x())))
+    //primitives.push_back(decorate(b, translate(vec(0,0,i), cylinder_along_x())))
+    primitives.push_back(decorate(g, translate(vec(i,0,0), cylinder_along_z())))
+  }
+
+
+  var root = union( primitives )
+
+  var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() )
+               ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v2()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.single(),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )

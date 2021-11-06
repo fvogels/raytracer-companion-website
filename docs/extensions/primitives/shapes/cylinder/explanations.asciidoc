@@ -3,6 +3,7 @@
 [overview]
 ----
 difficulty 2
+requires ray-tracers/v2
 reading design/primitives/ray-intersections
 reading primitives/cylinder
 ----
@@ -39,4 +40,9 @@ You can start off with copying the `Sphere` primitive code and change the code s
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Recreate the scene below:
+
+video::challenge.mp4[align="center"]
+====
