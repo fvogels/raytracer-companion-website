@@ -3,6 +3,7 @@
 [overview]
 ----
 difficulty 1
+requires ray-tracers/v2
 reading design/primitives/ray-intersections
 ----
 
@@ -27,4 +28,9 @@ Implement XZ- and YZ planes.
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Recreate the scene below.
+
+video::challenge.mp4[align="center"]
+====

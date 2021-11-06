@@ -5,10 +5,6 @@ def scene_at(now)
   var camera = Cameras.perspective( [ "eye": eye_position[now],
                                       "look_at": pos(0,0,0) ] )
 
-  var disk_material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
-                                           "diffuse": Colors.white() * 0.8,
-                                           "specular": Colors.white() * 0.5 ] )
-
   var white = Materials.uniform( [ "ambient": Colors.white() * 0.1,
                                    "diffuse": Colors.white() * 0.8 ] )
   var black = Materials.uniform( [ "ambient": Colors.white() * 0.1,
