@@ -2,26 +2,25 @@
 
 [overview]
 ----
-difficulty 2
+difficulty 4
 requires primitives/shapes/triangle
 reading design/primitives/ray-intersections
 reading primitives/triangle
 ----
 
-TODO
+Consider the wavy strip we created using triangles:
 
-// preview::preview[]
+image::nonsmooth-strip.png[align="center",width="50%"]
 
-// == Implementation
+In order to make it appear smoother, we could increase the number of triangles:
 
-// [TASK]
-// ====
-// * Create new files ``primitives/triangle-primitive.h`` and ``primitives/triangle-primitive.cpp``.
-// * Define the class ``TriangleImplementation``.
-// * Implement ``find_all_hits``.
-// * Define a factory function ``triangle``. It takes three ``Point3D`` objects representing the triangle's three vertices.
-// * Add a binding for the scripting language.
-// ====
+image::nonsmooth-strip-many.png[align="center",width="50%"]
+
+Here, we doubled the amount of triangles, doubling the rendering time.
+Also, as you can see, the shading is not perfectly smooth: there are jumps between the different shades of red.
+In this extension, we examine a cheaper way to make things look smoother without adding triangles.
+
+image::smooth-strip.png[align="center",width="50%"]
 
 == Evaluation
 

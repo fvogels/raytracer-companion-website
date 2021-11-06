@@ -1,0 +1,59 @@
+// image
+def g(x, z) {
+  var y = 0.2 * sin(degrees(360) * x)
+  pos(x, y, z)
+}
+
+def gn(x, y) {
+  var sx = -0.2 * 2 * 3.141592 * cos(degrees(360) * x)
+
+  vec(sx, 1, 0).normalized()
+}
+
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0,5,5),
+                                      "look_at": pos(0,0,0) ] )
+
+  var triangles = []
+  var smooth_triangles = []
+
+  var dx = 0.1
+  var dy = 0.1
+
+  for ( var x = -4.0; x <= 4.0; x += dx ) {
+    for ( var y = -1.0; y <= 1.0; y += dy ) {
+      var p1 = g(x, y)
+      var p2 = g(x + dx, y)
+      var p3 = g(x, y + dy)
+      var p4 = g(x + dx, y + dy)
+      var n1 = gn(x, y)
+      var n2 = gn(x + dx, y)
+      var n3 = gn(x, y + dy)
+      var n4 = gn(x + dx, y + dy)
+
+      triangles.push_back(smooth_triangle(p1, p2, p3, n1, n2, n3))
+      triangles.push_back(smooth_triangle(p2, p3, p4, n2, n3, n4))
+    }
+  }
+
+  var material = Materials.uniform([ "ambient": Colors.red() * 0.1, "diffuse": Colors.red() ])
+
+  var root = union( [ decorate(material, union(triangles)) ] )
+
+  var t = Animations.animate(0, 1, seconds(5))[now]
+  var lights = [ Lights.omnidirectional( pos(0, 5, 5*t), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.latest()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.multijittered(2),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_at(epoch()),
+          [ Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
