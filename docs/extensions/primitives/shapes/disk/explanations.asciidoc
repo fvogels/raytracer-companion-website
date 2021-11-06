@@ -2,7 +2,8 @@
 
 [overview]
 ----
-difficulty 2
+difficulty 3
+requires ray-tracers/v1
 reading design/primitives/ray-intersections
 ----
 
@@ -20,4 +21,9 @@ Implement the disc primitive.
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Recreate the scene below:
+
+video::challenge.mp4[align="center"]
+====

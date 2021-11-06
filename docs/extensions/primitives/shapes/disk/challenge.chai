@@ -1,0 +1,41 @@
+// movie
+def scene_at(now)
+{
+  var t = Animations.animate( 0, 1, seconds(5) )[now]
+
+  var camera = Cameras.perspective( [ "eye": pos(0, -2 + 4*t, 5),
+                                      "look_at": pos(0,0,0) ] )
+
+
+  var primitives = [];
+
+  var n = 10
+  var offset = 1.0 / n
+  for ( var i = -n; i != n; i+=1 ) {
+    var x = (i + 10.0) / (n * 2.0);
+    var radius = (i < 0 ? -i : i) / (1.0 * n)
+    var disk = translate(vec(0, i*offset, 0), xz_disk(radius))
+    var material = Materials.uniform( [ "ambient": RGB(x, 1-x, 0) ] )
+    primitives.push_back(decorate(material, disk))
+  }
+
+  var disks = union( primitives )
+
+  var root = union( [ disks ] )
+
+  var lights = [ ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer = Raytracers.v1()
+
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.single(),
+                                     "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
