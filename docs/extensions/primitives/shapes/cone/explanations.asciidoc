@@ -5,6 +5,7 @@
 difficulty 3
 reading design/primitives/ray-intersections
 reading primitives/cone
+requires ray-tracers/v2
 ----
 
 preview::preview[]
@@ -39,4 +40,14 @@ You can start off with copying the `Sphere` primitive code and change the code s
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Show how you prevented code duplication in your implementation of the three cylinders.
+====
+
+[TASK]
+====
+Render the scene below:
+
+preview::challenge[]
+====
