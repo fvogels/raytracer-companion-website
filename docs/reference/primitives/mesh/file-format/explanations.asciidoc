@@ -169,8 +169,10 @@ def read_hierarchy(file, vertices):
     line = file.readline()
 
     if line.startswith('t'):  # Current line represents a triangle
-      vertices = [vertex[int[i]] for i in line.split(' ')[1:]]
-      stack.append(Triangle(vertices))
+      indices = [int(s) for s in line.split(' ')[1:]]
+      triangles_vertices = [vertices[i] for i in indices]
+      triangle = Triangle(triangle_vertices)
+      stack.append(triangle)
 
     elif line.starswith('b'):  # Current line represents a box
       nchildren = int(line.split(' ')[1])
