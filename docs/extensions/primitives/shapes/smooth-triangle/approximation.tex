@@ -1,0 +1,17 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+\usetikzlibrary{calc,math}
+
+
+\begin{document}
+
+\begin{tikzpicture}
+  \draw[dashed,ultra thin] (1,0) arc[start angle=0,end angle=180,radius=1];
+
+  \foreach[evaluate={\i*45} as \a,evaluate={(\i+1) * 45} as \b] \i in {0,...,3} {
+    \draw (\a:1) -- (\b:1);
+  }
+\end{tikzpicture}
+
+\end{document}

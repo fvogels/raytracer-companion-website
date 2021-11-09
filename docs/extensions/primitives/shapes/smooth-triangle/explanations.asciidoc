@@ -8,20 +8,175 @@ reading design/primitives/ray-intersections
 reading primitives/triangle
 ----
 
+== Problem Statement
+
+Triangles are used to efficiently approximate complex shapes.
 Consider the wavy strip we created using triangles:
 
 image::nonsmooth-strip.png[align="center",width="50%"]
 
+This is not a very convincing wavy strip: we can clearly see that it's not _truly_ wavy, but merely rectangles (which are built out of triangles but that is not visible) pretending to be.
 In order to make it appear smoother, we could increase the number of triangles:
 
 image::nonsmooth-strip-many.png[align="center",width="50%"]
 
 Here, we doubled the amount of triangles, doubling the rendering time.
-Also, as you can see, the shading is not perfectly smooth: there are jumps between the different shades of red.
-In this extension, we examine a cheaper way to make things look smoother without adding triangles.
+Also, as you can see, the shading is still not perfectly smooth: there are visible jumps between the different shades of red.
+In this extension, we examine a cheaper way to make things look smoother without adding triangles:
 
 image::smooth-strip.png[align="center",width="50%"]
 
+== Solution
+
+For the sake of clarity, let's switch to a 2D view: instead of using 3D triangles, we use 2D segments.
+Say we want to model the shape below using segments:
+
+image::goal.png[align="center",width="50%"]
+
+With four segments, we get the following approximation.
+
+image::approximation.png[align="center",width="50%"]
+
+If we were to render this, we would clearly see that there are actually just four segments instead of a smooth curve.
+The reason we get discontinuities in the shading is due to the fact that segments are, well..., rather flat.
+
+But what if we could somehow "bend" segments a bit?
+
+=== Fake Normals
+
+Consider the figure below.
+The arrows represent the normal vectors on the segments.
+
+image::normals.png[align="center",width="50%"]
+
+Since the segments are flat, all normals on the same segment point in the same direction.
+This normal is used by the shading algorithm (e.g., in <</extensions/ray-tracers-v2/explanations#,ray tracer v2>>), which results in a "flat shading".
+What if we were to lie about the normals though?
+
+image::interpolated-normals.png[align="center",width="50%"]
+
+In this figure, the segments themselves are still their trusty flat selves.
+The normals, however, gently rotate.
+In fact, we "transplanted" the normals from the circle to the segments.
+
+image::interpolated-normals-circle.png[align="center",width="50%"]
+
+If we were to render the same principle in 3D, we would get much smoother results.
+
+=== 2D Interpolation
+
+Given a segment, it is easy to find its intersection with a ray.
+But we still need to compute the normal at that intersection.
+
+In the previous section, we stole them from the shape the segments approximated.
+We can still do this, but computing this would still be rather expensive, and the whole point of using segments is to speed things up.
+
+When we define a segment, we obviously need to specify its endpoints.
+Let's say that we must also provide the normals at these endpoints:
+
+[source,language='c++']
+----
+Primitive smooth_segment(const Point2D&  endpoint1,
+                         const Vector2D& normal1,
+                         const Point2D&  endpoint2,
+                         const Vector2D& normal2)
+{
+    // ...
+}
+----
+
+image::interpolation.png[align="center",width="50%"]
+
+Given this extra information, we can _interpolate_ the normal.
+If the ray intersects the segment at some point stem:[P], we need to determine the normal stem:[\vec{n}] at this point stem:[P].
+We can proceed as follows:
+
+* If stem:[P = P_1], we should use stem:[\vec{n}_1] as our normal.
+* If stem:[P = P_2], we should use stem:[\vec{n}_2] as our normal.
+* If stem:[P] is located in the middle of the segment, we should "mix" both normals stem:[\vec{n}_1] and stem:[\vec{n}_2].
+  We can take the average of both: stem:[\vec{n} = (\vec{n}_1 + \vec{n}_2) / 2].
+
+Generally, we can say that
+
+* The closer stem:[P] is to stem:[P_1], the more stem:[\vec{n}] should equal stem:[\vec{n}_1].
+* The closer stem:[P] is to stem:[P_2], the more stem:[\vec{n}] should equal stem:[\vec{n}_2].
+
+Mathematically, we need to find some values stem:[\alpha] and stem:[\beta] that expresses how close to stem:[P_1] or stem:[P_2] some point stem:[P] is:
+
+[stem]
+++++
+\alpha = \frac{|P_2-P|}{|P_2-P_1|} \qquad \beta = 1 - \alpha
+++++
+
+When stem:[P=P_1], we get stem:[\alpha = 1] and stem:[\beta=0].
+When stem:[P=P_2], we get stem:[\alpha = 0] and stem:[\beta=1].
+Using this, we can compute the normal:
+
+[stem]
+++++
+\vec{n} = \frac{\alpha \cdot \vec{n}_1 + \beta \cdot \vec{n}_2}{|\alpha \cdot \vec{n}_1 + \beta \cdot \vec{n}_2|}
+++++
+
+=== 3D Interpolation
+
+The same trick can be applied in 3D to triangles: each vertex is also given a normal.
+
+[source,language='c++']
+----
+Primitive smooth_triangle(const Point3D&  vertex1,
+                          const Vector3D& normal1,
+                          const Point3D&  vertex2,
+                          const Vector3D& normal2,
+                          const Point3D&  vertex3,
+                          const Vector3D& normal3)
+{
+    // ...
+}
+----
+
+Given a point stem:[P], we need to know how far it is from the three vertices stem:[P_1], stem:[P_2] and stem:[P_3], expressed by three values stem:[\alpha], stem:[\beta] and stem:[\gamma].
+Computing the normal at stem:[P] can then be done using the formula
+
+[stem]
+++++
+\vec{n} = \frac{\alpha \cdot \vec{n}_1 + \beta \cdot \vec{n}_2 + \gamma \cdot \vec{n}_3}{|\alpha \cdot \vec{n}_1 + \beta \cdot \vec{n}_2 + \gamma \cdot \vec{n}_3|}
+++++
+
+[TASK]
+====
+Look online for how to compute stem:[\alpha], stem:[\beta] and stem:[\gamma].
+
+[TIP]
+=====
+Barycentric coordinates.
+=====
+====
+
+== Implementation
+
+[TASK]
+====
+Create files `primitives/smooth-triangle-primitive.cpp` and `primitives/smooth-triangle-primitive.h`.
+Copy paste the implementation of (flat) triangles and make the necessary changes.
+
+As a reminder, the factory function should have as signature
+
+[source,language='c++']
+----
+Primitive smooth_triangle(const Point3D&  vertex1,
+                          const Vector3D& normal1,
+                          const Point3D&  vertex2,
+                          const Vector3D& normal2,
+                          const Point3D&  vertex3,
+                          const Vector3D& normal3)
+----
+====
+
 == Evaluation
 
-TODO
+[TASK]
+====
+Render the scene below:
+
+preview::challenge[]
+====
