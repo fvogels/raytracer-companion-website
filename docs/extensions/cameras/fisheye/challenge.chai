@@ -1,0 +1,53 @@
+// movie
+def material(c)
+{
+  Materials.uniform( [ "ambient": c ] )
+}
+
+def scene_at(now)
+{
+  var t = Animations.animate(0, 1, seconds(5))[now]
+  
+  var camera = Cameras.fisheye( [ "eye": pos(0, 10-10*t, 1),
+                                  "look_at": pos(0, 0, 0),
+                                  "horizontal_angle": degrees(90+270*t),
+                                  "vertical_angle": degrees(180) ] )
+
+  var primitives = [ ]
+  
+  for ( var i = 0; i != 16; i += 1 ) {
+    var v = Vec.cylindrical_y(5, degrees(360.0 / 16 * i), 0)
+    var v2 = Vec.cylindrical_y(10, degrees(360.0 / 16 * i), 5)
+    var alpha = i / 16.0 * 360.0
+    var c1 = (sin(degrees(alpha)) + 1.0) / 2.0
+    var c2 = (cos(degrees(alpha)) + 1.0) / 2.0
+    var c3 = (sin(2*degrees(alpha)) + 1.0) / 2.0
+    var m = material(RGB(c1, c2, c3))
+    var m2 = material(RGB(1-c1, c2, 1-c3))
+    primitives.push_back( decorate(m, translate(v, sphere())) )
+    primitives.push_back( decorate(m2, translate(v2, sphere())) )
+  }
+  
+
+  var root      = union( primitives )
+
+  var lights    = [ ]
+
+  return create_scene(camera, root, lights)
+}
+
+
+var anim = scene_animation(scene_at, seconds(5))
+
+var raytracer   = Raytracers.v1()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.single(),
+                                        "ray_tracer": raytracer ] )
+
+
+pipeline( anim,
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )

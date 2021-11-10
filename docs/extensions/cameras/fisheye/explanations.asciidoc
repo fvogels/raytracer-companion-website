@@ -3,6 +3,7 @@
 [overview]
 ----
 difficulty 4
+requires ray-tracers/v1
 reading cameras/fisheye
 ----
 
@@ -33,4 +34,9 @@ Following things might prove useful for implementing fisheye cameras are
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render the following scene:
+
+preview::challenge[]
+====
