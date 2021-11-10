@@ -1,0 +1,30 @@
+// movie
+def scene_at(now)
+{
+  var t = Animations.animate(0, 1, seconds(5))[now]
+
+  var camera = Cameras.perspective( [ "eye": pos(0, 0, 10),
+                                      "look_at": pos(0, 0, 0) ] )
+
+  var material = Materials.uniform( [ "ambient": Colors.black(),
+                                      "diffuse": Colors.white() ] )
+
+  var root = decorate(material, xy_plane())
+
+  var lights = [ Lights.spot( pos(-2,2,1), vec(0,-4*t,-1).normalized(), degrees(30), Colors.red() ),
+                 Lights.spot( pos(2,-2+4*t,2), pos(2,-2+4*t,0), degrees(60*t), Colors.blue() ),
+                 Lights.spot( pos(0,-3,1), pos(-4+8*t,0,0), degrees(60), Colors.green() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v2()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.single(),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )

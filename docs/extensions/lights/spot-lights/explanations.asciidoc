@@ -9,11 +9,54 @@ reading lights/spot
 
 preview::preview[]
 
+A spot light is parameterized by
+
+* The position stem:[L] of the spot light (`Point3D`).
+* The direction stem:[\vec{v}] it shines in (`Vector3D`).
+* The angle stem:[\theta] of the light cone (`Angle`).
+* The color stem:[C] of the light (`Color`).
+
+Getting the information in this form is ideal for the implementation.
+However, as a scene builder, having to specify the direction is not intuitive.
+From the scene builder's perspective, it makes much more sense to specify the location that the spot light is supposed to be directed at.
+This leads to a slightly different set of parameters:
+
+* The position stem:[L] of the spot light (`Point3D`).
+* The position stem:[P] that the light should shine on (`Point3D`).
+* The angle stem:[\theta] of the light cone (`Angle`).
+* The color stem:[C] of the light (`Color`).
+
+image::diagram.png[align="center",width="40%"]
+
+Fortunately, it is easy to, given the second set of parameters, compute the first set of parameters from it.
+In other words, given stem:[L] and stem:[P], it is easy to determine stem:[\vec{v}] from it.
+
 [TASK]
 ====
 Implement spot lights.
+Create _two_ factory functions:
+
+[source,language='c++']
+----
+LightSource spot(const math::Point3D& position,
+                 const math::Vector3D& direction,
+                 math::Angle angle,
+                 const imaging::Color& color);
+
+LightSource spot(const math::Point3D& position,
+                 const math::Point3D& target,
+                 math::Angle angle,
+                 const imaging::Color& color);
+----
+
+Provide bindings for both.
 ====
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render the following script:
+
+preview::challenge[]
+====
