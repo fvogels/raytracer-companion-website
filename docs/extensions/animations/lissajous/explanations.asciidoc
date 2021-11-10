@@ -58,6 +58,22 @@ var position = Animations.lissajous( [ "x_amplitude": 1,
 ----
 
 where all parameters except `duration` can be omitted.
+
+[TIP]
+=====
+The `duration` parameter is a bit harder to deal with, since the `Duration` class has no default constructor.
+Use the following code:
+
+[source,language='c++']
+----
+Duration duration = Duration::zero();
+
+START_ARGUMENTS(argument_map);
+...
+BIND_ARGUMENT(duration);
+END_ARGUMENTS();
+----
+=====
 ====
 
 == Evaluation
