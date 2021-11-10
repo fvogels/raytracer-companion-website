@@ -60,5 +60,15 @@ Write at least 5 tests that check cases easy to compute manually, such as
 ** One sample should have its y-coordinate in stem:[[2, 3\]].
 ** One sample should have its y-coordinate in stem:[[3, 4\]].
 
-Note that the tests should not expect the samples to be returned in a certain order.
+[IMPORTANT]
+=====
+The tests should not expect the samples to be returned in a certain order.
+During the defense, this will be checked.
+Failure to take this into account will disqualify this extension.
+=====
+
+[TIP]
+=====
+If you are uncertain of how to interpret the rectangle notation above (e.g., stem:[[0,4\]\times[0,4\]]), read <</reference/samplers/testing/explanations#,this page>>.
+=====
 ====
