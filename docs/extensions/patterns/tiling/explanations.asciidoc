@@ -16,7 +16,7 @@ For any position stem:[(x, y)] or stem:[(x, y, z)], the pattern must decide whet
 In order to fill up this infinite space, we generally rely on repetition: one simple patterns gets copied an infinite number of times.
 In this extension, you will have to create the "for loop" of patterns: the `tiling` operation takes a "child pattern", a width and a height and will then copy this ad infinitum.
 
-[EXAMPLE]
+[NOTE,caption='example']
 ====
 We start off we with simple pattern:
 
