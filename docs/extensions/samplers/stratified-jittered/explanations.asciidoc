@@ -54,5 +54,15 @@ Write at least 10 tests that check cases easy to compute manually, such as
 * Given a rectangle stem:[[5,7\]\times[3,8\]] and stem:[1 \times 1] samples, the returned sample should inside stem:[[5,7\]\times[3,8\]].
 * Given a rectangle stem:[[0,2\]\times[0,2\]] and stem:[2 \times 2] samples, the returned samples should inside stem:[[0,1\]\times[0,1\]], stem:[[1,2\]\times[0,1\]], stem:[[0,1\]\times[1,2\]] and stem:[[1,2\]\times[1,2\]].
 
-Note that the tests should not expect the samples to be returned in a certain order.
+[IMPORTANT]
+=====
+The tests should not expect the samples to be returned in a certain order.
+During the defense, this will be checked.
+Failure to take this into account will disqualify this extension.
+=====
+
+[TIP]
+=====
+If you are uncertain of how to interpret the rectangle notation above (e.g., stem:[[0,4\]\times[0,4\]]), read <</reference/samplers/testing/explanations#,this page>>.
+=====
 ====
