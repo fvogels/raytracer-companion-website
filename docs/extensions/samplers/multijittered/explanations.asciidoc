@@ -59,7 +59,8 @@ Write at least 5 tests that check cases easy to compute manually, such as
 [IMPORTANT]
 =====
 The tests should not expect the samples to be returned in a certain order.
-During the defense, this may be checked.
+During the defense, this will be checked.
+Failure to take this into account will disqualify this extension.
 =====
 
 [TIP]
