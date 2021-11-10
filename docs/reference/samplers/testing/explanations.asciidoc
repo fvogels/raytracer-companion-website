@@ -1,0 +1,43 @@
+= Testing
+
+When creating a sampler extension, you will often be asked to write tests.
+Some students have trouble understanding the notation used to describe rectangles.
+This page explains how to interpret it.
+
+Say we assigment mentions the rectangle
+
+[stem]
+++++
+[0, 1] \times [2, 4]
+++++
+
+The first interval stem:[[0,1\]] denotes the range over which the rectangle extends in the X-dimension:
+
+image::examplex.png[align="center",width="25%"]
+
+Similary, the second interval stem:[[2,4\]], denotes the range in the Y-dimension:
+
+image::exampley.png[align="center",width="25%"]
+
+Taking the intersection of both areas gives us the rectangle we are looking for:
+
+image::examplexy.png[align="center",width="25%"]
+
+Now we need to represent this rectangle using the `Rectangle2D` class.
+Its constructor takes three parameters:
+
+* An `Point2D` origin, which must represent one of the corners of the rectangle.
+* An `Vector2D` X axis, which must represent one side of the rectangle.
+* An `Vector2D` Y axis, which must represent the other size of the rectangle.
+
+There are multiple ways to define a single rectangle (e.g., we have 4 possible origins as the rectangle has 4 corners).
+One way is shown in the figure below:
+
+image::example.png[align="center",width="25%"]
+
+The corresponding {cpp} is
+
+[source,language='c++']
+----
+Rectangle2D rectangle(Point2D(0, 2), Vector2D(1, 0), Vector2D(0, 2));
+----
