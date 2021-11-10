@@ -39,6 +39,12 @@ You will want to write a `MeshReceiver` subclass that collects all data from the
 No mesh optimization needs to be done here.
 Simply read in the file and recreate the exact same hierarchy.
 =====
+
+[IMPORTANT]
+=====
+Make sure to check that the file opened successfully.
+If the file failed to open, you will still be able to read data from it, but this data will be garbage.
+=====
 ====
 
 == Evaluation
@@ -50,4 +56,10 @@ Recreate this scene using a mesh:
 video::challenge.mp4[align="center"]
 
 You will have to manually create a mesh file to represent this pyramid.
+====
+
+[TASK]
+====
+Show that if given a wrong path, this error is caught and a message `Failed to open file at <path>` is shown in the logs.
+You can use the `CHECK` macro for this.
 ====
