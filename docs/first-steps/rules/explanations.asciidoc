@@ -8,6 +8,40 @@
 This page is subject to change.
 ====
 
+== Minimum Requirements
+
+* Within a team, no two members can make the same extension, with two exceptions:
+** <</extensions/introduction/scripting/explanations#,Introduction>>
+** <</extensions/primitives/mesh/mesh-optimizer/explanations#,Mesh Optimizer>>
+* Every team member _must_ implement the <</extensions/primitives/mesh/mesh-optimizer/explanations#,Mesh Optimizer>> implementation.
+  Note that this extension has a number of dependencies, so these _must_ also be made (but only by one member each time.)
+* Every extension has an Evaluation section.
+  This contains what can be asked of you during the defense.
++
+[IMPORTANT]
+====
+The Evaluation sections are still work in progress.
+
+* Make sure to check them for changes.
+* They won't change after 1 December 2021.
+  (In case updates are made after this deadline, these changes will be tagged as "late" and you are free to ignore them.)
+* In case the Evaluation section is missing (e.g., a TODO), you simply need to be able to show that the extension works, e.g., by rendering a scene of your choice.
+====
+* Each individual team member must make 31 "difficulty points" worth of extensions.
+  This is the _minimal_ amount, so making this _minimal_ amount will get you a _minimal_ passing grade.
++
+[IMPORTANT]
+====
+Originally, the intention was to require at least X extensions of difficulty 2, Y extensions of difficulty 3, etc.
+This year won't have such a rule.
+However, be careful: this could lead to imbalances in the distribution of extensions among team members.
+If someone claims all the easy extensions, other members will be left will difficult extensions.
+Make sure to fairly distribute extensions among yourselves.
+====
+
+== General Rules
+
+* You must follow the Git Workflow as explained <</first-steps/git-workflow/explanations#,here>>.
 * Your project should compile without warnings.
   I activated the "Treat Warnings As Errors" option of the compiler.
   You are not allowed to change this.
