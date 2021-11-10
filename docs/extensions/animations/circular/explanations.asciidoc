@@ -4,6 +4,7 @@
 ----
 difficulty 2
 requires math/quaternions
+requires ray-tracers/v1
 reading animations/basics
 reading design/animations
 ----
@@ -12,19 +13,40 @@ preview::preview[]
 
 == Implementation
 
+We want to be able to rotate a point around an _arbitrary_ axis.
+This includes axes that do not go through stem:[(0, 0, 0)].
+However, quaternions can only represent rotations around axes through stem:[(0, 0, 0)].
+You will have to find a trick to circumvent this limitation.
+
 [TASK]
 ====
 Create the files ``animation/circular-animation.cpp`` and ``animation/circular-animation.h`` and
-define a factory function named ``circular`` returning a ``Animation&lt;math::Point3D&gt;`` and accepts the following parameters:
+define a factory function named ``circular``:
 
-* ``const math::Point3D& point``: original position.
-* ``const math::Point3D& center``: point around which animation revolves.
-* ``const math::Vector3D& rotation_axis``: normal on the plane in which the circular motion takes place.
-* ``const math::Interval&lt;math::Angle&gt;& angle_interval``: start and end angle. Start angle should be 0&deg;.
-* ``const Duration& duration``: how long the animation takes.
+[source,language='c++']
+----
+Animation<math::Point3D> animation::circular(
+    const math::Point3D&               point,
+    const math::Point3D&               center,
+    const math::Vector3D&              rotation_axis,
+    const math::Interval<math::Angle>& angle_interval,
+    const Duration&                    duration
+)
+----
+
+* ``point``: original position.
+* ``center``: point around which animation revolves.
+* ``rotation_axis``: normal on the plane in which the circular motion takes place.
+* ``angle_interval``: start and end angle. Start angle should be 0&deg;.
+* ``Duration``: how long the animation takes.
 * Use ``animation/interval-animation.h`` as inspiration for how to go about implementing the animation. Don't forget to add a binding for the scripting language.
 ====
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render the following scene:
+
+preview::challenge[]
+====

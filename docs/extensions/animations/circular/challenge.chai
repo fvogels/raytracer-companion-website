@@ -1,0 +1,62 @@
+// movie
+def material(color)
+{
+  Materials.uniform( [ "ambient": color ] )
+}
+
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0, 0, 25),
+                                      "look_at": pos(0, 0, 0) ] )
+
+  var primitives = []
+
+  for ( var i = 0; i != 11; ++i )
+  {
+    var t = i / 10.0
+    var alpha = degrees(t * 360.0 * 2)
+
+    var p =  Animations.circular([ "position": pos(-5 + cos(alpha), -10+2*i, sin(alpha)),
+                                   "around": pos(-5,0,0),
+                                   "axis": vec(0, 1, 0),
+                                   "duration": seconds(1) ])[now]
+
+    var s = decorate(material(Colors.red()), sphere())
+
+    primitives.push_back(translate(p - pos(0,0,0), s))
+  }
+
+  for ( var i = 0; i != 10; ++i )
+  {
+    var t = i / 10.0
+    var alpha = degrees(t * 360.0)
+
+    var p =  Animations.circular([ "position": pos(5 + 4*cos(alpha), 4*sin(alpha), 0),
+                                   "around": pos(5,0,0),
+                                   "axis": vec(0, 0, 1),
+                                   "duration": seconds(5) ])[now]
+
+    var s = decorate(material(Colors.blue()), sphere())
+
+    primitives.push_back(translate(p - pos(0,0,0), s))
+  }
+
+
+  var root = union( primitives )
+
+  var lights = [ ]
+
+  create_scene(camera, root, lights)
+}
+
+
+var raytracer   = Raytracers.v1()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.single(),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
