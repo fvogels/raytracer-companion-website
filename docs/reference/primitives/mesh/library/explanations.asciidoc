@@ -7,11 +7,11 @@ Instead, we can just pick a mesh:
 
 [.center,cols="^.^,^.^,^",options="header",width="60%"]
 |===
-| Name        | #Triangles    | Preview
-| Bunny       | 69,451       a| video::bunny.mp4[width="100%"]
-| Iron Man    | 217,038      a| video::ironman.mp4[width="100%"]
-| Buddha      | 1,087,716    a| video::buddha.mp4[width="100%"]
-| Nefertiti   | 2,018,232    a| video::nefertiti.mp4[width="100%"]
-| Dragon      | 7,219,045    a| video::dragon.mp4[width="100%"]
-| Lucy        | 28,055,742   a| video::lucy.mp4[width="100%"]
+| Name            | #Triangles    | Preview
+| http://files.leone.ucll.be/meshes/bunny.7z[Bunny]           | 69,451       a| video::bunny.mp4[width="100%"]
+| http://files.leone.ucll.be/meshes/ironman.7z[Iron Man]      | 217,038      a| video::ironman.mp4[width="100%"]
+| http://files.leone.ucll.be/meshes/buddha.7z[Buddha]         | 1,087,716    a| video::buddha.mp4[width="100%"]
+| http://files.leone.ucll.be/meshes/nefertiti.7z[Nefertiti]   | 2,018,232    a| video::nefertiti.mp4[width="100%"]
+| http://files.leone.ucll.be/meshes/dragon.7z[Dragon]         | 7,219,045    a| video::dragon.mp4[width="100%"]
+| http://files.leone.ucll.be/meshes/lucy.7z[Lucy]             | 28,055,742   a| video::lucy.mp4[width="100%"]
 |===
