@@ -31,7 +31,8 @@ def scene_at(now)
       var n3 = fn(x, y + dy)
       var n4 = fn(x + dx, y + dy)
 
-      triangles.push_back(smooth_triangle(p1, n1, p2, n2, p3, n3)); triangles.push_back(smooth_triangle(p2, n2, p3, n3, p4, n4))
+      triangles.push_back(smooth_triangle(p1, n1, p2, n2, p3, n3));
+      triangles.push_back(smooth_triangle(p2, n2, p3, n3, p4, n4))
     }
   }
 
