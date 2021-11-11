@@ -6,12 +6,125 @@ difficulty 3
 requires primitives/mesh/mesh-reader
 ----
 
-TODO
+== Text vs Binary
 
-* Create tool (in language of choice) that converts a mesh from text to binary format.
-* Add a binary reader to C++
-* Measure difference in loading times
+The default <</reference/primitives/mesh/file-format/explanations#,mesh file format>> is a _text format_.
+This means its contents are written in human-readable format, as strings.
+
+=== Example
+
+Say we want to store four integers.
+Stored in text format, this could give
+
+[source]
+----
+1 2 3 4
+----
+
+Assuming we're using ASCII, this requires 7 bytes of storage: each number is one digit long (totalling 4 bytes), and they must somehow be separated from each other, e.g., using spaces (3 extra separator bytes).
+
+If we were to store this in binary form, there are a number of choices to be made.
+Let's say we use 32 bits per integer and apply little-endian byte order.
+This results in (we use hexadecimal notation):
+
+[source]
+----
+01 00 00 00
+02 00 00 00
+03 00 00 00
+04 00 00 00
+----
+
+Note the following:
+
+* Using this format requires 16 bytes, i.e., 4 bytes per integer.
+  This is an increase compared to the text format.
+* No separators such as spaces are necessary, since we know that each integer will take exactly 4 bytes.
+
+== File Size
+
+The example given above seems to imply that binary format is less efficient spacewise.
+However, when used appropriately, binary formats are always more compact.
+
+Why is the text format more efficient in our example?
+Simple: because the integers are small, meaning they need few digits in decimal notation.
+However, the binary format assumes the numbers can be large (up to 4 billion) and chooses to use 4 bytes per integer.
+
+If the numbers were larger, in the order of millions, the text format would require at least 7 bytes per number, amounting to around 30 bytes total, whereas the binary format would still only need 16 bytes.
+If, however, the numbers are guaranteed to be small, say less than 1000, the text format would need up to 3 bytes per number, while the binary format could get away by using a fixed 2 bytes per integer.
+
+== Reading
+
+=== Reading Text Files
+
+.Reading Text Files
+[source,language='c++']
+----
+std::ifstream in(path);
+
+unsigned a, b, c, d;
+in >> a >> b >> c >> d;
+----
+
+Reading a text file from code is not difficult, but it can be rather slow:
+
+* Digits are read in one by one.
+* Digits need to be converted from ASCII to 0-9.
+* Digits need to be combined in a bigger number using arithmetic.
+
+=== Reading Binary Files
+
+.Reading Binary Files
+[source,language='c++']
+----
+std::ifstream in(path, std::ios::binary);
+
+unsigned ns[4]; // <1>
+in.read(reinterpret_cast<char*>(ns), sizeof(numbers)); // <2>
+
+unsigned& a = ns[0]; // <3>
+unsigned& b = ns[1];
+unsigned& c = ns[2];
+unsigned& d = ns[3];
+----
+1. A contiguous block of memory is allocated.
+2. All data is read in one step.
+3. If necessary, aliases can be introduced to name each number.
+
+== Assignment
+
+[TASK]
+====
+Create tool (in language of choice) that converts a mesh from text to binary format.
+====
+
+[TASK]
+====
+Write a function
+
+[source,language='c++']
+----
+void read_binary_mesh(std::istream& input_stream, MeshReceiver& receiver);
+----
+
+It works similarly to the given function `read_text_mesh(std::istream&, MeshReceiver&)`, except that it reads the binary mesh format.
+Make it as efficient as possible.
+====
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Explain your binary format.
+====
+
+
+[TASK]
+====
+Render a mesh that is stored in binary format.
+====
+
+[TASK]
+====
+Measure the difference in _loading_ times.
+====
