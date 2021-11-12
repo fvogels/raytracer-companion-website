@@ -161,6 +161,54 @@ Animation<T> cycle(Animation<T> a)
 ----
 ====
 
+== Bindings
+
+[TASK]
+====
+Expose each of these functions to the scripting language.
+Since we support animations of different types (`double`, `Point3D`, `Angle`), we need to export an overload for each.
+
+For example, say you want to export `limit`.
+In the `AnimationLibrary`, you will need to define a template method:
+
+[source,language='c++']
+----
+template<typename T>
+Animation<T> limit(Animation<T> animation, Duration duration) const
+{
+    ...
+}
+----
+
+Next, you will need to add a binding for all supported types:
+
+[source,language='c++']
+----
+BIND_AS(limit<double>, limit);
+BIND_AS(limit<Point3D>, limit);
+BIND_AS(limit<Angle>, limit);
+----
+====
+
 == Evaluation
 
-TODO
+[TASK]
+====
+Reproduce the following animation:
+
+video::challenge1.mp4[align="center"]
+====
+
+[TASK]
+====
+Reproduce the following animation:
+
+video::challenge2.mp4[align="center"]
+====
+
+[TASK]
+====
+Reproduce the following animation:
+
+video::challenge3.mp4[align="center"]
+====

@@ -1,0 +1,35 @@
+// movie
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0,0,10),
+                                      "look_at": pos(0,0,0) ] )
+
+  var primitives = [ ]
+
+  {
+    var t = Animations.loop(Animations.animate(-2, 2, seconds(1)))[now]
+    primitives.push_back(translate(vec(t, 2, 0), sphere()))
+  }
+
+  {
+    var t = Animations.animate(-2, 2, seconds(5))[now]
+    primitives.push_back(translate(vec(t, -2, 0), sphere()))
+  }
+
+  var root = union(primitives)
+
+  var lights = [ ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer = Raytracers.v0()
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.single(),
+                                     "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
