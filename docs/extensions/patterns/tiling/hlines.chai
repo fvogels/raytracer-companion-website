@@ -9,16 +9,23 @@ def scene_at(now)
   var camera = Cameras.perspective( [ "eye": pos(0,0,7),
                                       "look_at": pos(0,0,0) ] )
 
-  var mat1 = Materials.from_pattern(Patterns.lines(0.1, 0.1), m(Colors.white()), m(Colors.black()))
-  var mat2 = Materials.from_pattern(Patterns.lines(0.1, 0.2), m(Colors.red()), m(Colors.yellow()))
-  var mat3 = Materials.from_pattern(Patterns.lines(0.2, 0.1), m(Colors.magenta()), m(Colors.green()))
-  var mat4 = Materials.from_pattern(Patterns.lines(0.2, 0.2), m(Colors.blue()), m(Colors.red()))
+  var mat1 = Materials.from_pattern(Patterns.lines(0.1, 0.1),
+                                    m(Colors.white()), m(Colors.black()))
+  var mat2 = Materials.from_pattern(Patterns.lines(0.1, 0.2),
+                                    m(Colors.red()), m(Colors.yellow()))
+  var mat3 = Materials.from_pattern(Patterns.lines(0.2, 0.1),
+                                    m(Colors.magenta()), m(Colors.green()))
+  var mat4 = Materials.from_pattern(Patterns.lines(0.2, 0.2),
+                                    m(Colors.blue()), m(Colors.red()))
+  var mat5 = Materials.from_pattern(Patterns.lines(1, 1),
+                                    m(Colors.white() * 0.5), m(Colors.white() * 0.25))
 
   var root = union([
       decorate(mat1, translate(vec(-1.5,1.5,0), sphere())),
       decorate(mat2, translate(vec(1.5,1.5,0), sphere())),
       decorate(mat3, translate(vec(-1.5,-1.5,0), sphere())),
-      decorate(mat4, translate(vec(1.5,-1.5,0), sphere()))
+      decorate(mat4, translate(vec(1.5,-1.5,0), sphere())),
+      decorate(mat5, translate(vec(0,0,-5), xy_plane()))
   ])
 
   var lights = [ Lights.omnidirectional( pos(5,5,5), Colors.white() ) ]
