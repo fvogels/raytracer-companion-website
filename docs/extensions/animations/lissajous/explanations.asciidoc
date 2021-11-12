@@ -78,4 +78,9 @@ END_ARGUMENTS();
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render the scene below.
+
+preview::challenge[]
+====

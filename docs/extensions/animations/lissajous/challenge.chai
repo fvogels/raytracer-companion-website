@@ -1,0 +1,81 @@
+// movie
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0,0,20),
+                                      "look_at": pos(0,0,0) ] )
+
+
+
+  var pos2 = Animations.lissajous( [ "z_amplitude": 0,
+                                     "x_frequency": 2,
+                                     "y_frequency": 3,
+                                     "x_phase": degrees(180),
+                                     "duration": seconds(5) ] )
+
+  var pos3 = Animations.lissajous( [ "z_amplitude": 3,
+                                     "x_frequency": 7,
+                                     "y_frequency": 5,
+                                     "z_frequency": 3,
+                                     "duration": seconds(5) ] )
+
+  var primitives = []
+
+  {
+    var v = Animations.lissajous( [ "x_phase": degrees(90),
+                                    "duration": seconds(1),
+                                    "x_amplitude": 6,
+                                    "y_amplitude": 4 ] )[now] - pos(0,0,0)
+
+    primitives.push_back(translate(v, sphere()))
+  }
+
+  {
+    var v = Animations.lissajous( [ "x_frequency": 3,
+                                    "x_amplitude": 3,
+                                    "y_amplitude": 0,
+                                    "z_amplitude": 5,
+                                    "z_frequency": 2,
+                                    "duration": seconds(2) ] )[now] - pos(0,0,0)
+
+    primitives.push_back(translate(v + vec(0,0,0), sphere()))
+  }
+
+  {
+    var v = Animations.lissajous( [ "x_frequency": 2,
+                                    "y_frequency": 5,
+                                    "y_phase": degrees(90),
+                                    "x_amplitude": 5,
+                                    "y_amplitude": 2,
+                                    "duration": seconds(2) ] )[now] - pos(0,0,0)
+
+    primitives.push_back(translate(v + vec(0,8,0), sphere()))
+  }
+
+  {
+    var v = Animations.lissajous( [ "x_frequency": 1,
+                                    "y_frequency": 3,
+                                    "y_phase": degrees(90),
+                                    "x_amplitude": 5,
+                                    "y_amplitude": 2,
+                                    "duration": seconds(2) ] )[now] - pos(0,0,0)
+
+    primitives.push_back(translate(v + vec(0,-8,0), sphere()))
+  }
+
+  var root = union(primitives)
+
+  var lights = [ ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer = Raytracers.v0()
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.single(),
+                                     "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(2)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
