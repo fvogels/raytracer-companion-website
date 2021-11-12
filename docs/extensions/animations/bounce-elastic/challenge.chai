@@ -1,0 +1,56 @@
+// movie
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0, 0, 15),
+                                      "look_at": pos(0,0,0) ] )
+
+
+  var elastic_sphere_position = Animations.ease( Animations.animate( pos(0,5,0), pos(0,0,0), seconds(5) ), Easing.elastic(10, 5) )[now]
+
+  var primitives = []
+
+  {
+    var p1 = Animations.ease( Animations.animate( pos(-5,5,0), pos(-5,1,0), seconds(5) ), Easing.bounce(10, 0) )[now]
+    var p2 = Animations.ease( Animations.animate( pos(-5,-5,0), pos(-5,-1,0), seconds(5) ), Easing.bounce(10, 0) )[now]
+
+    primitives.push_back( translate(p1 - pos(0,0,0), sphere()) )
+    primitives.push_back( translate(p2 - pos(0,0,0), sphere()) )
+  }
+
+  {
+    var p1 = Animations.ease( Animations.animate( pos(-3,5,0), pos(-1,5,0), seconds(5) ), Easing.bounce(5, 5) )[now]
+    var p2 = Animations.ease( Animations.animate( pos(3,5,0), pos(1,5,0), seconds(5) ), Easing.bounce(5, 5) )[now]
+
+    primitives.push_back( translate(p1 - pos(0,0,0), sphere()) )
+    primitives.push_back( translate(p2 - pos(0,0,0), sphere()) )
+  }
+
+  {
+    var p = Animations.ease( Animations.animate( pos(0,-5,0), pos(2.5,-2.5,0), seconds(5) ), Easing.elastic(5, 2) )[now]
+
+    primitives.push_back( translate(p - pos(0,0,0), sphere()) )
+  }
+
+  {
+    var p = Animations.ease( Animations.animate( pos(0,0,5), pos(0,0,-5), seconds(5) ), Easing.elastic(5, 0) )[now]
+
+    primitives.push_back( translate(p - pos(0,0,0), sphere()) )
+  }
+
+  var root = union(primitives)
+
+  var lights = [ ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v0()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.single(),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )

@@ -82,4 +82,9 @@ Don't forget to add a binding for the scripting language.
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Recreate the scene below:
+
+video::challenge.mp4[align="center"]
+====
