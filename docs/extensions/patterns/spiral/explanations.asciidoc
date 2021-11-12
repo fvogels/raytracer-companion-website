@@ -7,7 +7,7 @@ requires patterns/lambda
 ----
 
 The goal of this extension is to replicate these results (a spiral pattern) without help.
-You can try to solve this extension partially of partial rewards.
+You can try to solve this extension partially for partial rewards.
 
 == Spiral Thickness
 
