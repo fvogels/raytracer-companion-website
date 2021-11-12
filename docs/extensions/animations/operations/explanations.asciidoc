@@ -212,3 +212,10 @@ Reproduce the following animation:
 
 video::challenge3.mp4[align="center"]
 ====
+
+[TASK]
+====
+Render the scene below.
+
+preview::challenge4[]
+====

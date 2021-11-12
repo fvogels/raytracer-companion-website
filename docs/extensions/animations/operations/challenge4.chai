@@ -1,0 +1,56 @@
+// movie
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0,0,15),
+                                      "look_at": pos(0,0,0) ] )
+
+  var primitives = [ ]
+
+  {
+    var a = Animations.animate(degrees(0), degrees(360), seconds(2))
+    var angle = Animations.cycle(Animations.limit(a, seconds(1)))[now]
+    var x = 5 * cos(angle)
+    var y = 5 * sin(angle)
+
+    primitives.push_back(translate(vec(x, y, 0), sphere()))
+  }
+
+  {
+    var p1 = Animations.animate(Pos.cylindrical_z(3, degrees(-30), 0),
+                                Pos.cylindrical_z(3, degrees(90), 0),
+                                seconds(1.0 / 3.0))
+    var p2 = Animations.animate(Pos.cylindrical_z(3, degrees(90), 0),
+                                Pos.cylindrical_z(3, degrees(210), 0),
+                                seconds(1.0 / 3.0))
+    var p3 = Animations.animate(Pos.cylindrical_z(3, degrees(210), 0),
+                                Pos.cylindrical_z(3, degrees(330), 0),
+                                seconds(1.0 / 3.0))
+    var p123 = Animations.loop(Animations.sequence(Animations.sequence(p1, p2), p3))[now]
+
+    primitives.push_back(translate(p123 - pos(0,0,0), sphere()))
+  }
+
+  {
+    var x = Animations.cycle(Animations.animate(-3, 3, seconds(2)))[now]
+
+    primitives.push_back(translate(vec(x,-4,0), sphere()))
+  }
+
+
+  var root = union(primitives)
+
+  var lights = [ ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer = Raytracers.v0()
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.single(),
+                                     "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(4)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
