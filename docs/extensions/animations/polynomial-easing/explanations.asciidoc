@@ -3,6 +3,7 @@
 [overview]
 ----
 difficulty 3
+requires ray-tracers/v1
 requires animations/easing-library
 reading animations/basics
 reading design/animations
@@ -38,4 +39,9 @@ Put the implementation in separate files `math/functions/easing/quintic-function
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render the scene below:
+
+preview::challenge[]
+====

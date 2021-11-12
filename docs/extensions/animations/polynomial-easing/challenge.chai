@@ -1,0 +1,58 @@
+// movie
+def scene_at(now)
+{
+  var camera = Cameras.perspective( [ "eye": pos(0,0,20),
+                                      "look_at": pos(0,0,0) ] )
+
+  var primitives = []
+
+  {
+    var x_anim = Animations.animate(-5, 0, seconds(5))
+    var x1 = Animations.ease(x_anim, Easing.quadratic_in())[now];
+    var x2 = Animations.ease(x_anim, Easing.cubic_in())[now];
+    var x3 = Animations.ease(x_anim, Easing.quintic_in())[now];
+
+    primitives.push_back(translate(vec(x1, 3, 0), sphere()))
+    primitives.push_back(translate(vec(x2, 0, 0), sphere()))
+    primitives.push_back(translate(vec(x3, -3, 0), sphere()))
+  }
+
+  {
+    var x_anim = Animations.animate(-2.5, 2.5, seconds(5))
+    var x1 = Animations.ease(x_anim, Easing.quadratic_inout())[now];
+    var x2 = Animations.ease(x_anim, Easing.cubic_inout())[now];
+    var x3 = Animations.ease(x_anim, Easing.quintic_inout())[now];
+
+    primitives.push_back(translate(vec(x1, 3, 0), sphere()))
+    primitives.push_back(translate(vec(x2, 0, 0), sphere()))
+    primitives.push_back(translate(vec(x3, -3, 0), sphere()))
+  }
+
+  {
+    var x_anim = Animations.animate(0, 5, seconds(5))
+    var x1 = Animations.ease(x_anim, Easing.quadratic_out())[now];
+    var x2 = Animations.ease(x_anim, Easing.cubic_out())[now];
+    var x3 = Animations.ease(x_anim, Easing.quintic_out())[now];
+
+    primitives.push_back(translate(vec(x1, 3, 0), sphere()))
+    primitives.push_back(translate(vec(x2, 0, 0), sphere()))
+    primitives.push_back(translate(vec(x3, -3, 0), sphere()))
+  }
+
+  var root = union( primitives )
+
+  var lights = [ ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v0()
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.single(),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
