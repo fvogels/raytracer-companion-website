@@ -213,49 +213,57 @@ Write tests that check multiplication between quaternions and reals (both `$$*$$
 
 [TASK]
 ====
-Write tests that check multiplication between quaternions (both ``$$*$$`` and ``*=``):
+Write tests that check multiplication between quaternions (only ``$$*$$``).
+Test every combination between
 
-* stem:[(0 + 0i + 0j + 0k) \cdot (0 + 0i + 0j + 0k) = (0 + 0i + 0j + 0k)]
-* stem:[(1 + 0i + 0j + 0k) \cdot (1 + 0i + 0j + 0k) = (1 + 0i + 0j + 0k)]
-* stem:[(1 + 0i + 0j + 0k) \cdot (0 + 1i + 0j + 0k) = (0 + 1i + 0j + 0k)]
-* stem:[(1 + 0i + 0j + 0k) \cdot (0 + 0i + 1j + 0k) = (0 + 0i + 1j + 0k)]
-* stem:[(1 + 0i + 0j + 0k) \cdot (0 + 0i + 0j + 1k) = (0 + 0i + 0j + 1k)]
-* stem:[(0 + 1i + 0j + 0k) \cdot (1 + 0i + 0j + 0k) = (0 + 1i + 0j + 0k)]
-* stem:[(0 + 1i + 0j + 0k) \cdot (0 + 1i + 0j + 0k) = (-1 + 0i + 0j + 0k)]
-* stem:[(0 + 1i + 0j + 0k) \cdot (0 + 0i + 1j + 0k) = (0 + 0i + 0j + 1k)]
-* stem:[(0 + 1i + 0j + 0k) \cdot (0 + 0i + 0j + 1k) = (0 + 0i - 1j + 0k)]
-* stem:[(0 + 0i + 1j + 0k) \cdot (1 + 0i + 0j + 0k) = (0 + 0i + 1j + 0k)]
-* stem:[(0 + 0i + 1j + 0k) \cdot (0 + 1i + 0j + 0k) = (0 + 0i + 0j - 1k)]
-* stem:[(0 + 0i + 1j + 0k) \cdot (0 + 0i + 1j + 0k) = (-1 + 0i + 0j + 0k)]
-* stem:[(0 + 0i + 1j + 0k) \cdot (0 + 0i + 0j + 1k) = (0 + 1i + 0j + 0k)]
-* stem:[(0 + 0i + 0j + 1k) \cdot (1 + 0i + 0j + 0k) = (0 + 0i + 0j + 1k)]
-* stem:[(0 + 0i + 0j + 1k) \cdot (0 + 1i + 0j + 0k) = (0 + 0i + 1j + 0k)]
-* stem:[(0 + 0i + 0j + 1k) \cdot (0 + 0i + 1j + 0k) = (0 - 1i + 0j + 0k)]
-* stem:[(0 + 0i + 0j + 1k) \cdot (0 + 0i + 0j + 1k) = (-1 + 0i + 0j + 0k)]
+* stem:[(1 + 0i + 0j + 0k)]
+* stem:[(0 + 1i + 0j + 0k)]
+* stem:[(0 + 0i + 1j + 0k)]
+* stem:[(0 + 0i + 0j + 1k)]
+
+As a reminder, here's
+
+[stem]
+++++
+  \begin{array}{r|ccc}
+    \times & i & j & k \\
+    \hline
+    i & -1 & k & -j \\
+    j & -k & -1 & i \\
+    k & j & -i & -1 \\
+  \end{array}
+++++
+
+A few example combinations are
+
+[source,language='c++']
+----
+TEST_QQ_MULTIPLICATION(Q(1, 0, 0, 0), Q(1, 0, 0, 0), Q(1, 0, 0, 0))
+TEST_QQ_MULTIPLICATION(Q(1, 0, 0, 0), Q(0, 1, 0, 0), Q(0, 1, 0, 0))
+TEST_QQ_MULTIPLICATION(Q(1, 0, 0, 0), Q(0, 0, 1, 0), Q(0, 0, 1, 0))
+TEST_QQ_MULTIPLICATION(Q(1, 0, 0, 0), Q(0, 0, 0, 1), Q(0, 0, 0, 1))
+TEST_QQ_MULTIPLICATION(Q(0, 1, 0, 0), Q(0, 1, 0, 0), Q(-1, 0, 0, 0))
+TEST_QQ_MULTIPLICATION(Q(0, 1, 0, 0), Q(0, 0, 1, 0), Q(0, 0, 0, 1))
+TEST_QQ_MULTIPLICATION(Q(0, 1, 0, 0), Q(0, 0, 0, 1), Q(0, 0, -1, 0))
+----
+
+[NOTE]
+=====
+Think about you could simplify the tests even more compared to what's shown above.
+=====
 ====
 
 [TASK]
 ====
-Write tests that check rotation:
+Write tests that check rotation.
+Test all the following combinations:
 
-* Axis stem:[(0, 1, 0)], angle of 0 degrees, the point stem:[(0, 0, 0)] will be rotated to stem:[(0, 0, 0)].
-* Axis stem:[(0, 1, 0)], angle of 0 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(1, 0, 0)].
-* Axis stem:[(0, 1, 0)], angle of 0 degrees, the point stem:[(0, 1, 0)] will be rotated to stem:[(0, 1, 0)].
-* Axis stem:[(0, 1, 0)], angle of 0 degrees, the point stem:[(0, 0, 1)] will be rotated to stem:[(0, 0, 1)].
-* Axis stem:[(0, 1, 0)], angle of 90 degrees, the point stem:[(0, 0, 0)] will be rotated to stem:[(0, 0, 0)].
-* Axis stem:[(0, 1, 0)], angle of 90 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(0, 0, -1)].
-* Axis stem:[(0, 1, 0)], angle of -90 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(0, 0, 1)].
-* Axis stem:[(0, 1, 0)], angle of 180 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(-1, 0, 0)].
-* Axis stem:[(0, 1, 0)], angle of 360 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(1, 0, 0)].
-* Axis stem:[(1, 0, 0)], angle of 90 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(1, 0, 0)].
-* Axis stem:[(1, 0, 0)], angle of 90 degrees, the point stem:[(0, 1, 0)] will be rotated to stem:[(0, 0, 1)].
-* Axis stem:[(1, 0, 0)], angle of -90 degrees, the point stem:[(0, 1, 0)] will be rotated to stem:[(0, 0, -1)].
-* Axis stem:[(1, 0, 0)], angle of 180 degrees, the point stem:[(0, 1, 0)] will be rotated to stem:[(0, -1, 0)].
-* Axis stem:[(0, 0, 1)], angle of 90 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(0, 1, 0)].
-* Axis stem:[(0, 0, 1)], angle of -90 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(0, -1, 0)].
-* Axis stem:[(0, 0, 1)], angle of 180 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(-1, 0, 0)].
+* Rotate around axes stem:[(1, 0, 0)], stem:[(0, 1, 0)] and stem:[(0, 0, 1)].
+* Rotate by 90 degrees, 180 degrees and 270 degrees.
+* Rotate points stem:[(1, 0, 0)], stem:[(0, 1, 0)] and stem:[(0, 0, 1)].
 
-You can rely on the following macros:
+This should total 27 tests.
+You can rely on the following macros, together with some test cases:
 
 [source,language='c++']
 ----
@@ -274,7 +282,17 @@ You can rely on the following macros:
       CHECK(actual == approx(expected));                                       \
     }
 
-// Example usage
-TEST_ROTATION(AXIS(0, 1, 0), 90, POINT(0, 0, 0), POINT(0, 0, 0))
+// Some cases
+TEST_ROTATION(AXIS(1, 0, 0),  90, POINT(1, 0, 0), POINT(1, 0, 0))
+TEST_ROTATION(AXIS(1, 0, 0), 180, POINT(1, 0, 0), POINT(1, 0, 0))
+TEST_ROTATION(AXIS(1, 0, 0), 270, POINT(1, 0, 0), POINT(1, 0, 0))
+
+TEST_ROTATION(AXIS(0, 1, 0),  90, POINT(1, 0, 0), POINT(0, 0, -1))
+TEST_ROTATION(AXIS(0, 1, 0), 180, POINT(1, 0, 0), POINT(-1, 0, 0))
+TEST_ROTATION(AXIS(0, 1, 0), 270, POINT(1, 0, 0), POINT(0, 0, 1))
+
+TEST_ROTATION(AXIS(0, 0, 1),  90, POINT(1, 0, 0), POINT(0, 1, 0))
+TEST_ROTATION(AXIS(0, 0, 1), 270, POINT(1, 0, 0), POINT(0, -1, 0))
+TEST_ROTATION(AXIS(0, 0, 1), 180, POINT(1, 0, 0), POINT(-1, 0, 0))
 ----
 ====
