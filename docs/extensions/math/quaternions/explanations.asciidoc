@@ -201,7 +201,7 @@ Write tests that check quaternion subtraction (both `-` and `-=`):
 
 [TASK]
 ====
-Write tests that check multiplication between quaternions and reals (both `*` and `*=`):
+Write tests that check multiplication between quaternions and reals (both `$$*$$` and `*=`):
 
 * stem:[(0 + 0i + 0j + 0k) \cdot 5 = 5 \cdot (0 + 0i + 0j + 0k) = (0 + 0i + 0j + 0k)]
 * stem:[(1 + 0i + 0j + 0k) \cdot 5 = 5 \cdot (1 + 0i + 0j + 0k) = (5 + 0i + 0j + 0k)]
@@ -213,7 +213,7 @@ Write tests that check multiplication between quaternions and reals (both `*` an
 
 [TASK]
 ====
-Write tests that check multiplication between quaternions (both `*` and `*=`):
+Write tests that check multiplication between quaternions (both ``$$*$$`` and ``*=``):
 
 * stem:[(0 + 0i + 0j + 0k) \cdot (0 + 0i + 0j + 0k) = (0 + 0i + 0j + 0k)]
 * stem:[(1 + 0i + 0j + 0k) \cdot (1 + 0i + 0j + 0k) = (1 + 0i + 0j + 0k)]
@@ -232,4 +232,49 @@ Write tests that check multiplication between quaternions (both `*` and `*=`):
 * stem:[(0 + 0i + 0j + 1k) \cdot (0 + 1i + 0j + 0k) = (0 + 0i + 1j + 0k)]
 * stem:[(0 + 0i + 0j + 1k) \cdot (0 + 0i + 1j + 0k) = (0 - 1i + 0j + 0k)]
 * stem:[(0 + 0i + 0j + 1k) \cdot (0 + 0i + 0j + 1k) = (-1 + 0i + 0j + 0k)]
+====
+
+[TASK]
+====
+Write tests that check rotation:
+
+* Axis stem:[(0, 1, 0)], angle of 0 degrees, the point stem:[(0, 0, 0)] will be rotated to stem:[(0, 0, 0)].
+* Axis stem:[(0, 1, 0)], angle of 0 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(1, 0, 0)].
+* Axis stem:[(0, 1, 0)], angle of 0 degrees, the point stem:[(0, 1, 0)] will be rotated to stem:[(0, 1, 0)].
+* Axis stem:[(0, 1, 0)], angle of 0 degrees, the point stem:[(0, 0, 1)] will be rotated to stem:[(0, 0, 1)].
+* Axis stem:[(0, 1, 0)], angle of 90 degrees, the point stem:[(0, 0, 0)] will be rotated to stem:[(0, 0, 0)].
+* Axis stem:[(0, 1, 0)], angle of 90 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(0, 0, -1)].
+* Axis stem:[(0, 1, 0)], angle of -90 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(0, 0, 1)].
+* Axis stem:[(0, 1, 0)], angle of 180 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(-1, 0, 0)].
+* Axis stem:[(0, 1, 0)], angle of 360 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(1, 0, 0)].
+* Axis stem:[(1, 0, 0)], angle of 90 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(1, 0, 0)].
+* Axis stem:[(1, 0, 0)], angle of 90 degrees, the point stem:[(0, 1, 0)] will be rotated to stem:[(0, 0, 1)].
+* Axis stem:[(1, 0, 0)], angle of -90 degrees, the point stem:[(0, 1, 0)] will be rotated to stem:[(0, 0, -1)].
+* Axis stem:[(1, 0, 0)], angle of 180 degrees, the point stem:[(0, 1, 0)] will be rotated to stem:[(0, -1, 0)].
+* Axis stem:[(0, 0, 1)], angle of 90 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(0, 1, 0)].
+* Axis stem:[(0, 0, 1)], angle of -90 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(0, -1, 0)].
+* Axis stem:[(0, 0, 1)], angle of 180 degrees, the point stem:[(1, 0, 0)] will be rotated to stem:[(-1, 0, 0)].
+
+You can rely on the following macros:
+
+[source,language='c++']
+----
+#define AXIS(x, y, z)     (x, y, z)
+#define POINT(x, y, z)    (x, y, z)
+
+#define TEST_ROTATION(axis_, angle_, point_, expected_)                        \
+    TEST_CASE("Rotation of " #point_ " by " #angle_ " degrees around " #axis_) \
+    {                                                                          \
+      Vector3D axis axis_;                                                     \
+      Angle angle = Angle::degrees(angle_);                                    \
+      Point3D point point_;                                                    \
+      Point3D expected expected_;                                              \
+      Quaternion quaternion = Quaternion::rotation(angle, axis);               \
+      Point3D actual = quaternion.rotate(point);                               \
+      CHECK(actual == approx(expected));                                       \
+    }
+
+// Example usage
+TEST_ROTATION(AXIS(0, 1, 0), 90, POINT(0, 0, 0), POINT(0, 0, 0))
+----
 ====
