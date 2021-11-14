@@ -2,9 +2,11 @@
 
 [overview]
 ----
-difficulty 2
+difficulty 3
 reading math/misc/quaternions
 ----
+
+== Implementation
 
 [TASK]
 ====
@@ -25,8 +27,209 @@ Implement the class ``Quaternion``. Following operations will be required:
 ** ``Quaternion -= Quaternion``
 ** ``Quaternion *= double``
 ** ``Quaternion /= double``
+** ``Quaternion == Quaternion``
+** ``Quaternion != Quaternion``
 ====
+
+== Writing Tests
+
+The only way to check the correctness of your implementation is to write tests.
+
+When writing down test cases, it is crucial to only mention that information that is necessary to fully specify the test.
+For example,
+
+[source,language='c++']
+----
+TEST_CASE("(0,0,0,0) + (0,0,0,0) == (0,0,0,0)")
+{
+    Quaternion quat1(0,0,0,0);
+    Quaternion quat2(0,0,0,0);
+    Quaternion expected(0,0,0,0);
+    Quaternion actual = quat1 + quat2;
+    CHECK(actual == expected);
+}
+
+TEST_CASE("(1,0,0,0) + (0,0,0,0) == (1,0,0,0)")
+{
+    Quaternion quat1(1,0,0,0);
+    Quaternion quat2(0,0,0,0);
+    Quaternion expected(1,0,0,0);
+    Quaternion actual = quat1 + quat2;
+    CHECK(actual == expected);
+}
+----
+
+are badly written tests, as there is way too much duplication.
+Were the way quaternions are modelled to change, we'd have to rewrite each test.
+
+It is therefore important to rely on helper functions or macros in order to distill the essence of each test.
+What is actually tested is that
+
+[stem]
+++++
+(0 + 0i + 0j + 0k) + (0 + 0i + 0j + 0k) = (0 + 0i + 0j + 0k)
+++++
+
+and
+
+[stem]
+++++
+(1 + 0i + 0j + 0k) + (0 + 0i + 0j + 0k) = (1 + 0i + 0j + 0k)]
+++++
+
+Only this information should be mentioned in the tests:
+
+[source,language='c++']
+----
+TEST_ADDITION(Q(0,0,0,0), Q(0,0,0,0), Q(0,0,0,0))
+TEST_ADDITION(Q(1,0,0,0), Q(0,0,0,0), Q(1,0,0,0))
+----
+
+This is a much more compact notation and expresses exactly what we want to test without mentioning any implementation details.
+Of course, we still need to define `TEST_ADDITION`:
+
+[source,language='c++']
+----
+#define Q(a, b, c, d)       (a, b, c, d)
+
+#define TEST_ADDITION(q1, q2, qe)                                \
+    TEST_CASE("Addition of "#q1 " and " #q2 " should give " #qe) \
+    {                                                            \
+       Quaternion quat1 q1;                                      \
+       Quaternion quat2 q2;                                      \
+       Quaternion expected qe;                                   \
+       Quaternion actual = quat1 + quat2;                        \
+       CHECK(actual == expected);                                \
+    }
+----
+
+If we were to modify the way we designed quaternions, we'd only have to update this macro.
 
 == Evaluation
 
-TODO
+// TODO Remove this
+[IMPORTANT]
+====
+For people who already made this extension: you also need to define operators `==` and `=!` so as to be able to test the `Quaternion` class.
+The task above has been updated.
+====
+
+[TASK]
+====
+Write tests that check quaternion addition (both `+` and `+=`):
+
+* stem:[(0 + 0i + 0j + 0k) + (0 + 0i + 0j + 0k) = (0 + 0i + 0j + 0k)]
+* stem:[(1 + 0i + 0j + 0k) + (0 + 0i + 0j + 0k) = (1 + 0i + 0j + 0k)]
+* stem:[(0 + 1i + 0j + 0k) + (0 + 0i + 0j + 0k) = (0 + 1i + 0j + 0k)]
+* stem:[(0 + 0i + 1j + 0k) + (0 + 0i + 0j + 0k) = (0 + 0i + 1j + 0k)]
+* stem:[(0 + 0i + 0j + 1k) + (0 + 0i + 0j + 0k) = (0 + 0i + 0j + 1k)]
+* stem:[(3 + 5i + 2j + 1k) + (7 + 4i + 2j + 6k) = (10 + 9i + 4j + 7k)]
+
+[source,language='c++']
+----
+#define Q(a, b, c, d)       (a, b, c, d)
+
+#define TEST_ADDITION(q1, q2, qe)                                \
+    TEST_CASE("Addition of "#q1 " and " #q2 " should give " #qe) \
+    {                                                            \
+       Quaternion quat1 q1;                                      \
+       Quaternion quat2 q2;                                      \
+       Quaternion expected qe;                                   \
+       SECTION("Using operator +")                               \
+       {                                                         \
+           Quaternion actual = quat1 + quat2;                    \
+           CHECK(actual == expected);                            \
+       }                                                         \
+       SECTION("Using operator +=")                              \
+       {                                                         \
+           quat1 += quat2;                                       \
+           CHECK(quat1 == expected);                             \
+       }                                                         \
+    }
+
+// Test cases
+TEST_ADDITION(Q(0,0,0,0), Q(0,0,0,0), Q(0,0,0,0))
+TEST_ADDITION(Q(1,0,0,0), Q(0,0,0,0), Q(1,0,0,0))
+TEST_ADDITION(Q(0,0,0,0), Q(1,0,0,0), Q(1,0,0,0))
+TEST_ADDITION(Q(1,0,0,0), Q(1,0,0,0), Q(2,0,0,0))
+----
+
+[IMPORTANT]
+=====
+Test sections (represent by `SECTION` in the code above) are a bit peculiar: each section can be seen as a separate test, where the part outside the section is shared.
+For example,
+
+[source,language='c++']
+----
+TEST_ADDITION(Q(0,0,0,0), Q(0,0,0,0), Q(0,0,0,0))
+----
+
+generates the following tests:
+
+[source,language='c++']
+----
+// Test 1
+Quaternion quat1(0,0,0,0);
+Quaternion quat2(0,0,0,0);
+Quaternion expected(0,0,0,0);
+Quaternion actual = quat1 + quat2;
+CHECK(actual == expected);
+
+// Test 2
+Quaternion quat1(0,0,0,0);
+Quaternion quat2(0,0,0,0);
+Quaternion expected(0,0,0,0);
+quat1 += quat2;
+CHECK(quat1 == expected);
+----
+
+Here, we have used sections to test both `+` and `+=` in one go: the same data can be used for both.
+=====
+====
+
+[TASK]
+====
+Write tests that check quaternion subtraction (both `-` and `-=`):
+
+* stem:[(0 + 0i + 0j + 0k) - (0 + 0i + 0j + 0k) = (0 + 0i + 0j + 0k)]
+* stem:[(1 + 0i + 0j + 0k) - (0 + 0i + 0j + 0k) = (-1 + 0i + 0j + 0k)]
+* stem:[(0 + 1i + 0j + 0k) - (0 + 0i + 0j + 0k) = (0 -1i + 0j + 0k)]
+* stem:[(0 + 0i + 1j + 0k) - (0 + 0i + 0j + 0k) = (0 + 0i -1j + 0k)]
+* stem:[(0 + 0i + 0j + 1k) - (0 + 0i + 0j + 0k) = (0 + 0i + 0j -1k)]
+* stem:[(3 + 5i + 2j + 1k) - (7 + 4i + 2j + 6k) = (-4 + i + 0j -5k)]
+====
+
+[TASK]
+====
+Write tests that check multiplication between quaternions and reals (both `*` and `*=`):
+
+* stem:[(0 + 0i + 0j + 0k) \cdot 5 = 5 \cdot (0 + 0i + 0j + 0k) = (0 + 0i + 0j + 0k)]
+* stem:[(1 + 0i + 0j + 0k) \cdot 5 = 5 \cdot (1 + 0i + 0j + 0k) = (5 + 0i + 0j + 0k)]
+* stem:[(0 + 1i + 0j + 0k) \cdot 3 = 3 \cdot (0 + 1i + 0j + 0k) = (0 + 3i + 0j + 0k)]
+* stem:[(0 + 0i + 1j + 0k) \cdot 7 = 7 \cdot (0 + 0i + 1j + 0k) = (0 + 0i + 7j + 0k)]
+* stem:[(0 + 0i + 0j + 1k) \cdot 4 = 4 \cdot (0 + 0i + 0j + 1k) = (0 + 0i + 0j + 4k)]
+* stem:[(1 + 2i + 3j + 4k) \cdot 2 = 2 \cdot (1 + 2i + 3j + 4k) = (2 + 4i + 6j + 8k)]
+====
+
+[TASK]
+====
+Write tests that check multiplication between quaternions (both `*` and `*=`):
+
+* stem:[(0 + 0i + 0j + 0k) \cdot (0 + 0i + 0j + 0k) = (0 + 0i + 0j + 0k)]
+* stem:[(1 + 0i + 0j + 0k) \cdot (1 + 0i + 0j + 0k) = (1 + 0i + 0j + 0k)]
+* stem:[(1 + 0i + 0j + 0k) \cdot (0 + 1i + 0j + 0k) = (0 + 1i + 0j + 0k)]
+* stem:[(1 + 0i + 0j + 0k) \cdot (0 + 0i + 1j + 0k) = (0 + 0i + 1j + 0k)]
+* stem:[(1 + 0i + 0j + 0k) \cdot (0 + 0i + 0j + 1k) = (0 + 0i + 0j + 1k)]
+* stem:[(0 + 1i + 0j + 0k) \cdot (1 + 0i + 0j + 0k) = (0 + 1i + 0j + 0k)]
+* stem:[(0 + 1i + 0j + 0k) \cdot (0 + 1i + 0j + 0k) = (-1 + 0i + 0j + 0k)]
+* stem:[(0 + 1i + 0j + 0k) \cdot (0 + 0i + 1j + 0k) = (0 + 0i + 0j + 1k)]
+* stem:[(0 + 1i + 0j + 0k) \cdot (0 + 0i + 0j + 1k) = (0 + 0i - 1j + 0k)]
+* stem:[(0 + 0i + 1j + 0k) \cdot (1 + 0i + 0j + 0k) = (0 + 0i + 1j + 0k)]
+* stem:[(0 + 0i + 1j + 0k) \cdot (0 + 1i + 0j + 0k) = (0 + 0i + 0j - 1k)]
+* stem:[(0 + 0i + 1j + 0k) \cdot (0 + 0i + 1j + 0k) = (-1 + 0i + 0j + 0k)]
+* stem:[(0 + 0i + 1j + 0k) \cdot (0 + 0i + 0j + 1k) = (0 + 1i + 0j + 0k)]
+* stem:[(0 + 0i + 0j + 1k) \cdot (1 + 0i + 0j + 0k) = (0 + 0i + 0j + 1k)]
+* stem:[(0 + 0i + 0j + 1k) \cdot (0 + 1i + 0j + 0k) = (0 + 0i + 1j + 0k)]
+* stem:[(0 + 0i + 0j + 1k) \cdot (0 + 0i + 1j + 0k) = (0 - 1i + 0j + 0k)]
+* stem:[(0 + 0i + 0j + 1k) \cdot (0 + 0i + 0j + 1k) = (-1 + 0i + 0j + 0k)]
+====
