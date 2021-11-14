@@ -3,6 +3,7 @@
 [overview]
 ----
 difficulty 2
+requires ray-tracers/v1
 requires patterns/basics
 ----
 
@@ -102,4 +103,9 @@ Material raytracer::materials::pattern3d(Pattern3D pattern,
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render the scene below.
+
+preview::challenge[]
+====

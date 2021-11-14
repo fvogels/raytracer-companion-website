@@ -1,0 +1,57 @@
+// image
+def material2d(c1, c2, v)
+{
+    var m1 = Materials.uniform( [ "ambient": c1 ] )
+    var m2 = Materials.uniform( [ "ambient": c2 ] )
+
+    Materials.from_pattern(Patterns.constant2d(v), m1, m2)
+}
+
+def material3d(c1, c2, v)
+{
+    var m1 = Materials.uniform( [ "ambient": c1 ] )
+    var m2 = Materials.uniform( [ "ambient": c2 ] )
+
+    Materials.from_pattern(Patterns.constant3d(v), m1, m2)
+}
+
+
+var camera = Cameras.perspective( [ "eye": pos(0,0,10),
+                                    "look_at": pos(0,0,0) ] )
+
+
+var primitives = []
+
+primitives.push_back(translate(vec(-3, 3, 0),
+                               decorate( material2d(Colors.white(), Colors.red(), true),
+                                         sphere())))
+
+primitives.push_back(translate(vec(3, 3, 0),
+                               decorate( material2d(Colors.white(), Colors.red(), false),
+                                         sphere())))
+
+primitives.push_back(translate(vec(-3, -3, 0),
+                               decorate( material3d(Colors.green(), Colors.blue(), true),
+                                         sphere())))
+
+primitives.push_back(translate(vec(3, -3, 0),
+                               decorate( material3d(Colors.green(), Colors.blue(), false),
+                                         sphere())))
+
+
+var root = union(primitives)
+
+var lights = [ ]
+
+var scene = create_scene(camera, root, lights)
+
+var raytracer = Raytracers.v1()
+
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.single(),
+                                     "ray_tracer": raytracer ] )
+
+pipeline( scene,
+          [ Pipeline.renderer(renderer),
+            Pipeline.studio() ] )
