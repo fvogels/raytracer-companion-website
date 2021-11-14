@@ -6,7 +6,13 @@ Welcome to my change log!
 This is my very first one, so you _should_ feel honored.
 Since many changes still need to be made, I decided to keep a log.
 
-[NOTE,caption="17/10/21"]
+[NOTE,caption="14/11/21"]
+====
+Updated the <</extensions/math/quaternions/explanations#,Quaternion extension>>.
+It is a bit more work, but its weight has been increment as compensation.
+====
+
+[NOTE,caption="11/11/21"]
 ====
 Completed the <</extensions/primitives/mesh/binary-mesh/explanations#,Binary Mesh Extension>>.
 ====
