@@ -1,5 +1,4 @@
 // movie
-
 def material(c)
 {
   Materials.uniform( [ "ambient": Colors.white() * 0.1,
