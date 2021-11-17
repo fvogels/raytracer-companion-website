@@ -39,4 +39,6 @@ var renderer   = Renderers.edge( [ "width": 500,
 
 pipeline( scene_at(epoch()),
           [ Pipeline.renderer(renderer),
-            Pipeline.studio() ] )
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )

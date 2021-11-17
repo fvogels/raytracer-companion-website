@@ -50,7 +50,7 @@ Write at least 10 tests that check cases easy to compute manually, such as
 * Given a rectangle stem:[[0,1\]\times[0,1\]] and stem:[1 \times 1] samples, the returned sample should inside stem:[[0.25,0.75\]\times[0.25,0.75\]].
 * Given a rectangle stem:[[0,2\]\times[0,1\]] and stem:[1 \times 1] samples, the returned sample should inside stem:[[0.5,1.5\]\times[0.25,0.75\]].
 * Given a rectangle stem:[[0,1\]\times[0,2\]] and stem:[1 \times 1] samples, the returned sample should inside stem:[[0.25,0.75\]\times[0.5,1.5\]].
-* Given a rectangle stem:[[5,2\]\times[8,6\]] and stem:[1 \times 1] samples, the returned sample should inside stem:[[6,7\]\times[3,5\]].
+* Given a rectangle stem:[[5,9\]\times[2,6\]] and stem:[1 \times 1] samples, the returned sample should inside stem:[[6,8\]\times[3,5\]].
 * Given a rectangle stem:[[0,8\]\times[0,8\]] and stem:[2 \times 2] samples, the returned samples should inside stem:[[1,3\]\times[1,3\]], stem:[[1,3\]\times[5,7\]], stem:[[5,7\]\times[1,3\]] and stem:[[5,7\]\times[5,7\]].
 
 [IMPORTANT]

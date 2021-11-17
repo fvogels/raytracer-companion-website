@@ -50,4 +50,6 @@ var renderer    = Renderers.standard( [ "width": 500,
 pipeline( anim,
           [ Pipeline.animation(30),
             Pipeline.renderer(renderer),
-            Pipeline.studio() ] )
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )
