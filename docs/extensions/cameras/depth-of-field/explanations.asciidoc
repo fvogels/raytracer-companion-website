@@ -4,6 +4,7 @@
 ----
 difficulty 3
 requires samplers/random
+requires ray-tracers/v1
 reading cameras/depth-of-field
 reading design/cameras
 ----
@@ -160,7 +161,4 @@ By deterministic sampler we mean a sampler that always returns the same samples 
 Recreate the scene shown below:
 
 video::challenge.mp4[align="center"]
-
-Note: you are allowed to use a better ray tracer.
-We used `v1` here so as to keep the prerequisites to a minimum.
 ====
