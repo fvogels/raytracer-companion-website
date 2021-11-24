@@ -2,7 +2,7 @@
 
 [overview]
 ----
-difficulty 2
+difficulty 3
 reading design/transformations
 reading math/linear-algebra/2d-translation
 reading math/linear-algebra/2d-rotation
@@ -212,4 +212,32 @@ It will be used in other {cpp} code, though.
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Write tests for each of the transformations, both in 2D and 3D.
+Write them concisely: define helper macros so that you can write your tests as
+
+[source,language='c++']
+----
+#define V(...)     (__VA_ARGS__)
+#define P(...)     (__VA_ARGS__)
+
+#define TEST_TRANSLATION2D(v, p, q)                                      \
+    TEST_CASE("Translation by " #v " of " #p " should yield " #q)        \
+    {                                                                    \
+        auto transformation = transformations::translation(Vector2D v);  \
+        auto original = Point2D p;                                       \
+        auto transformed = Point2D q;                                    \
+        auto& m = transformation.transformation_matrix;                  \
+        auto& im = transformation.inverse_transformation_matrix;         \
+                                                                         \
+        CHECK(m * original == approx(transformed));                      \
+        CHECK(im * transformed == approx(original));                     \
+    }
+
+TEST_TRANSLATION2D(V(1, 0), P(2, 3), P(3, 3))
+TEST_TRANSLATION2D(V(4, 1), P(2, 3), P(6, 4))
+----
+
+Note how that a single macro tests both the `transformation_matrix` and `inverse_transformation_matrix` using the same data.
+====
