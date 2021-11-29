@@ -18,8 +18,11 @@ The idea behind this ray tracer is very simple: if a ray hits a translucent obje
 [EXAMPLE]
 ====
 In the image below, the ray hits the red sphere at stem:[P_1].
-The red sphere is translucent, however, so the ray goes through it, exists the sphere at stem:[P_2] and then bumps into the blue sphere at stem:[P_3].
-This blue sphere is not translucent, so tracing stops there.
+The red sphere is translucent, so the ray goes through it and we continue tracing.
+We find a new second hit at stem:[P_2].
+This is the same translucent material, so the ray continues.
+We bump into the blue sphere at stem:[P_3].
+Because this blue sphere is not translucent, so tracing stops there.
 
 image::translucency.png[align="center"]
 
