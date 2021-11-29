@@ -71,7 +71,7 @@ An improved form of the `process_light_ray` algorithm goes as follows:
 
 [source,language='python']
 ----
-def (scene, matprops, hit, eye_ray, light_ray):
+def process_light_rays(scene, material_props, hit, eye_ray, light_ray):
   hits = scene.find_all_hits(light_ray)
   color_filter = white
 
