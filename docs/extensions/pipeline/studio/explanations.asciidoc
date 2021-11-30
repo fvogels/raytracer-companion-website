@@ -1,5 +1,7 @@
 = Studio Pipeline Segment
 
+// TODO Change name
+
 [overview]
 ----
 difficulty 2
@@ -43,4 +45,7 @@ by a single segment ``Pipeline.studio()``.
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render any scene (e.g., one from another extension) where you use `Pipeline.studio()`.
+====
