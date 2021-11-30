@@ -94,10 +94,42 @@ image::shared-blur.png[align="center"]
 
 As you can see, using shared subframes reduces the amount of rendering to be done.
 
-Another trick that you can apply is to give subframes different weights. E.g. you may want
-to count the last subframe twice, so that it stands out more.
+Another trick that you can apply is to give subframes different weights.
+E.g., you may want to count the last subframe twice, so that it stands out more.
 It's up to you to find out what approach produces the best results.
+
+[TASK]
+====
+Write the `motion_blur` pipeline segment:
+
+[source,language='c++']
+----
+typedef
+shared_ptr<Processor<shared_ptr<Bitmap>,
+                     shared_ptr<Bitmap>>> raytracer::pipeline::motion_blur(unsigned frame_count,
+                                                                           unsigned frame_offset)
+----
+
+* `frame_count` is the number of subframes that are combined into one frame.
+* `frame_offset` determines by how many subframes to skip to get to the next frame.
+
+If you have more parameters, you are free to add them.
+
+[NOTE,caption='Example']
+=====
+Say we have subframes 1, 2, 3, ..., 150 and we use `motion_blur(5, 2)`.
+This causes the frames to be built as follows:
+
+* Frame 1 = Subframes 1, 2, 3, 4, 5
+* Frame 2 = Subframes 3, 4, 5, 6, 7
+* Frame 3 = Subframes 5, 6, 7, 8, 9
+* ...
+=====
+====
 
 == Evaluation
 
-TODO
+[TASK]
+====
+Render a scene that clearly shows motion blur in action.
+====
