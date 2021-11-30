@@ -144,4 +144,9 @@ Material raytracer::materials::rotate_around_z(math::Angle angle,
 
 == Evaluation
 
-TODO
+// TODO Better evaluation? Hard to do since we don't know what materials they have developed
+
+[TASK]
+====
+Create one or more scenes that together show that each of your transformations work.
+====
