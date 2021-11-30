@@ -1,0 +1,41 @@
+// movie
+def scene_at(now)
+{
+  var t = Animations.animate(0, 1, seconds(3))[now]
+
+  var camera = Cameras.perspective( [ "eye": pos(8 - 16*t,5-5*t,5),
+                                      "look_at": pos(0,0,0) ] )
+
+  var material = Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                                      "diffuse": Colors.white() * 0.8,
+                                      "specular": Colors.white(),
+                                      "specular_exponent": 10,
+                                      "reflectivity": 0.5,
+                                      "transparency": 0,
+                                      "refractive_index": 0 ] )
+
+  var primitives = []
+  primitives.push_back(translate(vec(-3,0,0),crop_along_x( sphere(), interval(-.5, .5))))
+  primitives.push_back(translate(vec(0,0,0),crop_along_y( sphere(), interval(-.5, .5))))
+  primitives.push_back(translate(vec(3,0,0),crop_along_z( sphere(), interval(-.5, .5))))
+
+  var root = decorate(material, union(primitives))
+
+  var lights = [ Lights.omnidirectional( pos(0,5,5), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+
+var raytracer   = Raytracers.v2()
+var renderer    = Renderers.standard( [ "width": 500,
+                                       "height": 500,
+                                       "sampler": Samplers.single(),
+                                       "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(3)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )
