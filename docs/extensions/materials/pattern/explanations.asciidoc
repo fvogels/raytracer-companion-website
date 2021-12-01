@@ -101,6 +101,15 @@ Material raytracer::materials::pattern3d(Pattern3D pattern,
 ----
 ====
 
+== Bindings
+
+[TASK]
+====
+Expose both `pattern2d` and `pattern3d` to the scripting language as `from_pattern` overloads.
+In other words, bind both `pattern2d` and `pattern3d` as `from_pattern`.
+The scripting language will know based on the types of the arguments for `from_pattern` which `patternNd` factory to call.
+====
+
 == Evaluation
 
 [TASK]
