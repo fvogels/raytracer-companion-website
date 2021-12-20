@@ -10,6 +10,7 @@ require_relative './scripts/util'
 require_relative './scripts/verify'
 require_relative './scripts/toc-generator'
 require_relative './scripts/github-issues'
+require_relative './scripts/weights'
 
 
 Asciidoctor::Extensions.register do
@@ -175,4 +176,10 @@ end
 desc 'Create issue creation script'
 task :issues do
   create_issue_script
+end
+
+
+desc 'Collect extension weights'
+task :weights do
+  collect_weights
 end
