@@ -197,6 +197,12 @@ Write tests that check quaternion subtraction (both `-` and `-=`):
 * stem:[(0 + 0i + 0j + 0k) - (0 + 0i + 1j + 0k) = (0 + 0i -1j + 0k)]
 * stem:[(0 + 0i + 0j + 0k) - (0 + 0i + 0j + 1k) = (0 + 0i + 0j -1k)]
 * stem:[(3 + 5i + 2j + 1k) - (7 + 4i + 2j + 6k) = (-4 + i + 0j -5k)]
+
+[NOTE]
+=====
+// TODO Remove
+*[21/12]* These tests contained a few bugs which have been fixed. Since these fix were introduced after 1 Dec, you are free to ignore them, but it would be a bit weird if your implementation passed the buggy tests...
+=====
 ====
 
 [TASK]
