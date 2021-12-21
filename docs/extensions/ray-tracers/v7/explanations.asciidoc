@@ -27,6 +27,25 @@ Because this blue sphere is not translucent, so tracing stops there.
 image::translucency.png[align="center"]
 
 Of course, the red sphere could also be reflective, in which case we would need to both trace the "penetrating" and the reflected ray and add the results together.
+
+[IMPORTANT]
+=====
+Some people misinterpret the above description.
+They think that, when having found stem:[P_1], they need to look for the matching stem:[P_2] as that's where the ray leaves the object.
+That is not the case.
+While it makes sense, it would be impossible to achieve given the current design of the ray tracer.
+Instead, the algorithm goes as follows:
+
+* Look for the first intersection between ray and scene.
+  Find stem:[P_1].
+* Because the material at stem:[P_1] is translucent, we need to continue tracing.
+  We create a new ray just beyond stem:[P_1] and the same direction and trace.
+  We find stem:[P_2].
+* Again the material is translucent at stem:[P_2], meaning we need to continue tracing.
+  We create a new ray starting just beyond stem:[P_2].
+* We hit stem:[P_3].
+  Material is opaque: no further tracing is necessary.
+=====
 ====
 
 == MaterialProperties
@@ -86,7 +105,7 @@ def compute_translucency(scene, matprops, hit, eye_ray, weight):
     translucency = matprops.translucency
 
     if translucency > 0:
-        new_origin = ...
+        new_origin = ... # Just beyond hit.position in the right direction
         new_direction = ...
         new_ray = Ray(new_origin, new_direction)
         new_weight = ...
