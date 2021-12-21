@@ -192,10 +192,10 @@ Here, we have used sections to test both `+` and `+=` in one go: the same data c
 Write tests that check quaternion subtraction (both `-` and `-=`):
 
 * stem:[(0 + 0i + 0j + 0k) - (0 + 0i + 0j + 0k) = (0 + 0i + 0j + 0k)]
-* stem:[(1 + 0i + 0j + 0k) - (0 + 0i + 0j + 0k) = (-1 + 0i + 0j + 0k)]
-* stem:[(0 + 1i + 0j + 0k) - (0 + 0i + 0j + 0k) = (0 -1i + 0j + 0k)]
-* stem:[(0 + 0i + 1j + 0k) - (0 + 0i + 0j + 0k) = (0 + 0i -1j + 0k)]
-* stem:[(0 + 0i + 0j + 1k) - (0 + 0i + 0j + 0k) = (0 + 0i + 0j -1k)]
+* stem:[(0 + 0i + 0j + 0k) - (1 + 0i + 0j + 0k) = (-1 + 0i + 0j + 0k)]
+* stem:[(0 + 0i + 0j + 0k) - (0 + 1i + 0j + 0k) = (0 -1i + 0j + 0k)]
+* stem:[(0 + 0i + 0j + 0k) - (0 + 0i + 1j + 0k) = (0 + 0i -1j + 0k)]
+* stem:[(0 + 0i + 0j + 0k) - (0 + 0i + 0j + 1k) = (0 + 0i + 0j -1k)]
 * stem:[(3 + 5i + 2j + 1k) - (7 + 4i + 2j + 6k) = (-4 + i + 0j -5k)]
 ====
 
