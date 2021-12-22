@@ -1,5 +1,7 @@
 = Testing
 
+== Notation
+
 When creating a sampler extension, you will often be asked to write tests.
 Some students have trouble understanding the notation used to describe rectangles.
 This page explains how to interpret it.
@@ -40,4 +42,102 @@ The corresponding {cpp} is
 [source,language='c++']
 ----
 Rectangle2D rectangle(Point2D(0, 2), Vector2D(1, 0), Vector2D(0, 2));
+----
+
+== Writing Tests
+
+Many students seem to have trouble finding a _simple_ way to test certain samplers.
+For the sake of clarity, let's pretend we're dealing with 1D samplers, i.e., samplers that given an interval stem:[[a, b\]] pick numbers from it.
+
+[NOTE,caption='Example']
+====
+Take stem:[I = [0, 4\]].
+
+* The Random sampler with stem:[n = 4] will pick 4 random numbers from this interval stem:[I], for example 0.4, 2.9, 1.1 and 1.4.
+* The Stratified sampler with stem:[n = 4] will first divide stem:[I] into four subintervals stem:[[0, 1\]], stem:[[1, 2\]], stem:[[2, 3\]] and stem:[[3, 4\]].
+  Next, it will take the center of each: stem:[0.5], stem:[1.5], stem:[2.5] and stem:[3.5].
+* The Jittered sampler with stem:[n = 4] will first divide stem:[I] into four subintervals stem:[[0, 1\]], stem:[[1, 2\]], stem:[[2, 3\]] and stem:[[3, 4\]].
+  Next, it will take one random point from each: stem:[0.3], stem:[1.7], stem:[2.1] and stem:[3.5].
+====
+
+=== Random Sampler
+
+Testing the random sampler is rather straightforward:
+
+[source,language='python']
+----
+def test_random_sampler(n, sampled_interval):
+    sampler = RandomSampler(n)
+    samples = sampler.sample(sampled_interval)
+
+    assert(len(samples) == n)
+
+    for sample in samples:
+        assert sample in sampled_interval
+----
+
+=== Stratified Sampler
+
+In the case of this sampler, you know exactly which points should be returned.
+
+[source,language='python']
+----
+def test_stratified_sampler(n, sampled_intervals, expected_samples):
+    sampler = StratifiedSampler(n)
+    samples = sampler.sample(sampled_intervals)
+
+    assert set(samples) == set(expected_samples)
+----
+
+[NOTE]
+====
+Implementing the same logic in {cpp} might be a bit harder.
+
+* You will probably not be able to rely on sets, so you'll have to manually check if for every sample in `samples` there is a corresponding one in `expected_samples`.
+* Rounding errors might cause problems.
+  Do not compare ``Point2D``s directly using `p == q`, instead use `p == approx(q)`.
+====
+
+=== Jittered & Half-Jittered Samplers
+
+Let's now consider the Jittered and Half-Jittered samplers.
+
+When writing a test for these samplers, you know exactly how many samples it should return.
+Start with checking that the sample count is correct.
+Next, determine the subintervals and check that for each subinterval you can find a sample.
+If a sampler satisfies both these conditions, you know it works.
+
+[source,language='python']
+----
+def test_sampler(sampler, sampled_interval, expected_intervals):
+    samples = sampler.sample(sampled_interval)
+
+    assert len(samples) == len(expected_intervals)
+
+    for expected_interval in expected_intervals:
+        assert any(expected_interval.contains(sample) for sample in samples)
+
+
+test_sampler(sampler=JitteredSampler(n=4),
+             sampled_interval=(0, 4),
+             expected_intervals=[(0, 1), (1, 2), (2, 3), (3, 4)])
+----
+
+=== N-Rooks
+
+With N-Rooks, there are no clear subintervals in which the samples should fall.
+However, we can zoom in on the coordinates and check that these fall into certain intervals.
+
+[source,language='python']
+----
+def test_nrooks(n, sampled_rectangle):
+    x_subintervals = sampled_rectangle.x_interval.divide_evenly(n)
+    y_subintervals = sampled_rectangle.y_interval.divide_evenly(n)
+    samples = NRooks(n).sample(sampled_rectangle)
+
+    for interval in x_subintervals:
+        assert any(interval.contains(sample.x) for sample in samples)
+
+    for interval in y_subintervals:
+        assert any(interval.contains(sample.y) for sample in samples)
 ----
