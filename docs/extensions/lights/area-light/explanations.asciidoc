@@ -29,6 +29,18 @@ Note that it is important that the ray has to be created in such a way that stem
 Implement area lights.
 ====
 
+[TIP]
+====
+image::wrong.png[align="center",width="50%"]
+
+If you get the result shown above, well, then you did something wrong.
+
+Remember that we are faking an area light by creating a number of point lights.
+Say the area light should be 100 Watt.
+We are replacing it by 10 smaller light sources.
+Should each of these 10 light sources shine at a full 100W?
+====
+
 == Evaluation
 
 [TASK]
