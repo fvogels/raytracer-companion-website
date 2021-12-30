@@ -1,4 +1,4 @@
-= Transformations
+= Matrix Transformations
 
 [overview]
 ----
@@ -12,7 +12,7 @@ reading math/linear-algebra/3d-rotation
 reading math/linear-algebra/3d-scaling
 ----
 
-We consider three kinds of transformation:
+We consider three kinds of transformations:
 
 * Translation
 * Scaling
