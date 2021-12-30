@@ -20,10 +20,7 @@ def collect_weights
     title = explanations_title(path).strip
     weight = extension_difficulty(path).to_i
 
-    if h.has_key? title
-      puts "Duplicate key #{title} (#{path})"
-      abort
-    end
+    abort "Duplicate key #{title} (#{path})" if h.has_key? title
 
     h[title] = weight
   end
