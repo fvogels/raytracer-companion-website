@@ -29,7 +29,7 @@ image::limit2.png[align="center",width="50%"]
 
 [TASK]
 ====
-Create a file `animation/animation-cycler.h`.
+Create a file `animation/animation-limiter.h`.
 In the namespace `animation`, create a function
 
 [source,language="c++"]
