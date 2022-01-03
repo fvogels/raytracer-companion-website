@@ -116,8 +116,8 @@ def depth_of_field_perspective(eye,
 
   # Create square around eye in XY place
   eye_area = Rectangle2D(...)
-  assert eye_area.width() == eye_area.height() == eye_size
-  assert eye.center == (0,0,0)
+  assert eye_area.width == eye_area.height == eye_size
+  assert eye_area.center == (0,0,0)
 
   # Use lambda in C++
   def add_camera(eye_in_xy_plane):
