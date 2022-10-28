@@ -100,7 +100,7 @@ Given
 The intersections can be found using the following steps:
 
 . Compute stem:[a = \vec\Delta \cdot \vec\Delta].
-. Compute stem:[b = (O - C) \cdot \vec\Delta].
+. Compute stem:[b = 2 \cdot (O - C) \cdot \vec\Delta].
 . Compute stem:[c = (O - C) \cdot (O - C) - R^2].
 . Compute stem:[D = b^2 - 4 \cdot a \cdot c].
 . If stem:[D < 0], there are no intersections.
