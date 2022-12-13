@@ -66,7 +66,7 @@ We chose to associate an ambient lighting factor to materials: you can create a 
 This is highly unrealistic, but it's up to the creator of the scene to avoid such pitfalls.
 
 In order to add support for ambient lighting, you need to update ``RayTracerV1::trace``.
-Let's first take a look at its current implementation (i.e., the one you copied from `RayTraacerV0::trace`).
+Let's first take a look at its current implementation (i.e., the one you copied from `RayTracerV0::trace`).
 
 [source,language='c++']
 ----

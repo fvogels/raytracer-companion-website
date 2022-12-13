@@ -221,7 +221,7 @@ video::U6XR7-eEHgE[youtube,align="center",width="600",height="400"]
 
 Outcast (a Belgian game) made use of a voxel-like technology to render its landscapes but rasterization for the characters.
 
-== Current Technoligy
+== Current Technology
 
 video::SeY-ousiCPg[youtube,align="center",width="600",height="400"]
 

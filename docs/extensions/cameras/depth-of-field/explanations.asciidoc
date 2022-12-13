@@ -36,7 +36,7 @@ Given a point on the canvas, the perspective camera only shoots one ray through 
 This ray has its origin in the eye, i.e. stem:[(0,0,0)].
 
 A depth of field camera's eye is not a single point, but a square.
-Ideally, for a given point stem:[P] on the canvas, the depth of field camera would should a ray from every point of this square through stem:[P], but since there are infinitely many, this is not a realistic option.
+Ideally, for a given point stem:[P] on the canvas, the depth of field camera would shoot a ray from every point of this square through stem:[P], but since there are infinitely many, this is not a realistic option.
 Instead, we pick a finite number of points spread across the eye area and cast rays from these, thereby
 hopefully approximating the ideal case.
 

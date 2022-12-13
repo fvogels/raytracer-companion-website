@@ -68,7 +68,7 @@ In fact, this kind of types have already been implemented: ``Primitive`` is an e
 
 [TASK]
 ====
-Take a good at the types ``Primitive`` and ``PrimitiveImplementation``, as you will want to use it as a guide to implement patterns.
+Take a good look at the types ``Primitive`` and ``PrimitiveImplementation``, as you will want to use it as a guide to implement patterns.
 
 * Note how ``PrimitiveImplementation`` is the actual base class for all primitives (spheres, planes, etc.)
 * `PrimitiveImplementation` defines all functionality related to primitives.
