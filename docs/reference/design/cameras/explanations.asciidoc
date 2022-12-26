@@ -19,7 +19,7 @@ the position, size and orientation of a primitive, we rely on the ``Transformer`
 
 The same technique is usable on cameras. When implementing a camera, we always assume its eye is located
 at stem:[(0,0,0)], that it looks straight in front of it to some point on the Z-axis, and that it is always standing upright (i.e. up = stem:[(0,1,0)]).
-The logic needed to moving the camera around has arleady been implemented separately for you in the
+The logic needed to moving the camera around has already been implemented separately for you in the
 ``DisplaceableCamera`` class. This means that by subclassing ``DisplaceableCamera``, you are freed
 from the burden of having to take into account all of the above parameters (i.e., eye, lookat, up).
 
